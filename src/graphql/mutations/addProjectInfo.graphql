@@ -1,0 +1,19 @@
+mutation AddProjectInfo($projectOptions: ProjectInput!) {
+  addProjectInfo(projectOptions: $projectOptions) {
+    errors {
+      field
+      message
+    }
+    project {
+      id
+      createdAt
+      updatedAt
+      milestoneDates
+      milestones
+      overview
+      podId
+      userId
+      groupSize
+    }
+  }
+}
