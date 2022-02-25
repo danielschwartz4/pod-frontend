@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
@@ -12,26 +13,34 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     // !! Look up wtf this is!!!!!!!!
     skip: isServer(),
   });
+  const { isReady } = useRouter();
 
   let body = null;
 
-  if (loading) {
+  if (loading || !isReady) {
   } else if (!data?.me) {
     body = (
-      <>
+      <Flex>
         <NextLink href="/login">
           <Link mr={2}>login</Link>
         </NextLink>
         <NextLink href="/register">
           <Link>register</Link>
         </NextLink>
-      </>
+      </Flex>
     );
   } else {
     body = (
       <>
-        <Flex>
-          <Box mr={2}>{data.me.username}</Box>
+        <Flex alignItems={"center"}>
+          <Box mr={6} fontSize={18}>
+            {data.me.username}
+          </Box>
+          <NextLink href="/profile">
+            <Link href="/profile" mr={6}>
+              My projects
+            </Link>
+          </NextLink>
           <Button
             onClick={() => {
               logout({
@@ -41,8 +50,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
               });
             }}
             isLoading={logoutLoading}
-            colorScheme={"blue"}
-            variant="link"
+            colorScheme={"#54BAB9"}
+            variant="solid"
+            cursor={"pointer"}
           >
             Logout
           </Button>
@@ -52,7 +62,15 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   }
 
   return (
-    <Flex zIndex={1} position="sticky" top={0} bg="tan" ml={"auto"} p={4}>
+    <Flex
+      zIndex={1}
+      position="sticky"
+      top={0}
+      bg="#E9DAC1"
+      ml={"auto"}
+      p={8}
+      m={-2}
+    >
       <Box mr={2} ml={"auto"}>
         {body}
       </Box>

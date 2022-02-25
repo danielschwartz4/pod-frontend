@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { InputField } from "../components/InputField";
+import { InputField } from "../components/Inputs/InputField";
 import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
@@ -37,7 +37,7 @@ const Login: React.FC<{}> = ({}) => {
             if (typeof router.query.next === "string") {
               router.push(router.query.next);
             } else {
-              router.push("/home");
+              router.push("/profile");
             }
           }
         }}

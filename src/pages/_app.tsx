@@ -1,6 +1,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ColorModeProvider, ThemeProvider } from "@chakra-ui/react";
 import theme from "../theme";
+import "../css/DatePickerInput.css";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",

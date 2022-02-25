@@ -1,12 +1,15 @@
 import { Box, Button, Heading } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import router from "next/router";
+import { type } from "os";
 import React from "react";
-import { InputField } from "../components/InputField";
+import { InputField } from "../components/Inputs/InputField";
+import MilestoneInputs from "../components/Inputs/MilestoneInputs";
 import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
 import { useAddProjectInfoMutation, useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
+import { objectToArray } from "../utils/jsonToArray";
 import { toErrorMap } from "../utils/toErrorMap";
 
 interface ProjectInfoProps {}
@@ -26,35 +29,47 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
         <Formik
           initialValues={{
             groupSize: "",
-            milestones: "",
-            milestoneDates: "",
+            milestone: [
+              {
+                description: "",
+                completionDate: "",
+              },
+            ],
             overview: "",
             projectName: "",
           }}
           onSubmit={async (
-            { groupSize, milestones, overview, milestoneDates, projectName },
+            { groupSize, milestone, overview, projectName },
             { setErrors }
           ) => {
+            const descriptionArray = objectToArray(milestone, "description");
+            const completionDateArray = objectToArray(
+              milestone,
+              "completionDate"
+            );
+
             const response = await addProjectInfo({
               variables: {
                 projectOptions: {
                   userId: data?.me.id,
                   groupSize: parseInt(groupSize),
-                  milestones: [milestones],
+                  milestones: descriptionArray,
                   overview: overview,
-                  milestoneDates: [milestoneDates],
+                  milestoneDates: completionDateArray,
                   projectName: projectName,
                 },
               },
             });
+            console.log(response);
+
             if (response.data.addProjectInfo.errors) {
               setErrors(toErrorMap(response.data.addProjectInfo.errors));
             } else if (response.data.addProjectInfo.project) {
-              router.push("/home");
+              router.push("/profile");
             }
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, values }) => (
             <Form>
               <Box>
                 <Box>
@@ -65,25 +80,13 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                     isField={true}
                   ></InputField>
                 </Box>
-                <Box mt={4}>
-                  <InputField
-                    name="milestones"
-                    placeholder="milestones"
-                    label="Milestones"
-                  ></InputField>
-                </Box>
-                <Box mt={4}>
-                  <InputField
-                    name="milestoneDates"
-                    placeholder="milestone dates"
-                    label="Milestone Dates"
-                  ></InputField>
-                </Box>
+                <MilestoneInputs values={values} />
                 <Box mt={4}>
                   <InputField
                     name="groupSize"
                     placeholder="0-4"
                     label="Group size"
+                    autoComplete="off"
                   ></InputField>
                 </Box>
                 <Button
@@ -92,7 +95,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   type="submit"
                   isLoading={isSubmitting ? true : false}
                 >
-                  Register
+                  Get started!
                 </Button>
               </Box>
             </Form>

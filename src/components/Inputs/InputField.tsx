@@ -17,12 +17,16 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export const InputField: React.FC<InputFieldProps> = (props) => {
   const [field, { error }] = useField(props);
-
   return (
     <FormControl isInvalid={!!error}>
       <FormLabel htmlFor={field.name}>{props.label}</FormLabel>
       {!props.isField ? (
-        <Input {...field} id={field.name} placeholder={props.placeholder} />
+        <Input
+          autoComplete={props.autoComplete}
+          {...field}
+          id={field.name}
+          placeholder={props.placeholder}
+        />
       ) : (
         <Textarea {...field} id={field.name} placeholder={props.placeholder} />
       )}
