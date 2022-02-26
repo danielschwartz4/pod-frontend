@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import ReactFlow, { removeElements, addEdge } from 'react-flow-renderer';
+import { useMeQuery, useProjectsQuery } from '../../generated/graphql';
 
 const onLoad = (reactFlowInstance) => reactFlowInstance.fitView();
 
@@ -70,7 +71,6 @@ const initialElements = [
     data: { label: 'Node 8' },
     position: { x: 750, y: 300 },
   },
-
   {
     id: 'horizontal-e1-2',
     source: 'horizontal-1',
@@ -123,6 +123,14 @@ const initialElements = [
 ];
 
 const HorizontalFlow = () => {
+  
+  // !! Fix the query hook!!!!!!!!!!!!!!
+  const { data, loading } = useMeQuery()
+  console.log(data)
+  // !! We are getting Bad Request Error when adding these 2 lines
+  const { data: projectData } = useProjectsQuery({ variables: { userId: data?.me?.id } })
+  console.log(projectData)
+
   const [elements, setElements] = useState(initialElements);
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
@@ -132,7 +140,8 @@ const HorizontalFlow = () => {
     <ReactFlow
       elements={elements}
       onElementsRemove={onElementsRemove}
-      onConnect={onConnect}
+      // onConnect={onConnect}
+      nodesConnectable={false}
       onLoad={onLoad}
       selectNodesOnDrag={false}
       zoomOnPinch={false}

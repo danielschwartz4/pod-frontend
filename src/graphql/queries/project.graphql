@@ -1,0 +1,16 @@
+query Project($id: Int!) {
+  project(id: $id) {
+    project {
+      userId
+      id
+      milestoneDates
+      milestones
+      groupSize
+      createdAt
+      updatedAt
+      overview
+      podId
+      projectName
+    }
+  }
+}

@@ -1,9 +1,5 @@
 mutation AddProjectInfo($projectOptions: ProjectInput!) {
   addProjectInfo(projectOptions: $projectOptions) {
-    errors {
-      field
-      message
-    }
     project {
       id
       createdAt

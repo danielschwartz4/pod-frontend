@@ -9,12 +9,14 @@ import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
 import { useAddProjectInfoMutation, useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
-import { objectToArray } from "../utils/jsonToArray";
+import { objectToArray } from "../utils/objectToArray";
 import { toErrorMap } from "../utils/toErrorMap";
+import { useIsAuth } from "../utils/usIsAuth";
 
 interface ProjectInfoProps {}
 
 const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
+  useIsAuth();
   const [addProjectInfo] = useAddProjectInfoMutation();
 
   const { data, loading, error } = useMeQuery({
@@ -47,7 +49,8 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
               milestone,
               "completionDate"
             );
-
+            console.log(descriptionArray);
+            console.log(completionDateArray);
             const response = await addProjectInfo({
               variables: {
                 projectOptions: {
@@ -61,12 +64,13 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
               },
             });
             console.log(response);
+            router.push("/profile");
 
-            if (response.data.addProjectInfo.errors) {
-              setErrors(toErrorMap(response.data.addProjectInfo.errors));
-            } else if (response.data.addProjectInfo.project) {
-              router.push("/profile");
-            }
+            // if (response.data.addProjectInfo.errors) {
+            //   setErrors(toErrorMap(response.data.addProjectInfo.errors));
+            // } else if (response.data.addProjectInfo.project) {
+            //   router.push("/profile");
+            // }
           }}
         >
           {({ isSubmitting, values }) => (
