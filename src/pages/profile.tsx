@@ -1,37 +1,44 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Box, Divider, Grid, GridItem, VStack } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../components/Layout";
-import { MyHistory } from "../components/MyHistory/MyHistory";
-import { MyPod } from "../components/MyPod/MyPod";
-import MyProject from "../components/MyProject/MyProject";
+import { useMeQuery, useProjectsQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
 
-interface homeProps {}
+interface profileProps {}
 
-const Home: React.FC<homeProps> = ({}) => {
+const Profile: React.FC<profileProps> = ({}) => {
   useIsAuth();
+  const { data, loading } = useMeQuery({});
+
+  const { data: projectsData } = useProjectsQuery({
+    variables: { userId: data?.me?.id },
+  });
+  console.log(projectsData);
+
   return (
     <Layout isProfile>
-      <Tabs mt={"8em"} isFitted variant="enclosed" align={"center"}>
-        <TabList mb="1em">
-          <Tab _selected={{ color: "white", bg: "green" }}>My project</Tab>
-          <Tab _selected={{ color: "white", bg: "green" }}>My pod</Tab>
-          <Tab _selected={{ color: "white", bg: "green" }}>My history</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel outlineColor={"black"} h={"50vh"} w={"70vw"}>
-            <MyProject></MyProject>
-          </TabPanel>
-          <TabPanel>
-            <MyPod></MyPod>
-          </TabPanel>
-          <TabPanel>
-            <MyHistory></MyHistory>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      {loading && !data ? (
+        <div>Loading...</div>
+      ) : (
+        <Grid w="auto" h="auto" templateColumns="repeat(5, 1fr)" gap={6}>
+          {projectsData?.projects?.map((p) => (
+            <GridItem key={p.id} bg="gray">
+              <VStack
+                divider={<Divider orientation="horizontal" />}
+                spacing={4}
+                align="stretch"
+              >
+                <Box textAlign={"center"} h={"120px"} margin={"auto"}>
+                  timeline preview
+                </Box>
+                <Box ml={"1em"}>{p.projectName}</Box>
+              </VStack>
+            </GridItem>
+          ))}
+        </Grid>
+      )}
     </Layout>
   );
 };
 
-export default Home;
+export default Profile;
