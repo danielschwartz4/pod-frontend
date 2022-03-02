@@ -1,8 +1,17 @@
-import { Box, Divider, Grid, GridItem, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Grid,
+  GridItem,
+  Heading,
+  Link,
+  VStack,
+} from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../components/Layout";
 import { useMeQuery, useProjectsQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
+import NextLink from "next/link";
 
 interface profileProps {}
 
@@ -29,7 +38,11 @@ const Profile: React.FC<profileProps> = ({}) => {
                 align="stretch"
               >
                 <Box textAlign={"center"} h={"120px"} margin={"auto"}>
-                  timeline preview
+                  <NextLink href="/project/[id]" as={`/project/${p.id}`}>
+                    <Link>
+                      <Heading fontSize="xl">timeline outline</Heading>
+                    </Link>
+                  </NextLink>
                 </Box>
                 <Box ml={"1em"}>{p.projectName}</Box>
               </VStack>

@@ -1,10 +1,10 @@
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 import React from "react";
-import { Layout } from "../components/Layout";
-import { MyHistory } from "../components/MyHistory/MyHistory";
-import { MyPod } from "../components/MyPod/MyPod";
-import MyProject from "../components/MyProject/MyProject";
-import { useIsAuth } from "../utils/usIsAuth";
+import { Layout } from "../../components/Layout";
+import { MyHistory } from "../../components/MyHistory/MyHistory";
+import { MyPod } from "../../components/MyPod/MyPod";
+import MyProject from "../../components/MyProject/MyProject";
+import { useIsAuth } from "../../utils/usIsAuth";
 
 interface homeProps {}
 

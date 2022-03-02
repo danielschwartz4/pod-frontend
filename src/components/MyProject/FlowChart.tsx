@@ -1,38 +1,29 @@
-import { dividerClasses } from "@mui/material";
-import { stringify } from "querystring";
-import React, { useEffect, useState } from "react";
-
-import ReactFlow, { removeElements, addEdge } from "react-flow-renderer";
+import React from "react";
+import ReactFlow from "react-flow-renderer";
 import { useMeQuery, useProjectsQuery } from "../../generated/graphql";
-import { isServer } from "../../utils/isServer";
+import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 
-const onLoad = (reactFlowInstance) => {
-  reactFlowInstance.fitView();
-};
+interface horizontalFlowProps {}
 
-const onNodeContextMenu = (event, node) => {
-  event.preventDefault();
-  console.log("context menu:", node);
-};
-
-const HorizontalFlow = () => {
+const HorizontalFlow: React.FC<horizontalFlowProps> = ({}) => {
   const { data, loading } = useMeQuery({});
-  // const [x, changeX] = useState(0);
 
   // !! We are getting Bad Request Error when adding this line
 
-  const { data: projectData } = useProjectsQuery({
-    variables: { userId: data?.me?.id },
-  });
+  // const { data: projectData } = useProjectsQuery({
+  //   variables: { userId: data?.me?.id },
+  // });
+
+  const { data: projectData } = useGetProjectFromUrl();
 
   const elements = [];
-  projectData?.projects[3]?.milestones.forEach((element, i) => {
+  projectData?.project?.project?.milestones.forEach((element, i) => {
     elements.push({
       id: "horizontal-" + i,
       sourcePosition: "right",
       targetPosition: "left",
       type: i == 0 ? "input" : null,
-      data: { label: projectData?.projects[3]?.milestones[i] },
+      data: { label: projectData?.project?.project?.milestones[i] },
       position: { x: 200 * (i % 4), y: Math.floor(i / 4) * 100 },
     });
     if (i > 0) {
@@ -42,11 +33,16 @@ const HorizontalFlow = () => {
         target: "horizontal-" + i,
       });
     }
-    // changeX(x + 100);
   });
 
-  const onElementsRemove = (elementsToRemove) =>
-    setElements((els) => removeElements(elementsToRemove, els));
+  const onLoad = (reactFlowInstance) => {
+    reactFlowInstance.fitView();
+  };
+
+  const onNodeContextMenu = (event, node) => {
+    event.preventDefault();
+    console.log("context menu:", node);
+  };
 
   return (
     <>
@@ -55,12 +51,11 @@ const HorizontalFlow = () => {
       ) : (
         <ReactFlow
           elements={elements}
-          onElementsRemove={onElementsRemove}
           nodesConnectable={false}
           onLoad={onLoad}
           selectNodesOnDrag={false}
           zoomOnPinch={false}
-          zoomOnScroll={true}
+          zoomOnScroll={false}
           zoomOnDoubleClick={false}
           paneMoveable={false}
           onNodeContextMenu={onNodeContextMenu}
