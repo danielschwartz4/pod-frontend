@@ -1,7 +1,6 @@
 import { Box, Button, Heading } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import router from "next/router";
-import { type } from "os";
 import React from "react";
 import { InputField } from "../components/Inputs/InputField";
 import MilestoneInputs from "../components/Inputs/MilestoneInputs";
@@ -10,7 +9,6 @@ import { Wrapper } from "../components/Wrapper";
 import { useAddProjectInfoMutation, useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import { objectToArray } from "../utils/objectToArray";
-import { toErrorMap } from "../utils/toErrorMap";
 import { useIsAuth } from "../utils/usIsAuth";
 
 interface ProjectInfoProps {}
@@ -41,7 +39,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
             projectName: "",
           }}
           onSubmit={async (
-            { groupSize, milestone, overview, projectName },
+            { groupSize, milestone, overview },
             { setErrors }
           ) => {
             const descriptionArray = objectToArray(milestone, "description");
@@ -49,8 +47,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
               milestone,
               "completionDate"
             );
-            console.log(descriptionArray);
-            console.log(completionDateArray);
             const response = await addProjectInfo({
               variables: {
                 projectOptions: {
@@ -59,11 +55,10 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   milestones: descriptionArray,
                   overview: overview,
                   milestoneDates: completionDateArray,
-                  projectName: projectName,
+                  projectName: "Untitled project",
                 },
               },
             });
-            console.log(response);
             router.push("/profile");
 
             // if (response.data.addProjectInfo.errors) {

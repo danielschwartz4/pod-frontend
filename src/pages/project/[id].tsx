@@ -5,11 +5,18 @@ import { MyProjectNotes } from "../../components/MyProjectNotes/MyProjectNotes";
 import { MyPod } from "../../components/MyPod/MyPod";
 import MyProject from "../../components/MyProject/MyProject";
 import { useIsAuth } from "../../utils/usIsAuth";
+import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
+import { Warning } from "../../components/Warning";
 
 interface homeProps {}
 
 const Home: React.FC<homeProps> = ({}) => {
   useIsAuth();
+
+  const { data: projectData } = useGetProjectFromUrl();
+  if (projectData?.project?.errors) {
+    return <Warning />;
+  }
   return (
     <Layout isProfile>
       <Tabs mt={"8em"} isFitted variant="enclosed" align={"center"}>

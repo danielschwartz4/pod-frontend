@@ -9,10 +9,6 @@ const HorizontalFlow: React.FC<horizontalFlowProps> = ({}) => {
   const { data, loading } = useMeQuery({});
 
   const { data: projectData } = useGetProjectFromUrl();
-  // !! Add this to main page instead
-  if (projectData?.project?.errors) {
-    return <div>{projectData?.project?.errors}</div>;
-  }
 
   const elements = [];
   projectData?.project?.project?.milestones.forEach((element, i) => {

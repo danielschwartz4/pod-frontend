@@ -1,0 +1,6 @@
+3-3-22
+Tyring to figure out if I should put userIds in pod entity in array which would be more compact but harder to query
+
+3-4-22
+So much error handling
+
