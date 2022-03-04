@@ -1,5 +1,6 @@
 query Project($id: Int!) {
   project(id: $id) {
+    errors
     project {
       userId
       id

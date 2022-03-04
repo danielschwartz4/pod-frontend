@@ -1,6 +1,6 @@
 import React from "react";
 import ReactFlow from "react-flow-renderer";
-import { useMeQuery, useProjectsQuery } from "../../generated/graphql";
+import { useMeQuery } from "../../generated/graphql";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 
 interface horizontalFlowProps {}
@@ -8,13 +8,11 @@ interface horizontalFlowProps {}
 const HorizontalFlow: React.FC<horizontalFlowProps> = ({}) => {
   const { data, loading } = useMeQuery({});
 
-  // !! We are getting Bad Request Error when adding this line
-
-  // const { data: projectData } = useProjectsQuery({
-  //   variables: { userId: data?.me?.id },
-  // });
-
   const { data: projectData } = useGetProjectFromUrl();
+  // !! Add this to main page instead
+  if (projectData?.project?.errors) {
+    return <div>{projectData?.project?.errors}</div>;
+  }
 
   const elements = [];
   projectData?.project?.project?.milestones.forEach((element, i) => {

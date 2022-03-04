@@ -26,6 +26,7 @@ export type FieldError = {
 export type Mutation = {
   __typename?: 'Mutation';
   addProjectInfo: ProjectResponse;
+  createPod: Pod;
   login: UserResponse;
   logout: Scalars['Boolean'];
   register: UserResponse;
@@ -37,6 +38,12 @@ export type MutationAddProjectInfoArgs = {
 };
 
 
+export type MutationCreatePodArgs = {
+  cap: Scalars['Float'];
+  projectId: Scalars['Float'];
+};
+
+
 export type MutationLoginArgs = {
   password: Scalars['String'];
   usernameOrEmail: Scalars['String'];
@@ -45,6 +52,15 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   options: UsernamePasswordInput;
+};
+
+export type Pod = {
+  __typename?: 'Pod';
+  cap: Scalars['Float'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  projectIds: Array<Scalars['Int']>;
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Project = {
@@ -72,6 +88,7 @@ export type ProjectInput = {
 
 export type ProjectResponse = {
   __typename?: 'ProjectResponse';
+  errors?: Maybe<Scalars['String']>;
   project?: Maybe<Project>;
 };
 
@@ -152,7 +169,7 @@ export type ProjectQueryVariables = Exact<{
 }>;
 
 
-export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectResponse', project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } | null };
+export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } | null };
 
 export type ProjectsQueryVariables = Exact<{
   userId: Scalars['Int'];
@@ -363,6 +380,7 @@ export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const ProjectDocument = gql`
     query Project($id: Int!) {
   project(id: $id) {
+    errors
     project {
       userId
       id
