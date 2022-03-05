@@ -7,7 +7,7 @@ import {
   Link,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
 import { useMeQuery, useProjectsQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
@@ -19,10 +19,21 @@ const Profile: React.FC<profileProps> = ({}) => {
   useIsAuth();
   const { data, loading } = useMeQuery({});
 
-  const { data: projectsData } = useProjectsQuery({
+  const { data: projectsData, refetch } = useProjectsQuery({
     variables: { userId: data?.me?.id },
   });
-  console.log(projectsData);
+
+  useEffect(() => {
+    refetch();
+  }, [loading, data]);
+
+  if (!projectsData?.projects) {
+    return (
+      <Layout isProfile>
+        <div>Create project</div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout isProfile>

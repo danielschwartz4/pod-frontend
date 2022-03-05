@@ -4,3 +4,5 @@ Tyring to figure out if I should put userIds in pod entity in array which would 
 3-4-22
 So much error handling
 
+3-5-22
+Have to keep in mind data state in query and cache. For example logging in used to show the last person's profile

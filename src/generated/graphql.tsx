@@ -25,16 +25,25 @@ export type FieldError = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addProjectInfo: ProjectResponse;
+  addProjectInfo: ProjectInfoResponse;
+  addProjectToPod: PodResponse;
   createPod: Pod;
   login: UserResponse;
   logout: Scalars['Boolean'];
   register: UserResponse;
+  removeProjectFromPod: PodResponse;
+  updateProject: ProjectResponse;
 };
 
 
 export type MutationAddProjectInfoArgs = {
   projectOptions: ProjectInput;
+};
+
+
+export type MutationAddProjectToPodArgs = {
+  id: Scalars['Float'];
+  projectId: Scalars['Float'];
 };
 
 
@@ -54,6 +63,18 @@ export type MutationRegisterArgs = {
   options: UsernamePasswordInput;
 };
 
+
+export type MutationRemoveProjectFromPodArgs = {
+  id: Scalars['Float'];
+  projectId: Scalars['Float'];
+};
+
+
+export type MutationUpdateProjectArgs = {
+  id: Scalars['Float'];
+  podId: Scalars['Float'];
+};
+
 export type Pod = {
   __typename?: 'Pod';
   cap: Scalars['Float'];
@@ -61,6 +82,13 @@ export type Pod = {
   id: Scalars['Int'];
   projectIds: Array<Scalars['Int']>;
   updatedAt: Scalars['DateTime'];
+  userIds: Array<Scalars['Int']>;
+};
+
+export type PodResponse = {
+  __typename?: 'PodResponse';
+  errors?: Maybe<Scalars['String']>;
+  pod?: Maybe<Pod>;
 };
 
 export type Project = {
@@ -75,6 +103,12 @@ export type Project = {
   projectName: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   userId: Scalars['Int'];
+};
+
+export type ProjectInfoResponse = {
+  __typename?: 'ProjectInfoResponse';
+  errors?: Maybe<Array<FieldError>>;
+  project?: Maybe<Project>;
 };
 
 export type ProjectInput = {
@@ -94,21 +128,29 @@ export type ProjectResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  findPod: PodResponse;
   hello: Scalars['String'];
   heyo: Scalars['String'];
   me?: Maybe<User>;
+  pod?: Maybe<Pod>;
   project?: Maybe<ProjectResponse>;
   projects?: Maybe<Array<Project>>;
 };
 
 
-export type QueryProjectArgs = {
-  id: Scalars['Int'];
+export type QueryFindPodArgs = {
+  cap: Scalars['Float'];
+  projectId: Scalars['Float'];
 };
 
 
-export type QueryProjectsArgs = {
-  userId: Scalars['Int'];
+export type QueryPodArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type QueryProjectArgs = {
+  id: Scalars['Int'];
 };
 
 export type User = {
@@ -137,7 +179,7 @@ export type AddProjectInfoMutationVariables = Exact<{
 }>;
 
 
-export type AddProjectInfoMutation = { __typename?: 'Mutation', addProjectInfo: { __typename?: 'ProjectResponse', project?: { __typename?: 'Project', id: number, createdAt: any, updatedAt: any, milestoneDates: Array<string>, milestones: Array<string>, overview: string, podId?: number | null, userId: number, groupSize: number } | null } };
+export type AddProjectInfoMutation = { __typename?: 'Mutation', addProjectInfo: { __typename?: 'ProjectInfoResponse', project?: { __typename?: 'Project', id: number, createdAt: any, updatedAt: any, milestoneDates: Array<string>, milestones: Array<string>, overview: string, podId?: number | null, userId: number, groupSize: number } | null } };
 
 export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
@@ -171,9 +213,7 @@ export type ProjectQueryVariables = Exact<{
 
 export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } | null };
 
-export type ProjectsQueryVariables = Exact<{
-  userId: Scalars['Int'];
-}>;
+export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ProjectsQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
@@ -425,8 +465,8 @@ export type ProjectQueryHookResult = ReturnType<typeof useProjectQuery>;
 export type ProjectLazyQueryHookResult = ReturnType<typeof useProjectLazyQuery>;
 export type ProjectQueryResult = Apollo.QueryResult<ProjectQuery, ProjectQueryVariables>;
 export const ProjectsDocument = gql`
-    query Projects($userId: Int!) {
-  projects(userId: $userId) {
+    query Projects {
+  projects {
     userId
     id
     milestoneDates
@@ -453,11 +493,10 @@ export const ProjectsDocument = gql`
  * @example
  * const { data, loading, error } = useProjectsQuery({
  *   variables: {
- *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useProjectsQuery(baseOptions: Apollo.QueryHookOptions<ProjectsQuery, ProjectsQueryVariables>) {
+export function useProjectsQuery(baseOptions?: Apollo.QueryHookOptions<ProjectsQuery, ProjectsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<ProjectsQuery, ProjectsQueryVariables>(ProjectsDocument, options);
       }

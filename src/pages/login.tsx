@@ -5,7 +5,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import { InputField } from "../components/Inputs/InputField";
 import { Wrapper } from "../components/Wrapper";
-import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
+import {
+  MeDocument,
+  MeQuery,
+  ProjectsQuery,
+  useLoginMutation,
+} from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 
 const Login: React.FC<{}> = ({}) => {
@@ -22,11 +27,12 @@ const Login: React.FC<{}> = ({}) => {
               usernameOrEmail,
             },
             update: (cache, { data }) => {
+              console.log(data);
               cache.writeQuery<MeQuery>({
                 query: MeDocument,
                 data: {
                   __typename: "Query",
-                  me: data?.login.user,
+                  me: data?.login?.user,
                 },
               });
             },

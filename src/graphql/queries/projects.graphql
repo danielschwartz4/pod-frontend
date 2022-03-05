@@ -1,5 +1,5 @@
-query Projects($userId: Int!) {
-  projects(userId: $userId) {
+query Projects {
+  projects {
     userId
     id
     milestoneDates
