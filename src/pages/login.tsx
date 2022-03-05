@@ -27,7 +27,6 @@ const Login: React.FC<{}> = ({}) => {
               usernameOrEmail,
             },
             update: (cache, { data }) => {
-              console.log(data);
               cache.writeQuery<MeQuery>({
                 query: MeDocument,
                 data: {
