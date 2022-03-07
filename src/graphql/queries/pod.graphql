@@ -1,10 +1,13 @@
 query Pod($podId: Float!) {
   pod(id: $podId) {
-    cap
-    id
-    projectIds
-    createdAt
-    updatedAt
-    userIds
+    errors
+    pod {
+      cap
+      id
+      projectIds
+      createdAt
+      updatedAt
+      userIds
+    }
   }
 }

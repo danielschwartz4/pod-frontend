@@ -132,7 +132,7 @@ export type Query = {
   hello: Scalars['String'];
   heyo: Scalars['String'];
   me?: Maybe<User>;
-  pod?: Maybe<Pod>;
+  pod?: Maybe<PodResponse>;
   project?: Maybe<ProjectResponse>;
   projects?: Maybe<Array<Project>>;
 };
@@ -251,7 +251,7 @@ export type PodQueryVariables = Exact<{
 }>;
 
 
-export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'Pod', cap: number, id: number, projectIds: Array<number>, createdAt: any, updatedAt: any, userIds: Array<number> } | null };
+export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', cap: number, id: number, projectIds: Array<number>, createdAt: any, updatedAt: any, userIds: Array<number> } | null } | null };
 
 export type ProjectQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -680,12 +680,15 @@ export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const PodDocument = gql`
     query Pod($podId: Float!) {
   pod(id: $podId) {
-    cap
-    id
-    projectIds
-    createdAt
-    updatedAt
-    userIds
+    errors
+    pod {
+      cap
+      id
+      projectIds
+      createdAt
+      updatedAt
+      userIds
+    }
   }
 }
     `;

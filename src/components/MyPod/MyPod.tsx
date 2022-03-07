@@ -24,23 +24,25 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
   const [createPod] = useCreatePodMutation();
-  const { data: availablePodsData } = useFindPodQuery({
+  const {
+    data: availablePodsData,
+    loading,
+    error,
+  } = useFindPodQuery({
     variables: {
       cap: cap,
       projectId: projectData?.project?.project.id,
     },
   });
-  const [podCreated, setPodCreated] = useState(false);
+  const [podCreated, setPodCreated] = useState(
+    projectData?.project?.project?.podId != 0 &&
+      projectData?.project?.project?.podId
+      ? true
+      : false
+  );
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
-  console.log(podData);
-  if (
-    projectData?.project?.project?.podId != 0 &&
-    projectData?.project?.project?.podId
-  ) {
-    setPodCreated(true);
-  }
 
   const joinPod = () => {
     let pod;
@@ -83,7 +85,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
     });
     removeProjectFromPod({
       variables: {
-        removeProjectFromPodId: pod?.pod.id,
+        removeProjectFromPodId: pod?.pod.pod.id,
         projectId: projectData?.project?.project.id,
       },
     });
