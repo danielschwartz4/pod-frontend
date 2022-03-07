@@ -1,6 +1,10 @@
 import { Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
+  PodDocument,
+  PodQuery,
+  ProjectDocument,
+  ProjectQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
   useFindPodQuery,
@@ -52,17 +56,40 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           cap: cap,
         },
       });
-
       updateProjectPod({
         variables: {
           podId: pod.data.createPod.id,
           updateProjectPodId: projectData?.project?.project.id,
+        },
+        update: (cache, { data }) => {
+          cache.writeQuery<ProjectQuery>({
+            query: ProjectDocument,
+            data: {
+              __typename: "Query",
+              project: {
+                errors: projectData?.project?.errors,
+                project: projectData?.project?.project,
+              },
+            },
+          });
         },
       });
       addProjectToPod({
         variables: {
           addProjectToPodId: pod.data.createPod.id,
           projectId: projectData?.project?.project.id,
+        },
+        update: (cache, { data }) => {
+          cache.writeQuery<PodQuery>({
+            query: PodDocument,
+            data: {
+              __typename: "Query",
+              pod: {
+                errors: podData?.pod?.errors,
+                pod: podData?.pod?.pod,
+              },
+            },
+          });
         },
       });
     } else {
@@ -72,16 +99,38 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           podId: pod.id,
           updateProjectPodId: projectData?.project?.project.id,
         },
+        update: (cache, { data }) => {
+          cache.writeQuery<ProjectQuery>({
+            query: ProjectDocument,
+            data: {
+              __typename: "Query",
+              project: {
+                errors: projectData?.project?.errors,
+                project: projectData?.project?.project,
+              },
+            },
+          });
+        },
       });
-
       addProjectToPod({
         variables: {
           addProjectToPodId: pod.id,
           projectId: projectData?.project?.project.id,
         },
+        update: (cache, { data }) => {
+          cache.writeQuery<PodQuery>({
+            query: PodDocument,
+            data: {
+              __typename: "Query",
+              pod: {
+                errors: podData?.pod?.errors,
+                pod: podData?.pod?.pod,
+              },
+            },
+          });
+        },
       });
     }
-
     setPodCreated(true);
   };
 
@@ -93,11 +142,35 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
         podId: 0,
         updateProjectPodId: projectData?.project?.project.id,
       },
+      update: (cache, { data }) => {
+        cache.writeQuery<ProjectQuery>({
+          query: ProjectDocument,
+          data: {
+            __typename: "Query",
+            project: {
+              errors: projectData?.project?.errors,
+              project: projectData?.project?.project,
+            },
+          },
+        });
+      },
     });
     removeProjectFromPod({
       variables: {
         removeProjectFromPodId: pod?.pod.pod.id,
         projectId: projectData?.project?.project.id,
+      },
+      update: (cache, { data }) => {
+        cache.writeQuery<PodQuery>({
+          query: PodDocument,
+          data: {
+            __typename: "Query",
+            pod: {
+              errors: podData?.pod?.errors,
+              pod: podData?.pod?.pod,
+            },
+          },
+        });
       },
     });
     setPodCreated(false);
