@@ -34,21 +34,18 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       projectId: projectData?.project?.project.id,
     },
   });
-
+  console.log(projectData?.project?.project?.podId);
   const [podCreated, setPodCreated] = useState(
-    projectData?.project?.project?.podId != 0 &&
-      projectData?.project?.project?.podId != null
-      ? true
-      : false
+    projectData?.project?.project?.podId == 0 ? true : false
   );
-  // !! Exit doesn't stay on refresh so usePodQuery or nogic not working
+  console.log(podCreated);
+
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
 
   // !! Make this less trash
   // !! Make it so you can't add duplicate project or user ids to same pod
-  // !! Pretty sure we need to cache this mutation too
   const joinPod = async () => {
     if (availablePodsData?.findPod?.errors) {
       const pod = await createPod({
@@ -135,8 +132,10 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   };
 
   // !! Cache mutation for when we change the pod data
+  // !! Still getting error when we press exit
   const exitPod = () => {
     let pod = podData;
+    console.log(pod);
     updateProjectPod({
       variables: {
         podId: 0,
