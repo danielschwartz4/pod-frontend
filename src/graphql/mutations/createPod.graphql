@@ -1,0 +1,10 @@
+mutation CreatePod($cap: Float!, $projectId: Float!) {
+  createPod(cap: $cap, projectId: $projectId) {
+    cap
+    projectIds
+    createdAt
+    updatedAt
+    id
+    userIds
+  }
+}

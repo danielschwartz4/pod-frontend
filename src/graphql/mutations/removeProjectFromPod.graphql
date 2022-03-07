@@ -1,0 +1,16 @@
+mutation RemoveProjectFromPod(
+  $projectId: Float!
+  $removeProjectFromPodId: Float!
+) {
+  removeProjectFromPod(projectId: $projectId, id: $removeProjectFromPodId) {
+    errors
+    pod {
+      id
+      cap
+      projectIds
+      updatedAt
+      createdAt
+      userIds
+    }
+  }
+}

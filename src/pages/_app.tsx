@@ -1,4 +1,9 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client";
 import { ColorModeProvider, ThemeProvider } from "@chakra-ui/react";
 import theme from "../theme";
 import "../css/DatePickerInput.css";

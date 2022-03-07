@@ -32,7 +32,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   register: UserResponse;
   removeProjectFromPod: PodResponse;
-  updateProject: ProjectResponse;
+  updateProjectPod: ProjectResponse;
 };
 
 
@@ -70,7 +70,7 @@ export type MutationRemoveProjectFromPodArgs = {
 };
 
 
-export type MutationUpdateProjectArgs = {
+export type MutationUpdateProjectPodArgs = {
   id: Scalars['Float'];
   podId: Scalars['Float'];
 };
@@ -181,6 +181,22 @@ export type AddProjectInfoMutationVariables = Exact<{
 
 export type AddProjectInfoMutation = { __typename?: 'Mutation', addProjectInfo: { __typename?: 'ProjectInfoResponse', project?: { __typename?: 'Project', id: number, createdAt: any, updatedAt: any, milestoneDates: Array<string>, milestones: Array<string>, overview: string, podId?: number | null, userId: number, groupSize: number } | null } };
 
+export type AddProjectToPodMutationVariables = Exact<{
+  projectId: Scalars['Float'];
+  addProjectToPodId: Scalars['Float'];
+}>;
+
+
+export type AddProjectToPodMutation = { __typename?: 'Mutation', addProjectToPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> } | null } };
+
+export type CreatePodMutationVariables = Exact<{
+  cap: Scalars['Float'];
+  projectId: Scalars['Float'];
+}>;
+
+
+export type CreatePodMutation = { __typename?: 'Mutation', createPod: { __typename?: 'Pod', cap: number, projectIds: Array<number>, createdAt: any, updatedAt: any, id: number, userIds: Array<number> } };
+
 export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
   usernameOrEmail: Scalars['String'];
@@ -201,10 +217,41 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, id: number, updatedAt: any, username: string } | null } };
 
+export type RemoveProjectFromPodMutationVariables = Exact<{
+  projectId: Scalars['Float'];
+  removeProjectFromPodId: Scalars['Float'];
+}>;
+
+
+export type RemoveProjectFromPodMutation = { __typename?: 'Mutation', removeProjectFromPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> } | null } };
+
+export type UpdateProjectPodMutationVariables = Exact<{
+  podId: Scalars['Float'];
+  updateProjectPodId: Scalars['Float'];
+}>;
+
+
+export type UpdateProjectPodMutation = { __typename?: 'Mutation', updateProjectPod: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
+
+export type FindPodQueryVariables = Exact<{
+  projectId: Scalars['Float'];
+  cap: Scalars['Float'];
+}>;
+
+
+export type FindPodQuery = { __typename?: 'Query', findPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> } | null } };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', createdAt: any, email: string, id: number, updatedAt: any, username: string } | null };
+
+export type PodQueryVariables = Exact<{
+  podId: Scalars['Float'];
+}>;
+
+
+export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'Pod', cap: number, id: number, projectIds: Array<number>, createdAt: any, updatedAt: any, userIds: Array<number> } | null };
 
 export type ProjectQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -262,6 +309,87 @@ export function useAddProjectInfoMutation(baseOptions?: Apollo.MutationHookOptio
 export type AddProjectInfoMutationHookResult = ReturnType<typeof useAddProjectInfoMutation>;
 export type AddProjectInfoMutationResult = Apollo.MutationResult<AddProjectInfoMutation>;
 export type AddProjectInfoMutationOptions = Apollo.BaseMutationOptions<AddProjectInfoMutation, AddProjectInfoMutationVariables>;
+export const AddProjectToPodDocument = gql`
+    mutation AddProjectToPod($projectId: Float!, $addProjectToPodId: Float!) {
+  addProjectToPod(projectId: $projectId, id: $addProjectToPodId) {
+    errors
+    pod {
+      id
+      cap
+      projectIds
+      updatedAt
+      createdAt
+      userIds
+    }
+  }
+}
+    `;
+export type AddProjectToPodMutationFn = Apollo.MutationFunction<AddProjectToPodMutation, AddProjectToPodMutationVariables>;
+
+/**
+ * __useAddProjectToPodMutation__
+ *
+ * To run a mutation, you first call `useAddProjectToPodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddProjectToPodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addProjectToPodMutation, { data, loading, error }] = useAddProjectToPodMutation({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      addProjectToPodId: // value for 'addProjectToPodId'
+ *   },
+ * });
+ */
+export function useAddProjectToPodMutation(baseOptions?: Apollo.MutationHookOptions<AddProjectToPodMutation, AddProjectToPodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddProjectToPodMutation, AddProjectToPodMutationVariables>(AddProjectToPodDocument, options);
+      }
+export type AddProjectToPodMutationHookResult = ReturnType<typeof useAddProjectToPodMutation>;
+export type AddProjectToPodMutationResult = Apollo.MutationResult<AddProjectToPodMutation>;
+export type AddProjectToPodMutationOptions = Apollo.BaseMutationOptions<AddProjectToPodMutation, AddProjectToPodMutationVariables>;
+export const CreatePodDocument = gql`
+    mutation CreatePod($cap: Float!, $projectId: Float!) {
+  createPod(cap: $cap, projectId: $projectId) {
+    cap
+    projectIds
+    createdAt
+    updatedAt
+    id
+    userIds
+  }
+}
+    `;
+export type CreatePodMutationFn = Apollo.MutationFunction<CreatePodMutation, CreatePodMutationVariables>;
+
+/**
+ * __useCreatePodMutation__
+ *
+ * To run a mutation, you first call `useCreatePodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPodMutation, { data, loading, error }] = useCreatePodMutation({
+ *   variables: {
+ *      cap: // value for 'cap'
+ *      projectId: // value for 'projectId'
+ *   },
+ * });
+ */
+export function useCreatePodMutation(baseOptions?: Apollo.MutationHookOptions<CreatePodMutation, CreatePodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePodMutation, CreatePodMutationVariables>(CreatePodDocument, options);
+      }
+export type CreatePodMutationHookResult = ReturnType<typeof useCreatePodMutation>;
+export type CreatePodMutationResult = Apollo.MutationResult<CreatePodMutation>;
+export type CreatePodMutationOptions = Apollo.BaseMutationOptions<CreatePodMutation, CreatePodMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($password: String!, $usernameOrEmail: String!) {
   login(password: $password, usernameOrEmail: $usernameOrEmail) {
@@ -379,6 +507,138 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const RemoveProjectFromPodDocument = gql`
+    mutation RemoveProjectFromPod($projectId: Float!, $removeProjectFromPodId: Float!) {
+  removeProjectFromPod(projectId: $projectId, id: $removeProjectFromPodId) {
+    errors
+    pod {
+      id
+      cap
+      projectIds
+      updatedAt
+      createdAt
+      userIds
+    }
+  }
+}
+    `;
+export type RemoveProjectFromPodMutationFn = Apollo.MutationFunction<RemoveProjectFromPodMutation, RemoveProjectFromPodMutationVariables>;
+
+/**
+ * __useRemoveProjectFromPodMutation__
+ *
+ * To run a mutation, you first call `useRemoveProjectFromPodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveProjectFromPodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeProjectFromPodMutation, { data, loading, error }] = useRemoveProjectFromPodMutation({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      removeProjectFromPodId: // value for 'removeProjectFromPodId'
+ *   },
+ * });
+ */
+export function useRemoveProjectFromPodMutation(baseOptions?: Apollo.MutationHookOptions<RemoveProjectFromPodMutation, RemoveProjectFromPodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveProjectFromPodMutation, RemoveProjectFromPodMutationVariables>(RemoveProjectFromPodDocument, options);
+      }
+export type RemoveProjectFromPodMutationHookResult = ReturnType<typeof useRemoveProjectFromPodMutation>;
+export type RemoveProjectFromPodMutationResult = Apollo.MutationResult<RemoveProjectFromPodMutation>;
+export type RemoveProjectFromPodMutationOptions = Apollo.BaseMutationOptions<RemoveProjectFromPodMutation, RemoveProjectFromPodMutationVariables>;
+export const UpdateProjectPodDocument = gql`
+    mutation UpdateProjectPod($podId: Float!, $updateProjectPodId: Float!) {
+  updateProjectPod(podId: $podId, id: $updateProjectPodId) {
+    errors
+    project {
+      userId
+      id
+      milestoneDates
+      milestones
+      groupSize
+      createdAt
+      updatedAt
+      overview
+      podId
+      projectName
+    }
+  }
+}
+    `;
+export type UpdateProjectPodMutationFn = Apollo.MutationFunction<UpdateProjectPodMutation, UpdateProjectPodMutationVariables>;
+
+/**
+ * __useUpdateProjectPodMutation__
+ *
+ * To run a mutation, you first call `useUpdateProjectPodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProjectPodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProjectPodMutation, { data, loading, error }] = useUpdateProjectPodMutation({
+ *   variables: {
+ *      podId: // value for 'podId'
+ *      updateProjectPodId: // value for 'updateProjectPodId'
+ *   },
+ * });
+ */
+export function useUpdateProjectPodMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProjectPodMutation, UpdateProjectPodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProjectPodMutation, UpdateProjectPodMutationVariables>(UpdateProjectPodDocument, options);
+      }
+export type UpdateProjectPodMutationHookResult = ReturnType<typeof useUpdateProjectPodMutation>;
+export type UpdateProjectPodMutationResult = Apollo.MutationResult<UpdateProjectPodMutation>;
+export type UpdateProjectPodMutationOptions = Apollo.BaseMutationOptions<UpdateProjectPodMutation, UpdateProjectPodMutationVariables>;
+export const FindPodDocument = gql`
+    query FindPod($projectId: Float!, $cap: Float!) {
+  findPod(projectId: $projectId, cap: $cap) {
+    errors
+    pod {
+      id
+      cap
+      projectIds
+      updatedAt
+      createdAt
+      userIds
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindPodQuery__
+ *
+ * To run a query within a React component, call `useFindPodQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindPodQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindPodQuery({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *      cap: // value for 'cap'
+ *   },
+ * });
+ */
+export function useFindPodQuery(baseOptions: Apollo.QueryHookOptions<FindPodQuery, FindPodQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindPodQuery, FindPodQueryVariables>(FindPodDocument, options);
+      }
+export function useFindPodLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindPodQuery, FindPodQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindPodQuery, FindPodQueryVariables>(FindPodDocument, options);
+        }
+export type FindPodQueryHookResult = ReturnType<typeof useFindPodQuery>;
+export type FindPodLazyQueryHookResult = ReturnType<typeof useFindPodLazyQuery>;
+export type FindPodQueryResult = Apollo.QueryResult<FindPodQuery, FindPodQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {
@@ -417,6 +677,46 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const PodDocument = gql`
+    query Pod($podId: Float!) {
+  pod(id: $podId) {
+    cap
+    id
+    projectIds
+    createdAt
+    updatedAt
+    userIds
+  }
+}
+    `;
+
+/**
+ * __usePodQuery__
+ *
+ * To run a query within a React component, call `usePodQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePodQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePodQuery({
+ *   variables: {
+ *      podId: // value for 'podId'
+ *   },
+ * });
+ */
+export function usePodQuery(baseOptions: Apollo.QueryHookOptions<PodQuery, PodQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PodQuery, PodQueryVariables>(PodDocument, options);
+      }
+export function usePodLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PodQuery, PodQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PodQuery, PodQueryVariables>(PodDocument, options);
+        }
+export type PodQueryHookResult = ReturnType<typeof usePodQuery>;
+export type PodLazyQueryHookResult = ReturnType<typeof usePodLazyQuery>;
+export type PodQueryResult = Apollo.QueryResult<PodQuery, PodQueryVariables>;
 export const ProjectDocument = gql`
     query Project($id: Int!) {
   project(id: $id) {
