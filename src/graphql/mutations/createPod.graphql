@@ -1,5 +1,5 @@
-mutation CreatePod($cap: Float!, $projectId: Float!) {
-  createPod(cap: $cap, projectId: $projectId) {
+mutation CreatePod($cap: Float!) {
+  createPod(cap: $cap) {
     cap
     projectIds
     createdAt

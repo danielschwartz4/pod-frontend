@@ -6,3 +6,6 @@ So much error handling
 
 3-5-22
 Have to keep in mind data state in query and cache. For example logging in used to show the last person's profile
+
+3-7-22
+Different types for different things (e.g. join pod function in my pod when creating new pod vs calling old one)

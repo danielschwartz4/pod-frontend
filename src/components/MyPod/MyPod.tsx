@@ -24,57 +24,68 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
   const [createPod] = useCreatePodMutation();
-  const {
-    data: availablePodsData,
-    loading,
-    error,
-  } = useFindPodQuery({
+  const { data: availablePodsData } = useFindPodQuery({
     variables: {
       cap: cap,
       projectId: projectData?.project?.project.id,
     },
   });
+
   const [podCreated, setPodCreated] = useState(
     projectData?.project?.project?.podId != 0 &&
-      projectData?.project?.project?.podId
+      projectData?.project?.project?.podId != null
       ? true
       : false
   );
+  // !! Exit doesn't stay on refresh so usePodQuery or nogic not working
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
 
-  const joinPod = () => {
-    let pod;
+  // !! Make this less trash
+  // !! Make it so you can't add duplicate project or user ids to same pod
+  // !! Pretty sure we need to cache this mutation too
+  const joinPod = async () => {
     if (availablePodsData?.findPod?.errors) {
-      pod = createPod({
+      const pod = await createPod({
         variables: {
           cap: cap,
+        },
+      });
+
+      updateProjectPod({
+        variables: {
+          podId: pod.data.createPod.id,
+          updateProjectPodId: projectData?.project?.project.id,
+        },
+      });
+      addProjectToPod({
+        variables: {
+          addProjectToPodId: pod.data.createPod.id,
           projectId: projectData?.project?.project.id,
         },
       });
     } else {
-      pod = availablePodsData?.findPod?.pod;
+      const pod = availablePodsData?.findPod?.pod;
+      updateProjectPod({
+        variables: {
+          podId: pod.id,
+          updateProjectPodId: projectData?.project?.project.id,
+        },
+      });
+
+      addProjectToPod({
+        variables: {
+          addProjectToPodId: pod.id,
+          projectId: projectData?.project?.project.id,
+        },
+      });
     }
-    console.log(pod.podId);
-    updateProjectPod({
-      variables: {
-        podId: pod.podId,
-
-        updateProjectPodId: projectData?.project?.project.id,
-      },
-    });
-
-    addProjectToPod({
-      variables: {
-        addProjectToPodId: pod.podId,
-        projectId: projectData?.project?.project.id,
-      },
-    });
 
     setPodCreated(true);
   };
 
+  // !! Cache mutation for when we change the pod data
   const exitPod = () => {
     let pod = podData;
     updateProjectPod({

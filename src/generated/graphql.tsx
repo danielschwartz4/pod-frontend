@@ -49,7 +49,6 @@ export type MutationAddProjectToPodArgs = {
 
 export type MutationCreatePodArgs = {
   cap: Scalars['Float'];
-  projectId: Scalars['Float'];
 };
 
 
@@ -191,7 +190,6 @@ export type AddProjectToPodMutation = { __typename?: 'Mutation', addProjectToPod
 
 export type CreatePodMutationVariables = Exact<{
   cap: Scalars['Float'];
-  projectId: Scalars['Float'];
 }>;
 
 
@@ -352,8 +350,8 @@ export type AddProjectToPodMutationHookResult = ReturnType<typeof useAddProjectT
 export type AddProjectToPodMutationResult = Apollo.MutationResult<AddProjectToPodMutation>;
 export type AddProjectToPodMutationOptions = Apollo.BaseMutationOptions<AddProjectToPodMutation, AddProjectToPodMutationVariables>;
 export const CreatePodDocument = gql`
-    mutation CreatePod($cap: Float!, $projectId: Float!) {
-  createPod(cap: $cap, projectId: $projectId) {
+    mutation CreatePod($cap: Float!) {
+  createPod(cap: $cap) {
     cap
     projectIds
     createdAt
@@ -379,7 +377,6 @@ export type CreatePodMutationFn = Apollo.MutationFunction<CreatePodMutation, Cre
  * const [createPodMutation, { data, loading, error }] = useCreatePodMutation({
  *   variables: {
  *      cap: // value for 'cap'
- *      projectId: // value for 'projectId'
  *   },
  * });
  */
