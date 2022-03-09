@@ -1,0 +1,10 @@
+query Pods {
+  pods {
+    cap
+    id
+    projectIds
+    createdAt
+    updatedAt
+    userIds
+  }
+}

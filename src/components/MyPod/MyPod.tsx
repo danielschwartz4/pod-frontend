@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   PodDocument,
   PodQuery,
@@ -8,8 +8,8 @@ import {
   useAddProjectToPodMutation,
   useCreatePodMutation,
   useFindPodQuery,
-  useMeQuery,
   usePodQuery,
+  usePodsQuery,
   useRemoveProjectFromPodMutation,
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
@@ -20,10 +20,10 @@ interface MyPodProps {}
 
 export const MyPod: React.FC<MyPodProps> = ({}) => {
   useIsAuth();
-  const cap = 3;
+  const cap = 2;
 
-  const { data: projectData } = useGetProjectFromUrl();
-  const { data: meData } = useMeQuery();
+  const { data: projectData, loading: projectDataLoading } =
+    useGetProjectFromUrl();
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
@@ -34,18 +34,24 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       projectId: projectData?.project?.project.id,
     },
   });
-  console.log(projectData?.project?.project?.podId);
-  const [podCreated, setPodCreated] = useState(
-    projectData?.project?.project?.podId == 0 ? true : false
-  );
-  console.log(podCreated);
+  const { data: podsData } = usePodsQuery();
 
-  const { data: podData } = usePodQuery({
+  const { data: podData, refetch } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
 
-  // !! Make this less trash
-  // !! Make it so you can't add duplicate project or user ids to same pod
+  const [podJoined, setPodJoined] = useState(
+    podData?.pod?.errors != "no pod with this id"
+  );
+
+  // !! Read thinking in react
+  useEffect(() => {
+    setPodJoined(podData?.pod?.errors != "no pod with this id");
+    console.log(projectData);
+    console.log(podJoined);
+  }, [podJoined, podData]);
+
+  // ! Make it so you can't add duplicate project or user ids to same pod
   const joinPod = async () => {
     if (availablePodsData?.findPod?.errors) {
       const pod = await createPod({
@@ -64,8 +70,8 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
             data: {
               __typename: "Query",
               project: {
-                errors: projectData?.project?.errors,
-                project: projectData?.project?.project,
+                errors: data?.updateProjectPod.errors,
+                project: data?.updateProjectPod.project,
               },
             },
           });
@@ -82,8 +88,8 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
             data: {
               __typename: "Query",
               pod: {
-                errors: podData?.pod?.errors,
-                pod: podData?.pod?.pod,
+                errors: data?.addProjectToPod.errors,
+                pod: data?.addProjectToPod.pod,
               },
             },
           });
@@ -102,8 +108,8 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
             data: {
               __typename: "Query",
               project: {
-                errors: projectData?.project?.errors,
-                project: projectData?.project?.project,
+                errors: data?.updateProjectPod.errors,
+                project: data?.updateProjectPod.project,
               },
             },
           });
@@ -120,22 +126,20 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
             data: {
               __typename: "Query",
               pod: {
-                errors: podData?.pod?.errors,
-                pod: podData?.pod?.pod,
+                errors: data?.addProjectToPod.errors,
+                pod: data?.addProjectToPod.pod,
               },
             },
           });
         },
       });
     }
-    setPodCreated(true);
+    setPodJoined(true);
   };
 
-  // !! Cache mutation for when we change the pod data
-  // !! Still getting error when we press exit
   const exitPod = () => {
-    let pod = podData;
-    console.log(pod);
+    console.log(podData);
+    console.log(projectData?.project?.project.podId);
     updateProjectPod({
       variables: {
         podId: 0,
@@ -147,8 +151,8 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           data: {
             __typename: "Query",
             project: {
-              errors: projectData?.project?.errors,
-              project: projectData?.project?.project,
+              errors: data?.updateProjectPod.errors,
+              project: data?.updateProjectPod.project,
             },
           },
         });
@@ -156,7 +160,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
     });
     removeProjectFromPod({
       variables: {
-        removeProjectFromPodId: pod?.pod.pod.id,
+        removeProjectFromPodId: podData?.pod.pod.id,
         projectId: projectData?.project?.project.id,
       },
       update: (cache, { data }) => {
@@ -165,19 +169,19 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           data: {
             __typename: "Query",
             pod: {
-              errors: podData?.pod?.errors,
-              pod: podData?.pod?.pod,
+              errors: data?.removeProjectFromPod.errors,
+              pod: data?.removeProjectFromPod.pod,
             },
           },
         });
       },
     });
-    setPodCreated(false);
+    setPodJoined(false);
   };
 
   return (
     <div>
-      {podCreated ? (
+      {!podData?.pod?.errors && podJoined ? (
         <div>
           <Button onClick={() => exitPod()}>exit pod</Button>
         </div>
