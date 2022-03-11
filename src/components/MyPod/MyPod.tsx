@@ -15,6 +15,7 @@ import {
 } from "../../generated/graphql";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import { PodCreated } from "./PodCreated";
 
 interface MyPodProps {}
 
@@ -41,14 +42,13 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   });
 
   const [podJoined, setPodJoined] = useState(
-    podData?.pod?.errors != "no pod with this id"
+    // podData?.pod?.errors != "no pod with this id"
+    !podData?.pod?.errors
   );
 
   // !! Read thinking in react
   useEffect(() => {
     setPodJoined(podData?.pod?.errors != "no pod with this id");
-    console.log(projectData);
-    console.log(podJoined);
   }, [podJoined, podData]);
 
   // ! Make it so you can't add duplicate project or user ids to same pod
@@ -138,8 +138,6 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   };
 
   const exitPod = () => {
-    console.log(podData);
-    console.log(projectData?.project?.project.podId);
     updateProjectPod({
       variables: {
         podId: 0,
@@ -183,7 +181,9 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
     <div>
       {!podData?.pod?.errors && podJoined ? (
         <div>
-          <Button onClick={() => exitPod()}>exit pod</Button>
+          <PodCreated>
+            <Button onClick={() => exitPod()}>exit pod</Button>
+          </PodCreated>
         </div>
       ) : (
         <Button onClick={() => joinPod()}>join pod</Button>
