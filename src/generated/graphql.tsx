@@ -132,6 +132,7 @@ export type Query = {
   heyo: Scalars['String'];
   me?: Maybe<User>;
   pod?: Maybe<PodResponse>;
+  podProjects?: Maybe<Array<Project>>;
   pods: Array<Pod>;
   project?: Maybe<ProjectResponse>;
   projects?: Maybe<Array<Project>>;
@@ -146,6 +147,11 @@ export type QueryFindPodArgs = {
 
 export type QueryPodArgs = {
   id: Scalars['Float'];
+};
+
+
+export type QueryPodProjectsArgs = {
+  podId: Scalars['Int'];
 };
 
 
@@ -251,6 +257,13 @@ export type PodQueryVariables = Exact<{
 
 
 export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', cap: number, id: number, projectIds: Array<number>, createdAt: any, updatedAt: any, userIds: Array<number> } | null } | null };
+
+export type PodProjectsQueryVariables = Exact<{
+  podId: Scalars['Int'];
+}>;
+
+
+export type PodProjectsQuery = { __typename?: 'Query', podProjects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
 
 export type PodsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -723,6 +736,50 @@ export function usePodLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PodQue
 export type PodQueryHookResult = ReturnType<typeof usePodQuery>;
 export type PodLazyQueryHookResult = ReturnType<typeof usePodLazyQuery>;
 export type PodQueryResult = Apollo.QueryResult<PodQuery, PodQueryVariables>;
+export const PodProjectsDocument = gql`
+    query PodProjects($podId: Int!) {
+  podProjects(podId: $podId) {
+    userId
+    id
+    milestoneDates
+    milestones
+    groupSize
+    createdAt
+    updatedAt
+    overview
+    podId
+    projectName
+  }
+}
+    `;
+
+/**
+ * __usePodProjectsQuery__
+ *
+ * To run a query within a React component, call `usePodProjectsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePodProjectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePodProjectsQuery({
+ *   variables: {
+ *      podId: // value for 'podId'
+ *   },
+ * });
+ */
+export function usePodProjectsQuery(baseOptions: Apollo.QueryHookOptions<PodProjectsQuery, PodProjectsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PodProjectsQuery, PodProjectsQueryVariables>(PodProjectsDocument, options);
+      }
+export function usePodProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PodProjectsQuery, PodProjectsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PodProjectsQuery, PodProjectsQueryVariables>(PodProjectsDocument, options);
+        }
+export type PodProjectsQueryHookResult = ReturnType<typeof usePodProjectsQuery>;
+export type PodProjectsLazyQueryHookResult = ReturnType<typeof usePodProjectsLazyQuery>;
+export type PodProjectsQueryResult = Apollo.QueryResult<PodProjectsQuery, PodProjectsQueryVariables>;
 export const PodsDocument = gql`
     query Pods {
   pods {

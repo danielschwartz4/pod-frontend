@@ -35,21 +35,18 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       projectId: projectData?.project?.project.id,
     },
   });
-  const { data: podsData } = usePodsQuery();
 
   const { data: podData, refetch } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
 
   const [podJoined, setPodJoined] = useState(
-    // podData?.pod?.errors != "no pod with this id"
-    !podData?.pod?.errors
+    projectData?.project?.project?.podId != 0
   );
 
-  // !! Read thinking in react
   useEffect(() => {
-    setPodJoined(podData?.pod?.errors != "no pod with this id");
-  }, [podJoined, podData]);
+    setPodJoined(projectData?.project?.project?.podId != 0);
+  });
 
   // ! Make it so you can't add duplicate project or user ids to same pod
   const joinPod = async () => {
@@ -156,6 +153,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
         });
       },
     });
+    console.log("HERE");
     removeProjectFromPod({
       variables: {
         removeProjectFromPodId: podData?.pod.pod.id,
@@ -179,7 +177,8 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
 
   return (
     <div>
-      {!podData?.pod?.errors && podJoined ? (
+      {/* {!podData?.pod?.errors && podJoined ? ( */}
+      {podJoined ? (
         <div>
           <PodCreated>
             <Button onClick={() => exitPod()}>exit pod</Button>
