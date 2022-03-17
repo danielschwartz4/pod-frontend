@@ -26,7 +26,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({ children }) => {
     variables: { podId: podData?.pod?.pod?.id },
   });
 
-  const twoProjects = (
+  const horizProjects = (
     <div>
       <HStack spacing={"48px"} justifyContent={"center"}>
         {projectsData?.podProjects.map((p, i) => (
@@ -36,16 +36,25 @@ export const PodCreated: React.FC<PodCreatedProps> = ({ children }) => {
             overview={p.overview}
             projectName={p.projectName}
             key={p.id}
+            milestones={p.milestones}
           />
         ))}
       </HStack>
     </div>
   );
 
+  if (podData?.pod?.pod?.projectIds.length == 1) {
+    return (
+      <div>
+        {horizProjects}
+        {children}
+      </div>
+    );
+  }
   if (podData?.pod?.pod?.projectIds.length == 2) {
     return (
       <div>
-        {twoProjects}
+        {horizProjects}
         {children}
       </div>
     );
@@ -53,7 +62,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({ children }) => {
   if (podData?.pod?.pod?.projectIds.length == 3) {
     return (
       <div>
-        3 projects
+        3 people
         {children}
       </div>
     );

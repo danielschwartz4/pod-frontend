@@ -1,12 +1,12 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../../components/Layout";
-import { MyProjectNotes } from "../../components/MyProjectNotes/MyProjectNotes";
 import { MyPod } from "../../components/MyPod/MyPod";
-import MyProject from "../../components/MyProject/MyProject";
-import { useIsAuth } from "../../utils/usIsAuth";
-import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
+import HorizontalFlow from "../../components/MyProject/FlowChart";
+import { MyProjectNotes } from "../../components/MyProjectNotes/MyProjectNotes";
 import { Warning } from "../../components/Warning";
+import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
+import { useIsAuth } from "../../utils/usIsAuth";
 
 interface homeProps {}
 
@@ -29,7 +29,9 @@ const Home: React.FC<homeProps> = ({}) => {
         </TabList>
         <TabPanels>
           <TabPanel outlineColor={"black"} h={"50vh"} w={"56vw"}>
-            <MyProject></MyProject>
+            <HorizontalFlow
+              milestones={projectData?.project?.project?.milestones}
+            />
           </TabPanel>
           <TabPanel>
             <MyPod></MyPod>

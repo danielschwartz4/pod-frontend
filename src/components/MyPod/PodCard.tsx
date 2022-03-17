@@ -1,14 +1,17 @@
-import Image from "next/image";
 import {
+  Avatar,
   Box,
   Center,
   Heading,
-  Text,
   Stack,
-  Avatar,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import Image from "next/image";
+import { ReactFlowProvider } from "react-flow-renderer";
 import bgImage from "../../images/design.png";
+import HorizontalFlow from "../MyProject/FlowChart";
+import HorizontalFlow2 from "./Test";
 
 interface PodCardProps {
   username?: string;
@@ -21,11 +24,11 @@ interface PodCardProps {
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
+  console.log(props.milestones);
   return (
     <Center py={6}>
       <Box
-        // maxW={"350"}
-        w={"300px"}
+        maxW={"350"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}
@@ -40,7 +43,12 @@ const PodCard: React.FC<PodCardProps> = (props) => {
           mb={6}
           pos={"relative"}
         >
-          <Image src={bgImage.src} layout={"fill"} />
+          <div style={{ width: "100%", height: "100%" }}>
+            <ReactFlowProvider>
+              <HorizontalFlow milestones={props.milestones}></HorizontalFlow>
+              {/* <HorizontalFlow2></HorizontalFlow2> */}
+            </ReactFlowProvider>
+          </div>
         </Box>
         <Stack>
           <Text

@@ -9,7 +9,6 @@ import {
   useCreatePodMutation,
   useFindPodQuery,
   usePodQuery,
-  usePodsQuery,
   useRemoveProjectFromPodMutation,
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
