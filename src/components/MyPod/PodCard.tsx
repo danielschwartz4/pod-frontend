@@ -8,9 +8,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { ReactFlowProvider } from "react-flow-renderer";
+import ReactFlow, { MiniMap, ReactFlowProvider } from "react-flow-renderer";
 import bgImage from "../../images/design.png";
-import HorizontalFlow from "../MyProject/FlowChart";
+import FlowChart from "../MyProject/FlowChart";
 
 interface PodCardProps {
   username?: string;
@@ -26,7 +26,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
   return (
     <Center py={6}>
       <Box
-        maxW={"350"}
+        maxW={"350px"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}
@@ -39,11 +39,14 @@ const PodCard: React.FC<PodCardProps> = (props) => {
           mt={-6}
           mx={-6}
           mb={6}
-          pos={"relative"}
+          // pos={"relative"}
         >
           <div style={{ width: "100%", height: "100%" }}>
             <ReactFlowProvider>
-              <HorizontalFlow milestones={props.milestones}></HorizontalFlow>
+              <FlowChart
+                showText={false}
+                milestones={props.milestones}
+              ></FlowChart>
             </ReactFlowProvider>
           </div>
         </Box>
@@ -76,7 +79,6 @@ const PodCard: React.FC<PodCardProps> = (props) => {
             alt={"Author"}
           />
           <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-            <Text fontWeight={600}>Achim Rolle</Text>
             <Text color={"gray.500"}>Last update: {props.updatedAt}</Text>
           </Stack>
         </Stack>

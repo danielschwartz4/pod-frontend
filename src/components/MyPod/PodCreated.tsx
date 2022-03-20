@@ -14,11 +14,11 @@ export const PodCreated: React.FC<PodCreatedProps> = ({ children }) => {
   const { data: projectData, loading: projectDataLoading } =
     useGetProjectFromUrl();
 
-  const { data: podData } = usePodQuery({
+  const { data: podData, loading: podDataLoading } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
 
-  if (podData?.pod?.errors) {
+  if (podData?.pod?.errors && !podDataLoading) {
     return <div>No pod data!</div>;
   }
 
