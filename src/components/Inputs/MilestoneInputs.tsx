@@ -9,7 +9,7 @@ interface milestoneInputsProps {
 }
 
 const MilestoneInputs: React.FC<milestoneInputsProps> = ({ values }) => {
-  const maxNumMilestones = 5;
+  const maxNumMilestones = 9;
 
   const [numMilestones, setNumMilestones] = useState(1);
 

@@ -28,7 +28,7 @@ const Home: React.FC<homeProps> = ({}) => {
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel outlineColor={"black"} h={"50vh"} w={"56vw"}>
+          <TabPanel outlineColor={"black"} h={"500px"} w={"800px"}>
             <HorizontalFlow
               milestones={projectData?.project?.project?.milestones}
             />

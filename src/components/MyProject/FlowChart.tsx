@@ -1,5 +1,5 @@
 import React from "react";
-import ReactFlow, { MiniMap } from "react-flow-renderer";
+import ReactFlow, { Background, MiniMap } from "react-flow-renderer";
 import { ProjectQuery, useMeQuery } from "../../generated/graphql";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 
@@ -11,21 +11,32 @@ const HorizontalFlow: React.FC<horizontalFlowProps> = ({ milestones }) => {
   const { data, loading } = useMeQuery({});
 
   const elements = [];
+  let goingRight;
+
   milestones?.forEach((element, i) => {
+    if (i % 3 == 0) {
+      goingRight = !goingRight;
+    }
+
     elements.push({
       id: "horizontal-" + i,
-      sourcePosition: "right",
-      targetPosition: "left",
+      sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
+      targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
       type: i == 0 ? "input" : null,
       data: { label: milestones[i] },
-      position: { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 },
+      position: goingRight
+        ? { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 }
+        : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 200 },
     });
+
     if (i > 0) {
       elements.push({
         id: "e" + i,
         arrowHeadType: "arrow",
         source: "horizontal-" + (i - 1),
         target: "horizontal-" + i,
+        sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
+        targetPosition: i % 3 == 2 ? "top" : goingRight ? "left" : "right",
       });
     }
   });
@@ -65,15 +76,12 @@ const HorizontalFlow: React.FC<horizontalFlowProps> = ({ milestones }) => {
             onLoad={onLoad}
             selectNodesOnDrag={false}
             zoomOnPinch={false}
-            zoomOnScroll={true}
+            zoomOnScroll={false}
             zoomOnDoubleClick={false}
-            paneMoveable={true}
+            paneMoveable={false}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
-          />
-          {/* <ReactFlow elements={elements}>
-            <MiniMap nodeColor={nodeColor} nodeStrokeWidth={3} />
-          </ReactFlow> */}
+          ></ReactFlow>
         </>
       )}
     </>

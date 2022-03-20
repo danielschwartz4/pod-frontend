@@ -176,7 +176,6 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
 
   return (
     <div>
-      {/* {!podData?.pod?.errors && podJoined ? ( */}
       {podJoined ? (
         <div>
           <PodCreated>

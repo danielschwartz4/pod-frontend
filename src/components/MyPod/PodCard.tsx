@@ -11,7 +11,6 @@ import Image from "next/image";
 import { ReactFlowProvider } from "react-flow-renderer";
 import bgImage from "../../images/design.png";
 import HorizontalFlow from "../MyProject/FlowChart";
-import HorizontalFlow2 from "./Test";
 
 interface PodCardProps {
   username?: string;
@@ -45,7 +44,6 @@ const PodCard: React.FC<PodCardProps> = (props) => {
           <div style={{ width: "100%", height: "100%" }}>
             <ReactFlowProvider>
               <HorizontalFlow milestones={props.milestones}></HorizontalFlow>
-              {/* <HorizontalFlow2></HorizontalFlow2> */}
             </ReactFlowProvider>
           </div>
         </Box>
