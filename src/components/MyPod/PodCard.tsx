@@ -24,7 +24,6 @@ interface PodCardProps {
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
-  console.log(props.milestones);
   return (
     <Center py={6}>
       <Box
