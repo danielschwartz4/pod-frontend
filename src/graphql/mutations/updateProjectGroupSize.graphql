@@ -1,0 +1,20 @@
+mutation UpdateProjectGroupSize(
+  $groupSize: Float!
+  $updateProjectGroupSizeId: Float!
+) {
+  updateProjectGroupSize(groupSize: $groupSize, id: $updateProjectGroupSizeId) {
+    errors
+    project {
+      userId
+      id
+      milestoneDates
+      milestones
+      groupSize
+      createdAt
+      updatedAt
+      overview
+      podId
+      projectName
+    }
+  }
+}

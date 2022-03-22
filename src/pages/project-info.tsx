@@ -48,7 +48,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
               variables: {
                 projectOptions: {
                   userId: data?.me.id,
-                  // groupSize: parseInt(groupSize),
                   groupSize: 1,
                   milestones: descriptionArray,
                   overview: overview,
@@ -78,14 +77,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   ></InputField>
                 </Box>
                 <MilestoneInputs values={values} />
-                {/* <Box mt={4}>
-                  <InputField
-                    name="groupSize"
-                    placeholder="0-4"
-                    label="Group size"
-                    autoComplete="off"
-                  ></InputField>
-                </Box> */}
                 <Button
                   mx={"auto"}
                   mt={4}

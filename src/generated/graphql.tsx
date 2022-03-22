@@ -32,6 +32,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   register: UserResponse;
   removeProjectFromPod: PodResponse;
+  updateProjectGroupSize: ProjectResponse;
   updateProjectPod: ProjectResponse;
 };
 
@@ -66,6 +67,12 @@ export type MutationRegisterArgs = {
 export type MutationRemoveProjectFromPodArgs = {
   id: Scalars['Float'];
   projectId: Scalars['Float'];
+};
+
+
+export type MutationUpdateProjectGroupSizeArgs = {
+  groupSize: Scalars['Float'];
+  id: Scalars['Float'];
 };
 
 
@@ -229,6 +236,14 @@ export type RemoveProjectFromPodMutationVariables = Exact<{
 
 
 export type RemoveProjectFromPodMutation = { __typename?: 'Mutation', removeProjectFromPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> } | null } };
+
+export type UpdateProjectGroupSizeMutationVariables = Exact<{
+  groupSize: Scalars['Float'];
+  updateProjectGroupSizeId: Scalars['Float'];
+}>;
+
+
+export type UpdateProjectGroupSizeMutation = { __typename?: 'Mutation', updateProjectGroupSize: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
 
 export type UpdateProjectPodMutationVariables = Exact<{
   podId: Scalars['Float'];
@@ -565,6 +580,52 @@ export function useRemoveProjectFromPodMutation(baseOptions?: Apollo.MutationHoo
 export type RemoveProjectFromPodMutationHookResult = ReturnType<typeof useRemoveProjectFromPodMutation>;
 export type RemoveProjectFromPodMutationResult = Apollo.MutationResult<RemoveProjectFromPodMutation>;
 export type RemoveProjectFromPodMutationOptions = Apollo.BaseMutationOptions<RemoveProjectFromPodMutation, RemoveProjectFromPodMutationVariables>;
+export const UpdateProjectGroupSizeDocument = gql`
+    mutation UpdateProjectGroupSize($groupSize: Float!, $updateProjectGroupSizeId: Float!) {
+  updateProjectGroupSize(groupSize: $groupSize, id: $updateProjectGroupSizeId) {
+    errors
+    project {
+      userId
+      id
+      milestoneDates
+      milestones
+      groupSize
+      createdAt
+      updatedAt
+      overview
+      podId
+      projectName
+    }
+  }
+}
+    `;
+export type UpdateProjectGroupSizeMutationFn = Apollo.MutationFunction<UpdateProjectGroupSizeMutation, UpdateProjectGroupSizeMutationVariables>;
+
+/**
+ * __useUpdateProjectGroupSizeMutation__
+ *
+ * To run a mutation, you first call `useUpdateProjectGroupSizeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProjectGroupSizeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProjectGroupSizeMutation, { data, loading, error }] = useUpdateProjectGroupSizeMutation({
+ *   variables: {
+ *      groupSize: // value for 'groupSize'
+ *      updateProjectGroupSizeId: // value for 'updateProjectGroupSizeId'
+ *   },
+ * });
+ */
+export function useUpdateProjectGroupSizeMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProjectGroupSizeMutation, UpdateProjectGroupSizeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProjectGroupSizeMutation, UpdateProjectGroupSizeMutationVariables>(UpdateProjectGroupSizeDocument, options);
+      }
+export type UpdateProjectGroupSizeMutationHookResult = ReturnType<typeof useUpdateProjectGroupSizeMutation>;
+export type UpdateProjectGroupSizeMutationResult = Apollo.MutationResult<UpdateProjectGroupSizeMutation>;
+export type UpdateProjectGroupSizeMutationOptions = Apollo.BaseMutationOptions<UpdateProjectGroupSizeMutation, UpdateProjectGroupSizeMutationVariables>;
 export const UpdateProjectPodDocument = gql`
     mutation UpdateProjectPod($podId: Float!, $updateProjectPodId: Float!) {
   updateProjectPod(podId: $podId, id: $updateProjectPodId) {
