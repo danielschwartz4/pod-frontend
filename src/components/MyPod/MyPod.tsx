@@ -1,4 +1,5 @@
-import { Button } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   PodDocument,
@@ -20,7 +21,8 @@ interface MyPodProps {}
 
 export const MyPod: React.FC<MyPodProps> = ({}) => {
   useIsAuth();
-  const cap = 2;
+
+  const [podSize, setPodSize] = useState(1);
 
   const { data: projectData, loading: projectDataLoading } =
     useGetProjectFromUrl();
@@ -28,9 +30,10 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
   const [createPod] = useCreatePodMutation();
+
   const { data: availablePodsData } = useFindPodQuery({
     variables: {
-      cap: cap,
+      cap: podSize,
       projectId: projectData?.project?.project.id,
     },
   });
@@ -48,7 +51,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   });
 
   // ! Make it so you can't add duplicate project or user ids to same pod
-  const joinPod = async () => {
+  const joinPod = async (cap: number) => {
     if (availablePodsData?.findPod?.errors) {
       const pod = await createPod({
         variables: {
@@ -152,7 +155,6 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
         });
       },
     });
-    console.log("HERE");
     removeProjectFromPod({
       variables: {
         removeProjectFromPodId: podData?.pod.pod.id,
@@ -183,7 +185,50 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           </PodCreated>
         </div>
       ) : (
-        <Button onClick={() => joinPod()}>join pod</Button>
+        <div>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              {podSize == 1 ? "Select pod size" : podSize}
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                value={2}
+                onClick={(e) => {
+                  let size = parseInt((e.target as HTMLTextAreaElement).value);
+                  setPodSize(size);
+                }}
+              >
+                2
+              </MenuItem>
+              <MenuItem
+                value={3}
+                onClick={(e) => {
+                  let size = parseInt((e.target as HTMLTextAreaElement).value);
+                  setPodSize(size);
+                }}
+              >
+                3
+              </MenuItem>
+              <MenuItem
+                value={4}
+                onClick={(e) => {
+                  let size = parseInt((e.target as HTMLTextAreaElement).value);
+                  setPodSize(size);
+                }}
+              >
+                4
+              </MenuItem>
+            </MenuList>
+          </Menu>
+          <Button
+            onClick={() => {
+              // !! update pod size
+              joinPod(podSize);
+            }}
+          >
+            join pod
+          </Button>
+        </div>
       )}
     </div>
   );

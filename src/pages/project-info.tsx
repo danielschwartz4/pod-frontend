@@ -38,10 +38,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
             overview: "",
             projectName: "",
           }}
-          onSubmit={async (
-            { groupSize, milestone, overview },
-            { setErrors }
-          ) => {
+          onSubmit={async ({ milestone, overview }, { setErrors }) => {
             const descriptionArray = objectToArray(milestone, "description");
             const completionDateArray = objectToArray(
               milestone,
@@ -51,7 +48,8 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
               variables: {
                 projectOptions: {
                   userId: data?.me.id,
-                  groupSize: parseInt(groupSize),
+                  // groupSize: parseInt(groupSize),
+                  groupSize: 1,
                   milestones: descriptionArray,
                   overview: overview,
                   milestoneDates: completionDateArray,
@@ -80,14 +78,14 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   ></InputField>
                 </Box>
                 <MilestoneInputs values={values} />
-                <Box mt={4}>
+                {/* <Box mt={4}>
                   <InputField
                     name="groupSize"
                     placeholder="0-4"
                     label="Group size"
                     autoComplete="off"
                   ></InputField>
-                </Box>
+                </Box> */}
                 <Button
                   mx={"auto"}
                   mt={4}

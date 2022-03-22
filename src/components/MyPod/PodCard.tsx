@@ -18,15 +18,17 @@ interface PodCardProps {
   milestoneDates?: string[];
   overview: string;
   projectName: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
+  const date = props.updatedAt.split(".")[0].split("T");
   return (
     <Center py={6}>
       <Box
         maxW={"350px"}
+        minH={"450px"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}
@@ -39,7 +41,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
           mt={-6}
           mx={-6}
           mb={6}
-          // pos={"relative"}
+          pos={"relative"}
         >
           <div style={{ width: "100%", height: "100%" }}>
             <ReactFlowProvider>
@@ -79,7 +81,9 @@ const PodCard: React.FC<PodCardProps> = (props) => {
             alt={"Author"}
           />
           <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-            <Text color={"gray.500"}>Last update: {props.updatedAt}</Text>
+            <Text color={"gray.500"}>
+              Last update: {date[0]} {date[1]}
+            </Text>
           </Stack>
         </Stack>
       </Box>
