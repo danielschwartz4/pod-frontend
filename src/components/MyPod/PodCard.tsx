@@ -16,6 +16,7 @@ interface PodCardProps {
   username?: string;
   milestones?: string[];
   milestoneDates?: string[];
+  milestoneProgress?: number[];
   overview: string;
   projectName: string;
   createdAt: string;
@@ -46,7 +47,8 @@ const PodCard: React.FC<PodCardProps> = (props) => {
           <div style={{ width: "100%", height: "100%" }}>
             <ReactFlowProvider>
               <FlowChart
-                showText={false}
+                isMainProject={false}
+                milestoneProgress={props.milestoneProgress}
                 milestones={props.milestones}
               ></FlowChart>
             </ReactFlowProvider>

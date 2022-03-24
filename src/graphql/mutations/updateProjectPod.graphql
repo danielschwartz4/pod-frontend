@@ -6,6 +6,7 @@ mutation UpdateProjectPod($podId: Float!, $updateProjectPodId: Float!) {
       id
       milestoneDates
       milestones
+      milestoneProgress
       groupSize
       createdAt
       updatedAt

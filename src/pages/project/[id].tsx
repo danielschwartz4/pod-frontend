@@ -48,7 +48,12 @@ const Home: React.FC<homeProps> = ({}) => {
         </TabList>
         <TabPanels>
           <TabPanel outlineColor={"black"} h={"500px"} w={"800px"}>
-            <FlowChart milestones={projectData?.project?.project?.milestones} />
+            <FlowChart
+              milestoneProgress={
+                projectData?.project?.project?.milestoneProgress
+              }
+              milestones={projectData?.project?.project?.milestones}
+            />
           </TabPanel>
           <TabPanel>
             <MyPod></MyPod>

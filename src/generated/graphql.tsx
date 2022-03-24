@@ -194,7 +194,7 @@ export type AddProjectInfoMutationVariables = Exact<{
 }>;
 
 
-export type AddProjectInfoMutation = { __typename?: 'Mutation', addProjectInfo: { __typename?: 'ProjectInfoResponse', project?: { __typename?: 'Project', id: number, createdAt: any, updatedAt: any, milestoneDates: Array<string>, milestones: Array<string>, overview: string, podId?: number | null, userId: number, groupSize: number } | null } };
+export type AddProjectInfoMutation = { __typename?: 'Mutation', addProjectInfo: { __typename?: 'ProjectInfoResponse', project?: { __typename?: 'Project', id: number, createdAt: any, updatedAt: any, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, overview: string, podId?: number | null, userId: number, groupSize: number } | null } };
 
 export type AddProjectToPodMutationVariables = Exact<{
   projectId: Scalars['Float'];
@@ -245,7 +245,7 @@ export type UpdateProjectGroupSizeMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProjectGroupSizeMutation = { __typename?: 'Mutation', updateProjectGroupSize: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
+export type UpdateProjectGroupSizeMutation = { __typename?: 'Mutation', updateProjectGroupSize: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
 
 export type UpdateProjectPodMutationVariables = Exact<{
   podId: Scalars['Float'];
@@ -253,7 +253,7 @@ export type UpdateProjectPodMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProjectPodMutation = { __typename?: 'Mutation', updateProjectPod: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
+export type UpdateProjectPodMutation = { __typename?: 'Mutation', updateProjectPod: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
 
 export type FindPodQueryVariables = Exact<{
   projectId: Scalars['Float'];
@@ -280,7 +280,7 @@ export type PodProjectsQueryVariables = Exact<{
 }>;
 
 
-export type PodProjectsQuery = { __typename?: 'Query', podProjects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
+export type PodProjectsQuery = { __typename?: 'Query', podProjects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
 
 export type PodsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -292,12 +292,12 @@ export type ProjectQueryVariables = Exact<{
 }>;
 
 
-export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } | null };
+export type ProjectQuery = { __typename?: 'Query', project?: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } | null };
 
 export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProjectsQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
+export type ProjectsQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
 
 
 export const AddProjectInfoDocument = gql`
@@ -309,6 +309,7 @@ export const AddProjectInfoDocument = gql`
       updatedAt
       milestoneDates
       milestones
+      milestoneProgress
       overview
       podId
       userId
@@ -591,6 +592,7 @@ export const UpdateProjectGroupSizeDocument = gql`
       id
       milestoneDates
       milestones
+      milestoneProgress
       groupSize
       createdAt
       updatedAt
@@ -637,6 +639,7 @@ export const UpdateProjectPodDocument = gql`
       id
       milestoneDates
       milestones
+      milestoneProgress
       groupSize
       createdAt
       updatedAt
@@ -806,6 +809,7 @@ export const PodProjectsDocument = gql`
     id
     milestoneDates
     milestones
+    milestoneProgress
     groupSize
     createdAt
     updatedAt
@@ -891,6 +895,7 @@ export const ProjectDocument = gql`
       id
       milestoneDates
       milestones
+      milestoneProgress
       groupSize
       createdAt
       updatedAt
@@ -936,6 +941,7 @@ export const ProjectsDocument = gql`
     id
     milestoneDates
     milestones
+    milestoneProgress
     groupSize
     createdAt
     updatedAt

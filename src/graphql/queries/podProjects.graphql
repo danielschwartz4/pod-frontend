@@ -4,6 +4,7 @@ query PodProjects($podId: Int!) {
     id
     milestoneDates
     milestones
+    milestoneProgress
     groupSize
     createdAt
     updatedAt

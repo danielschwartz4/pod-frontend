@@ -1,20 +1,37 @@
-import React, { useEffect, useState } from "react";
-import ReactFlow, { Background, MiniMap } from "react-flow-renderer";
-import { ProjectQuery, useMeQuery } from "../../generated/graphql";
-import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
+import { Box } from "@chakra-ui/react";
+import React from "react";
+import ReactFlow from "react-flow-renderer";
+import { useMeQuery } from "../../generated/graphql";
+import ProgressPopover from "./ProgressPopover";
 
 interface horizontalFlowProps {
   milestones?: string[];
-  // onLoad;
-  showText?: boolean;
+  milestoneProgress;
+  isMainProject?: boolean;
 }
+
+const nodeProgressMap = {
+  1: "#F26D51",
+  2: "#6097F8",
+  3: "#3EE76D",
+};
+
+const edgeProgressMap = {
+  1: true,
+  2: true,
+  3: false,
+};
 
 const FlowChart: React.FC<horizontalFlowProps> = ({
   milestones,
-  // onLoad,
-  showText = true,
+  milestoneProgress,
+  isMainProject = true,
 }) => {
   const { data, loading } = useMeQuery({});
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const open = () => setIsOpen(!isOpen);
+  const close = () => setIsOpen(false);
 
   let goingRight;
 
@@ -29,16 +46,15 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
       sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
       targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
       type: i == 0 ? "input" : null,
-      data: showText ? { label: milestones[i] } : { label: i + 1 },
+      data: isMainProject ? { label: milestones[i] } : { label: i + 1 },
       position: goingRight
         ? { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 }
         : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 200 },
-      // !! This
-      // style: {
-      //   background: "red",
-      //   color: "black",
-      //   border: "1px solid #222138",
-      // },
+      style: {
+        background: nodeProgressMap[milestoneProgress[i]],
+        color: "black",
+        border: "1px solid #222138",
+      },
     });
 
     if (i > 0) {
@@ -47,8 +63,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
         arrowHeadType: "arrow",
         source: "horizontal-" + (i - 1),
         target: "horizontal-" + i,
-        // !! This
-        animated: true,
+        animated: edgeProgressMap[milestoneProgress[i]],
         sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
         targetPosition: i % 3 == 2 ? "top" : goingRight ? "left" : "right",
       });
@@ -79,7 +94,18 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
             paneMoveable={false}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
-          ></ReactFlow>
+            onNodeDoubleClick={open}
+            // !! (e, node) => console.log(node)
+            nodesDraggable={false}
+          >
+            {isMainProject ? (
+              <Box>
+                <ProgressPopover open={open} close={close} isOpen={isOpen} />
+              </Box>
+            ) : (
+              <></>
+            )}
+          </ReactFlow>
         </>
       )}
     </>

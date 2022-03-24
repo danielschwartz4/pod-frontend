@@ -4,6 +4,7 @@ query Projects {
     id
     milestoneDates
     milestones
+    milestoneProgress
     groupSize
     createdAt
     updatedAt

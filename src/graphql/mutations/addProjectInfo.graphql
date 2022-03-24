@@ -6,6 +6,7 @@ mutation AddProjectInfo($projectOptions: ProjectInput!) {
       updatedAt
       milestoneDates
       milestones
+      milestoneProgress
       overview
       podId
       userId
