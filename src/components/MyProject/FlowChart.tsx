@@ -33,6 +33,12 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
       position: goingRight
         ? { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 }
         : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 200 },
+      // !! This
+      // style: {
+      //   background: "red",
+      //   color: "black",
+      //   border: "1px solid #222138",
+      // },
     });
 
     if (i > 0) {
@@ -41,6 +47,8 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
         arrowHeadType: "arrow",
         source: "horizontal-" + (i - 1),
         target: "horizontal-" + i,
+        // !! This
+        animated: true,
         sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
         targetPosition: i % 3 == 2 ? "top" : goingRight ? "left" : "right",
       });

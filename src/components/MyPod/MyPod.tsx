@@ -11,6 +11,7 @@ import {
   useFindPodQuery,
   usePodQuery,
   useRemoveProjectFromPodMutation,
+  useUpdateProjectGroupSizeMutation,
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
@@ -29,6 +30,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
+  const [updateProjectGroupSize] = useUpdateProjectGroupSizeMutation();
   const [createPod] = useCreatePodMutation();
 
   const { data: availablePodsData } = useFindPodQuery({
@@ -222,7 +224,12 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           </Menu>
           <Button
             onClick={() => {
-              // !! update pod size
+              updateProjectGroupSize({
+                variables: {
+                  groupSize: podSize,
+                  updateProjectGroupSizeId: projectData?.project?.project.id,
+                },
+              });
               joinPod(podSize);
             }}
           >

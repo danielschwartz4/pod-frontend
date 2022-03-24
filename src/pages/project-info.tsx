@@ -52,17 +52,12 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   milestones: descriptionArray,
                   overview: overview,
                   milestoneDates: completionDateArray,
+                  milestoneProgress: Array(descriptionArray.length).fill(1),
                   projectName: "Untitled project",
                 },
               },
             });
             router.push("/profile");
-
-            // if (response.data.addProjectInfo.errors) {
-            //   setErrors(toErrorMap(response.data.addProjectInfo.errors));
-            // } else if (response.data.addProjectInfo.project) {
-            //   router.push("/profile");
-            // }
           }}
         >
           {({ isSubmitting, values }) => (

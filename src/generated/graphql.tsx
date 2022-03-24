@@ -103,6 +103,7 @@ export type Project = {
   groupSize: Scalars['Int'];
   id: Scalars['Int'];
   milestoneDates: Array<Scalars['String']>;
+  milestoneProgress: Array<Scalars['Int']>;
   milestones: Array<Scalars['String']>;
   overview: Scalars['String'];
   podId?: Maybe<Scalars['Int']>;
@@ -120,6 +121,7 @@ export type ProjectInfoResponse = {
 export type ProjectInput = {
   groupSize: Scalars['Float'];
   milestoneDates: Array<Scalars['String']>;
+  milestoneProgress: Array<Scalars['Int']>;
   milestones: Array<Scalars['String']>;
   overview: Scalars['String'];
   projectName: Scalars['String'];
