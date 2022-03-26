@@ -1,29 +1,27 @@
 import {
-  Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverBody,
-  PopoverFooter,
-  ButtonGroup,
   Box,
-  VStack,
+  Button,
+  ButtonGroup,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import React from "react";
 
 interface ProgressPopoverProps {
-  open;
   close;
   isOpen: boolean;
 }
 
 const ProgressPopover: React.FC<ProgressPopoverProps> = ({
-  open,
   close,
   isOpen,
+  children,
 }) => {
   return (
     <>
@@ -47,11 +45,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
             <Box>Have you completed this milestone?</Box>
           </PopoverBody>
           <PopoverFooter d="flex" justifyContent="flex-end">
-            <ButtonGroup size="sm">
-              <Button background="#F26D51">not yet!</Button>
-              <Button background="#6097F8">in progress</Button>
-              <Button background="#3EE76D">all done!</Button>
-            </ButtonGroup>
+            {children}
           </PopoverFooter>
         </PopoverContent>
       </Popover>

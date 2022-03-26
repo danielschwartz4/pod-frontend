@@ -22,9 +22,11 @@ const Home: React.FC<homeProps> = ({}) => {
   useIsAuth();
 
   const { data: projectData } = useGetProjectFromUrl();
+
   if (projectData?.project?.errors) {
     return <Warning />;
   }
+
   return (
     <Layout isProfile>
       <NextLink href="/profile">
@@ -35,7 +37,9 @@ const Home: React.FC<homeProps> = ({}) => {
         isFitted
         variant="enclosed"
         align={"center"}
-        // !! Made isLazy so tab rerenders flow since flow only appears correctly upon rendering
+        // !! WHY DOES THIS NOT SHOW UP WHEN INDEX IS 1
+        defaultIndex={1}
+        // ? Made isLazy so tab rerenders flow since flow only appears correctly upon rendering
         isLazy
         lazyBehavior="keepMounted"
       >

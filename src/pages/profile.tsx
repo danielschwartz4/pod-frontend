@@ -12,6 +12,7 @@ import { Layout } from "../components/Layout";
 import { useMeQuery, useProjectsQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
 import NextLink from "next/link";
+import { Warning } from "../components/Warning";
 
 interface profileProps {}
 
@@ -19,18 +20,19 @@ const Profile: React.FC<profileProps> = ({}) => {
   useIsAuth();
   const { data, loading } = useMeQuery({});
 
-  const { data: projectsData, refetch } = useProjectsQuery({
-    // variables: { userId: data?.me?.id },
-  });
+  const { data: projectsData, refetch } = useProjectsQuery();
 
   useEffect(() => {
     refetch();
   }, [loading, data]);
+  console.log(projectsData);
 
   if (!projectsData?.projects) {
     return (
       <Layout isProfile>
-        <div>Create project</div>
+        <NextLink href="/project-info">
+          <Link mr={2}>Create your first project!</Link>
+        </NextLink>
       </Layout>
     );
   }
@@ -44,7 +46,6 @@ const Profile: React.FC<profileProps> = ({}) => {
           <NextLink href="/project-info">
             <Link mr={2}>create project</Link>
           </NextLink>
-
           <Grid
             mt={100}
             w="auto"
