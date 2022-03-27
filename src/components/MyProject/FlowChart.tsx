@@ -2,6 +2,8 @@ import { Box, Button, ButtonGroup } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ReactFlow from "react-flow-renderer";
 import {
+  ProjectDocument,
+  ProjectQuery,
   useMeQuery,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
@@ -68,6 +70,19 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
       variables: {
         milestoneProgress: milestoneProg,
         updateProjectProgressId: projectId,
+      },
+      // !! Do I actually need this
+      update: (cache, { data }) => {
+        cache.writeQuery<ProjectQuery>({
+          query: ProjectDocument,
+          data: {
+            __typename: "Query",
+            project: {
+              errors: data?.updateProjectProgress.errors,
+              project: data?.updateProjectProgress.project,
+            },
+          },
+        });
       },
     });
   }, [milestoneProg]);
