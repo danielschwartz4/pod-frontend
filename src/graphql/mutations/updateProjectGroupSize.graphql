@@ -5,17 +5,7 @@ mutation UpdateProjectGroupSize(
   updateProjectGroupSize(groupSize: $groupSize, id: $updateProjectGroupSizeId) {
     errors
     project {
-      userId
-      id
-      milestoneDates
-      milestones
-      milestoneProgress
-      groupSize
-      createdAt
-      updatedAt
-      overview
-      podId
-      projectName
+      ...RegularProject
     }
   }
 }

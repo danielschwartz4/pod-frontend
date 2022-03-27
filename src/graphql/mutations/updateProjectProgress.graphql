@@ -1,0 +1,14 @@
+mutation UpdateProjectProgress(
+  $milestoneProgress: [Int!]!
+  $updateProjectProgressId: Float!
+) {
+  updateProjectProgress(
+    milestoneProgress: $milestoneProgress
+    id: $updateProjectProgressId
+  ) {
+    errors
+    project {
+      ...RegularProject
+    }
+  }
+}

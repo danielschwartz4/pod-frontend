@@ -1,16 +1,7 @@
 mutation AddProjectInfo($projectOptions: ProjectInput!) {
   addProjectInfo(projectOptions: $projectOptions) {
     project {
-      id
-      createdAt
-      updatedAt
-      milestoneDates
-      milestones
-      milestoneProgress
-      overview
-      podId
-      userId
-      groupSize
+      ...RegularProject
     }
   }
 }

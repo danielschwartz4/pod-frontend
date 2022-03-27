@@ -1,0 +1,13 @@
+fragment RegularProject on Project {
+  userId
+  id
+  milestoneDates
+  milestones
+  milestoneProgress
+  groupSize
+  createdAt
+  updatedAt
+  overview
+  podId
+  projectName
+}

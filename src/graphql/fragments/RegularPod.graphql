@@ -1,0 +1,8 @@
+fragment RegularPod on Pod {
+  id
+  cap
+  projectIds
+  updatedAt
+  createdAt
+  userIds
+}

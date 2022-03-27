@@ -34,6 +34,7 @@ export type Mutation = {
   removeProjectFromPod: PodResponse;
   updateProjectGroupSize: ProjectResponse;
   updateProjectPod: ProjectResponse;
+  updateProjectProgress: ProjectResponse;
 };
 
 
@@ -79,6 +80,12 @@ export type MutationUpdateProjectGroupSizeArgs = {
 export type MutationUpdateProjectPodArgs = {
   id: Scalars['Float'];
   podId: Scalars['Float'];
+};
+
+
+export type MutationUpdateProjectProgressArgs = {
+  id: Scalars['Float'];
+  milestoneProgress: Array<Scalars['Int']>;
 };
 
 export type Pod = {
@@ -189,12 +196,18 @@ export type UsernamePasswordInput = {
   username: Scalars['String'];
 };
 
+export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> };
+
+export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string };
+
+export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, id: number, updatedAt: any, username: string };
+
 export type AddProjectInfoMutationVariables = Exact<{
   projectOptions: ProjectInput;
 }>;
 
 
-export type AddProjectInfoMutation = { __typename?: 'Mutation', addProjectInfo: { __typename?: 'ProjectInfoResponse', project?: { __typename?: 'Project', id: number, createdAt: any, updatedAt: any, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, overview: string, podId?: number | null, userId: number, groupSize: number } | null } };
+export type AddProjectInfoMutation = { __typename?: 'Mutation', addProjectInfo: { __typename?: 'ProjectInfoResponse', project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
 
 export type AddProjectToPodMutationVariables = Exact<{
   projectId: Scalars['Float'];
@@ -209,7 +222,7 @@ export type CreatePodMutationVariables = Exact<{
 }>;
 
 
-export type CreatePodMutation = { __typename?: 'Mutation', createPod: { __typename?: 'Pod', cap: number, projectIds: Array<number>, createdAt: any, updatedAt: any, id: number, userIds: Array<number> } };
+export type CreatePodMutation = { __typename?: 'Mutation', createPod: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> } };
 
 export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
@@ -255,6 +268,14 @@ export type UpdateProjectPodMutationVariables = Exact<{
 
 export type UpdateProjectPodMutation = { __typename?: 'Mutation', updateProjectPod: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
 
+export type UpdateProjectProgressMutationVariables = Exact<{
+  milestoneProgress: Array<Scalars['Int']> | Scalars['Int'];
+  updateProjectProgressId: Scalars['Float'];
+}>;
+
+
+export type UpdateProjectProgressMutation = { __typename?: 'Mutation', updateProjectProgress: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
+
 export type FindPodQueryVariables = Exact<{
   projectId: Scalars['Float'];
   cap: Scalars['Float'];
@@ -273,7 +294,7 @@ export type PodQueryVariables = Exact<{
 }>;
 
 
-export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', cap: number, id: number, projectIds: Array<number>, createdAt: any, updatedAt: any, userIds: Array<number> } | null } | null };
+export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> } | null } | null };
 
 export type PodProjectsQueryVariables = Exact<{
   podId: Scalars['Int'];
@@ -285,7 +306,7 @@ export type PodProjectsQuery = { __typename?: 'Query', podProjects?: Array<{ __t
 export type PodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PodsQuery = { __typename?: 'Query', pods: Array<{ __typename?: 'Pod', cap: number, id: number, projectIds: Array<number>, createdAt: any, updatedAt: any, userIds: Array<number> }> };
+export type PodsQuery = { __typename?: 'Query', pods: Array<{ __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> }> };
 
 export type ProjectQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -299,25 +320,49 @@ export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProjectsQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
 
-
+export const RegularPodFragmentDoc = gql`
+    fragment RegularPod on Pod {
+  id
+  cap
+  projectIds
+  updatedAt
+  createdAt
+  userIds
+}
+    `;
+export const RegularProjectFragmentDoc = gql`
+    fragment RegularProject on Project {
+  userId
+  id
+  milestoneDates
+  milestones
+  milestoneProgress
+  groupSize
+  createdAt
+  updatedAt
+  overview
+  podId
+  projectName
+}
+    `;
+export const RegularUserFragmentDoc = gql`
+    fragment RegularUser on User {
+  createdAt
+  email
+  id
+  updatedAt
+  username
+}
+    `;
 export const AddProjectInfoDocument = gql`
     mutation AddProjectInfo($projectOptions: ProjectInput!) {
   addProjectInfo(projectOptions: $projectOptions) {
     project {
-      id
-      createdAt
-      updatedAt
-      milestoneDates
-      milestones
-      milestoneProgress
-      overview
-      podId
-      userId
-      groupSize
+      ...RegularProject
     }
   }
 }
-    `;
+    ${RegularProjectFragmentDoc}`;
 export type AddProjectInfoMutationFn = Apollo.MutationFunction<AddProjectInfoMutation, AddProjectInfoMutationVariables>;
 
 /**
@@ -349,16 +394,11 @@ export const AddProjectToPodDocument = gql`
   addProjectToPod(projectId: $projectId, id: $addProjectToPodId) {
     errors
     pod {
-      id
-      cap
-      projectIds
-      updatedAt
-      createdAt
-      userIds
+      ...RegularPod
     }
   }
 }
-    `;
+    ${RegularPodFragmentDoc}`;
 export type AddProjectToPodMutationFn = Apollo.MutationFunction<AddProjectToPodMutation, AddProjectToPodMutationVariables>;
 
 /**
@@ -389,15 +429,10 @@ export type AddProjectToPodMutationOptions = Apollo.BaseMutationOptions<AddProje
 export const CreatePodDocument = gql`
     mutation CreatePod($cap: Float!) {
   createPod(cap: $cap) {
-    cap
-    projectIds
-    createdAt
-    updatedAt
-    id
-    userIds
+    ...RegularPod
   }
 }
-    `;
+    ${RegularPodFragmentDoc}`;
 export type CreatePodMutationFn = Apollo.MutationFunction<CreatePodMutation, CreatePodMutationVariables>;
 
 /**
@@ -432,15 +467,11 @@ export const LoginDocument = gql`
       message
     }
     user {
-      createdAt
-      email
-      id
-      updatedAt
-      username
+      ...RegularUser
     }
   }
 }
-    `;
+    ${RegularUserFragmentDoc}`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
@@ -506,15 +537,11 @@ export const RegisterDocument = gql`
       message
     }
     user {
-      createdAt
-      email
-      id
-      updatedAt
-      username
+      ...RegularUser
     }
   }
 }
-    `;
+    ${RegularUserFragmentDoc}`;
 export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, RegisterMutationVariables>;
 
 /**
@@ -546,16 +573,11 @@ export const RemoveProjectFromPodDocument = gql`
   removeProjectFromPod(projectId: $projectId, id: $removeProjectFromPodId) {
     errors
     pod {
-      id
-      cap
-      projectIds
-      updatedAt
-      createdAt
-      userIds
+      ...RegularPod
     }
   }
 }
-    `;
+    ${RegularPodFragmentDoc}`;
 export type RemoveProjectFromPodMutationFn = Apollo.MutationFunction<RemoveProjectFromPodMutation, RemoveProjectFromPodMutationVariables>;
 
 /**
@@ -588,21 +610,11 @@ export const UpdateProjectGroupSizeDocument = gql`
   updateProjectGroupSize(groupSize: $groupSize, id: $updateProjectGroupSizeId) {
     errors
     project {
-      userId
-      id
-      milestoneDates
-      milestones
-      milestoneProgress
-      groupSize
-      createdAt
-      updatedAt
-      overview
-      podId
-      projectName
+      ...RegularProject
     }
   }
 }
-    `;
+    ${RegularProjectFragmentDoc}`;
 export type UpdateProjectGroupSizeMutationFn = Apollo.MutationFunction<UpdateProjectGroupSizeMutation, UpdateProjectGroupSizeMutationVariables>;
 
 /**
@@ -635,21 +647,11 @@ export const UpdateProjectPodDocument = gql`
   updateProjectPod(podId: $podId, id: $updateProjectPodId) {
     errors
     project {
-      userId
-      id
-      milestoneDates
-      milestones
-      milestoneProgress
-      groupSize
-      createdAt
-      updatedAt
-      overview
-      podId
-      projectName
+      ...RegularProject
     }
   }
 }
-    `;
+    ${RegularProjectFragmentDoc}`;
 export type UpdateProjectPodMutationFn = Apollo.MutationFunction<UpdateProjectPodMutation, UpdateProjectPodMutationVariables>;
 
 /**
@@ -677,21 +679,56 @@ export function useUpdateProjectPodMutation(baseOptions?: Apollo.MutationHookOpt
 export type UpdateProjectPodMutationHookResult = ReturnType<typeof useUpdateProjectPodMutation>;
 export type UpdateProjectPodMutationResult = Apollo.MutationResult<UpdateProjectPodMutation>;
 export type UpdateProjectPodMutationOptions = Apollo.BaseMutationOptions<UpdateProjectPodMutation, UpdateProjectPodMutationVariables>;
+export const UpdateProjectProgressDocument = gql`
+    mutation UpdateProjectProgress($milestoneProgress: [Int!]!, $updateProjectProgressId: Float!) {
+  updateProjectProgress(
+    milestoneProgress: $milestoneProgress
+    id: $updateProjectProgressId
+  ) {
+    errors
+    project {
+      ...RegularProject
+    }
+  }
+}
+    ${RegularProjectFragmentDoc}`;
+export type UpdateProjectProgressMutationFn = Apollo.MutationFunction<UpdateProjectProgressMutation, UpdateProjectProgressMutationVariables>;
+
+/**
+ * __useUpdateProjectProgressMutation__
+ *
+ * To run a mutation, you first call `useUpdateProjectProgressMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProjectProgressMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProjectProgressMutation, { data, loading, error }] = useUpdateProjectProgressMutation({
+ *   variables: {
+ *      milestoneProgress: // value for 'milestoneProgress'
+ *      updateProjectProgressId: // value for 'updateProjectProgressId'
+ *   },
+ * });
+ */
+export function useUpdateProjectProgressMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProjectProgressMutation, UpdateProjectProgressMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProjectProgressMutation, UpdateProjectProgressMutationVariables>(UpdateProjectProgressDocument, options);
+      }
+export type UpdateProjectProgressMutationHookResult = ReturnType<typeof useUpdateProjectProgressMutation>;
+export type UpdateProjectProgressMutationResult = Apollo.MutationResult<UpdateProjectProgressMutation>;
+export type UpdateProjectProgressMutationOptions = Apollo.BaseMutationOptions<UpdateProjectProgressMutation, UpdateProjectProgressMutationVariables>;
 export const FindPodDocument = gql`
     query FindPod($projectId: Float!, $cap: Float!) {
   findPod(projectId: $projectId, cap: $cap) {
     errors
     pod {
-      id
-      cap
-      projectIds
-      updatedAt
-      createdAt
-      userIds
+      ...RegularPod
     }
   }
 }
-    `;
+    ${RegularPodFragmentDoc}`;
 
 /**
  * __useFindPodQuery__
@@ -724,14 +761,10 @@ export type FindPodQueryResult = Apollo.QueryResult<FindPodQuery, FindPodQueryVa
 export const MeDocument = gql`
     query Me {
   me {
-    createdAt
-    email
-    id
-    updatedAt
-    username
+    ...RegularUser
   }
 }
-    `;
+    ${RegularUserFragmentDoc}`;
 
 /**
  * __useMeQuery__
@@ -764,16 +797,11 @@ export const PodDocument = gql`
   pod(id: $podId) {
     errors
     pod {
-      cap
-      id
-      projectIds
-      createdAt
-      updatedAt
-      userIds
+      ...RegularPod
     }
   }
 }
-    `;
+    ${RegularPodFragmentDoc}`;
 
 /**
  * __usePodQuery__
@@ -805,20 +833,10 @@ export type PodQueryResult = Apollo.QueryResult<PodQuery, PodQueryVariables>;
 export const PodProjectsDocument = gql`
     query PodProjects($podId: Int!) {
   podProjects(podId: $podId) {
-    userId
-    id
-    milestoneDates
-    milestones
-    milestoneProgress
-    groupSize
-    createdAt
-    updatedAt
-    overview
-    podId
-    projectName
+    ...RegularProject
   }
 }
-    `;
+    ${RegularProjectFragmentDoc}`;
 
 /**
  * __usePodProjectsQuery__
@@ -850,15 +868,10 @@ export type PodProjectsQueryResult = Apollo.QueryResult<PodProjectsQuery, PodPro
 export const PodsDocument = gql`
     query Pods {
   pods {
-    cap
-    id
-    projectIds
-    createdAt
-    updatedAt
-    userIds
+    ...RegularPod
   }
 }
-    `;
+    ${RegularPodFragmentDoc}`;
 
 /**
  * __usePodsQuery__
@@ -891,21 +904,11 @@ export const ProjectDocument = gql`
   project(id: $id) {
     errors
     project {
-      userId
-      id
-      milestoneDates
-      milestones
-      milestoneProgress
-      groupSize
-      createdAt
-      updatedAt
-      overview
-      podId
-      projectName
+      ...RegularProject
     }
   }
 }
-    `;
+    ${RegularProjectFragmentDoc}`;
 
 /**
  * __useProjectQuery__
@@ -937,20 +940,10 @@ export type ProjectQueryResult = Apollo.QueryResult<ProjectQuery, ProjectQueryVa
 export const ProjectsDocument = gql`
     query Projects {
   projects {
-    userId
-    id
-    milestoneDates
-    milestones
-    milestoneProgress
-    groupSize
-    createdAt
-    updatedAt
-    overview
-    podId
-    projectName
+    ...RegularProject
   }
 }
-    `;
+    ${RegularProjectFragmentDoc}`;
 
 /**
  * __useProjectsQuery__

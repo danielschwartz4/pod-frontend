@@ -2,17 +2,7 @@ mutation UpdateProjectPod($podId: Float!, $updateProjectPodId: Float!) {
   updateProjectPod(podId: $podId, id: $updateProjectPodId) {
     errors
     project {
-      userId
-      id
-      milestoneDates
-      milestones
-      milestoneProgress
-      groupSize
-      createdAt
-      updatedAt
-      overview
-      podId
-      projectName
+      ...RegularProject
     }
   }
 }

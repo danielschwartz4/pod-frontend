@@ -1,10 +1,5 @@
 mutation CreatePod($cap: Float!) {
   createPod(cap: $cap) {
-    cap
-    projectIds
-    createdAt
-    updatedAt
-    id
-    userIds
+    ...RegularPod
   }
 }

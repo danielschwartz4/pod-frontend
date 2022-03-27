@@ -2,12 +2,7 @@ query Pod($podId: Float!) {
   pod(id: $podId) {
     errors
     pod {
-      cap
-      id
-      projectIds
-      createdAt
-      updatedAt
-      userIds
+      ...RegularPod
     }
   }
 }

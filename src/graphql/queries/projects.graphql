@@ -1,15 +1,5 @@
 query Projects {
   projects {
-    userId
-    id
-    milestoneDates
-    milestones
-    milestoneProgress
-    groupSize
-    createdAt
-    updatedAt
-    overview
-    podId
-    projectName
+    ...RegularProject
   }
 }

@@ -2,12 +2,7 @@ mutation AddProjectToPod($projectId: Float!, $addProjectToPodId: Float!) {
   addProjectToPod(projectId: $projectId, id: $addProjectToPodId) {
     errors
     pod {
-      id
-      cap
-      projectIds
-      updatedAt
-      createdAt
-      userIds
+      ...RegularPod
     }
   }
 }

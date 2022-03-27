@@ -1,9 +1,5 @@
 query Me {
   me {
-    createdAt
-    email
-    id
-    updatedAt
-    username
+    ...RegularUser
   }
 }
