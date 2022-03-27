@@ -38,7 +38,10 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
 
   const [milestoneProg, setMilestoneProg] = useState(milestoneProgress);
   const [currNode, setCurrNode] = useState({} as Node);
-  const [newProgress, setNewProgress] = useState(1);
+  const [newProgress, setNewProgress] = useState({ id: "", progress: 1 } as {
+    id: string;
+    progress: number;
+  });
 
   const eles = init_elements(milestones, milestoneProgress, isMainProject);
   const [elements, setElements] = useState(eles);
@@ -49,13 +52,12 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
       milestoneProg.forEach((ele, i) => {
         if (typeof currNode.id === "string") {
           if (i == parseInt(currNode.id.split("-")[1])) {
-            tmp.push(newProgress);
+            tmp.push(newProgress["progress"]);
           } else {
             tmp.push(ele);
           }
         }
       });
-      console.log(tmp);
       setMilestoneProg(tmp);
     }
   }, [newProgress]);
@@ -70,7 +72,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
     });
   }, [milestoneProg]);
 
-  const onNodeContextMenu = (event, node) => {
+  const onNodeContextMenu = (event, _) => {
     event.preventDefault();
   };
 
@@ -103,8 +105,8 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
                   <ButtonGroup size="sm">
                     <Button
                       onClick={() => {
-                        // setMilestoneProg(milestoneProgress);
-                        setNewProgress(1);
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 1 });
                       }}
                       background="#F26D51"
                     >
@@ -112,8 +114,8 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
                     </Button>
                     <Button
                       onClick={() => {
-                        // setMilestoneProg(milestoneProgress);
-                        setNewProgress(2);
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 2 });
                       }}
                       background="#6097F8"
                     >
@@ -121,8 +123,8 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
                     </Button>
                     <Button
                       onClick={() => {
-                        // setMilestoneProg(milestoneProgress);
-                        setNewProgress(3);
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 3 });
                       }}
                       background="#3EE76D"
                     >
