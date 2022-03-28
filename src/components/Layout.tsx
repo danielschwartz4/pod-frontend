@@ -1,5 +1,5 @@
 import React from "react";
-import { NavBar } from "./HomeNavBar";
+import { HomeNavBar } from "./Home/HomeNavBar";
 import { ProfileNavBar } from "./ProfileNavBar";
 import { Wrapper, WrapperVariant } from "./Wrapper";
 
@@ -15,7 +15,7 @@ export const Layout: React.FC<LayoutProps> = ({
 }) => {
   return (
     <>
-      {!isProfile ? <NavBar /> : <ProfileNavBar />}
+      {!isProfile ? <HomeNavBar /> : <ProfileNavBar />}
       <Wrapper variant={variant}>{children}</Wrapper>
     </>
   );

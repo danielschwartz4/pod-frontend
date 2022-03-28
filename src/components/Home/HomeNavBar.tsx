@@ -2,12 +2,12 @@ import { Box, Button, Flex, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { useLogoutMutation, useMeQuery } from "../generated/graphql";
-import { isServer } from "../utils/isServer";
+import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
+import { isServer } from "../../utils/isServer";
 
-interface NavBarProps {}
+interface HomeNavBarProps {}
 
-export const NavBar: React.FC<NavBarProps> = ({}) => {
+export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
   const [logout, { loading: logoutLoading }] = useLogoutMutation();
   const { data, loading, error } = useMeQuery({
     // !! Look up wtf this is!!!!!!!!
@@ -66,7 +66,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       zIndex={1}
       position="sticky"
       top={0}
-      bg="#E9DAC1"
+      bg="gray.600"
       ml={"auto"}
       p={8}
       m={-2}

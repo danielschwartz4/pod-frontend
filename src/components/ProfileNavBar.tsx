@@ -1,22 +1,11 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Link,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
-import { isServer } from "../utils/isServer";
 import bgImage from "../images/design.png";
-import { useRouter } from "next/router";
+import firstLogo from "../images/Logos/firstLogo.png";
+import { isServer } from "../utils/isServer";
 
 interface ProfileNavBarProps {}
 
@@ -48,9 +37,9 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
         <Flex fontSize={28} mt={6} ml={12} align={"center"}>
           <Box>
             <NextLink href="/">
-              <Link style={{ textDecoration: "none" }}>
-                <b>Pod</b>
-              </Link>
+              {/* <Link style={{ textDecoration: "none" }}> */}
+              <Image h={70} w={140} src={firstLogo.src} alt="" />
+              {/* </Link> */}
             </NextLink>
           </Box>
           <Flex align={"center"} ml={"80vw"}>
@@ -84,7 +73,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
       position="sticky"
       top={0}
       // bgGradient="linear(red.100 10%, orange.100 25%, yellow.100 50%)"
-      bgImage={bgImage.src}
+      bg={"gray.800"}
       ml={"auto"}
       pt={2}
       height={"10vh"}

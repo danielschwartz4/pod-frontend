@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Divider,
+  Flex,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -12,6 +14,12 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import React from "react";
+import {
+  DeleteIcon,
+  EditIcon,
+  InfoIcon,
+  InfoOutlineIcon,
+} from "@chakra-ui/icons";
 
 interface ProgressPopoverProps {
   close;
@@ -47,6 +55,42 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
           <PopoverFooter d="flex" justifyContent="flex-end">
             {children}
           </PopoverFooter>
+          <Divider variant="dashed" orientation="horizontal" />
+          <Flex>
+            <Button
+              margin={".3em"}
+              colorScheme={"tomato"}
+              variantColor="pink"
+              variant="outline"
+              cursor={"pointer"}
+              w={6}
+              h={6}
+            >
+              <EditIcon />
+            </Button>
+            <Button
+              margin={".3em"}
+              colorScheme={"tomato"}
+              variantColor="pink"
+              variant="outline"
+              cursor={"pointer"}
+              w={6}
+              h={6}
+            >
+              <DeleteIcon />
+            </Button>
+            <Button
+              margin={".3em"}
+              colorScheme={"tomato"}
+              variantColor="pink"
+              variant="outline"
+              cursor={"pointer"}
+              w={6}
+              h={6}
+            >
+              <InfoOutlineIcon />
+            </Button>
+          </Flex>
         </PopoverContent>
       </Popover>
     </>

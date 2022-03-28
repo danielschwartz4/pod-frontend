@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import ReactFlow from "react-flow-renderer";
+import ReactFlow, { Background } from "react-flow-renderer";
 import {
   ProjectDocument,
   ProjectQuery,
@@ -122,7 +122,14 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
             suppressHydrationWarning={true}
             onNodeDoubleClick={open}
             nodesDraggable={false}
+            preventScrolling={false}
           >
+            <Background
+              gap={50}
+              size={2}
+              color="firebrick"
+              style={{ background: "gray.800" }}
+            />
             {isMainProject ? (
               <Box>
                 <ProgressPopover close={close} isOpen={isOpen}>
