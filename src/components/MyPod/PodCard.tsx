@@ -7,9 +7,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import Image from "next/image";
-import ReactFlow, { MiniMap, ReactFlowProvider } from "react-flow-renderer";
-import bgImage from "../../images/design.png";
+import { ReactFlowProvider } from "react-flow-renderer";
 import FlowChart from "../MyProject/FlowChart";
 
 interface PodCardProps {
@@ -50,6 +48,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
                 isMainProject={false}
                 milestoneProgress={props.milestoneProgress}
                 milestones={props.milestones}
+                milestoneDates={props.milestoneDates}
               ></FlowChart>
             </ReactFlowProvider>
           </div>

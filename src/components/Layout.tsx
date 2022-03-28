@@ -1,5 +1,5 @@
 import React from "react";
-import { NavBar } from "./NavBar";
+import { NavBar } from "./HomeNavBar";
 import { ProfileNavBar } from "./ProfileNavBar";
 import { Wrapper, WrapperVariant } from "./Wrapper";
 

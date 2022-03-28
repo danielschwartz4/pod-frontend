@@ -57,6 +57,7 @@ const Home: React.FC<homeProps> = ({}) => {
                 projectData?.project?.project?.milestoneProgress
               }
               milestones={projectData?.project?.project?.milestones}
+              milestoneDates={projectData?.project?.project?.milestoneDates}
             />
           </TabPanel>
           <TabPanel>

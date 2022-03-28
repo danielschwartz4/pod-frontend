@@ -38,6 +38,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({ children }) => {
             key={p.id}
             milestones={p.milestones}
             milestoneProgress={p.milestoneProgress}
+            milestoneDates={p.milestoneDates}
           />
         ))}
       </HStack>

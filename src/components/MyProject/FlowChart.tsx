@@ -17,12 +17,14 @@ interface Node {
 
 interface horizontalFlowProps {
   milestones: string[];
+  milestoneDates: string[];
   milestoneProgress: number[];
   isMainProject?: boolean;
 }
 
 const FlowChart: React.FC<horizontalFlowProps> = ({
   milestones,
+  milestoneDates,
   milestoneProgress,
   isMainProject = true,
 }) => {
@@ -45,7 +47,12 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
     progress: number;
   });
 
-  const eles = init_elements(milestones, milestoneProgress, isMainProject);
+  const eles = init_elements(
+    milestones,
+    milestoneDates,
+    milestoneProgress,
+    isMainProject
+  );
   const [elements, setElements] = useState(eles);
 
   useEffect(() => {
@@ -65,7 +72,9 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
   }, [newProgress]);
 
   useEffect(() => {
-    setElements(init_elements(milestones, milestoneProg, isMainProject));
+    setElements(
+      init_elements(milestones, milestoneDates, milestoneProg, isMainProject)
+    );
     updateProjectProgress({
       variables: {
         milestoneProgress: milestoneProg,

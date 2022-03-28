@@ -47,7 +47,11 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
       <>
         <Flex fontSize={28} mt={6} ml={12} align={"center"}>
           <Box>
-            <b>Pod</b>
+            <NextLink href="/">
+              <Link style={{ textDecoration: "none" }}>
+                <b>Pod</b>
+              </Link>
+            </NextLink>
           </Box>
           <Flex align={"center"} ml={"80vw"}>
             <Box fontSize={18} mr={6}>
