@@ -1,12 +1,6 @@
-import { Grid, GridItem, HStack } from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import {
-  Project,
-  usePodProjectsQuery,
-  usePodQuery,
-  useProjectQuery,
-} from "../../generated/graphql";
-import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
+import { Grid, GridItem } from "@chakra-ui/react";
+import React from "react";
+import { Project } from "../../generated/graphql";
 import PodCard from "./PodCard";
 
 interface PodCreatedProps {
@@ -23,16 +17,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
       >
         {props.projectsData?.map((p, i) => (
           <GridItem colSpan={1} key={i}>
-            <PodCard
-              updatedAt={p.updatedAt}
-              createdAt={p.createdAt}
-              overview={p.overview}
-              projectName={p.projectName}
-              key={p.id}
-              milestones={p.milestones}
-              milestoneProgress={p.milestoneProgress}
-              milestoneDates={p.milestoneDates}
-            />
+            <PodCard project={p} />
           </GridItem>
         ))}
       </Grid>

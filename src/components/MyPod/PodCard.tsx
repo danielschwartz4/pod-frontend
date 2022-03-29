@@ -8,21 +8,15 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactFlowProvider } from "react-flow-renderer";
+import { Project } from "../../generated/graphql";
 import FlowChart from "../MyProject/FlowChart";
 
 interface PodCardProps {
-  username?: string;
-  milestones?: string[];
-  milestoneDates?: string[];
-  milestoneProgress?: number[];
-  overview: string;
-  projectName: string;
-  createdAt: string;
-  updatedAt: string;
+  project: Project;
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
-  const date = props.updatedAt.split(".")[0].split("T");
+  const date = props.project.updatedAt.split(".")[0].split("T");
   return (
     <Center py={6}>
       <Box
@@ -46,9 +40,9 @@ const PodCard: React.FC<PodCardProps> = (props) => {
             <ReactFlowProvider>
               <FlowChart
                 isMainProject={false}
-                milestoneProgress={props.milestoneProgress}
-                milestones={props.milestones}
-                milestoneDates={props.milestoneDates}
+                milestoneProgress={props.project.milestoneProgress}
+                milestones={props.project.milestones}
+                milestoneDates={props.project.milestoneDates}
               ></FlowChart>
             </ReactFlowProvider>
           </div>
@@ -61,19 +55,19 @@ const PodCard: React.FC<PodCardProps> = (props) => {
             fontSize={"sm"}
             letterSpacing={1.1}
           >
-            {props.username}
+            {props.project.userId}
           </Text>
           <Heading
             color={useColorModeValue("gray.700", "white")}
             fontSize={"2xl"}
             fontFamily={"body"}
           >
-            {props.projectName}
+            {props.project.projectName}
           </Heading>
 
           <Text color={"gray.500"}>
             {/* !! Make this cut off after certain number of words */}
-            {props.overview}
+            {props.project.overview}
           </Text>
         </Stack>
         <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
