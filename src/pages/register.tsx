@@ -9,6 +9,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { InputField } from "../components/Inputs/InputField";
@@ -19,7 +20,6 @@ import { toErrorMap } from "../utils/toErrorMap";
 interface registerProps {}
 
 const Register: React.FC<registerProps> = ({}) => {
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [register] = useRegisterMutation();
 
@@ -46,7 +46,7 @@ const Register: React.FC<registerProps> = ({}) => {
           boxShadow={"lg"}
           p={8}
         >
-          <Stack spacing={4}>
+          <Stack spacing={4} pr={8}>
             <Wrapper variant="small">
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}
@@ -101,6 +101,7 @@ const Register: React.FC<registerProps> = ({}) => {
                     <Stack spacing={10} pt={2}>
                       <Box>
                         <Button
+                          mt={4}
                           width={"434px"}
                           loadingText="Submitting"
                           size="lg"
@@ -118,7 +119,12 @@ const Register: React.FC<registerProps> = ({}) => {
                     </Stack>
                     <Stack pt={6}>
                       <Text align={"center"}>
-                        Already a user? <Link color={"blue.400"}>Login</Link>
+                        Already a user?{" "}
+                        <NextLink href={"/login"}>
+                          <Link color={"blue.400"} ml="auto">
+                            Login
+                          </Link>
+                        </NextLink>
                       </Text>
                     </Stack>
                   </Form>

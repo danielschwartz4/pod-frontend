@@ -35,7 +35,13 @@ const Login: React.FC<{}> = ({}) => {
             Sign in to your account
           </Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
+            or register
+            <NextLink href={"/register"}>
+              <Link color={"blue.400"} ml="auto">
+                here
+              </Link>
+            </NextLink>
+            ✌️
           </Text>
         </Stack>
 
@@ -45,7 +51,7 @@ const Login: React.FC<{}> = ({}) => {
           boxShadow={"lg"}
           p={8}
         >
-          <Stack spacing={4}>
+          <Stack spacing={4} pr={8}>
             <Wrapper variant="small">
               <Formik
                 initialValues={{ usernameOrEmail: "", password: "" }}

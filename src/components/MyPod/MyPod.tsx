@@ -9,6 +9,7 @@ import {
   useAddProjectToPodMutation,
   useCreatePodMutation,
   useFindPodQuery,
+  usePodProjectsQuery,
   usePodQuery,
   useRemoveProjectFromPodMutation,
   useUpdateProjectGroupSizeMutation,
@@ -47,6 +48,11 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   const [podJoined, setPodJoined] = useState(
     projectData?.project?.project?.podId != 0
   );
+
+  const { data: projectsData, loading: projectsDataLoading } =
+    usePodProjectsQuery({
+      variables: { podId: podData?.pod?.pod?.id },
+    });
 
   useEffect(() => {
     setPodJoined(projectData?.project?.project?.podId != 0);
@@ -182,7 +188,10 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
     <div>
       {podJoined ? (
         <div>
-          <PodCreated>
+          <PodCreated
+            podLength={podData?.pod?.pod?.projectIds.length}
+            projectsData={projectsData?.podProjects}
+          >
             <Button onClick={() => exitPod()}>exit pod</Button>
           </PodCreated>
         </div>

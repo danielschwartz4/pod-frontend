@@ -60,7 +60,6 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
             <Button
               margin={".3em"}
               colorScheme={"tomato"}
-              variantColor="pink"
               variant="outline"
               cursor={"pointer"}
               w={6}
@@ -71,7 +70,6 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
             <Button
               margin={".3em"}
               colorScheme={"tomato"}
-              variantColor="pink"
               variant="outline"
               cursor={"pointer"}
               w={6}
@@ -82,7 +80,6 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
             <Button
               margin={".3em"}
               colorScheme={"tomato"}
-              variantColor="pink"
               variant="outline"
               cursor={"pointer"}
               w={6}

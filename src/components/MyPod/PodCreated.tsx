@@ -1,6 +1,7 @@
-import { HStack } from "@chakra-ui/react";
+import { Grid, GridItem, HStack } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import {
+  Project,
   usePodProjectsQuery,
   usePodQuery,
   useProjectQuery,
@@ -8,71 +9,64 @@ import {
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import PodCard from "./PodCard";
 
-interface PodCreatedProps {}
+interface PodCreatedProps {
+  projectsData: Project[];
+  podLength: number;
+}
 // !! If length of users is 1 then say waiting for more users
-export const PodCreated: React.FC<PodCreatedProps> = ({ children }) => {
-  const { data: projectData, loading: projectDataLoading } =
-    useGetProjectFromUrl();
-
-  const { data: podData, loading: podDataLoading } = usePodQuery({
-    variables: { podId: projectData?.project?.project.podId },
-  });
-
-  if (podData?.pod?.errors && !podDataLoading) {
-    return <div>No pod data!</div>;
-  }
-
-  const { data: projectsData } = usePodProjectsQuery({
-    variables: { podId: podData?.pod?.pod?.id },
-  });
-
-  const horizProjects = (
+export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
+  const gridProjects = (
     <div>
-      <HStack spacing={"48px"} justifyContent={"center"}>
-        {projectsData?.podProjects.map((p, i) => (
-          <PodCard
-            updatedAt={p.updatedAt}
-            createdAt={p.createdAt}
-            overview={p.overview}
-            projectName={p.projectName}
-            key={p.id}
-            milestones={p.milestones}
-            milestoneProgress={p.milestoneProgress}
-            milestoneDates={p.milestoneDates}
-          />
+      <Grid
+        templateColumns="repeat(2, 1fr)"
+        // justifyContent={"center"}
+      >
+        {props.projectsData?.map((p, i) => (
+          <GridItem colSpan={1} key={i}>
+            <PodCard
+              updatedAt={p.updatedAt}
+              createdAt={p.createdAt}
+              overview={p.overview}
+              projectName={p.projectName}
+              key={p.id}
+              milestones={p.milestones}
+              milestoneProgress={p.milestoneProgress}
+              milestoneDates={p.milestoneDates}
+            />
+          </GridItem>
         ))}
-      </HStack>
+      </Grid>
     </div>
   );
 
-  if (podData?.pod?.pod?.projectIds.length == 1) {
+  if (props.podLength == 1) {
     return (
       <div>
-        {horizProjects}
+        {gridProjects}
         {children}
       </div>
     );
   }
-  if (podData?.pod?.pod?.projectIds.length == 2) {
+  if (props.podLength == 2) {
     return (
       <div>
-        {horizProjects}
+        {gridProjects}
         {children}
       </div>
     );
   }
-  if (podData?.pod?.pod?.projectIds.length == 3) {
+  if (props.podLength == 3) {
     return (
       <div>
-        3 people
+        {gridProjects}
         {children}
       </div>
     );
   }
-  if (podData?.pod?.pod?.projectIds.length == 4) {
+  if (props.podLength == 4) {
     return (
       <div>
-        4 projects
+        {gridProjects}
         {children}
       </div>
     );
