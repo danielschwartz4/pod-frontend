@@ -189,6 +189,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       {podJoined ? (
         <div>
           <PodCreated
+            isMainProject={false}
             podLength={podData?.pod?.pod?.projectIds.length}
             projectsData={projectsData?.podProjects}
           >

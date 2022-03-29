@@ -5,6 +5,7 @@ import PodCard from "./PodCard";
 
 interface PodCreatedProps {
   projectsData: Project[];
+  isMainProject: boolean;
   podLength: number;
 }
 // !! If length of users is 1 then say waiting for more users
@@ -17,7 +18,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
       >
         {props.projectsData?.map((p, i) => (
           <GridItem colSpan={1} key={i}>
-            <PodCard project={p} />
+            <PodCard isMainProject={props.isMainProject} project={p} />
           </GridItem>
         ))}
       </Grid>

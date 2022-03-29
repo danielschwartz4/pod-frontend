@@ -13,6 +13,7 @@ import FlowChart from "../MyProject/FlowChart";
 
 interface PodCardProps {
   project: Project;
+  isMainProject: boolean;
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
@@ -39,7 +40,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
           <div style={{ width: "100%", height: "100%" }}>
             <ReactFlowProvider>
               <FlowChart
-                isMainProject={false}
+                isMainProject={props.isMainProject}
                 milestoneProgress={props.project.milestoneProgress}
                 milestones={props.project.milestones}
                 milestoneDates={props.project.milestoneDates}

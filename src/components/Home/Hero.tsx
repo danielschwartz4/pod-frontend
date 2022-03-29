@@ -24,15 +24,14 @@ const Hero: React.FC<HeroProps> = ({}) => {
           right={0}
           zIndex={1}
         >
-          <PodCard
-            milestones={SeedData.E1Milestones}
-            milestoneDates={SeedData.E1milestoneDates}
-            milestoneProgress={SeedData.E1milestoneProgress}
-            overview={SeedData.E1Overview}
-            createdAt={SeedData.E1CreatedAt}
-            updatedAt={SeedData.E1UpdatedAt}
-            projectName={SeedData.E1ProjectName}
-          ></PodCard>
+          <PodCreated
+            podLength={1}
+            isMainProject={true}
+            projectsData={[SeedData.ExampleProject1.project]}
+          ></PodCreated>
+          {/* <PodCard
+            project={SeedData.ExampleProject1.project}
+          ></PodCard> */}
         </Box>
         <Image opacity={"20%"} src={bgImage.src}></Image>
       </Box>
