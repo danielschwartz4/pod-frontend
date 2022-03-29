@@ -1,9 +1,17 @@
-import { Box, Button, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Link,
+  Stack,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import router from "next/router";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
@@ -11,77 +19,116 @@ import { toErrorMap } from "../utils/toErrorMap";
 interface registerProps {}
 
 const Register: React.FC<registerProps> = ({}) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const [register] = useRegisterMutation();
 
   return (
-    <Layout>
-      <Wrapper variant="small">
-        <Heading>Enter your info!</Heading>
-
-        <Formik
-          initialValues={{ username: "", email: "", password: "" }}
-          onSubmit={async (values, { setErrors }) => {
-            const response = await register({
-              variables: {
-                options: {
-                  ...values,
-                },
-              },
-              update: (cache, { data }) => {
-                cache.writeQuery<MeQuery>({
-                  query: MeDocument,
-                  data: {
-                    __typename: "Query",
-                    me: data?.register.user,
-                  },
-                });
-              },
-            });
-            console.log(response);
-            if (response.data.register.errors) {
-              setErrors(toErrorMap(response.data.register.errors));
-            } else if (response.data.register.user) {
-              router.push("/project-info");
-            }
-          }}
+    <Flex
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+      m={-2}
+    >
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"} textAlign={"center"} color={"gainsboro"}>
+            Sign up
+          </Heading>
+          <Text fontSize={"lg"} color={"gray.600"}>
+            to enjoy all of our cool features ✌️
+          </Text>
+        </Stack>
+        <Box
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
+          p={8}
         >
-          {({ isSubmitting }) => (
-            <Form>
-              <Box>
-                <InputField
-                  name="username"
-                  placeholder="username"
-                  label="Username"
-                ></InputField>
-                <Box mt={4}>
-                  <InputField
-                    name="email"
-                    placeholder="email"
-                    label="Email"
-                  ></InputField>
-                </Box>
-                <Box mt={4}>
-                  <InputField
-                    name="password"
-                    placeholder="password"
-                    label="Password"
-                  ></InputField>
-                </Box>
-                <Button
-                  mx={"auto"}
-                  mt={4}
-                  type="submit"
-                  isLoading={isSubmitting ? true : false}
-                >
-                  Register
-                </Button>
-              </Box>
-            </Form>
-          )}
-        </Formik>
-        {/* </Box> */}
-      </Wrapper>
-    </Layout>
+          <Stack spacing={4}>
+            <Wrapper variant="small">
+              <Formik
+                initialValues={{ username: "", email: "", password: "" }}
+                onSubmit={async (values, { setErrors }) => {
+                  const response = await register({
+                    variables: {
+                      options: {
+                        ...values,
+                      },
+                    },
+                    update: (cache, { data }) => {
+                      cache.writeQuery<MeQuery>({
+                        query: MeDocument,
+                        data: {
+                          __typename: "Query",
+                          me: data?.register.user,
+                        },
+                      });
+                    },
+                  });
+                  console.log(response);
+                  if (response.data.register.errors) {
+                    setErrors(toErrorMap(response.data.register.errors));
+                  } else if (response.data.register.user) {
+                    router.push("/project-info");
+                  }
+                }}
+              >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <Box>
+                      <InputField
+                        name="username"
+                        placeholder="username"
+                        label="Username"
+                      ></InputField>
+                      <Box mt={4}>
+                        <InputField
+                          name="email"
+                          placeholder="email"
+                          label="Email"
+                        ></InputField>
+                      </Box>
+                      <Box mt={4}>
+                        <InputField
+                          name="password"
+                          placeholder="password"
+                          label="Password"
+                        ></InputField>
+                      </Box>
+                    </Box>
+                    <Stack spacing={10} pt={2}>
+                      <Box>
+                        <Button
+                          width={"434px"}
+                          loadingText="Submitting"
+                          size="lg"
+                          bg={"blue.400"}
+                          color={"white"}
+                          _hover={{
+                            bg: "blue.500",
+                          }}
+                          type="submit"
+                          isLoading={isSubmitting ? true : false}
+                        >
+                          Sign up
+                        </Button>
+                      </Box>
+                    </Stack>
+                    <Stack pt={6}>
+                      <Text align={"center"}>
+                        Already a user? <Link color={"blue.400"}>Login</Link>
+                      </Text>
+                    </Stack>
+                  </Form>
+                )}
+              </Formik>
+            </Wrapper>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   );
 };
 

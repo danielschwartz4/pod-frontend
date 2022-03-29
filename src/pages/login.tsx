@@ -14,7 +14,6 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { Layout } from "../components/Layout";
 import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
@@ -101,7 +100,7 @@ const Login: React.FC<{}> = ({}) => {
                         direction={{ base: "column", sm: "row" }}
                         align={"start"}
                         justify={"space-between"}
-                        mt={4}
+                        mt={6}
                       >
                         <Checkbox color={"blue.400"}>Remember me</Checkbox>
                         <NextLink href={"/forgot-password"}>
@@ -119,6 +118,7 @@ const Login: React.FC<{}> = ({}) => {
                         isLoading={isSubmitting}
                         type="submit"
                         justifyContent={"center"}
+                        width={"434px"}
                       >
                         Sign in
                       </Button>
