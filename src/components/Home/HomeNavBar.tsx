@@ -63,7 +63,7 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
 
   return (
     <Flex
-      zIndex={1}
+      zIndex={2}
       position="sticky"
       top={0}
       bg="gray.600"

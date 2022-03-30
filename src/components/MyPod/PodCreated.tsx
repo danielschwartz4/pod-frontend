@@ -13,14 +13,23 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
   const gridProjects = (
     <div>
       <Grid
-        templateColumns="repeat(2, 1fr)"
-        // justifyContent={"center"}
+        templateColumns="repeat(4, 1fr)"
+        // colGap={4}
+        // rowGap={4}
+        gap={4}
+        textAlign={"center"}
       >
-        {props.projectsData?.map((p, i) => (
-          <GridItem colSpan={1} key={i}>
-            <PodCard isMainProject={props.isMainProject} project={p} />
-          </GridItem>
-        ))}
+        {props.projectsData?.map((p, i) =>
+          (i == 2 && props.podLength == 3) || props.podLength == 1 ? (
+            <GridItem colStart={2} colEnd={4} key={i}>
+              <PodCard isMainProject={props.isMainProject} project={p} />
+            </GridItem>
+          ) : (
+            <GridItem colSpan={2} key={i}>
+              <PodCard isMainProject={props.isMainProject} project={p} />
+            </GridItem>
+          )
+        )}
       </Grid>
     </div>
   );

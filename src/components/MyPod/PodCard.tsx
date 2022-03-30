@@ -19,7 +19,7 @@ interface PodCardProps {
 const PodCard: React.FC<PodCardProps> = (props) => {
   const date = props.project.updatedAt.split(".")[0].split("T");
   return (
-    <Center py={6}>
+    <Center>
       <Box
         maxW={"350px"}
         minH={"450px"}

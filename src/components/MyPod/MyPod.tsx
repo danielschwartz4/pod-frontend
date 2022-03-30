@@ -192,9 +192,8 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
             isMainProject={false}
             podLength={podData?.pod?.pod?.projectIds.length}
             projectsData={projectsData?.podProjects}
-          >
-            <Button onClick={() => exitPod()}>exit pod</Button>
-          </PodCreated>
+          ></PodCreated>
+          <Button onClick={() => exitPod()}>exit pod</Button>
         </div>
       ) : (
         <div>

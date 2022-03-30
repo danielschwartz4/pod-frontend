@@ -3,7 +3,6 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
-import bgImage from "../images/design.png";
 import firstLogo from "../images/Logos/firstLogo.png";
 import { isServer } from "../utils/isServer";
 
@@ -38,7 +37,13 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
           <Box>
             <NextLink href="/">
               {/* <Link style={{ textDecoration: "none" }}> */}
-              <Image h={70} w={140} src={firstLogo.src} alt="" />
+              <Image
+                cursor={"pointer"}
+                h={70}
+                w={140}
+                src={firstLogo.src}
+                alt=""
+              />
               {/* </Link> */}
             </NextLink>
           </Box>

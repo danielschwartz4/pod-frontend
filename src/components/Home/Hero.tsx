@@ -9,31 +9,31 @@ interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
   return (
-    <Box
-      h={"100vh"}
-      w={"100vh"}
-      backgroundPosition="top"
-      backgroundRepeat={"repeat-y"}
-    >
-      <Box h={"60%"} w={"60%"}>
+    <Box h={"100vh"} w={"100vh"} p={12}>
+      <Box h={"60%"} w={"100%"}>
         <Box
           position={"absolute"}
           mr={"6em"}
           top={0}
-          mt={"6em"}
+          mt={"8em"}
+          p={2}
           right={0}
           zIndex={1}
+          borderRadius={20}
+          border={"4px"}
+          borderColor={"#F6793D"}
         >
           <PodCreated
-            podLength={1}
+            podLength={3}
             isMainProject={true}
-            projectsData={[SeedData.ExampleProject1.project]}
+            projectsData={[
+              SeedData.ExampleProject1.project,
+              SeedData.ExampleProject2.project,
+              SeedData.ExampleProject3.project,
+            ]}
           ></PodCreated>
-          {/* <PodCard
-            project={SeedData.ExampleProject1.project}
-          ></PodCard> */}
         </Box>
-        <Image opacity={"20%"} src={bgImage.src}></Image>
+        <Image mr={"100px"} opacity={"10%"} src={bgImage.src}></Image>
       </Box>
     </Box>
   );
