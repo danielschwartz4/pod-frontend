@@ -1,4 +1,10 @@
-import { Box, Button, ButtonGroup } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  PopoverBody,
+  PopoverFooter,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import {
@@ -150,35 +156,44 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
                       : null
                   }
                 >
-                  <ButtonGroup size="sm">
-                    <Button
-                      onClick={() => {
-                        setIsOpen(!isOpen);
-                        setNewProgress({ id: currNode.id, progress: 1 });
-                      }}
-                      background="#F26D51"
-                    >
-                      not yet!
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setIsOpen(!isOpen);
-                        setNewProgress({ id: currNode.id, progress: 2 });
-                      }}
-                      background="#6097F8"
-                    >
-                      in progress
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setIsOpen(!isOpen);
-                        setNewProgress({ id: currNode.id, progress: 3 });
-                      }}
-                      background="#3EE76D"
-                    >
-                      all done!
-                    </Button>
-                  </ButtonGroup>
+                  <PopoverBody>
+                    <Box>
+                      {typeof currNode.id === "string"
+                        ? milestones[currNode.id.split("-")[1]]
+                        : null}
+                    </Box>
+                  </PopoverBody>
+                  <PopoverFooter d="flex" justifyContent="flex-end">
+                    <ButtonGroup size="sm">
+                      <Button
+                        onClick={() => {
+                          setIsOpen(!isOpen);
+                          setNewProgress({ id: currNode.id, progress: 1 });
+                        }}
+                        background="#F26D51"
+                      >
+                        not done!
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setIsOpen(!isOpen);
+                          setNewProgress({ id: currNode.id, progress: 2 });
+                        }}
+                        background="#6097F8"
+                      >
+                        in progress
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          setIsOpen(!isOpen);
+                          setNewProgress({ id: currNode.id, progress: 3 });
+                        }}
+                        background="#3EE76D"
+                      >
+                        all done!
+                      </Button>
+                    </ButtonGroup>
+                  </PopoverFooter>
                 </ProgressPopover>
               </Box>
             ) : (

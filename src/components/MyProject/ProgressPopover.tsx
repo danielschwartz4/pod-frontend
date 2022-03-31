@@ -51,12 +51,8 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
           <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverBody>
-            <Box>Have you completed this milestone?</Box>
-          </PopoverBody>
-          <PopoverFooter d="flex" justifyContent="flex-end">
-            {children}
-          </PopoverFooter>
+
+          {children}
           <Divider variant="dashed" orientation="horizontal" />
           <Flex alignItems={"center"}>
             <Button

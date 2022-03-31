@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
       >
         <PodCreated
           podLength={3}
-          isMainProject={true}
+          isMainProject={false}
           projectsData={[
             SeedData.ExampleProject1.project,
             SeedData.ExampleProject2.project,

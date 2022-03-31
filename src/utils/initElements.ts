@@ -29,11 +29,12 @@ export default function init_elements(
       sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
       targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
       type: i == 0 ? "input" : null,
-      data: isMainProject
-        ? {
-            label: milestones[i],
-          }
-        : { label: date },
+      data:
+        milestones[i].length > 94
+          ? {
+              label: milestones[i].slice(0, 94) + "...",
+            }
+          : { label: milestones[i] },
       position: goingRight
         ? { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 }
         : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 100 },
