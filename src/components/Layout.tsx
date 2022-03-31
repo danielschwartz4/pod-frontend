@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { HomeNavBar } from "./Home/HomeNavBar";
 import { ProfileNavBar } from "./ProfileNavBar";
@@ -15,7 +16,8 @@ export const Layout: React.FC<LayoutProps> = ({
 }) => {
   return (
     <>
-      {!isProfile ? <HomeNavBar /> : <ProfileNavBar />}
+      <Box w={"100vw"}>{!isProfile ? <HomeNavBar /> : <ProfileNavBar />}</Box>
+
       <Wrapper variant={variant}>{children}</Wrapper>
     </>
   );

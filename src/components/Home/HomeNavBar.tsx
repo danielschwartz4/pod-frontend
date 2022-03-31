@@ -1,9 +1,10 @@
-import { Box, Button, Flex, Link } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
+import firstLogo from "../../images/Logos/firstLogo.png";
 
 interface HomeNavBarProps {}
 
@@ -31,8 +32,25 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
     );
   } else {
     body = (
-      <>
-        <Flex alignItems={"center"}>
+      // <>
+      <Flex w={"100%"} textColor={"gainsboro"}>
+        <Flex>
+          <NextLink href="/">
+            <Image
+              cursor={"pointer"}
+              h={70}
+              w={200}
+              src={firstLogo.src}
+              alt=""
+            />
+          </NextLink>
+        </Flex>
+        <Flex
+          w={"100%"}
+          position={"relative"}
+          justifyContent={"end"}
+          alignItems={"center"}
+        >
           <Box mr={6} fontSize={18}>
             {data.me.username}
           </Box>
@@ -57,7 +75,8 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
             Logout
           </Button>
         </Flex>
-      </>
+      </Flex>
+      // </>
     );
   }
 
@@ -65,15 +84,14 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
     <Flex
       zIndex={2}
       position="sticky"
-      top={0}
-      bg="gray.600"
-      ml={"auto"}
-      p={8}
+      bg={"gray.800"}
       m={-2}
+      px="6"
+      py="5"
+      align="center"
+      justify="space-between"
     >
-      <Box mr={2} ml={"auto"}>
-        {body}
-      </Box>
+      {body}
     </Flex>
   );
 };

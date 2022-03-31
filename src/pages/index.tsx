@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Features } from "../components/Home/Features/Features";
+import { Footer } from "../components/Home/Footer";
 import Hero from "../components/Home/Hero";
 import Selector from "../components/Home/Selector";
 import { Layout } from "../components/Layout";
