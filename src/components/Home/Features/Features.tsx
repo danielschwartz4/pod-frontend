@@ -14,6 +14,7 @@ export const Features: React.FC<FeaturesProps> = ({}) => {
   return (
     <Box as="section" maxW="5xl" mx="auto" py="12" px={{ base: "6", md: "8" }}>
       <SimpleGrid
+        textColor={"gainsboro"}
         columns={{ base: 1, md: 2 }}
         spacingX="10"
         spacingY={{ base: "8", md: "14" }}

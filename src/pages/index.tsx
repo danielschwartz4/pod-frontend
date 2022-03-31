@@ -11,9 +11,15 @@ const Index: React.FC<IndexProps> = ({}) => {
   return (
     <Box bg={"gray.800"} ml={-2} mr={-2}>
       <Layout>
-        <Hero></Hero>
-        <Selector></Selector>
-        <Features></Features>
+        <Box>
+          <Hero></Hero>
+        </Box>
+        <Box mt={"12em"}>
+          <Selector></Selector>
+        </Box>
+        <Box mt={"6em"}>
+          <Features></Features>
+        </Box>
       </Layout>
     </Box>
   );

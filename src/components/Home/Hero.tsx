@@ -8,7 +8,6 @@ import SeedData from "./SeedHomeData";
 interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
-  // !! FIX THE HACK OF PADDING IN THE IMAGE TAG
   return (
     <Box h={"100vh"} w={"100vh"}>
       <Box

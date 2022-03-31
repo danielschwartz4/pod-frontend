@@ -133,7 +133,8 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
             paneMoveable={false}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
-            onNodeDoubleClick={open}
+            // onNodeDoubleClick={open}
+            onNodeMouseEnter={open}
             nodesDraggable={false}
             preventScrolling={false}
           >
