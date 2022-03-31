@@ -13,6 +13,11 @@ import { useGetIntId } from "../../utils/useGetIntId";
 
 interface Node {
   id: string;
+  milestoneDates: string[];
+  data: {
+    label: [milestone: string, milestoneDate: string];
+  };
+  date: string;
 }
 
 interface horizontalFlowProps {
@@ -35,6 +40,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const open = (e, node) => {
+    console.log(node);
     setCurrNode(node);
     setIsOpen(!isOpen);
   };
@@ -102,6 +108,8 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
 
   const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
 
+  // !! Change progress popover to change the date on the popover!!
+
   return (
     <>
       {loading && !data ? (
@@ -132,7 +140,15 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
             />
             {isMainProject ? (
               <Box>
-                <ProgressPopover close={close} isOpen={isOpen}>
+                <ProgressPopover
+                  close={close}
+                  isOpen={isOpen}
+                  completionDate={
+                    typeof currNode.id === "string"
+                      ? currNode.data.label[1].split(" 00")[0]
+                      : null
+                  }
+                >
                   <ButtonGroup size="sm">
                     <Button
                       onClick={() => {

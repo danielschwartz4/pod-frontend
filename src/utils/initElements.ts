@@ -16,7 +16,7 @@ export default function init_elements(
   isMainProject: boolean
 ) {
   const elements = [];
-  let goingRight: boolean;
+  let goingRight = false;
 
   milestones?.forEach((element, i) => {
     const date = milestoneDates[i].split(" 00")[0];
@@ -29,14 +29,20 @@ export default function init_elements(
       sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
       targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
       type: i == 0 ? "input" : null,
-      data: isMainProject ? { label: milestones[i] } : { label: date },
+      data: isMainProject
+        ? {
+            label: [milestones[i], milestoneDates[i]],
+          }
+        : { label: date },
       position: goingRight
         ? { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 }
-        : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 200 },
+        : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 100 },
       style: {
         background: nodeProgressMap[milestoneProgress[i]],
         color: "black",
         border: "1px solid #222138",
+        // !! Figure this out
+        date: milestoneDates[i],
       },
     });
 

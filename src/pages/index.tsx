@@ -1,14 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Select,
-  Stack,
-} from "@chakra-ui/react";
-import { Formik } from "formik";
-import router from "next/router";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Features } from "../components/Home/Features/Features";
 import Hero from "../components/Home/Hero";

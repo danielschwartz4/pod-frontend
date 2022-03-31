@@ -24,11 +24,13 @@ import {
 interface ProgressPopoverProps {
   close;
   isOpen: boolean;
+  completionDate: string;
 }
 
 const ProgressPopover: React.FC<ProgressPopoverProps> = ({
   close,
   isOpen,
+  completionDate,
   children,
 }) => {
   return (
@@ -56,7 +58,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
             {children}
           </PopoverFooter>
           <Divider variant="dashed" orientation="horizontal" />
-          <Flex>
+          <Flex alignItems={"center"}>
             <Button
               margin={".3em"}
               colorScheme={"tomato"}
@@ -87,6 +89,9 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
             >
               <InfoOutlineIcon />
             </Button>
+            <Box ml={"auto"} mr={"1em"}>
+              DOC: {completionDate}
+            </Box>
           </Flex>
         </PopoverContent>
       </Popover>
