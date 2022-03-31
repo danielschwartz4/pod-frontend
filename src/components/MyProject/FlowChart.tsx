@@ -15,7 +15,7 @@ interface Node {
   id: string;
   milestoneDates: string[];
   data: {
-    label: [milestone: string, milestoneDate: string];
+    label: string;
   };
   date: string;
 }
@@ -40,7 +40,6 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const open = (e, node) => {
-    console.log(node);
     setCurrNode(node);
     setIsOpen(!isOpen);
   };
@@ -145,7 +144,9 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
                   isOpen={isOpen}
                   completionDate={
                     typeof currNode.id === "string"
-                      ? currNode.data.label[1].split(" 00")[0]
+                      ? milestoneDates[currNode.id.split("-")[1]].split(
+                          " 00"
+                        )[0]
                       : null
                   }
                 >

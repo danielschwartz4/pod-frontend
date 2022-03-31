@@ -31,7 +31,7 @@ export default function init_elements(
       type: i == 0 ? "input" : null,
       data: isMainProject
         ? {
-            label: [milestones[i], milestoneDates[i]],
+            label: milestones[i],
           }
         : { label: date },
       position: goingRight
@@ -41,8 +41,6 @@ export default function init_elements(
         background: nodeProgressMap[milestoneProgress[i]],
         color: "black",
         border: "1px solid #222138",
-        // !! Figure this out
-        date: milestoneDates[i],
       },
     });
 
