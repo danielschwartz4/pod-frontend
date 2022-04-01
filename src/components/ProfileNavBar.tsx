@@ -1,6 +1,6 @@
 import { Box, Button, Flex, HStack, Image, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import firstLogo from "../images/Logos/firstLogo.png";
@@ -21,14 +21,25 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
   if (loading || !isReady) {
   } else if (!data?.me) {
     body = (
-      <>
-        <NextLink href="/login">
-          <Link mr={2}>login</Link>
-        </NextLink>
-        <NextLink href="/register">
-          <Link>register</Link>
-        </NextLink>
-      </>
+      <Flex w={"100%"} justifyContent={"end"}>
+        <Button
+          textColor={"gainsboro"}
+          color={"gainsboro"}
+          cursor={"pointer"}
+          onClick={() => router.push("/register")}
+          mr={"1em"}
+        >
+          Join the community!
+        </Button>
+        <Button
+          textColor={"gainsboro"}
+          color={"gainsboro"}
+          cursor={"pointer"}
+          onClick={() => router.push("/login")}
+        >
+          Login
+        </Button>
+      </Flex>
     );
   } else {
     body = (

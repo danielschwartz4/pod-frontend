@@ -9,17 +9,18 @@ const edgeProgressMap = {
   2: true,
   3: false,
 };
+
+const milestoneSnippetSize = 94;
+
 export default function init_elements(
   milestones: string[],
   milestoneDates: string[],
-  milestoneProgress: number[],
-  isMainProject: boolean
+  milestoneProgress: number[]
 ) {
   const elements = [];
   let goingRight = false;
 
-  milestones?.forEach((element, i) => {
-    const date = milestoneDates[i].split(" 00")[0];
+  milestones?.forEach((_, i) => {
     if (i % 3 == 0) {
       goingRight = !goingRight;
     }
@@ -30,7 +31,7 @@ export default function init_elements(
       targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
       type: i == 0 ? "input" : null,
       data:
-        milestones[i].length > 94
+        milestones[i].length > milestoneSnippetSize
           ? {
               label: milestones[i].slice(0, 94) + "...",
             }

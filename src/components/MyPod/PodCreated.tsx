@@ -6,21 +6,15 @@ import PodCard from "./PodCard";
 interface PodCreatedProps {
   projectsData: Project[];
   isMainProject: boolean;
-  podLength: number;
 }
 // !! If length of users is 1 then say waiting for more users
 export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
+  const podLength = props.projectsData?.length;
   const gridProjects = (
     <div>
-      <Grid
-        templateColumns="repeat(4, 1fr)"
-        // colGap={4}
-        // rowGap={4}
-        gap={4}
-        textAlign={"center"}
-      >
+      <Grid templateColumns="repeat(4, 1fr)" gap={4} textAlign={"center"}>
         {props.projectsData?.map((p, i) =>
-          (i == 2 && props.podLength == 3) || props.podLength == 1 ? (
+          (i == 2 && podLength == 3) || podLength == 1 ? (
             <GridItem colStart={2} colEnd={4} key={i}>
               <PodCard isMainProject={props.isMainProject} project={p} />
             </GridItem>
@@ -34,7 +28,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
     </div>
   );
 
-  if (props.podLength == 1) {
+  if (podLength == 1) {
     return (
       <div>
         {gridProjects}
@@ -42,7 +36,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
       </div>
     );
   }
-  if (props.podLength == 2) {
+  if (podLength == 2) {
     return (
       <div>
         {gridProjects}
@@ -50,7 +44,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
       </div>
     );
   }
-  if (props.podLength == 3) {
+  if (podLength == 3) {
     return (
       <div>
         {gridProjects}
@@ -58,7 +52,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
       </div>
     );
   }
-  if (props.podLength == 4) {
+  if (podLength == 4) {
     return (
       <div>
         {gridProjects}

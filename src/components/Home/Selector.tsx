@@ -31,7 +31,7 @@ const Selector: React.FC<SelectorProps> = ({}) => {
           cursor={"pointer"}
           onClick={() => router.push("/register")}
         >
-          Go
+          Join a pod! 😆
         </Button>
       </Box>
     </Flex>

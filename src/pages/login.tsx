@@ -7,6 +7,7 @@ import {
   Link,
   Stack,
   Text,
+  Image,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -17,6 +18,7 @@ import { InputField } from "../components/Inputs/InputField";
 import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
+import firstLogo from "../images/Logos/firstLogo.png";
 
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
@@ -29,6 +31,11 @@ const Login: React.FC<{}> = ({}) => {
       bg={"gray.800"}
       m={-2}
     >
+      <Flex pos={"absolute"} top={0} left={0} p={6}>
+        <NextLink href="/">
+          <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
+        </NextLink>
+      </Flex>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} color={"gainsboro"}>
@@ -37,7 +44,7 @@ const Login: React.FC<{}> = ({}) => {
           <Text fontSize={"lg"} color={"gray.600"}>
             or register
             <NextLink href={"/register"}>
-              <Link color={"blue.400"} ml="auto">
+              <Link color={"blue.400"} ml="auto" marginLeft={"0.3em"}>
                 here
               </Link>
             </NextLink>

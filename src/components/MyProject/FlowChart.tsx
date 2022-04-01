@@ -45,7 +45,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
   const projectId = useGetIntId();
 
   const [isOpen, setIsOpen] = useState(false);
-  const open = (e, node) => {
+  const open = (_, node) => {
     setCurrNode(node);
     setIsOpen(!isOpen);
   };
@@ -58,12 +58,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
     progress: number;
   });
 
-  const eles = init_elements(
-    milestones,
-    milestoneDates,
-    milestoneProgress,
-    isMainProject
-  );
+  const eles = init_elements(milestones, milestoneDates, milestoneProgress);
   const [elements, setElements] = useState(eles);
 
   useEffect(() => {
@@ -83,9 +78,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
   }, [newProgress]);
 
   useEffect(() => {
-    setElements(
-      init_elements(milestones, milestoneDates, milestoneProg, isMainProject)
-    );
+    setElements(init_elements(milestones, milestoneDates, milestoneProg));
     updateProjectProgress({
       variables: {
         milestoneProgress: milestoneProg,
@@ -164,7 +157,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
                         : null}
                     </Box>
                   </PopoverBody>
-                  <PopoverFooter d="flex" justifyContent="flex-end">
+                  <PopoverFooter d="flex" justifyContent="center">
                     <ButtonGroup size="sm">
                       <Button
                         onClick={() => {
@@ -173,7 +166,7 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
                         }}
                         background="#F26D51"
                       >
-                        not done!
+                        not started!
                       </Button>
                       <Button
                         onClick={() => {

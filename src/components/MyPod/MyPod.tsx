@@ -1,5 +1,12 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   PodDocument,
@@ -190,10 +197,11 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
         <div>
           <PodCreated
             isMainProject={false}
-            podLength={podData?.pod?.pod?.projectIds.length}
             projectsData={projectsData?.podProjects}
           ></PodCreated>
-          <Button onClick={() => exitPod()}>exit pod</Button>
+          <Box mt={"2em"}>
+            <Button onClick={() => exitPod()}>exit pod</Button>
+          </Box>
         </div>
       ) : (
         <div>

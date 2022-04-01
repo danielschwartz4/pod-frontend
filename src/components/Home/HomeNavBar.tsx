@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Image, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import React from "react";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import { isServer } from "../../utils/isServer";
@@ -21,30 +21,30 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
   if (loading || !isReady) {
   } else if (!data?.me) {
     body = (
-      <Flex>
-        <NextLink href="/login">
-          <Link mr={2}>login</Link>
-        </NextLink>
-        <NextLink href="/register">
-          <Link>register</Link>
-        </NextLink>
+      <Flex w={"100%"} justifyContent={"end"}>
+        <Button
+          textColor={"gainsboro"}
+          color={"gainsboro"}
+          cursor={"pointer"}
+          onClick={() => router.push("/register")}
+          mr={"1em"}
+        >
+          Join the community!
+        </Button>
+        <Button
+          textColor={"gainsboro"}
+          color={"gainsboro"}
+          cursor={"pointer"}
+          onClick={() => router.push("/login")}
+        >
+          Login
+        </Button>
       </Flex>
     );
   } else {
     body = (
       // <>
       <Flex w={"100%"} textColor={"gainsboro"}>
-        <Flex>
-          <NextLink href="/">
-            <Image
-              cursor={"pointer"}
-              h={70}
-              w={200}
-              src={firstLogo.src}
-              alt=""
-            />
-          </NextLink>
-        </Flex>
         <Flex
           w={"100%"}
           position={"relative"}
@@ -91,6 +91,11 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
       align="center"
       justify="space-between"
     >
+      <Flex>
+        <NextLink href="/">
+          <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
+        </NextLink>
+      </Flex>
       {body}
     </Flex>
   );

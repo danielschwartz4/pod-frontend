@@ -6,16 +6,18 @@ import {
   Link,
   Stack,
   Text,
+  Image,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { InputField } from "../components/Inputs/InputField";
 import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
+import firstLogo from "../images/Logos/firstLogo.png";
 
 interface registerProps {}
 
@@ -31,13 +33,18 @@ const Register: React.FC<registerProps> = ({}) => {
       bg={useColorModeValue("gray.50", "gray.800")}
       m={-2}
     >
+      <Flex pos={"absolute"} top={0} left={0} p={6}>
+        <NextLink href="/">
+          <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
+        </NextLink>
+      </Flex>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"} color={"gainsboro"}>
-            Sign up
+            Join the community!
           </Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool features ✌️
+            to enjoy all of our cool features 🔥
           </Text>
         </Stack>
         <Box
@@ -113,7 +120,7 @@ const Register: React.FC<registerProps> = ({}) => {
                           type="submit"
                           isLoading={isSubmitting ? true : false}
                         >
-                          Sign up
+                          Join the community!
                         </Button>
                       </Box>
                     </Stack>
