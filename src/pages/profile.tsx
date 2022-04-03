@@ -1,18 +1,23 @@
+import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
   Divider,
+  Flex,
   Grid,
   GridItem,
   Heading,
   Link,
   VStack,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
-import { useMeQuery, useProjectsQuery } from "../generated/graphql";
+import {
+  useDeleteProjectMutation,
+  useMeQuery,
+  useProjectsQuery,
+} from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
-import NextLink from "next/link";
-import { Warning } from "../components/Warning";
 
 interface profileProps {}
 
@@ -22,10 +27,11 @@ const Profile: React.FC<profileProps> = ({}) => {
 
   const { data: projectsData, refetch } = useProjectsQuery();
 
+  const [deleteProject] = useDeleteProjectMutation();
+
   useEffect(() => {
     refetch();
   }, [loading, data]);
-  console.log(projectsData);
 
   if (!projectsData?.projects) {
     return (
@@ -63,11 +69,35 @@ const Profile: React.FC<profileProps> = ({}) => {
                   <Box textAlign={"center"} h={"120px"} margin={"auto"}>
                     <NextLink href="/project/[id]" as={`/project/${p.id}`}>
                       <Link>
-                        <Heading fontSize="xl">timeline outline</Heading>
+                        <Heading fontSize="xl">
+                          {p.podId == 0
+                            ? "not in pod yet"
+                            : "podId: " + p.podId}
+                        </Heading>
                       </Link>
                     </NextLink>
                   </Box>
-                  <Box ml={"1em"}>{p.projectName}</Box>
+                  <Flex alignItems={"center"} mb={"1em"}>
+                    <Box ml={"1em"}>{p.projectName}</Box>
+                    <Box ml={"auto"} mr={"1em"}>
+                      <DeleteIcon
+                        cursor={"pointer"}
+                        onClick={async () =>
+                          await deleteProject({
+                            variables: {
+                              deleteProjectId: p.id,
+                            },
+                            update: (cache, { data }) => {
+                              if (data?.deleteProject) {
+                                console.log(cache);
+                                cache.evict({ id: "Project:" + p.id });
+                              }
+                            },
+                          })
+                        }
+                      />
+                    </Box>
+                  </Flex>
                 </VStack>
               </GridItem>
             ))}
