@@ -1,12 +1,4 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   PodDocument,
@@ -25,13 +17,14 @@ import {
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { PodCreated } from "./PodCreated";
+import { PodNotCreated } from "./PodNotCreated";
 
 interface MyPodProps {}
 
 export const MyPod: React.FC<MyPodProps> = ({}) => {
   useIsAuth();
 
-  const [podSize, setPodSize] = useState(1);
+  const [podSize, setPodSize] = useState(null);
 
   const { data: projectData, loading: projectDataLoading } =
     useGetProjectFromUrl();
@@ -48,7 +41,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
     },
   });
 
-  const { data: podData, refetch } = usePodQuery({
+  const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
 
@@ -111,6 +104,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       });
     } else {
       const pod = availablePodsData?.findPod?.pod;
+      // console.log(availablePodsData);
       updateProjectPod({
         variables: {
           podId: pod.id,
@@ -195,64 +189,31 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
     <div>
       {podJoined ? (
         <div>
-          <PodCreated
-            isMainProject={false}
-            projectsData={projectsData?.podProjects}
-          ></PodCreated>
+          <PodCreated projectsData={projectsData?.podProjects}></PodCreated>
           <Box mt={"2em"}>
             <Button onClick={() => exitPod()}>exit pod</Button>
           </Box>
         </div>
       ) : (
-        <div>
-          <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {podSize == 1 ? "Select pod size" : podSize}
-            </MenuButton>
-            <MenuList>
-              <MenuItem
-                value={2}
-                onClick={(e) => {
-                  let size = parseInt((e.target as HTMLTextAreaElement).value);
-                  setPodSize(size);
-                }}
-              >
-                2
-              </MenuItem>
-              <MenuItem
-                value={3}
-                onClick={(e) => {
-                  let size = parseInt((e.target as HTMLTextAreaElement).value);
-                  setPodSize(size);
-                }}
-              >
-                3
-              </MenuItem>
-              <MenuItem
-                value={4}
-                onClick={(e) => {
-                  let size = parseInt((e.target as HTMLTextAreaElement).value);
-                  setPodSize(size);
-                }}
-              >
-                4
-              </MenuItem>
-            </MenuList>
-          </Menu>
-          <Button
-            onClick={() => {
-              updateProjectGroupSize({
-                variables: {
-                  groupSize: podSize,
-                  updateProjectGroupSizeId: projectData?.project?.project.id,
-                },
-              });
-              joinPod(podSize);
-            }}
-          >
-            join pod
-          </Button>
-        </div>
+        <PodNotCreated podSize={podSize} setPodSize={setPodSize}>
+          {podSize != null ? (
+            <Button
+              ml={2}
+              colorScheme={"gray"}
+              onClick={() => {
+                updateProjectGroupSize({
+                  variables: {
+                    groupSize: podSize,
+                    updateProjectGroupSizeId: projectData?.project?.project.id,
+                  },
+                });
+                joinPod(podSize);
+              }}
+            >
+              Join!
+            </Button>
+          ) : null}
+        </PodNotCreated>
       )}
     </div>
   );

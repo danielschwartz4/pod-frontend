@@ -13,9 +13,9 @@ import {
   useMeQuery,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
-import ProgressPopover from "./ProgressPopover";
 import init_elements from "../../utils/initElements";
 import { useGetIntId } from "../../utils/useGetIntId";
+import ProgressPopover from "./ProgressPopover";
 
 interface Node {
   id: string;
@@ -30,14 +30,12 @@ interface horizontalFlowProps {
   milestones: string[];
   milestoneDates: string[];
   milestoneProgress: number[];
-  isMainProject?: boolean;
 }
 
 const FlowChart: React.FC<horizontalFlowProps> = ({
   milestones,
   milestoneDates,
   milestoneProgress,
-  isMainProject = true,
 }) => {
   const { data, loading } = useMeQuery({});
 
@@ -51,15 +49,24 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
   };
   const close = () => setIsOpen(false);
 
-  const [milestoneProg, setMilestoneProg] = useState(milestoneProgress);
-  const [currNode, setCurrNode] = useState({} as Node);
-  const [newProgress, setNewProgress] = useState({ id: "", progress: 1 } as {
+  const [milestoneProg, setMilestoneProg] =
+    useState<number[]>(milestoneProgress);
+
+  const [currNode, setCurrNode] = useState<Node>({} as Node);
+
+  const [newProgress, setNewProgress] = useState<{
+    id: string;
+    progress: number;
+  }>({
+    id: "",
+    progress: 1,
+  } as {
     id: string;
     progress: number;
   });
 
-  const eles = init_elements(milestones, milestoneDates, milestoneProgress);
-  const [elements, setElements] = useState(eles);
+  const eles = init_elements(milestones, milestoneDates, milestoneProg);
+  const [elements, setElements] = useState<any[]>(eles);
 
   useEffect(() => {
     if (milestoneProg && currNode.id != null) {
@@ -79,25 +86,27 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
 
   useEffect(() => {
     setElements(init_elements(milestones, milestoneDates, milestoneProg));
-    updateProjectProgress({
-      variables: {
-        milestoneProgress: milestoneProg,
-        updateProjectProgressId: projectId,
-      },
-      // !! Do I actually need this
-      update: (cache, { data }) => {
-        cache.writeQuery<ProjectQuery>({
-          query: ProjectDocument,
-          data: {
-            __typename: "Query",
-            project: {
-              errors: data?.updateProjectProgress.errors,
-              project: data?.updateProjectProgress.project,
+    if (projectId && milestoneProg) {
+      updateProjectProgress({
+        variables: {
+          updateProjectProgressId: projectId,
+          milestoneProgress: milestoneProg,
+        },
+        // !! Do I actually need this
+        update: (cache, { data }) => {
+          cache.writeQuery<ProjectQuery>({
+            query: ProjectDocument,
+            data: {
+              __typename: "Query",
+              project: {
+                errors: data?.updateProjectProgress.errors,
+                project: data?.updateProjectProgress.project,
+              },
             },
-          },
-        });
-      },
-    });
+          });
+        },
+      });
+    }
   }, [milestoneProg]);
 
   const onNodeContextMenu = (event, _) => {
@@ -105,8 +114,6 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
   };
 
   const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
-
-  // !! Change progress popover to change the date on the popover!!
 
   return (
     <>
@@ -126,7 +133,6 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
             paneMoveable={false}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
-            // onNodeDoubleClick={open}
             onNodeMouseEnter={open}
             nodesDraggable={false}
             preventScrolling={false}
@@ -137,62 +143,56 @@ const FlowChart: React.FC<horizontalFlowProps> = ({
               color="firebrick"
               style={{ background: "gray.800" }}
             />
-            {isMainProject ? (
-              <Box>
-                <ProgressPopover
-                  close={close}
-                  isOpen={isOpen}
-                  completionDate={
-                    typeof currNode.id === "string"
-                      ? milestoneDates[currNode.id.split("-")[1]].split(
-                          " 00"
-                        )[0]
-                      : null
-                  }
-                >
-                  <PopoverBody>
-                    <Box>
-                      {typeof currNode.id === "string"
-                        ? milestones[currNode.id.split("-")[1]]
-                        : null}
-                    </Box>
-                  </PopoverBody>
-                  <PopoverFooter d="flex" justifyContent="center">
-                    <ButtonGroup size="sm">
-                      <Button
-                        onClick={() => {
-                          setIsOpen(!isOpen);
-                          setNewProgress({ id: currNode.id, progress: 1 });
-                        }}
-                        background="#F26D51"
-                      >
-                        not started!
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          setIsOpen(!isOpen);
-                          setNewProgress({ id: currNode.id, progress: 2 });
-                        }}
-                        background="#6097F8"
-                      >
-                        in progress
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          setIsOpen(!isOpen);
-                          setNewProgress({ id: currNode.id, progress: 3 });
-                        }}
-                        background="#3EE76D"
-                      >
-                        all done!
-                      </Button>
-                    </ButtonGroup>
-                  </PopoverFooter>
-                </ProgressPopover>
-              </Box>
-            ) : (
-              <></>
-            )}
+            <Box>
+              <ProgressPopover
+                close={close}
+                isOpen={isOpen}
+                completionDate={
+                  typeof currNode.id === "string"
+                    ? milestoneDates[currNode.id.split("-")[1]].split(" 00")[0]
+                    : null
+                }
+              >
+                <PopoverBody>
+                  <Box>
+                    {typeof currNode.id === "string"
+                      ? milestones[currNode.id.split("-")[1]]
+                      : null}
+                  </Box>
+                </PopoverBody>
+                <PopoverFooter d="flex" justifyContent="center">
+                  <ButtonGroup size="sm">
+                    <Button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 1 });
+                      }}
+                      background="#F26D51"
+                    >
+                      not started!
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 2 });
+                      }}
+                      background="#6097F8"
+                    >
+                      in progress
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 3 });
+                      }}
+                      background="#3EE76D"
+                    >
+                      all done!
+                    </Button>
+                  </ButtonGroup>
+                </PopoverFooter>
+              </ProgressPopover>
+            </Box>
           </ReactFlow>
         </>
       )}

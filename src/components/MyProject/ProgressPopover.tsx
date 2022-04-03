@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/icons";
 
 interface ProgressPopoverProps {
-  close;
+  close: () => void;
   isOpen: boolean;
   completionDate: string;
 }
@@ -86,7 +86,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
               <InfoOutlineIcon />
             </Button>
             <Box ml={"auto"} mr={"1em"}>
-              DOC: {completionDate}
+              DFC: {completionDate}
             </Box>
           </Flex>
         </PopoverContent>

@@ -13,10 +13,10 @@ import FlowChart from "../MyProject/FlowChart";
 import blue_monster from "../../images/Avatars/blue_monster.jpeg";
 import green_monster from "../../images/Avatars/green_monster.jpeg";
 import pink_monster from "../../images/Avatars/pink_monster.jpeg";
+import FlowChart2 from "../MyProject/FlowChart2";
 
 interface PodCardProps {
   project: Project;
-  isMainProject: boolean;
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
@@ -35,12 +35,11 @@ const PodCard: React.FC<PodCardProps> = (props) => {
       >
         <Box h={"200px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
           <ReactFlowProvider>
-            <FlowChart
-              isMainProject={props.isMainProject}
+            <FlowChart2
               milestoneProgress={props.project.milestoneProgress}
               milestones={props.project.milestones}
               milestoneDates={props.project.milestoneDates}
-            ></FlowChart>
+            ></FlowChart2>
           </ReactFlowProvider>
         </Box>
         <Box>

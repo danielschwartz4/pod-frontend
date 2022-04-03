@@ -23,7 +23,6 @@ const Hero: React.FC<HeroProps> = ({}) => {
         borderColor={"#F6793D"}
       >
         <PodCreated
-          isMainProject={false}
           projectsData={[
             SeedData.ExampleProject1.project,
             SeedData.ExampleProject2.project,

@@ -21,7 +21,7 @@ interface homeProps {}
 const Home: React.FC<homeProps> = ({}) => {
   useIsAuth();
 
-  const { data: projectData } = useGetProjectFromUrl();
+  const { data: projectData, loading } = useGetProjectFromUrl();
 
   if (projectData?.project?.errors) {
     return <Warning />;
@@ -37,7 +37,6 @@ const Home: React.FC<homeProps> = ({}) => {
         isFitted
         variant="enclosed"
         align={"center"}
-        // !! WHY DOES THIS NOT SHOW UP WHEN INDEX IS 1
         defaultIndex={1}
         // ? Made isLazy so tab rerenders flow since flow only appears correctly upon rendering
         isLazy
@@ -57,13 +56,15 @@ const Home: React.FC<homeProps> = ({}) => {
             w={"900px"}
             outlineOffset={-16}
           >
-            <FlowChart
-              milestoneProgress={
-                projectData?.project?.project?.milestoneProgress
-              }
-              milestones={projectData?.project?.project?.milestones}
-              milestoneDates={projectData?.project?.project?.milestoneDates}
-            />
+            {!loading ? (
+              <FlowChart
+                milestoneProgress={
+                  projectData?.project?.project?.milestoneProgress
+                }
+                milestones={projectData?.project?.project?.milestones}
+                milestoneDates={projectData?.project?.project?.milestoneDates}
+              />
+            ) : null}
           </TabPanel>
           <TabPanel>
             <MyPod></MyPod>
