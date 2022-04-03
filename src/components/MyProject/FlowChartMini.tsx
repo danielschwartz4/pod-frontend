@@ -18,7 +18,7 @@ interface horizontalFlowProps {
   milestoneProgress: number[];
 }
 
-const FlowChart2: React.FC<horizontalFlowProps> = ({
+const FlowChartMini: React.FC<horizontalFlowProps> = ({
   milestones,
   milestoneDates,
   milestoneProgress,
@@ -67,4 +67,4 @@ const FlowChart2: React.FC<horizontalFlowProps> = ({
   );
 };
 
-export default FlowChart2;
+export default FlowChartMini;

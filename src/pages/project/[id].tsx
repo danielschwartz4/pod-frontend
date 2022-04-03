@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
-import FlowChart from "../../components/MyProject/FlowChart";
+import FlowChartMain from "../../components/MyProject/FlowChartMain";
 import { MyProjectNotes } from "../../components/MyProjectNotes/MyProjectNotes";
 import { Warning } from "../../components/Warning";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
@@ -57,7 +57,7 @@ const Home: React.FC<homeProps> = ({}) => {
             outlineOffset={-16}
           >
             {!loading ? (
-              <FlowChart
+              <FlowChartMain
                 milestoneProgress={
                   projectData?.project?.project?.milestoneProgress
                 }

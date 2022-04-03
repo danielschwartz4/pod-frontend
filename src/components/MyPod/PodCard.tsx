@@ -9,11 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { ReactFlowProvider } from "react-flow-renderer";
 import { Project } from "../../generated/graphql";
-import FlowChart from "../MyProject/FlowChart";
-import blue_monster from "../../images/Avatars/blue_monster.jpeg";
-import green_monster from "../../images/Avatars/green_monster.jpeg";
 import pink_monster from "../../images/Avatars/pink_monster.jpeg";
-import FlowChart2 from "../MyProject/FlowChart2";
+import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {
   project: Project;
@@ -35,11 +32,11 @@ const PodCard: React.FC<PodCardProps> = (props) => {
       >
         <Box h={"200px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
           <ReactFlowProvider>
-            <FlowChart2
+            <FlowChartMini
               milestoneProgress={props.project.milestoneProgress}
               milestones={props.project.milestones}
               milestoneDates={props.project.milestoneDates}
-            ></FlowChart2>
+            ></FlowChartMini>
           </ReactFlowProvider>
         </Box>
         <Box>
