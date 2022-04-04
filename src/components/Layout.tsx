@@ -16,8 +16,7 @@ export const Layout: React.FC<LayoutProps> = ({
 }) => {
   return (
     <>
-      <Box w={"100vw"}>{!isProfile ? <HomeNavBar /> : <ProfileNavBar />}</Box>
-
+      {!isProfile ? <HomeNavBar /> : <ProfileNavBar />}
       <Wrapper variant={variant}>{children}</Wrapper>
     </>
   );

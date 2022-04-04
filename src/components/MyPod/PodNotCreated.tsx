@@ -24,7 +24,7 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = ({
   return (
     <Box>
       <Menu>
-        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+        <MenuButton bg={"#7e9cd6"} as={Button} rightIcon={<ChevronDownIcon />}>
           {podSize == null ? "Select pod size" : podSize}
         </MenuButton>
         <MenuList>

@@ -116,7 +116,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
 
   return (
-    <>
+    <Box h={"100%"} bg={"#1a202c"}>
       {loading && !data ? (
         <div> loading... </div>
       ) : (
@@ -196,7 +196,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
           </ReactFlow>
         </>
       )}
-    </>
+    </Box>
   );
 };
 

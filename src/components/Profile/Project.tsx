@@ -74,7 +74,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   };
 
   return (
-    <GridItem h={"auto"} bg="gray">
+    <GridItem borderRadius={8} h={"auto"} bg="#4c5e81">
       <VStack
         divider={<Divider orientation="horizontal" />}
         spacing={4}
