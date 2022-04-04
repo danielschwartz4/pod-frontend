@@ -29,6 +29,15 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const [isChangingName, setIsChangingName] = useState<boolean>(false);
   const [updateProjectName] = useUpdateProjectNameMutation();
 
+  const handleUpdateProjectName = async () => {
+    updateProjectName({
+      variables: {
+        updateProjectNameId: project.id,
+        projectName: newName,
+      },
+    });
+  };
+
   // Ref for handling outside click
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -36,9 +45,12 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
        * Alert if clicked on outside of element
        */
       function handleClickOutside(event) {
-        console.log(isChangingName);
-        if (ref.current && !ref.current.contains(event.target)) {
-          console.log("clicked outside");
+        if (
+          ref.current &&
+          !ref.current.contains(event.target) &&
+          isChangingName
+        ) {
+          handleUpdateProjectName();
           setIsChangingName(false);
         }
       }
@@ -48,23 +60,18 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         // Unbind the event listener on clean up
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [ref]);
+    }, [ref, isChangingName, newName]);
   }
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      setIsChangingName(false);
-    }
-  };
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
-  useEffect(() => {
-    updateProjectName({
-      variables: { updateProjectNameId: project.id, projectName: newName },
-    });
-  }, [newName]);
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      setIsChangingName(false);
+      handleUpdateProjectName();
+    }
+  };
 
   return (
     <GridItem h={"auto"} bg="gray">
@@ -90,6 +97,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
             ref={wrapperRef}
             ml={"1em"}
             onClick={() => setIsChangingName(true)}
+            cursor={isChangingName ? "text" : "pointer"}
           >
             {isChangingName ? (
               <input
