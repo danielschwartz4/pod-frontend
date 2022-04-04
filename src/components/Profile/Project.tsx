@@ -10,7 +10,10 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { useDeleteProjectMutation } from "../../generated/graphql";
+import {
+  useDeleteProjectMutation,
+  useUpdateProjectNameMutation,
+} from "../../generated/graphql";
 
 interface ProjectProps {
   project: {
@@ -22,8 +25,9 @@ interface ProjectProps {
 
 export const Project: React.FC<ProjectProps> = ({ project }) => {
   const [deleteProject] = useDeleteProjectMutation();
-  const [newName, setNewName] = useState<string>("");
+  const [newName, setNewName] = useState<string>(project.projectName);
   const [isChangingName, setIsChangingName] = useState<boolean>(false);
+  const [updateProjectName] = useUpdateProjectNameMutation();
 
   // Ref for handling outside click
   function useOutsideAlerter(ref) {
@@ -32,7 +36,9 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
        * Alert if clicked on outside of element
        */
       function handleClickOutside(event) {
+        console.log(isChangingName);
         if (ref.current && !ref.current.contains(event.target)) {
+          console.log("clicked outside");
           setIsChangingName(false);
         }
       }
@@ -45,11 +51,19 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
     }, [ref]);
   }
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      setIsChangingName(false);
+    }
+  };
+
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
   useEffect(() => {
-    // change name mutation
+    updateProjectName({
+      variables: { updateProjectNameId: project.id, projectName: newName },
+    });
   }, [newName]);
 
   return (
@@ -82,10 +96,13 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                 autoFocus={true}
                 type="text"
                 value={newName}
-                onChange={(e) => setNewName(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onChange={(e) => {
+                  setNewName(e.target.value);
+                }}
               />
             ) : (
-              project.projectName
+              newName
             )}
           </Box>
 
