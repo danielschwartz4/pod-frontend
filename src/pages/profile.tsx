@@ -1,6 +1,7 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Divider,
   Flex,
   Grid,
@@ -10,8 +11,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import router from "next/router";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
+import { Project } from "../components/Profile/Project";
 import {
   useDeleteProjectMutation,
   useMeQuery,
@@ -26,8 +29,6 @@ const Profile: React.FC<profileProps> = ({}) => {
   const { data, loading } = useMeQuery({});
 
   const { data: projectsData, refetch } = useProjectsQuery();
-
-  const [deleteProject] = useDeleteProjectMutation();
 
   useEffect(() => {
     refetch();
@@ -49,57 +50,33 @@ const Profile: React.FC<profileProps> = ({}) => {
         <div>Loading...</div>
       ) : (
         <>
-          <NextLink href="/project-info">
-            <Link mr={2}>create project</Link>
-          </NextLink>
+          <Button
+            // textColor={"gainsboro"}
+            // color={"gainsboro"}
+            // bg={"gray.900"}
+            mt={8}
+            cursor={"pointer"}
+            onClick={() => router.push("/project-info")}
+          >
+            create project
+          </Button>
           <Grid
-            mt={100}
+            mt={8}
             w="auto"
             h="auto"
-            templateColumns="repeat(5, 1fr)"
+            templateColumns="repeat(4, 1fr)"
             gap={6}
+            outline={4}
           >
             {projectsData?.projects?.map((p) => (
-              <GridItem key={p.id} bg="gray">
-                <VStack
-                  divider={<Divider orientation="horizontal" />}
-                  spacing={4}
-                  align="stretch"
-                >
-                  <Box textAlign={"center"} h={"120px"} margin={"auto"}>
-                    <NextLink href="/project/[id]" as={`/project/${p.id}`}>
-                      <Link>
-                        <Heading fontSize="xl">
-                          {p.podId == 0
-                            ? "not in pod yet"
-                            : "podId: " + p.podId}
-                        </Heading>
-                      </Link>
-                    </NextLink>
-                  </Box>
-                  <Flex alignItems={"center"} mb={"1em"}>
-                    <Box ml={"1em"}>{p.projectName}</Box>
-                    <Box ml={"auto"} mr={"1em"}>
-                      <DeleteIcon
-                        cursor={"pointer"}
-                        onClick={async () =>
-                          await deleteProject({
-                            variables: {
-                              deleteProjectId: p.id,
-                            },
-                            update: (cache, { data }) => {
-                              if (data?.deleteProject) {
-                                console.log(cache);
-                                cache.evict({ id: "Project:" + p.id });
-                              }
-                            },
-                          })
-                        }
-                      />
-                    </Box>
-                  </Flex>
-                </VStack>
-              </GridItem>
+              <Project
+                key={p.id}
+                project={{
+                  id: p.id,
+                  podId: p.podId,
+                  projectName: p.projectName,
+                }}
+              ></Project>
             ))}
           </Grid>
         </>
