@@ -46,15 +46,15 @@ const Home: React.FC<homeProps> = ({}) => {
           isFitted
           variant="enclosed"
           align={"center"}
-          defaultIndex={0}
+          defaultIndex={1}
           // ? Made isLazy so tab rerenders flow since flow only appears correctly upon rendering
           isLazy
           lazyBehavior="keepMounted"
         >
           <TabList mb="1em">
-            <Tab _selected={{ color: "white", bg: "green" }}>My project</Tab>
-            <Tab _selected={{ color: "white", bg: "green" }}>My pod</Tab>
-            <Tab _selected={{ color: "white", bg: "green" }}>
+            <Tab _selected={{ color: "white", bg: "#1a202c" }}>My project</Tab>
+            <Tab _selected={{ color: "white", bg: "#1a202c" }}>My pod</Tab>
+            <Tab _selected={{ color: "white", bg: "#1a202c" }}>
               My project notes
             </Tab>
           </TabList>
