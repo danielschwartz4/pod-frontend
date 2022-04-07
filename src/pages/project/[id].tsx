@@ -18,6 +18,7 @@ import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 import NextLink from "next/link";
 import router from "next/router";
+import { SmsForm } from "../../components/SmsForm";
 
 interface homeProps {}
 
@@ -41,6 +42,7 @@ const Home: React.FC<homeProps> = ({}) => {
         >
           my projects
         </Button>
+        <SmsForm></SmsForm>
         <Tabs
           mt={"8"}
           isFitted
