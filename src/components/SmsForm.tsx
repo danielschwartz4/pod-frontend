@@ -3,68 +3,54 @@ import React, { useState } from "react";
 interface SmsFormProps {}
 
 export const SmsForm: React.FC<SmsFormProps> = ({}) => {
-  const [state, setState] = useState({
-    message: {
-      to: "",
-      body: "",
-    },
-    submitting: false,
-    error: false,
+  const [message, setMessage] = useState({
+    to: "",
+    body: "",
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   function onHandleChange(event) {
     const name = event.target.getAttribute("name");
-    this.setState({
-      message: { ...this.state.message, [name]: event.target.value },
-    });
+    setMessage({ ...message, [name]: event.target.value });
   }
 
   function onSubmit(event) {
     event.preventDefault();
-    this.setState({ submitting: true });
+    setSubmitting(true);
     fetch("/api/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(this.state.message),
+      body: JSON.stringify(message),
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.success) {
-          this.setState({
-            error: false,
-            submitting: false,
-            message: {
-              to: "",
-              body: "",
-            },
+          setError(false);
+          setSubmitting(false);
+          setMessage({
+            to: "",
+            body: "",
           });
         } else {
-          setState({
-            message: {
-              to: "",
-              body: "",
-            },
-            submitting: false,
-            error: true,
-          });
+          setSubmitting(false);
+          setError(true);
         }
       });
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className={state.error ? "error sms-form" : "sms-form"}
-    >
+    <form onSubmit={onSubmit} className={error ? "error sms-form" : "sms-form"}>
       <div>
         <label htmlFor="to">To:</label>
         <input
           type="tel"
           name="to"
           id="to"
-          value={state.message.to}
+          value={message.to}
           onChange={onHandleChange}
         />
       </div>
@@ -73,11 +59,11 @@ export const SmsForm: React.FC<SmsFormProps> = ({}) => {
         <textarea
           name="body"
           id="body"
-          value={state.message.body}
+          value={message.body}
           onChange={onHandleChange}
         />
       </div>
-      <button type="submit" disabled={state.submitting}>
+      <button type="submit" disabled={submitting}>
         Send message
       </button>
     </form>
