@@ -11,11 +11,13 @@ import {
   usePodProjectsQuery,
   usePodQuery,
   useRemoveProjectFromPodMutation,
+  useUpdatePhoneMutation,
   useUpdateProjectGroupSizeMutation,
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import { PhoneNumber } from "../Inputs/PhoneNumber";
 import { PodCreated } from "./PodCreated";
 import { PodNotCreated } from "./PodNotCreated";
 
@@ -24,8 +26,6 @@ interface MyPodProps {}
 export const MyPod: React.FC<MyPodProps> = ({}) => {
   useIsAuth();
 
-  const [podSize, setPodSize] = useState(null);
-
   const { data: projectData, loading: projectDataLoading } =
     useGetProjectFromUrl();
   const [addProjectToPod] = useAddProjectToPodMutation();
@@ -33,6 +33,13 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   const [updateProjectPod] = useUpdateProjectPodMutation();
   const [updateProjectGroupSize] = useUpdateProjectGroupSizeMutation();
   const [createPod] = useCreatePodMutation();
+  const [updatePhone] = useUpdatePhoneMutation();
+
+  const [podSize, setPodSize] = useState(null);
+  const [podJoined, setPodJoined] = useState(
+    projectData?.project?.project?.podId != 0
+  );
+  const [phone, setPhone] = useState(null);
 
   const { data: availablePodsData } = useFindPodQuery({
     variables: {
@@ -40,15 +47,9 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       projectId: projectData?.project?.project.id,
     },
   });
-
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
-
-  const [podJoined, setPodJoined] = useState(
-    projectData?.project?.project?.podId != 0
-  );
-
   const { data: projectsData, loading: projectsDataLoading } =
     usePodProjectsQuery({
       variables: { podId: podData?.pod?.pod?.id },
@@ -197,21 +198,33 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       ) : (
         <PodNotCreated podSize={podSize} setPodSize={setPodSize}>
           {podSize != null ? (
-            <Button
-              ml={2}
-              colorScheme={"gray"}
-              onClick={() => {
-                updateProjectGroupSize({
-                  variables: {
-                    groupSize: podSize,
-                    updateProjectGroupSizeId: projectData?.project?.project.id,
-                  },
-                });
-                joinPod(podSize);
-              }}
-            >
-              Join!
-            </Button>
+            <>
+              <PhoneNumber setPhone={setPhone} />
+              <Button
+                ml={2}
+                colorScheme={"gray"}
+                onClick={() => {
+                  updateProjectGroupSize({
+                    variables: {
+                      groupSize: podSize,
+                      updateProjectGroupSizeId:
+                        projectData?.project?.project.id,
+                    },
+                  });
+                  if (phone) {
+                    updatePhone({
+                      variables: {
+                        updatePhoneId: projectData?.project?.project?.userId,
+                        phone: phone,
+                      },
+                    });
+                  }
+                  joinPod(podSize);
+                }}
+              >
+                Join!
+              </Button>
+            </>
           ) : null}
         </PodNotCreated>
       )}

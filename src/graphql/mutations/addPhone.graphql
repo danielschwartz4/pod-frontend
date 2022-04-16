@@ -1,0 +1,11 @@
+mutation UpdatePhone($phone: String!, $updatePhoneId: Float!) {
+  updatePhone(phone: $phone, id: $updatePhoneId) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}

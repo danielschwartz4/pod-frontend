@@ -7,6 +7,7 @@ export const SmsForm: React.FC<SmsFormProps> = ({}) => {
     to: "",
     body: "",
   });
+
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(false);
 
@@ -18,7 +19,8 @@ export const SmsForm: React.FC<SmsFormProps> = ({}) => {
   function onSubmit(event) {
     event.preventDefault();
     setSubmitting(true);
-    fetch("/api/messages", {
+    fetch("http://localhost:4001/api/messages", {
+      // mode: "no-cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,6 +29,7 @@ export const SmsForm: React.FC<SmsFormProps> = ({}) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("data");
         console.log(data);
         if (data.success) {
           setError(false);

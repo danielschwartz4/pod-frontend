@@ -2,6 +2,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  Flex,
   Menu,
   MenuButton,
   MenuItem,
@@ -22,7 +23,7 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = ({
   children,
 }) => {
   return (
-    <Box>
+    <Flex alignItems="center" justifyContent={"center"}>
       <Menu>
         <MenuButton bg={"#7e9cd6"} as={Button} rightIcon={<ChevronDownIcon />}>
           {podSize == null ? "Select pod size" : podSize}
@@ -58,6 +59,6 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = ({
         </MenuList>
       </Menu>
       {children}
-    </Box>
+    </Flex>
   );
 };
