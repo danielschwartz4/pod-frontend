@@ -20,7 +20,6 @@ export const SmsForm: React.FC<SmsFormProps> = ({}) => {
     event.preventDefault();
     setSubmitting(true);
     fetch("http://localhost:4001/api/messages", {
-      // mode: "no-cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

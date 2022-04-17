@@ -1,7 +1,6 @@
 import {
   InputGroup,
   InputLeftAddon,
-  Input,
   NumberInput,
   NumberInputField,
 } from "@chakra-ui/react";

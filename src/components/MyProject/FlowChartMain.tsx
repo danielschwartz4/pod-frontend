@@ -14,7 +14,9 @@ import {
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
 import init_elements from "../../utils/initElements";
+import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
+import { sendMessage } from "../Sms/sendMessage";
 import ProgressPopover from "./ProgressPopover";
 
 interface Node {
@@ -30,12 +32,16 @@ interface horizontalFlowProps {
   milestones: string[];
   milestoneDates: string[];
   milestoneProgress: number[];
+  setShowAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  showAlert: boolean;
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = ({
   milestones,
   milestoneDates,
   milestoneProgress,
+  setShowAlert,
+  showAlert,
 }) => {
   const { data, loading } = useMeQuery({});
 
@@ -106,6 +112,10 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
           });
         },
       });
+      if (showAlert) {
+        const body = generateSms(milestoneProg);
+        sendMessage({ to: "+12173817277", body: body });
+      }
     }
   }, [milestoneProg]);
 
@@ -184,6 +194,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
                       onClick={() => {
                         setIsOpen(!isOpen);
                         setNewProgress({ id: currNode.id, progress: 3 });
+                        setShowAlert(true);
                       }}
                       background="#3EE76D"
                     >

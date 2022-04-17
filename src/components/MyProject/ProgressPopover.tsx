@@ -1,25 +1,17 @@
+import { DeleteIcon, EditIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
-  ButtonGroup,
   Divider,
   Flex,
   Popover,
   PopoverArrow,
-  PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
 import React from "react";
-import {
-  DeleteIcon,
-  EditIcon,
-  InfoIcon,
-  InfoOutlineIcon,
-} from "@chakra-ui/icons";
 
 interface ProgressPopoverProps {
   close: () => void;

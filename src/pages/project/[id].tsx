@@ -1,14 +1,17 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
-  Link,
+  Flex,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import React from "react";
+import router from "next/router";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
@@ -16,9 +19,7 @@ import { MyProjectNotes } from "../../components/MyProjectNotes/MyProjectNotes";
 import { Warning } from "../../components/Warning";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
-import NextLink from "next/link";
-import router from "next/router";
-import { SmsForm } from "../../components/SmsForm";
+import { delayAlert } from "../../utils/delay";
 
 interface homeProps {}
 
@@ -27,22 +28,34 @@ const Home: React.FC<homeProps> = ({}) => {
 
   const { data: projectData, loading } = useGetProjectFromUrl();
 
+  const [showAlert, setShowAlert] = useState(false);
+
   if (projectData?.project?.errors) {
     return <Warning />;
+  }
+
+  if (showAlert == true) {
+    delayAlert(4000, setShowAlert);
   }
 
   return (
     <Box h={"100vh"} bg={"#4c5e81"} m={-2}>
       <Layout isProfile>
-        <Button
-          bg={"#7e9cd6"}
-          mt={8}
-          cursor={"pointer"}
-          onClick={() => router.push("/profile")}
-        >
-          my projects
-        </Button>
-        <SmsForm></SmsForm>
+        <Flex alignItems={"center"}>
+          <Button
+            bg={"#7e9cd6"}
+            cursor={"pointer"}
+            onClick={() => router.push("/profile")}
+          >
+            my projects
+          </Button>
+          {showAlert ? (
+            <Alert w={"80%"} ml={"auto"} status="success" variant={"solid"}>
+              <AlertIcon />
+              Congrats! Your pod has been alerted!
+            </Alert>
+          ) : null}
+        </Flex>
         <Tabs
           mt={"8"}
           isFitted
@@ -74,6 +87,8 @@ const Home: React.FC<homeProps> = ({}) => {
                   }
                   milestones={projectData?.project?.project?.milestones}
                   milestoneDates={projectData?.project?.project?.milestoneDates}
+                  setShowAlert={setShowAlert}
+                  showAlert={showAlert}
                 />
               ) : null}
             </TabPanel>
