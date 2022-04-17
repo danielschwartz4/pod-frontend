@@ -66,6 +66,10 @@ const Profile: React.FC<profileProps> = ({}) => {
               templateColumns="repeat(4, 1fr)"
               gap={6}
               outline={4}
+              borderRadius={20}
+              border={"4px"}
+              borderColor={"#F6793D"}
+              p={4}
             >
               {projectsData?.projects?.map((p) => (
                 <Project

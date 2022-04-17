@@ -9,7 +9,7 @@ interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
   return (
-    <Box h={"100vh"} w={"100vh"}>
+    <Box h={"100%"} w={"100%"}>
       <Box
         position={"absolute"}
         mr={"6em"}
@@ -28,9 +28,11 @@ const Hero: React.FC<HeroProps> = ({}) => {
             SeedData.ExampleProject2.project,
             SeedData.ExampleProject3.project,
           ]}
-        ></PodCreated>
+        />
       </Box>
-      <Image m={-10} opacity={"20%"} src={bgImage.src}></Image>
+      <Box>
+        <Image width={"100%"} m={-10} opacity={"40%"} src={bgImage.src}></Image>
+      </Box>
     </Box>
   );
 };

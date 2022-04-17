@@ -17,12 +17,14 @@ interface ProgressPopoverProps {
   close: () => void;
   isOpen: boolean;
   completionDate: string;
+  isMain: boolean;
 }
 
 const ProgressPopover: React.FC<ProgressPopoverProps> = ({
   close,
   isOpen,
   completionDate,
+  isMain,
   children,
 }) => {
   return (
@@ -45,42 +47,49 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = ({
           <PopoverCloseButton />
 
           {children}
+
           <Divider variant="dashed" orientation="horizontal" />
-          <Flex alignItems={"center"}>
-            <Button
-              margin={".3em"}
-              colorScheme={"tomato"}
-              variant="outline"
-              cursor={"pointer"}
-              w={6}
-              h={6}
-            >
-              <EditIcon />
-            </Button>
-            <Button
-              margin={".3em"}
-              colorScheme={"tomato"}
-              variant="outline"
-              cursor={"pointer"}
-              w={6}
-              h={6}
-            >
-              <DeleteIcon />
-            </Button>
-            <Button
-              margin={".3em"}
-              colorScheme={"tomato"}
-              variant="outline"
-              cursor={"pointer"}
-              w={6}
-              h={6}
-            >
-              <InfoOutlineIcon />
-            </Button>
-            <Box ml={"auto"} mr={"1em"}>
+          {isMain ? (
+            <Flex alignItems={"center"}>
+              <Button
+                margin={".3em"}
+                colorScheme={"tomato"}
+                variant="outline"
+                cursor={"pointer"}
+                w={6}
+                h={6}
+              >
+                <EditIcon />
+              </Button>
+              <Button
+                margin={".3em"}
+                colorScheme={"tomato"}
+                variant="outline"
+                cursor={"pointer"}
+                w={6}
+                h={6}
+              >
+                <DeleteIcon />
+              </Button>
+              <Button
+                margin={".3em"}
+                colorScheme={"tomato"}
+                variant="outline"
+                cursor={"pointer"}
+                w={6}
+                h={6}
+              >
+                <InfoOutlineIcon />
+              </Button>
+              <Box ml={"auto"} mr={"1em"}>
+                DFC: {completionDate}
+              </Box>
+            </Flex>
+          ) : (
+            <Box alignItems={"center"} ml={"1em"} mr={"auto"}>
               DFC: {completionDate}
             </Box>
-          </Flex>
+          )}
         </PopoverContent>
       </Popover>
     </>

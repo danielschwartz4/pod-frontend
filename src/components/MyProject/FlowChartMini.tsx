@@ -1,7 +1,15 @@
-import React from "react";
+import {
+  Box,
+  PopoverBody,
+  PopoverFooter,
+  ButtonGroup,
+  Button,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import { useMeQuery } from "../../generated/graphql";
 import init_elements from "../../utils/initElements";
+import ProgressPopover from "./ProgressPopover";
 
 interface Node {
   id: string;
