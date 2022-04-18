@@ -15,11 +15,11 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
         {props.projectsData?.map((p, i) =>
           (i == 2 && podLength == 3) || podLength == 1 ? (
             <GridItem colStart={2} colEnd={4} key={i}>
-              <PodCard isMain={false} project={p} />
+              <PodCard project={p} />
             </GridItem>
           ) : (
             <GridItem colSpan={2} key={i}>
-              <PodCard isMain={false} project={p} />
+              <PodCard project={p} />
             </GridItem>
           )
         )}

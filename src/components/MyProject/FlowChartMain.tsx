@@ -34,7 +34,6 @@ interface horizontalFlowProps {
   milestoneProgress: number[];
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   showAlert?: boolean;
-  isMain: boolean;
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = ({
@@ -43,7 +42,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   milestoneProgress,
   setShowAlert,
   showAlert,
-  isMain,
 }) => {
   const { data, loading } = useMeQuery({});
 
@@ -157,7 +155,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
             />
             <Box>
               <ProgressPopover
-                isMain={isMain}
                 close={close}
                 isOpen={isOpen}
                 completionDate={
@@ -174,40 +171,38 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
                   </Box>
                 </PopoverBody>
 
-                {isMain ? (
-                  <PopoverFooter d="flex" justifyContent="center">
-                    <ButtonGroup size="sm">
-                      <Button
-                        onClick={() => {
-                          setIsOpen(!isOpen);
-                          setNewProgress({ id: currNode.id, progress: 1 });
-                        }}
-                        background="#F26D51"
-                      >
-                        not started!
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          setIsOpen(!isOpen);
-                          setNewProgress({ id: currNode.id, progress: 2 });
-                        }}
-                        background="#6097F8"
-                      >
-                        in progress
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          setIsOpen(!isOpen);
-                          setNewProgress({ id: currNode.id, progress: 3 });
-                          setShowAlert(true);
-                        }}
-                        background="#3EE76D"
-                      >
-                        all done!
-                      </Button>
-                    </ButtonGroup>
-                  </PopoverFooter>
-                ) : null}
+                <PopoverFooter d="flex" justifyContent="center">
+                  <ButtonGroup size="sm">
+                    <Button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 1 });
+                      }}
+                      background="#F26D51"
+                    >
+                      not started!
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 2 });
+                      }}
+                      background="#6097F8"
+                    >
+                      in progress
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                        setNewProgress({ id: currNode.id, progress: 3 });
+                        setShowAlert(true);
+                      }}
+                      background="#3EE76D"
+                    >
+                      all done!
+                    </Button>
+                  </ButtonGroup>
+                </PopoverFooter>
               </ProgressPopover>
             </Box>
           </ReactFlow>

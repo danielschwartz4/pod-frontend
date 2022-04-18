@@ -9,3 +9,6 @@ Have to keep in mind data state in query and cache. For example logging in used 
 
 3-7-22
 Different types for different things (e.g. join pod function in my pod when creating new pod vs calling old one)
+
+4-17-22
+Have to separate flowcharts into mini and main so they don't inherit the others' properties

@@ -10,12 +10,10 @@ import {
 import { ReactFlowProvider } from "react-flow-renderer";
 import { Project } from "../../generated/graphql";
 import pink_monster from "../../images/Avatars/pink_monster.jpeg";
-import FlowChart from "../MyProject/FlowChart";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {
   project: Project;
-  isMain: boolean;
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
@@ -34,12 +32,11 @@ const PodCard: React.FC<PodCardProps> = (props) => {
       >
         <Box h={"200px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
           <ReactFlowProvider>
-            <FlowChart
+            <FlowChartMini
               milestoneProgress={props.project.milestoneProgress}
               milestones={props.project.milestones}
               milestoneDates={props.project.milestoneDates}
-              isMain={props.isMain}
-            ></FlowChart>
+            />
           </ReactFlowProvider>
         </Box>
         <Box>
