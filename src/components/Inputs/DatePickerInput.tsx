@@ -11,12 +11,7 @@ interface DatePickerInputProps {
   label?: string;
 }
 
-const DatePickerInput: React.FC<DatePickerInputProps> = (
-  props
-  // showTimeSelect = false,
-  // name,
-  // label,
-) => {
+const DatePickerInput: React.FC<DatePickerInputProps> = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [field, { error }] = useField(props.name);
   const { setFieldValue } = useFormikContext();

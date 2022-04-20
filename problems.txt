@@ -12,3 +12,18 @@ Different types for different things (e.g. join pod function in my pod when crea
 
 4-17-22
 Have to separate flowcharts into mini and main so they don't inherit the others' properties
+
+4-18-22
+Removed dist file from gitignore so it could be pushed to heroku
+
+Need to run 'source src/.env' in terminal to use environment variables
+
+4-19-22
+Keep getting module not found error
+Solution: rm -rf node_modules -> npm install
+
+Selecting user in postgres CLI doesn't work since user is a key word so must select "user"
+
+
+	
+

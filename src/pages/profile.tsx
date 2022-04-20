@@ -25,6 +25,7 @@ import { useIsAuth } from "../utils/usIsAuth";
 interface profileProps {}
 
 const Profile: React.FC<profileProps> = ({}) => {
+  console.log("HELLO");
   useIsAuth();
   const { data, loading } = useMeQuery({});
 

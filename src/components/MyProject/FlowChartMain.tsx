@@ -112,6 +112,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
           });
         },
       });
+      // !! Only if person is in pod
       if (showAlert) {
         const body = generateSms(milestoneProg);
         sendMessage({ to: "+12173817277", body: body });
