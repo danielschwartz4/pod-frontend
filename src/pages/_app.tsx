@@ -9,8 +9,8 @@ import theme from "../theme";
 import "../css/DatePickerInput.css";
 
 const client = new ApolloClient({
-  // uri: "http://localhost:4000/graphql",
-  uri: "https://podapi.herokuapp.com/graphql",
+  uri: "http://localhost:4000/graphql",
+  // uri:  'https://podapi.herokuapp.com/'
   cache: new InMemoryCache(),
   credentials: "include" as const,
 });
