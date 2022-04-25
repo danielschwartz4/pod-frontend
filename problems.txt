@@ -24,6 +24,7 @@ Solution: rm -rf node_modules -> npm install
 
 Selecting user in postgres CLI doesn't work since user is a key word so must select "user"
 
-
+4-22-22
+Code was running in production for some reason so had to change process.env.NODE_ENV
 	
 

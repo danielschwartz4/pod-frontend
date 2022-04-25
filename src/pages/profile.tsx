@@ -1,25 +1,10 @@
-import { DeleteIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Link,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Grid, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import router from "next/router";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
 import { Project } from "../components/Profile/Project";
-import {
-  useDeleteProjectMutation,
-  useMeQuery,
-  useProjectsQuery,
-} from "../generated/graphql";
+import { useMeQuery, useProjectsQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
 
 interface profileProps {}
@@ -29,6 +14,8 @@ const Profile: React.FC<profileProps> = ({}) => {
   const { data, loading } = useMeQuery({});
 
   const { data: projectsData, refetch } = useProjectsQuery();
+
+  console.log(projectsData);
 
   useEffect(() => {
     refetch();
