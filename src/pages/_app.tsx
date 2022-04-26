@@ -15,6 +15,8 @@ const client = new ApolloClient({
   credentials: "include",
 });
 
+// !! Check network request url to see if it's the above
+
 function MyApp({ Component, pageProps }: any) {
   return (
     <ApolloProvider client={client}>

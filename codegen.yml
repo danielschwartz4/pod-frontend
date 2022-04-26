@@ -1,6 +1,6 @@
 overwrite: true
-schema: "http://localhost:4000/graphql"
-# schema: "https://podapi.herokuapp.com/graphql"
+# schema: "http://localhost:4000/graphql"
+schema: "https://podapi.herokuapp.com/graphql"
 documents: "src/graphql/**/*.graphql"
 generates:
   src/generated/graphql.tsx:
