@@ -27,4 +27,6 @@ Selecting user in postgres CLI doesn't work since user is a key word so must sel
 4-22-22
 Code was running in production for some reason so had to change process.env.NODE_ENV
 	
-
+4-25-22
+Getting the error "RangeError [ERR_SOCKET_BAD_PORT]: Port should be >= 0 and < 65536. Received NaN"
+Solution: load env file (source src/.env)
