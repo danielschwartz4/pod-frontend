@@ -10,9 +10,9 @@ console.log(process.env.NODE_ENV === "production");
 const client = new ApolloClient({
   uri:
     process.env.NODE_ENV === "production"
-      ? // ? "https://podapi.herokuapp.com/graphql"
-        "https://poddds.com/graphql"
-      : "http://localhost:4000/graphql",
+      ? "https://api.poddds.com/graphql"
+      : // "https://poddds.com/graphql"
+        "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
   credentials: "include",
 });
