@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Image, Link } from "@chakra-ui/react";
+import { Box, Button, Flex, Image } from "@chakra-ui/react";
 import NextLink from "next/link";
 import router, { useRouter } from "next/router";
 import React from "react";
@@ -91,7 +91,6 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
       zIndex={1}
       position="sticky"
       bg={"gray.800"}
-      m={-2}
       px="6"
       py="5"
       align="center"

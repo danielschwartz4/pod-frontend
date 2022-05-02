@@ -85,7 +85,7 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
       zIndex={2}
       position="sticky"
       bg={"gray.800"}
-      m={-2}
+      mt={-2}
       px="6"
       py="5"
       align="center"

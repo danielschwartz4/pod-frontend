@@ -39,7 +39,7 @@ const Home: React.FC<homeProps> = ({}) => {
   }
 
   return (
-    <Box h={"100vh"} bg={"#4c5e81"} m={-2}>
+    <Box h={"100%"} w={"100vw"} bg={"#4c5e81"} m={-2}>
       <Layout isProfile>
         <Flex alignItems={"center"}>
           <Button
