@@ -3,16 +3,11 @@ import { ColorModeProvider, ThemeProvider } from "@chakra-ui/react";
 import "../css/DatePickerInput.css";
 import theme from "../theme";
 
-console.log("process.env.NODE_ENV");
-console.log(process.env.NODE_ENV);
-console.log(process.env.NODE_ENV === "production");
-
 const client = new ApolloClient({
   uri:
     process.env.NODE_ENV === "production"
       ? "https://api.poddds.com/graphql"
-      : // "https://poddds.com/graphql"
-        "http://localhost:4000/graphql",
+      : "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
   credentials: "include",
 });

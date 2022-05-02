@@ -30,3 +30,16 @@ Code was running in production for some reason so had to change process.env.NODE
 4-25-22
 Getting the error "RangeError [ERR_SOCKET_BAD_PORT]: Port should be >= 0 and < 65536. Received NaN"
 Solution: load env file (source src/.env)
+
+4-30-22
+Finally fixed deployment heroku problem
+Solution: 
+1. Make sure have own url (api.poddds.com or poddds.com)
+2. Make sure env variable is set in heroku
+
+5-01-22
+Twilio wasn't working because wasn't calling it in yarn start and port was messed up
+Did stupid hack by putting it all in index.js file
+Learn how to create proxy with this:
+https://www.manuelkruisz.com/blog/posts/nginx-multiple-domains-one-server
+
