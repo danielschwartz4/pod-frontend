@@ -15,7 +15,8 @@ export const Wrapper: React.FC<WrapperProps> = ({
       mt={8}
       mx="auto"
       maxW={variant === "regular" ? "1000px" : "400px"}
-      width={"100%"}
+      // width={"100%"}
+      h={"100%"}
     >
       {children}
     </Box>
