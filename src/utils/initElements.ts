@@ -21,6 +21,8 @@ export default function init_elements(
   const elements = [];
   let goingRight = false;
 
+  console.log(window.innerWidth);
+  console.log(window.innerHeight);
   if (window.innerWidth > window.innerHeight || !allowVertical) {
     milestones?.forEach((_, i) => {
       if (i % 3 == 0) {
