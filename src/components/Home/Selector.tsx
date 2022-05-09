@@ -6,7 +6,7 @@ interface SelectorProps {}
 
 const Selector: React.FC<SelectorProps> = ({}) => {
   return (
-    <Flex justifyContent={"center"} alignItems={"center"}>
+    <Flex justifyContent={"center"} alignItems={"center"} mx={["-8", "0"]}>
       <Box mr={4} color={"gainsboro"}>
         Who are you?
       </Box>

@@ -17,6 +17,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
       borderRadius={20}
       border={"4px"}
       borderColor={"#F6793D"}
+      mb={4}
     >
       <PodCreated
         projectsData={[

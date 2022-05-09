@@ -43,3 +43,5 @@ Did stupid hack by putting it all in index.js file
 Learn how to create proxy with this:
 https://www.manuelkruisz.com/blog/posts/nginx-multiple-domains-one-server
 
+5-09-22
+Making margin negative as a hack for now... not sure how to get around it
