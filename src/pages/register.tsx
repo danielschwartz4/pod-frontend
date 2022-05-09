@@ -84,56 +84,58 @@ const Register: React.FC<registerProps> = ({}) => {
               >
                 {({ isSubmitting }) => (
                   <Form>
-                    <Box>
-                      <InputField
-                        name="username"
-                        placeholder="username"
-                        label="Username"
-                      ></InputField>
-                      <Box mt={4}>
-                        <InputField
-                          name="email"
-                          placeholder="email"
-                          label="Email"
-                        ></InputField>
-                      </Box>
-                      <Box mt={4}>
-                        <InputField
-                          name="password"
-                          placeholder="password"
-                          label="Password"
-                        ></InputField>
-                      </Box>
-                    </Box>
-                    <Stack spacing={10} pt={2}>
+                    <Box maxW={"448px"}>
                       <Box>
-                        <Button
-                          mt={4}
-                          width={"100%"}
-                          loadingText="Submitting"
-                          size="lg"
-                          bg={"blue.400"}
-                          color={"white"}
-                          _hover={{
-                            bg: "blue.500",
-                          }}
-                          type="submit"
-                          isLoading={isSubmitting ? true : false}
-                        >
-                          Join the community!
-                        </Button>
+                        <InputField
+                          name="username"
+                          placeholder="username"
+                          label="Username"
+                        />
+                        <Box mt={4}>
+                          <InputField
+                            name="email"
+                            placeholder="email"
+                            label="Email"
+                          />
+                        </Box>
+                        <Box mt={4}>
+                          <InputField
+                            name="password"
+                            placeholder="password"
+                            label="Password"
+                          />
+                        </Box>
                       </Box>
-                    </Stack>
-                    <Stack pt={6}>
-                      <Text align={"center"}>
-                        Already a user?{" "}
-                        <NextLink href={"/login"}>
-                          <Link color={"blue.400"} ml="auto">
-                            Login
-                          </Link>
-                        </NextLink>
-                      </Text>
-                    </Stack>
+                      <Stack spacing={10} pt={2}>
+                        <Box>
+                          <Button
+                            mt={4}
+                            width={"100%"}
+                            loadingText="Submitting"
+                            size="lg"
+                            bg={"blue.400"}
+                            color={"white"}
+                            _hover={{
+                              bg: "blue.500",
+                            }}
+                            type="submit"
+                            isLoading={isSubmitting ? true : false}
+                          >
+                            Join the community!
+                          </Button>
+                        </Box>
+                      </Stack>
+                      <Stack pt={6}>
+                        <Text align={"center"}>
+                          Already a user?{" "}
+                          <NextLink href={"/login"}>
+                            <Link color={"blue.400"} ml="auto">
+                              Login
+                            </Link>
+                          </NextLink>
+                        </Text>
+                      </Stack>
+                    </Box>
                   </Form>
                 )}
               </Formik>

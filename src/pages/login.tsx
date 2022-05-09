@@ -95,46 +95,48 @@ const Login: React.FC<{}> = ({}) => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <Box>
-                    <InputField
-                      name="usernameOrEmail"
-                      label="Username or Email"
-                      placeholder="Username or email"
-                    />
-                  </Box>
-                  <Box mt={4}>
-                    <InputField
-                      name="password"
-                      label="Password"
-                      placeholder="password"
-                      type="password"
-                    />
-                  </Box>
-                  <Stack spacing={10}>
-                    <Stack
-                      direction={{ base: "column", sm: "row" }}
-                      align={"start"}
-                      justify={"space-between"}
-                      mt={6}
-                    >
-                      <Checkbox color={"blue.400"}>Remember me</Checkbox>
-                      <NextLink href={"/forgot-password"}>
-                        <Link color={"blue.400"}>forgot password?</Link>
-                      </NextLink>
+                  <Box maxW={"448px"}>
+                    <Box>
+                      <InputField
+                        name="usernameOrEmail"
+                        label="Username or Email"
+                        placeholder="Username or email"
+                      />
+                    </Box>
+                    <Box mt={4}>
+                      <InputField
+                        name="password"
+                        label="Password"
+                        placeholder="password"
+                        type="password"
+                      />
+                    </Box>
+                    <Stack spacing={10}>
+                      <Stack
+                        direction={{ base: "column", sm: "row" }}
+                        align={"start"}
+                        justify={"space-between"}
+                        mt={6}
+                      >
+                        <Checkbox color={"blue.400"}>Remember me</Checkbox>
+                        <NextLink href={"/forgot-password"}>
+                          <Link color={"blue.400"}>forgot password?</Link>
+                        </NextLink>
+                      </Stack>
+                      <Button
+                        bg={"blue.400"}
+                        color={"white"}
+                        _hover={{
+                          bg: "blue.500",
+                        }}
+                        isLoading={isSubmitting}
+                        type="submit"
+                        width={"100%"}
+                      >
+                        Sign in
+                      </Button>
                     </Stack>
-                    <Button
-                      bg={"blue.400"}
-                      color={"white"}
-                      _hover={{
-                        bg: "blue.500",
-                      }}
-                      isLoading={isSubmitting}
-                      type="submit"
-                      width={"100%"}
-                    >
-                      Sign in
-                    </Button>
-                  </Stack>
+                  </Box>
                 </Form>
               )}
             </Formik>
