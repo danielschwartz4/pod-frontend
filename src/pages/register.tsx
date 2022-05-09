@@ -47,13 +47,13 @@ const Register: React.FC<registerProps> = ({}) => {
             to enjoy all of our cool features 🔥
           </Text>
         </Stack>
+
         <Box
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.700")}
           boxShadow={"lg"}
-          p={8}
         >
-          <Stack spacing={4} pr={8}>
+          <Stack spacing={4} p={8}>
             <Wrapper variant="small">
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}
@@ -109,7 +109,7 @@ const Register: React.FC<registerProps> = ({}) => {
                       <Box>
                         <Button
                           mt={4}
-                          width={"434px"}
+                          width={"100%"}
                           loadingText="Submitting"
                           size="lg"
                           bg={"blue.400"}

@@ -22,6 +22,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       <FormLabel htmlFor={field.name}>{props.label}</FormLabel>
       {!props.isField ? (
         <Input
+          width={"fill-available"}
           autoComplete={props.autoComplete}
           {...field}
           id={field.name}

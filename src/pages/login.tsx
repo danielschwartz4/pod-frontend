@@ -9,6 +9,7 @@ import {
   Text,
   Image,
   useColorModeValue,
+  Input,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
@@ -23,6 +24,7 @@ import firstLogo from "../images/Logos/firstLogo.png";
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
   const [login] = useLoginMutation();
+
   return (
     <Flex
       minH={"100vh"}
@@ -44,7 +46,7 @@ const Login: React.FC<{}> = ({}) => {
           <Text fontSize={"lg"} color={"gray.600"}>
             or register
             <NextLink href={"/register"}>
-              <Link color={"blue.400"} ml="auto" marginLeft={"0.3em"}>
+              <Link color={"blue.400"} marginLeft={"0.3em"}>
                 here
               </Link>
             </NextLink>
@@ -58,89 +60,85 @@ const Login: React.FC<{}> = ({}) => {
           boxShadow={"lg"}
           p={8}
         >
-          <Stack spacing={4} pr={8}>
-            <Wrapper variant="small">
-              <Formik
-                initialValues={{ usernameOrEmail: "", password: "" }}
-                onSubmit={async (
-                  { password, usernameOrEmail },
-                  { setErrors }
-                ) => {
-                  const response = await login({
-                    variables: {
-                      password,
-                      usernameOrEmail,
-                    },
-                    update: (cache, { data }) => {
-                      cache.writeQuery<MeQuery>({
-                        query: MeDocument,
-                        data: {
-                          __typename: "Query",
-                          me: data?.login?.user,
-                        },
-                      });
-                    },
-                  });
-                  if (response.data?.login.errors) {
-                    setErrors(toErrorMap(response.data.login.errors));
-                  } else if (response.data?.login.user) {
-                    if (typeof router.query.next === "string") {
-                      router.push(router.query.next);
-                    } else {
-                      router.push("/profile");
-                    }
+          <Wrapper variant="small">
+            <Formik
+              initialValues={{ usernameOrEmail: "", password: "" }}
+              onSubmit={async (
+                { password, usernameOrEmail },
+                { setErrors }
+              ) => {
+                const response = await login({
+                  variables: {
+                    password,
+                    usernameOrEmail,
+                  },
+                  update: (cache, { data }) => {
+                    cache.writeQuery<MeQuery>({
+                      query: MeDocument,
+                      data: {
+                        __typename: "Query",
+                        me: data?.login?.user,
+                      },
+                    });
+                  },
+                });
+                if (response.data?.login.errors) {
+                  setErrors(toErrorMap(response.data.login.errors));
+                } else if (response.data?.login.user) {
+                  if (typeof router.query.next === "string") {
+                    router.push(router.query.next);
+                  } else {
+                    router.push("/profile");
                   }
-                }}
-              >
-                {({ isSubmitting }) => (
-                  <Form>
+                }
+              }}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <Box>
                     <InputField
                       name="usernameOrEmail"
                       label="Username or Email"
                       placeholder="Username or email"
                     />
-                    <Box mt={4}>
-                      <InputField
-                        name="password"
-                        label="Password"
-                        placeholder="password"
-                        type="password"
-                      />
-                    </Box>
-
-                    <Stack spacing={10}>
-                      <Stack
-                        direction={{ base: "column", sm: "row" }}
-                        align={"start"}
-                        justify={"space-between"}
-                        mt={6}
-                      >
-                        <Checkbox color={"blue.400"}>Remember me</Checkbox>
-                        <NextLink href={"/forgot-password"}>
-                          <Link color={"blue.400"} ml="auto">
-                            forgot password?
-                          </Link>
-                        </NextLink>
-                      </Stack>
-                      <Button
-                        bg={"blue.400"}
-                        color={"white"}
-                        _hover={{
-                          bg: "blue.500",
-                        }}
-                        isLoading={isSubmitting}
-                        type="submit"
-                        justifyContent={"center"}
-                        width={"434px"}
-                      >
-                        Sign in
-                      </Button>
+                  </Box>
+                  <Box mt={4}>
+                    <InputField
+                      name="password"
+                      label="Password"
+                      placeholder="password"
+                      type="password"
+                    />
+                  </Box>
+                  <Stack spacing={10}>
+                    <Stack
+                      direction={{ base: "column", sm: "row" }}
+                      align={"start"}
+                      justify={"space-between"}
+                      mt={6}
+                    >
+                      <Checkbox color={"blue.400"}>Remember me</Checkbox>
+                      <NextLink href={"/forgot-password"}>
+                        <Link color={"blue.400"}>forgot password?</Link>
+                      </NextLink>
                     </Stack>
-                  </Form>
-                )}
-              </Formik>
-            </Wrapper>
-          </Stack>
+                    <Button
+                      bg={"blue.400"}
+                      color={"white"}
+                      _hover={{
+                        bg: "blue.500",
+                      }}
+                      isLoading={isSubmitting}
+                      type="submit"
+                      width={"100%"}
+                    >
+                      Sign in
+                    </Button>
+                  </Stack>
+                </Form>
+              )}
+            </Formik>
+          </Wrapper>
         </Box>
       </Stack>
     </Flex>

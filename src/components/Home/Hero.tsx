@@ -9,7 +9,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
   return (
     <Box h={"100%"} w={"100%"}>
       <Box
-        position={"relative"}
+        // position={"relative"}
         p={2}
         mx={"10%"}
         zIndex={1}
