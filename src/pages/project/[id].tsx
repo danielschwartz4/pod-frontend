@@ -80,9 +80,9 @@ const Home: React.FC<homeProps> = ({}) => {
           <TabList mb="1em">
             <Tab _selected={{ color: "white", bg: "#1a202c" }}>My project</Tab>
             <Tab _selected={{ color: "white", bg: "#1a202c" }}>My pod</Tab>
-            <Tab _selected={{ color: "white", bg: "#1a202c" }}>
+            {/* <Tab _selected={{ color: "white", bg: "#1a202c" }}>
               My project notes
-            </Tab>
+            </Tab> */}
           </TabList>
           <TabPanels>
             <TabPanel outlineColor={"black"} h={"600px"} outlineOffset={-16}>
@@ -101,9 +101,9 @@ const Home: React.FC<homeProps> = ({}) => {
             <TabPanel>
               <MyPod></MyPod>
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
               <MyProjectNotes></MyProjectNotes>
-            </TabPanel>
+            </TabPanel> */}
           </TabPanels>
         </Tabs>
       </Layout>

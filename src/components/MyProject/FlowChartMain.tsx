@@ -72,6 +72,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   });
 
   const eles = init_elements(milestones, milestoneDates, milestoneProg, true);
+
   const [elements, setElements] = useState<any[]>(eles);
 
   useEffect(() => {

@@ -44,4 +44,7 @@ Learn how to create proxy with this:
 https://www.manuelkruisz.com/blog/posts/nginx-multiple-domains-one-server
 
 5-09-22
-Making margin negative as a hack for now... not sure how to get around it
+!! Making margin negative as a hack for now... not sure how to get around it
+
+5-09-22
+Can't use window.innerWidth with next.js, need to do it with like 

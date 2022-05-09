@@ -24,7 +24,9 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
   return (
     <Layout>
       <Wrapper variant="small">
-        <Heading>Last step! Tell us what you're working on :)</Heading>
+        <Heading color={"white"}>
+          Last step! Tell us what you're working on :)
+        </Heading>
 
         <Formik
           initialValues={{

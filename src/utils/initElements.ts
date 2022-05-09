@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const nodeProgressMap = {
   1: "#F26D51",
   2: "#6097F8",
@@ -21,11 +23,10 @@ export default function init_elements(
   const elements = [];
   let goingRight = false;
 
-  console.log(window.innerWidth);
-  console.log(window.innerHeight);
   if (
-    (typeof window !== "undefined" && window.innerWidth > window.innerHeight) ||
-    !allowVertical
+    window.innerWidth > window.innerHeight ||
+    !allowVertical ||
+    window === undefined
   ) {
     milestones?.forEach((_, i) => {
       if (i % 3 == 0) {
