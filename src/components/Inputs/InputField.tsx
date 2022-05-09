@@ -29,7 +29,13 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
           placeholder={props.placeholder}
         />
       ) : (
-        <Textarea {...field} id={field.name} placeholder={props.placeholder} />
+        <Textarea
+          width={"fill-available"}
+          {...field}
+          id={field.name}
+          placeholder={props.placeholder}
+          resize="none"
+        />
       )}
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
