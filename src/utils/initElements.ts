@@ -23,7 +23,10 @@ export default function init_elements(
 
   console.log(window.innerWidth);
   console.log(window.innerHeight);
-  if (window.innerWidth > window.innerHeight || !allowVertical) {
+  if (
+    (typeof window !== "undefined" && window.innerWidth > window.innerHeight) ||
+    !allowVertical
+  ) {
     milestones?.forEach((_, i) => {
       if (i % 3 == 0) {
         goingRight = !goingRight;
