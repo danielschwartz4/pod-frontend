@@ -1,7 +1,5 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React from "react";
-import bgImage from "../../images/bgImage.png";
-import PodCard from "../MyPod/PodCard";
 import { PodCreated } from "../MyPod/PodCreated";
 import SeedData from "./SeedHomeData";
 
@@ -11,12 +9,9 @@ const Hero: React.FC<HeroProps> = ({}) => {
   return (
     <Box h={"100%"} w={"100%"}>
       <Box
-        position={"absolute"}
-        mr={"6em"}
-        top={0}
-        mt={"8em"}
+        position={"relative"}
         p={2}
-        right={0}
+        mx={"10%"}
         zIndex={1}
         borderRadius={20}
         border={"4px"}
@@ -30,9 +25,9 @@ const Hero: React.FC<HeroProps> = ({}) => {
           ]}
         />
       </Box>
-      <Box>
+      {/* <Box>
         <Image width={"100%"} m={-10} opacity={"40%"} src={bgImage.src}></Image>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

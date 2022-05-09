@@ -187,10 +187,10 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   };
 
   return (
-    <div>
+    <Box h={"100%"} w={"100%"}>
       {podJoined ? (
         <div>
-          <PodCreated projectsData={projectsData?.podProjects}></PodCreated>
+          <PodCreated projectsData={projectsData?.podProjects} />
           <Box mt={"2em"}>
             <Button onClick={() => exitPod()}>exit pod</Button>
           </Box>
@@ -228,6 +228,6 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           ) : null}
         </PodNotCreated>
       )}
-    </div>
+    </Box>
   );
 };

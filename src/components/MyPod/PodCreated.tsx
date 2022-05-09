@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import { Project } from "../../generated/graphql";
 import PodCard from "./PodCard";
@@ -10,7 +10,7 @@ interface PodCreatedProps {
 export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
   const podLength = props.projectsData?.length;
   const gridProjects = (
-    <div>
+    <Box w={"100%"}>
       <Grid
         templateColumns={{
           md: "repeat(2, 1fr)",
@@ -36,10 +36,10 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
           )
         )}
       </Grid>
-    </div>
+    </Box>
   );
 
-  if (podLength == 1) {
+  if (podLength) {
     return (
       <div>
         {gridProjects}
@@ -47,30 +47,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
       </div>
     );
   }
-  if (podLength == 2) {
-    return (
-      <div>
-        {gridProjects}
-        {children}
-      </div>
-    );
-  }
-  if (podLength == 3) {
-    return (
-      <div>
-        {gridProjects}
-        {children}
-      </div>
-    );
-  }
-  if (podLength == 4) {
-    return (
-      <div>
-        {gridProjects}
-        {children}
-      </div>
-    );
-  }
+
   return (
     <div>
       something went wrong

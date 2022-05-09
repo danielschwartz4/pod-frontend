@@ -38,8 +38,17 @@ const Home: React.FC<homeProps> = ({}) => {
     delayAlert(4000, setShowAlert);
   }
 
+  // sm 830px
+  // md 1024px
+
   return (
-    <Box h={"100%"} w={"fit-content"} bg={"#4c5e81"} m={-2}>
+    <Box
+      h={"100%"}
+      // w={{ sm: "fit-content", lg: "fit-content" }}
+      w={{ sm: "sm:fit-content", lg: "lg:fit-content" }}
+      bg={"#4c5e81"}
+      m={-2}
+    >
       <Layout isProfile>
         <Flex alignItems={"center"}>
           <Button
@@ -58,7 +67,7 @@ const Home: React.FC<homeProps> = ({}) => {
         </Flex>
         <Tabs
           mt={"8"}
-          isFitted
+          isFitted={true}
           variant="enclosed"
           align={"center"}
           defaultIndex={1}

@@ -84,7 +84,8 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
     <Flex
       zIndex={2}
       position="sticky"
-      bg={"gray.800"}
+      // bg={"gray.800"}
+      bg={"radial-gradient(#f67a3d, transparent)"}
       mt={-2}
       px="6"
       py="5"

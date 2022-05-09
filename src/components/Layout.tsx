@@ -15,9 +15,9 @@ export const Layout: React.FC<LayoutProps> = ({
   isProfile = false,
 }) => {
   return (
-    <>
+    <Box margin={"auto"} bg={"gray.800"} m={-2} w={"fit-content"}>
       {!isProfile ? <HomeNavBar /> : <ProfileNavBar />}
       <Wrapper variant={variant}>{children}</Wrapper>
-    </>
+    </Box>
   );
 };

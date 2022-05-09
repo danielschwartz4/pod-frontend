@@ -9,19 +9,17 @@ interface IndexProps {}
 
 const Index: React.FC<IndexProps> = ({}) => {
   return (
-    <Box bg={"gray.800"} ml={-2} mr={-2}>
-      <Layout>
-        <Box>
-          <Hero></Hero>
-        </Box>
-        <Box mt={"12em"}>
-          <Selector></Selector>
-        </Box>
-        <Box mt={"6em"}>
-          <Features></Features>
-        </Box>
-      </Layout>
-    </Box>
+    <Layout>
+      <Box mt={"4em"}>
+        <Selector></Selector>
+      </Box>
+      <Box mt={"4em"}>
+        <Hero></Hero>
+      </Box>
+      <Box mt={"4em"}>
+        <Features></Features>
+      </Box>
+    </Layout>
   );
 };
 
