@@ -44,7 +44,6 @@ const Home: React.FC<homeProps> = ({}) => {
   return (
     <Box
       h={"100%"}
-      // w={{ sm: "fit-content", lg: "fit-content" }}
       w={{ sm: "sm:fit-content", lg: "lg:fit-content" }}
       bg={"#4c5e81"}
       m={-2}

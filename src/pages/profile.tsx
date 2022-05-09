@@ -28,13 +28,12 @@ const Profile: React.FC<profileProps> = ({}) => {
       </Layout>
     );
   }
-
   return (
     <Layout isProfile>
       {loading && !data ? (
         <div>Loading...</div>
       ) : (
-        <Box m={4} h={"100vh"}>
+        <Box m={4} h={"100%"}>
           <Button
             bg={"#7e9cd6"}
             mt={8}
@@ -47,7 +46,12 @@ const Profile: React.FC<profileProps> = ({}) => {
             mt={8}
             w="auto"
             h="auto"
-            templateColumns={{ sm: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
+            templateColumns={{
+              base: "repeat(1, 1fr)",
+              sm: "repeat(3, 1fr)",
+              lg: "repeat(4, 1fr)",
+              xl: "repeat(5, 1fr)",
+            }}
             gap={6}
             outline={4}
             borderRadius={20}
@@ -55,16 +59,19 @@ const Profile: React.FC<profileProps> = ({}) => {
             borderColor={"#F6793D"}
             p={4}
           >
-            {projectsData?.projects?.map((p) => (
-              <Project
-                key={p.id}
-                project={{
-                  id: p.id,
-                  podId: p.podId,
-                  projectName: p.projectName,
-                }}
-              />
-            ))}
+            {projectsData?.projects
+              ?.slice(0)
+              .reverse()
+              .map((p) => (
+                <Project
+                  key={p.id}
+                  project={{
+                    id: p.id,
+                    podId: p.podId,
+                    projectName: p.projectName,
+                  }}
+                />
+              ))}
           </Grid>
         </Box>
       )}

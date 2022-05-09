@@ -53,6 +53,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
                 w={200}
                 src={firstLogo.src}
                 alt=""
+                mr={4}
               />
             </NextLink>
           </Flex>

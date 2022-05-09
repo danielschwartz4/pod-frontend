@@ -84,7 +84,6 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
     <Flex
       zIndex={2}
       position="sticky"
-      // bg={"gray.800"}
       bg={"radial-gradient(#f67a3d, transparent)"}
       mt={-2}
       px="6"
@@ -94,7 +93,14 @@ export const HomeNavBar: React.FC<HomeNavBarProps> = ({}) => {
     >
       <Flex>
         <NextLink href="/">
-          <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
+          <Image
+            mr={4}
+            cursor={"pointer"}
+            h={70}
+            w={200}
+            src={firstLogo.src}
+            alt=""
+          />
         </NextLink>
       </Flex>
       {body}

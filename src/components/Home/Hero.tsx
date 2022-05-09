@@ -1,7 +1,5 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React from "react";
-import bgImage from "../../images/bgImage.png";
-import PodCard from "../MyPod/PodCard";
 import { PodCreated } from "../MyPod/PodCreated";
 import SeedData from "./SeedHomeData";
 
@@ -13,11 +11,12 @@ const Hero: React.FC<HeroProps> = ({}) => {
       p={2}
       zIndex={1}
       // !! See if there's a way to not use a negative margin
-      mx={["-8", "10%"]}
+      mx={["-10%", "10%"]}
       borderRadius={20}
       border={"4px"}
       borderColor={"#F6793D"}
       mb={4}
+      // width={{ sm: "80%", lg: "50%" }}
     >
       <PodCreated
         projectsData={[

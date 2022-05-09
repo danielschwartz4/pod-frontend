@@ -24,7 +24,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
             <GridItem
               colStart={{ md: null, lg: 2 }}
               colEnd={{ md: null, lg: 4 }}
-              colSpan={{ md: 2, lg: null }}
+              colSpan={{ base: 2, sm: 2, md: null }}
               key={i}
             >
               <PodCard project={p} />
