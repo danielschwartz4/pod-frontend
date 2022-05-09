@@ -21,9 +21,8 @@ const PodCard: React.FC<PodCardProps> = (props) => {
   return (
     <Center>
       <Box
-        maxW={"350px"}
         maxH={"350px"}
-        minW={"350"}
+        width={"350px"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}
