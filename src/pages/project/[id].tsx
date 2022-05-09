@@ -43,10 +43,11 @@ const Home: React.FC<homeProps> = ({}) => {
 
   return (
     <Box
+      // h={"100vh"}
       h={"100%"}
-      w={{ sm: "sm:fit-content", lg: "lg:fit-content" }}
+      // w={{ sm: "sm:fit-content", lg: "lg:fit-content" }}
+
       bg={"#4c5e81"}
-      m={-2}
     >
       <Layout isProfile>
         <Flex alignItems={"center"}>
@@ -66,6 +67,8 @@ const Home: React.FC<homeProps> = ({}) => {
         </Flex>
         <Tabs
           mt={"8"}
+          mx={"auto"}
+          w={{ base: "425px", md: "800px", lg: "1024px" }}
           isFitted={true}
           variant="enclosed"
           align={"center"}
@@ -82,12 +85,7 @@ const Home: React.FC<homeProps> = ({}) => {
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel
-              outlineColor={"black"}
-              h={"600px"}
-              w={"900px"}
-              outlineOffset={-16}
-            >
+            <TabPanel outlineColor={"black"} h={"600px"} outlineOffset={-16}>
               {!loading ? (
                 <FlowChartMain
                   milestoneProgress={

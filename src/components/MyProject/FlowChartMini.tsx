@@ -1,15 +1,7 @@
-import {
-  Box,
-  PopoverBody,
-  PopoverFooter,
-  ButtonGroup,
-  Button,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import { useMeQuery } from "../../generated/graphql";
 import init_elements from "../../utils/initElements";
-import ProgressPopover from "./ProgressPopover";
 
 interface Node {
   id: string;
@@ -33,7 +25,12 @@ const FlowChartMini: React.FC<horizontalFlowProps> = ({
 }) => {
   const { data, loading } = useMeQuery({});
 
-  const elements = init_elements(milestones, milestoneDates, milestoneProgress);
+  const elements = init_elements(
+    milestones,
+    milestoneDates,
+    milestoneProgress,
+    false
+  );
 
   const onNodeContextMenu = (event, _) => {
     event.preventDefault();

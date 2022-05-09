@@ -71,7 +71,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
     progress: number;
   });
 
-  const eles = init_elements(milestones, milestoneDates, milestoneProg);
+  const eles = init_elements(milestones, milestoneDates, milestoneProg, true);
   const [elements, setElements] = useState<any[]>(eles);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   }, [newProgress]);
 
   useEffect(() => {
-    setElements(init_elements(milestones, milestoneDates, milestoneProg));
+    setElements(init_elements(milestones, milestoneDates, milestoneProg, true));
     if (projectId && milestoneProg) {
       updateProjectProgress({
         variables: {
