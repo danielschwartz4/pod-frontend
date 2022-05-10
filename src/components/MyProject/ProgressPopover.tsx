@@ -1,4 +1,9 @@
-import { ArrowBackIcon, CheckIcon, EditIcon } from "@chakra-ui/icons";
+import {
+  ArrowBackIcon,
+  CheckIcon,
+  EditIcon,
+  CalendarIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -13,9 +18,10 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { FlowNode } from "../../types";
+import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
 
 interface ProgressPopoverProps {
@@ -43,7 +49,8 @@ interface ProgressPopoverProps {
 }
 
 const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingText, setIsEditingText] = useState(false);
+  const [isEditingDate, setIsEditingDate] = useState(false);
 
   useEffect(() => {});
 
@@ -62,10 +69,10 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
           </Button>
         </PopoverTrigger>
 
-        {!isEditing ? (
+        {!isEditingText && !isEditingDate ? (
           <PopoverContent backgroundColor={"white"}>
             <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
-            <PopoverCloseButton />
+            <PopoverCloseButton cursor={"pointer"} />
             <PopoverBody>
               <Box>
                 {typeof props.currNode.id === "string"
@@ -125,13 +132,25 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                 w={6}
                 h={6}
                 onClick={() => {
-                  setIsEditing(true);
+                  setIsEditingText(true);
                 }}
               >
                 <EditIcon />
               </Button>
+              <Button
+                w={6}
+                h={6}
+                variant="outline"
+                colorScheme={"tomato"}
+                cursor={"pointer"}
+                onClick={() => {
+                  setIsEditingDate(true);
+                }}
+              >
+                <CalendarIcon />
+              </Button>
               <Box ml={"auto"} mr={"1em"}>
-                Completion date:
+                Target date:{" "}
                 {typeof props.currNode.id === "string"
                   ? props.milestoneDates[props.currNode.id.split("-")[1]].split(
                       " 00"
@@ -141,11 +160,12 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
             </Flex>
           </PopoverContent>
         ) : (
-          <PopoverContent backgroundColor={"white"}>
+          <PopoverContent backgroundColor={"white"} width={"350px"}>
             <Flex>
               <Button
                 onClick={() => {
-                  setIsEditing(false);
+                  setIsEditingText(false);
+                  setIsEditingDate(false);
                 }}
                 size="xs"
                 mt={1}
@@ -163,35 +183,54 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                 Edit your milestone
               </PopoverHeader>
 
-              <PopoverCloseButton />
+              <PopoverCloseButton cursor={"pointer"} />
             </Flex>
             <Formik
-              initialValues={{ milestone: "" }}
+              initialValues={
+                isEditingText ? { milestone: "" } : { milestoneDate: "" }
+              }
               onSubmit={async ({ milestone }) => {
                 props.setNewMilestoneText({
                   id: props.currNode.id,
                   text: milestone,
                 });
-                setIsEditing(false);
+                setIsEditingText(false);
               }}
             >
               {({ isSubmitting }) => (
                 <Form>
                   <PopoverBody>
-                    <Box>
-                      <InputField
-                        label=""
-                        name="milestone"
-                        placeholder="Actuallyyyy I think I'm gonna..."
-                        isField={true}
-                      />
-                    </Box>
+                    {isEditingText ? (
+                      <Box>
+                        <InputField
+                          label=""
+                          name="milestone"
+                          placeholder="Actuallyyyy I think I'm gonna..."
+                          isField={true}
+                        />
+                      </Box>
+                    ) : (
+                      <Box mr={8}>
+                        <DatePickerInput
+                          name={`completionDate`}
+                          label=""
+                          placeholder="Choose a new Date"
+                          showTimeSelect
+                        />
+                        <ErrorMessage
+                          name={`completionDate`}
+                          component="div"
+                          className="field-error"
+                        />
+                      </Box>
+                    )}
                   </PopoverBody>
                   <PopoverFooter>
                     <Button
                       type="submit"
                       w={"100%"}
                       isLoading={isSubmitting ? true : false}
+                      cursor={"pointer"}
                     >
                       <CheckIcon />
                     </Button>
