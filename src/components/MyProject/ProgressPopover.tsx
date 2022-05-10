@@ -38,13 +38,20 @@ interface ProgressPopoverProps {
       progress: number;
     }>
   >;
-  setNewMilestoneText?: React.Dispatch<
+  setNewMilestone?: React.Dispatch<
     React.SetStateAction<{
       id: string;
       text: string;
     }>
   >;
-  updatedMilestoneText?: string[];
+  updatedMilestones?: string[];
+  setNewMilestoneDate?: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      date: string;
+    }>
+  >;
+  updatedMilestoneDates?: string[];
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -76,7 +83,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
             <PopoverBody>
               <Box>
                 {typeof props.currNode.id === "string"
-                  ? props.updatedMilestoneText[props.currNode.id.split("-")[1]]
+                  ? props.updatedMilestones[props.currNode.id.split("-")[1]]
                   : null}
               </Box>
             </PopoverBody>
@@ -152,9 +159,11 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
               <Box ml={"auto"} mr={"1em"}>
                 Target date:{" "}
                 {typeof props.currNode.id === "string"
-                  ? props.milestoneDates[props.currNode.id.split("-")[1]].split(
-                      " 00"
-                    )[0]
+                  ? String(
+                      props.updatedMilestoneDates[
+                        props.currNode.id.split("-")[1]
+                      ]
+                    ).split(" 00")[0]
                   : null}
               </Box>
             </Flex>
@@ -189,12 +198,21 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
               initialValues={
                 isEditingText ? { milestone: "" } : { milestoneDate: "" }
               }
-              onSubmit={async ({ milestone }) => {
-                props.setNewMilestoneText({
-                  id: props.currNode.id,
-                  text: milestone,
-                });
-                setIsEditingText(false);
+              onSubmit={async ({ milestone, milestoneDate }) => {
+                if (isEditingText) {
+                  props.setNewMilestone({
+                    id: props.currNode.id,
+                    text: milestone,
+                  });
+                  setIsEditingText(false);
+                }
+                if (isEditingDate) {
+                  props.setNewMilestoneDate({
+                    id: props.currNode.id,
+                    date: String(milestoneDate),
+                  });
+                  setIsEditingDate(false);
+                }
               }}
             >
               {({ isSubmitting }) => (
@@ -212,13 +230,13 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     ) : (
                       <Box mr={8}>
                         <DatePickerInput
-                          name={`completionDate`}
+                          name={"milestoneDate"}
                           label=""
                           placeholder="Choose a new Date"
                           showTimeSelect
                         />
                         <ErrorMessage
-                          name={`completionDate`}
+                          name={"milestoneDate"}
                           component="div"
                           className="field-error"
                         />

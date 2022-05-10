@@ -1,0 +1,14 @@
+mutation UpdateProjectMilestoneDates(
+  $milestoneDates: [String!]!
+  $updateProjectMilestoneDatesId: Float!
+) {
+  updateProjectMilestoneDates(
+    milestoneDates: $milestoneDates
+    id: $updateProjectMilestoneDatesId
+  ) {
+    errors
+    project {
+      ...RegularProject
+    }
+  }
+}

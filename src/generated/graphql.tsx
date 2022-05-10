@@ -35,6 +35,7 @@ export type Mutation = {
   removeProjectFromPod: PodResponse;
   updatePhone?: Maybe<UserResponse>;
   updateProjectGroupSize: ProjectResponse;
+  updateProjectMilestoneDates: ProjectResponse;
   updateProjectMilestones: ProjectResponse;
   updateProjectName: ProjectResponse;
   updateProjectPod: ProjectResponse;
@@ -89,6 +90,12 @@ export type MutationUpdatePhoneArgs = {
 export type MutationUpdateProjectGroupSizeArgs = {
   groupSize: Scalars['Float'];
   id: Scalars['Float'];
+};
+
+
+export type MutationUpdateProjectMilestoneDatesArgs = {
+  id: Scalars['Float'];
+  milestoneDates: Array<Scalars['String']>;
 };
 
 
@@ -301,6 +308,14 @@ export type UpdateProjectGroupSizeMutationVariables = Exact<{
 
 
 export type UpdateProjectGroupSizeMutation = { __typename?: 'Mutation', updateProjectGroupSize: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
+
+export type UpdateProjectMilestoneDatesMutationVariables = Exact<{
+  milestoneDates: Array<Scalars['String']> | Scalars['String'];
+  updateProjectMilestoneDatesId: Scalars['Float'];
+}>;
+
+
+export type UpdateProjectMilestoneDatesMutation = { __typename?: 'Mutation', updateProjectMilestoneDates: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
 
 export type UpdateProjectMilestonesMutationVariables = Exact<{
   milestones: Array<Scalars['String']> | Scalars['String'];
@@ -771,6 +786,46 @@ export function useUpdateProjectGroupSizeMutation(baseOptions?: Apollo.MutationH
 export type UpdateProjectGroupSizeMutationHookResult = ReturnType<typeof useUpdateProjectGroupSizeMutation>;
 export type UpdateProjectGroupSizeMutationResult = Apollo.MutationResult<UpdateProjectGroupSizeMutation>;
 export type UpdateProjectGroupSizeMutationOptions = Apollo.BaseMutationOptions<UpdateProjectGroupSizeMutation, UpdateProjectGroupSizeMutationVariables>;
+export const UpdateProjectMilestoneDatesDocument = gql`
+    mutation UpdateProjectMilestoneDates($milestoneDates: [String!]!, $updateProjectMilestoneDatesId: Float!) {
+  updateProjectMilestoneDates(
+    milestoneDates: $milestoneDates
+    id: $updateProjectMilestoneDatesId
+  ) {
+    errors
+    project {
+      ...RegularProject
+    }
+  }
+}
+    ${RegularProjectFragmentDoc}`;
+export type UpdateProjectMilestoneDatesMutationFn = Apollo.MutationFunction<UpdateProjectMilestoneDatesMutation, UpdateProjectMilestoneDatesMutationVariables>;
+
+/**
+ * __useUpdateProjectMilestoneDatesMutation__
+ *
+ * To run a mutation, you first call `useUpdateProjectMilestoneDatesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProjectMilestoneDatesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProjectMilestoneDatesMutation, { data, loading, error }] = useUpdateProjectMilestoneDatesMutation({
+ *   variables: {
+ *      milestoneDates: // value for 'milestoneDates'
+ *      updateProjectMilestoneDatesId: // value for 'updateProjectMilestoneDatesId'
+ *   },
+ * });
+ */
+export function useUpdateProjectMilestoneDatesMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProjectMilestoneDatesMutation, UpdateProjectMilestoneDatesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProjectMilestoneDatesMutation, UpdateProjectMilestoneDatesMutationVariables>(UpdateProjectMilestoneDatesDocument, options);
+      }
+export type UpdateProjectMilestoneDatesMutationHookResult = ReturnType<typeof useUpdateProjectMilestoneDatesMutation>;
+export type UpdateProjectMilestoneDatesMutationResult = Apollo.MutationResult<UpdateProjectMilestoneDatesMutation>;
+export type UpdateProjectMilestoneDatesMutationOptions = Apollo.BaseMutationOptions<UpdateProjectMilestoneDatesMutation, UpdateProjectMilestoneDatesMutationVariables>;
 export const UpdateProjectMilestonesDocument = gql`
     mutation UpdateProjectMilestones($milestones: [String!]!, $updateProjectMilestonesId: Float!) {
   updateProjectMilestones(milestones: $milestones, id: $updateProjectMilestonesId) {
