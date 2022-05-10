@@ -7,6 +7,9 @@ const boxMapping = {
 function generateProgress(progress: number[]) {
   let tmp = "";
   for (const i in progress) {
+    if (i != "0") {
+      tmp += "→";
+    }
     tmp += boxMapping[progress[i]];
   }
   return tmp;

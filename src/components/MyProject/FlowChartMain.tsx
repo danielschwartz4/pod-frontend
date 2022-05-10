@@ -1,24 +1,19 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  PopoverBody,
-  PopoverFooter,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import {
   ProjectDocument,
   ProjectQuery,
   useMeQuery,
+  useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
+import { FlowNode } from "../../types";
 import init_elements from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
 import { sendMessage } from "../Sms/sendMessage";
 import ProgressPopover from "./ProgressPopover";
-import { FlowNode } from "../../types";
 
 interface horizontalFlowProps {
   milestones: string[];
@@ -37,9 +32,9 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
 }) => {
   const { data, loading } = useMeQuery({});
 
-  const [updateProjectProgress] = useUpdateProjectProgressMutation();
   const projectId = useGetIntId();
 
+  // Popover functionality
   const [isOpen, setIsOpen] = useState(false);
   const open = (_, node) => {
     setCurrNode(node);
@@ -47,7 +42,11 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   };
   const close = () => setIsOpen(false);
 
+  // Get the current node
   const [currNode, setCurrNode] = useState<FlowNode>({} as FlowNode);
+
+  // Project progress
+  const [updateProjectProgress] = useUpdateProjectProgressMutation();
 
   const [milestoneProg, setMilestoneProg] =
     useState<number[]>(milestoneProgress);
@@ -63,7 +62,32 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
     progress: number;
   });
 
-  const eles = init_elements(milestones, milestoneDates, milestoneProg, true);
+  // Project milestones
+  const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
+
+  const [milestoneText, setMilestoneText] = useState<string[]>(milestones);
+
+  const [newMilestoneText, setNewMilestoneText] = useState<{
+    id: string;
+    text: string;
+  }>({
+    id: "",
+    text: "",
+    // typeof currNode.id === "string"
+    //   ? milestoneText[currNode.id.split("-")[1]]
+    //   : null,
+  } as {
+    id: string;
+    text: string;
+  });
+
+  // Flowchart elements
+  const eles = init_elements(
+    milestoneText,
+    milestoneDates,
+    milestoneProg,
+    true
+  );
 
   const [elements, setElements] = useState<any[]>(eles);
 
@@ -113,6 +137,49 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
     }
   }, [milestoneProg]);
 
+  useEffect(() => {
+    if (milestoneText && currNode.id != null) {
+      let tmp = [];
+      milestoneText.forEach((ele, i) => {
+        if (typeof currNode.id === "string") {
+          if (i == parseInt(currNode.id.split("-")[1])) {
+            tmp.push(newMilestoneText["text"]);
+          } else {
+            tmp.push(ele);
+          }
+        }
+      });
+      setMilestoneText(tmp);
+    }
+  }, [newMilestoneText]);
+
+  useEffect(() => {
+    setElements(
+      init_elements(milestoneText, milestoneDates, milestoneProg, true)
+    );
+    if (projectId && milestoneText) {
+      updateProjectMilestones({
+        variables: {
+          updateProjectMilestonesId: projectId,
+          milestones: milestoneText,
+        },
+        // !! Do I actually need this
+        update: (cache, { data }) => {
+          cache.writeQuery<ProjectQuery>({
+            query: ProjectDocument,
+            data: {
+              __typename: "Query",
+              project: {
+                errors: data?.updateProjectMilestones.errors,
+                project: data?.updateProjectMilestones.project,
+              },
+            },
+          });
+        },
+      });
+    }
+  }, [milestoneText]);
+
   const onNodeContextMenu = (event, _) => {
     event.preventDefault();
   };
@@ -156,6 +223,8 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
                 milestones={milestones}
                 currNode={currNode}
                 setNewProgress={setNewProgress}
+                updatedMilestoneText={milestoneText}
+                setNewMilestoneText={setNewMilestoneText}
                 setIsOpen={setIsOpen}
                 setShowAlert={setShowAlert}
               />

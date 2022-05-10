@@ -32,6 +32,13 @@ interface ProgressPopoverProps {
       progress: number;
     }>
   >;
+  setNewMilestoneText?: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      text: string;
+    }>
+  >;
+  updatedMilestoneText?: string[];
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -62,7 +69,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
             <PopoverBody>
               <Box>
                 {typeof props.currNode.id === "string"
-                  ? props.milestones[props.currNode.id.split("-")[1]]
+                  ? props.updatedMilestoneText[props.currNode.id.split("-")[1]]
                   : null}
               </Box>
             </PopoverBody>
@@ -160,7 +167,13 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
             </Flex>
             <Formik
               initialValues={{ milestone: "" }}
-              onSubmit={async ({ milestone }) => {}}
+              onSubmit={async ({ milestone }) => {
+                props.setNewMilestoneText({
+                  id: props.currNode.id,
+                  text: milestone,
+                });
+                setIsEditing(false);
+              }}
             >
               {({ isSubmitting }) => (
                 <Form>
