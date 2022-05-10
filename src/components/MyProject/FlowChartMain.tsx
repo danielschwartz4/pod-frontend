@@ -18,15 +18,7 @@ import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
 import { sendMessage } from "../Sms/sendMessage";
 import ProgressPopover from "./ProgressPopover";
-
-interface Node {
-  id: string;
-  milestoneDates: string[];
-  data: {
-    label: string;
-  };
-  date: string;
-}
+import { FlowNode } from "../../types";
 
 interface horizontalFlowProps {
   milestones: string[];
@@ -55,10 +47,10 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   };
   const close = () => setIsOpen(false);
 
+  const [currNode, setCurrNode] = useState<FlowNode>({} as FlowNode);
+
   const [milestoneProg, setMilestoneProg] =
     useState<number[]>(milestoneProgress);
-
-  const [currNode, setCurrNode] = useState<Node>({} as Node);
 
   const [newProgress, setNewProgress] = useState<{
     id: string;
@@ -159,53 +151,14 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
               <ProgressPopover
                 close={close}
                 isOpen={isOpen}
-                completionDate={
-                  typeof currNode.id === "string"
-                    ? milestoneDates[currNode.id.split("-")[1]].split(" 00")[0]
-                    : null
-                }
-              >
-                <PopoverBody>
-                  <Box>
-                    {typeof currNode.id === "string"
-                      ? milestones[currNode.id.split("-")[1]]
-                      : null}
-                  </Box>
-                </PopoverBody>
-
-                <PopoverFooter d="flex" justifyContent="center">
-                  <ButtonGroup size="sm">
-                    <Button
-                      onClick={() => {
-                        setIsOpen(!isOpen);
-                        setNewProgress({ id: currNode.id, progress: 1 });
-                      }}
-                      background="#F26D51"
-                    >
-                      not started!
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setIsOpen(!isOpen);
-                        setNewProgress({ id: currNode.id, progress: 2 });
-                      }}
-                      background="#6097F8"
-                    >
-                      in progress
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setIsOpen(!isOpen);
-                        setNewProgress({ id: currNode.id, progress: 3 });
-                        setShowAlert(true);
-                      }}
-                      background="#3EE76D"
-                    >
-                      all done!
-                    </Button>
-                  </ButtonGroup>
-                </PopoverFooter>
-              </ProgressPopover>
+                milestoneDates={milestoneDates}
+                milestoneProgress={milestoneProg}
+                milestones={milestones}
+                currNode={currNode}
+                setNewProgress={setNewProgress}
+                setIsOpen={setIsOpen}
+                setShowAlert={setShowAlert}
+              />
             </Box>
           </ReactFlow>
         </>

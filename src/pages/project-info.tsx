@@ -71,7 +71,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                     placeholder="overview"
                     label="Overview"
                     isField={true}
-                  ></InputField>
+                  />
                 </Box>
                 <MilestoneInputs values={values} />
                 <Button
