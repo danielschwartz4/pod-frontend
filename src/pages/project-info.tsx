@@ -22,9 +22,16 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
     skip: isServer(),
   });
   return (
-    <Layout>
-      <Wrapper variant="small">
-        <Heading color={"white"}>
+    <Layout isProfile={true} variant="medium">
+      <Box
+        padding={4}
+        border="4px"
+        borderColor={"gainsboro"}
+        borderRadius={12}
+        w={"fit-content"}
+        // width={"80%"}
+      >
+        <Heading color={"gainsboro"}>
           Last step! Tell us what you're working on :)
         </Heading>
 
@@ -79,6 +86,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   mt={4}
                   type="submit"
                   isLoading={isSubmitting ? true : false}
+                  cursor="pointer"
                 >
                   Get started!
                 </Button>
@@ -86,7 +94,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
             </Form>
           )}
         </Formik>
-      </Wrapper>
+      </Box>
     </Layout>
   );
 };

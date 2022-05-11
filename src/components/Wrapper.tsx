@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-export type WrapperVariant = "small" | "regular";
+export type WrapperVariant = "small" | "medium" | "large";
 
 interface WrapperProps {
   variant?: WrapperVariant;
@@ -8,13 +8,15 @@ interface WrapperProps {
 
 export const Wrapper: React.FC<WrapperProps> = ({
   children,
-  variant = "regular",
+  variant = "large",
 }) => {
   return (
     <Box
       mt={8}
       mx={"auto"}
-      width={variant === "regular" ? "100vw" : "40vw"}
+      width={
+        variant === "large" ? "100vw" : variant === "medium" ? "60vw" : "40vw"
+      }
       h={"100%"}
     >
       {children}

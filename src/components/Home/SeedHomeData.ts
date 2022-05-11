@@ -15,11 +15,9 @@ const SeedData = {
 
       overview:
         "I'm learning a new Scott Joplin song for my upcoming recital in July! Excited & Nervous!",
-      // createdAt: new Date().toString(),
-      // updatedAt: new Date().toString(),
       createdAt: "Mar 29 2022",
       updatedAt: "Mar 27 2022",
-      projectName: "The Entertainer",
+      projectName: "Learn to play The Entertainer",
       groupSize: 3,
       id: 1,
       userId: 1,
@@ -39,11 +37,9 @@ const SeedData = {
 
       overview:
         "I'm launching this new website called Pod to help users motivate one another!",
-      // createdAt: new Date().toString(),
-      // updatedAt: new Date().toString(),
       createdAt: "Mar 29 2022",
       updatedAt: "Mar 29 2022",
-      projectName: "Pod",
+      projectName: "Create my app called Pod",
       groupSize: 3,
       id: 2,
       userId: 2,
@@ -64,11 +60,9 @@ const SeedData = {
 
       overview:
         "I know I'm late, but I'm trying to read the Harry Potter Books. First on the list: Harry Potter and the Sorcerer's Stone!",
-      // createdAt: new Date().toString(),
-      // updatedAt: new Date().toString(),
       createdAt: "Mar 29 2022",
       updatedAt: "Mar 28 2022",
-      projectName: "Harry Potter",
+      projectName: "Read Harry Potter (finally)",
       groupSize: 3,
       id: 3,
       userId: 3,

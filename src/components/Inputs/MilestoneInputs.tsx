@@ -20,10 +20,10 @@ const MilestoneInputs: React.FC<milestoneInputsProps> = ({ values }) => {
           {values.milestone.length > 0 &&
             values.milestone.map((milestone, index) => (
               <Flex alignItems={"end"} mt={4} key={index}>
-                <Box>
+                <Box width={"fill-available"}>
                   <InputField
                     name={`milestone.${index}.description`}
-                    placeholder="milestones"
+                    placeholder="milestone"
                     label={"Milestone " + (index + 1)}
                     autoComplete="off"
                   />
