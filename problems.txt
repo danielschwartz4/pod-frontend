@@ -48,3 +48,7 @@ https://www.manuelkruisz.com/blog/posts/nginx-multiple-domains-one-server
 
 5-09-22
 Can't use window.innerWidth with next.js, need to do it with like 
+
+5-11-22
+Problem: Pod wasn't rendering after clicking join
+Solution: Had to refetch data by using "refetch()" in the query

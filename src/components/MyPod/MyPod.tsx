@@ -26,8 +26,11 @@ interface MyPodProps {}
 export const MyPod: React.FC<MyPodProps> = ({}) => {
   useIsAuth();
 
-  const { data: projectData, loading: projectDataLoading } =
-    useGetProjectFromUrl();
+  const {
+    data: projectData,
+    loading: projectDataLoading,
+    refetch: refetchProject,
+  } = useGetProjectFromUrl();
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
@@ -50,14 +53,29 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
   });
-  const { data: projectsData, loading: projectsDataLoading } =
-    usePodProjectsQuery({
-      variables: { podId: podData?.pod?.pod?.id },
-    });
+  const {
+    data: projectsData,
+    loading: projectsDataLoading,
+    refetch: refetchProjects,
+  } = usePodProjectsQuery({
+    variables: { podId: podData?.pod?.pod?.id },
+  });
+
+  const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
+  const [_podProject, setPodProject] = useState(projectData?.project?.project);
 
   useEffect(() => {
     setPodJoined(projectData?.project?.project?.podId != 0);
-  });
+  }, [projectData]);
+
+  useEffect(() => {
+    refetchProjects();
+    refetchProject();
+  }, [podJoined]);
+
+  useEffect(() => {
+    setPodProjects(projectsData?.podProjects);
+  }, [projectsData]);
 
   // ! Make it so you can't add duplicate project or user ids to same pod
   const joinPod = async (cap: number) => {
@@ -105,7 +123,6 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       });
     } else {
       const pod = availablePodsData?.findPod?.pod;
-      // console.log(availablePodsData);
       updateProjectPod({
         variables: {
           podId: pod.id,
@@ -188,11 +205,13 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
 
   return (
     <Box h={"100%"} w={"100%"}>
-      {podJoined ? (
+      {podJoined && _podProjects ? (
         <div>
-          <PodCreated projectsData={projectsData?.podProjects} />
+          <PodCreated projectsData={_podProjects} />
           <Box mt={"2em"}>
-            <Button onClick={() => exitPod()}>exit pod</Button>
+            <Button bgColor="gainsboro" onClick={() => exitPod()}>
+              exit pod
+            </Button>
           </Box>
         </div>
       ) : (
