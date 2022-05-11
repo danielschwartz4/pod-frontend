@@ -120,6 +120,7 @@ const Register: React.FC<registerProps> = ({}) => {
                             }}
                             type="submit"
                             isLoading={isSubmitting ? true : false}
+                            cursor={"pointer"}
                           >
                             Join the community!
                           </Button>

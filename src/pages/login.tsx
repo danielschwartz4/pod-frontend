@@ -132,6 +132,7 @@ const Login: React.FC<{}> = ({}) => {
                         isLoading={isSubmitting}
                         type="submit"
                         width={"100%"}
+                        cursor={"pointer"}
                       >
                         Sign in
                       </Button>

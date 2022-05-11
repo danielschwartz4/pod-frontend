@@ -35,7 +35,7 @@ const Home: React.FC<homeProps> = ({}) => {
   }
 
   if (showAlert == true) {
-    delayAlert(4000, setShowAlert);
+    delayAlert(4000, setShowAlert, false);
   }
 
   // sm 830px

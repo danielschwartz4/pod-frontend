@@ -10,6 +10,7 @@ import {
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
 import { FlowNode } from "../../types";
+import { delayAlert } from "../../utils/delay";
 import init_elements from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
@@ -35,11 +36,17 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
 
   const projectId = useGetIntId();
 
-  // Popover functionality
+  const [nodeActive, setNodeActive] = useState(true);
+
+  // Popover functionality (delaying a second after popover is opened)
   const [isOpen, setIsOpen] = useState(false);
   const open = (_, node) => {
-    setCurrNode(node);
-    setIsOpen(!isOpen);
+    if (nodeActive) {
+      setCurrNode(node);
+      setIsOpen(!isOpen);
+    }
+    delayAlert(1000, setNodeActive, true);
+    setNodeActive(false);
   };
   const close = () => setIsOpen(false);
 
@@ -214,7 +221,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   }, [newMilestoneDate]);
 
   useEffect(() => {
-    console.log(_milestoneDates);
     setElements(
       init_elements(_milestones, _milestoneDates, _milestoneProgress, true)
     );
@@ -253,7 +259,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
       ) : (
         <>
           <ReactFlow
-            // style={{ width: "100%", height: "100%" }}
             elements={elements}
             nodesConnectable={false}
             onLoad={onLoad}

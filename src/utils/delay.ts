@@ -1,9 +1,10 @@
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export const delayAlert = async (
-  ms,
-  setShowAlert: React.Dispatch<React.SetStateAction<boolean>>
+  ms: number,
+  setShowAlert: React.Dispatch<React.SetStateAction<boolean>>,
+  res: boolean
 ) => {
   await delay(ms);
-  setShowAlert(false);
+  setShowAlert(res);
 };
