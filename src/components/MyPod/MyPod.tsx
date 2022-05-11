@@ -205,7 +205,9 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
 
   return (
     <Box h={"100%"} w={"100%"}>
-      {podJoined && _podProjects ? (
+      {projectsDataLoading ? (
+        <Box color={"white"}>loading...</Box>
+      ) : podJoined && _podProjects ? (
         <div>
           <PodCreated projectsData={_podProjects} />
           <Box mt={"2em"}>

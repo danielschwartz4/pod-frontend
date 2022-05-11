@@ -42,14 +42,12 @@ const Home: React.FC<homeProps> = ({}) => {
   // md 1024px
 
   return (
-    <Box
-      // h={"100vh"}
-      h={"100%"}
-      // w={{ sm: "sm:fit-content", lg: "lg:fit-content" }}
-
-      bg={"#4c5e81"}
-    >
-      <Layout isProfile>
+    <Layout isProfile>
+      <Box
+        // h={"100vh"}
+        m={4}
+        h={"100%"}
+      >
         <Flex alignItems={"center"}>
           <Button
             bg={"#7e9cd6"}
@@ -106,8 +104,8 @@ const Home: React.FC<homeProps> = ({}) => {
             </TabPanel> */}
           </TabPanels>
         </Tabs>
-      </Layout>
-    </Box>
+      </Box>
+    </Layout>
   );
 };
 
