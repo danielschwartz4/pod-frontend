@@ -24,7 +24,13 @@ import React, { useEffect, useState } from "react";
 import { FlowNode } from "../../types";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
+import { removeItemByIndex } from "../../utils/removeItem";
 import formatDate from "../../utils/formatDate";
+import {
+  useUpdateProjectMilestoneDatesMutation,
+  useUpdateProjectMilestonesMutation,
+  useUpdateProjectProgressMutation,
+} from "../../generated/graphql";
 
 interface ProgressPopoverProps {
   close: () => void;
@@ -32,6 +38,7 @@ interface ProgressPopoverProps {
   currNode: FlowNode;
   milestones: string[];
   milestoneDates: string[];
+  projectId: number;
   milestoneProgress: number[];
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setNewProgress?: React.Dispatch<
@@ -60,6 +67,11 @@ interface ProgressPopoverProps {
 const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
   const [isEditingText, setIsEditingText] = useState(false);
   const [isEditingDate, setIsEditingDate] = useState(false);
+
+  const [updateProjectMilestoneDates] =
+    useUpdateProjectMilestoneDatesMutation();
+  const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
+  const [updateProjectProgress] = useUpdateProjectProgressMutation();
 
   return (
     <>
@@ -138,6 +150,50 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                 cursor={"pointer"}
                 w={6}
                 h={6}
+                onClick={async () => {
+                  let _milestones = Object.assign([], props.milestones);
+                  let _milestoneDates = Object.assign([], props.milestoneDates);
+                  let _milestoneProgress = Object.assign(
+                    [],
+                    props.milestoneProgress
+                  );
+                  const nodeId = parseInt(props.currNode.id.split("-")[1]);
+
+                  _milestones = removeItemByIndex(_milestones, nodeId);
+                  _milestoneDates = removeItemByIndex(_milestoneDates, nodeId);
+                  _milestoneProgress = removeItemByIndex(
+                    _milestoneProgress,
+                    nodeId
+                  );
+
+                  const response = await updateProjectMilestones({
+                    variables: {
+                      updateProjectMilestonesId: props.projectId,
+                      milestones: _milestones,
+                    },
+                  });
+
+                  if (response.data?.updateProjectMilestones) {
+                    const response2 = await updateProjectMilestoneDates({
+                      variables: {
+                        updateProjectMilestoneDatesId: props.projectId,
+                        milestoneDates: _milestoneDates,
+                      },
+                    });
+                    if (response2.data?.updateProjectMilestoneDates) {
+                      console.log("success");
+                    }
+                  }
+                  const response3 = await updateProjectProgress({
+                    variables: {
+                      updateProjectProgressId: props.projectId,
+                      milestoneProgress: _milestoneProgress,
+                    },
+                  });
+                  if (response3.data?.updateProjectProgress) {
+                    console.log("success");
+                  }
+                }}
               >
                 <DeleteIcon />
               </Button>

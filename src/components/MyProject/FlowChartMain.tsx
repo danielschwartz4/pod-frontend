@@ -281,6 +281,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
             />
             <Box>
               <ProgressPopover
+                projectId={projectId}
                 close={close}
                 isOpen={isOpen}
                 milestoneDates={milestoneDates}

@@ -1,16 +1,13 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
-import { Formik, Form, ErrorMessage } from "formik";
-import router from "next/router";
+import { ErrorMessage, Form, Formik } from "formik";
 import React from "react";
 import {
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
-import { objectToArray } from "../../utils/objectToArray";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
-import MilestoneInputs from "../Inputs/MilestoneInputs";
 
 interface NewMilestoneProps {
   milestones: string[];
