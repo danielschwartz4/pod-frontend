@@ -3,6 +3,7 @@ import {
   CheckIcon,
   EditIcon,
   CalendarIcon,
+  DeleteIcon,
 } from "@chakra-ui/icons";
 import {
   Box,
@@ -23,6 +24,7 @@ import React, { useEffect, useState } from "react";
 import { FlowNode } from "../../types";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
+import formatDate from "../../utils/formatDate";
 
 interface ProgressPopoverProps {
   close: () => void;
@@ -58,8 +60,6 @@ interface ProgressPopoverProps {
 const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
   const [isEditingText, setIsEditingText] = useState(false);
   const [isEditingDate, setIsEditingDate] = useState(false);
-
-  useEffect(() => {});
 
   return (
     <>
@@ -132,6 +132,16 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
             <Divider variant="dashed" orientation="horizontal" />
             <Flex alignItems={"center"}>
               <Button
+                ml={".3em"}
+                colorScheme={"tomato"}
+                variant="outline"
+                cursor={"pointer"}
+                w={6}
+                h={6}
+              >
+                <DeleteIcon />
+              </Button>
+              <Button
                 margin={".3em"}
                 colorScheme={"tomato"}
                 variant="outline"
@@ -159,11 +169,13 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
               <Box ml={"auto"} mr={"1em"}>
                 Target date:{" "}
                 {typeof props.currNode.id === "string"
-                  ? String(
-                      props.updatedMilestoneDates[
-                        props.currNode.id.split("-")[1]
-                      ]
-                    ).split(" 00")[0]
+                  ? formatDate(
+                      String(
+                        props.updatedMilestoneDates[
+                          props.currNode.id.split("-")[1]
+                        ]
+                      )
+                    )
                   : null}
               </Box>
             </Flex>

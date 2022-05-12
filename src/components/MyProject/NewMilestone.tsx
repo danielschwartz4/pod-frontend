@@ -29,6 +29,9 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
     useUpdateProjectMilestoneDatesMutation();
   const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
   const [updateProjectProgress] = useUpdateProjectProgressMutation();
+  let _milestones = Object.assign([], milestones);
+  let _milestoneDates = Object.assign([], milestoneDates);
+  let _milestoneProgress = Object.assign([], milestoneProgress);
   return (
     <Box>
       <Formik
@@ -37,13 +40,13 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
           completionDate: "",
         }}
         onSubmit={async ({ description, completionDate }, { setErrors }) => {
-          milestones.push(description);
-          milestoneDates.push(completionDate);
-          milestoneProgress.push(1);
+          _milestones.push(description);
+          _milestoneDates.push(completionDate);
+          _milestoneProgress.push(1);
           const response = await updateProjectMilestones({
             variables: {
               updateProjectMilestonesId: projectId,
-              milestones: milestones,
+              milestones: _milestones,
             },
           });
 
@@ -51,7 +54,7 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
             const response2 = await updateProjectMilestoneDates({
               variables: {
                 updateProjectMilestoneDatesId: projectId,
-                milestoneDates: milestoneDates,
+                milestoneDates: _milestoneDates,
               },
             });
             if (response2.data?.updateProjectMilestoneDates) {
@@ -61,7 +64,7 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
           const response3 = await updateProjectProgress({
             variables: {
               updateProjectProgressId: projectId,
-              milestoneProgress: milestoneProgress,
+              milestoneProgress: _milestoneProgress,
             },
           });
           if (response3.data?.updateProjectProgress) {
@@ -93,7 +96,7 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
                     className="field-error"
                   />
                 </Box>
-                <Box>
+                <Box ml={"50px"} mt={"28px"}>
                   <Button
                     type="submit"
                     isLoading={isSubmitting ? true : false}

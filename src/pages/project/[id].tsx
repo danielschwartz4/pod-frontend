@@ -66,7 +66,7 @@ const Home: React.FC<homeProps> = ({}) => {
                 projectData?.project?.project?.milestoneProgress
               }
               projectId={projectData?.project?.project?.id}
-            ></NewMilestone>
+            />
           )}
         </Flex>
         <Tabs
