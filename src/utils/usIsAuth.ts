@@ -5,6 +5,7 @@ import { useMeQuery } from "../generated/graphql";
 // !! Make it so we can add parameter next_path rather than hard coding
 export function useIsAuth() {
   const { data, loading } = useMeQuery();
+
   const router = useRouter();
   useEffect(() => {
     if (!data?.me && !loading) {

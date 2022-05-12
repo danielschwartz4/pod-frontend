@@ -30,6 +30,10 @@ const Home: React.FC<homeProps> = ({}) => {
 
   const [showAlert, setShowAlert] = useState(false);
 
+  if (!projectData) {
+    return null;
+  }
+
   if (projectData?.project?.errors) {
     return <Warning />;
   }
@@ -37,9 +41,6 @@ const Home: React.FC<homeProps> = ({}) => {
   if (showAlert == true) {
     delayAlert(4000, setShowAlert, false);
   }
-
-  // sm 830px
-  // md 1024px
 
   return (
     <Layout isProfile>
@@ -70,7 +71,7 @@ const Home: React.FC<homeProps> = ({}) => {
           isFitted={true}
           variant="enclosed"
           align={"center"}
-          defaultIndex={1}
+          defaultIndex={0}
           // ? Made isLazy so tab rerenders flow since flow only appears correctly upon rendering
           isLazy
           lazyBehavior="keepMounted"
@@ -94,7 +95,9 @@ const Home: React.FC<homeProps> = ({}) => {
                   setShowAlert={setShowAlert}
                   showAlert={showAlert}
                 />
-              ) : null}
+              ) : (
+                <Box>Loading...</Box>
+              )}
             </TabPanel>
             <TabPanel>
               <MyPod></MyPod>

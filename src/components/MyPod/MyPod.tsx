@@ -62,18 +62,18 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   });
 
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
-  const [_podProject, setPodProject] = useState(projectData?.project?.project);
 
   useEffect(() => {
     setPodJoined(projectData?.project?.project?.podId != 0);
   }, [projectData]);
 
   useEffect(() => {
-    refetchProjects();
+    // refetchProjects();
     refetchProject();
   }, [podJoined]);
 
   useEffect(() => {
+    refetchProjects();
     setPodProjects(projectsData?.podProjects);
   }, [projectsData]);
 
@@ -85,7 +85,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           cap: cap,
         },
       });
-      updateProjectPod({
+      await updateProjectPod({
         variables: {
           podId: pod.data.createPod.id,
           updateProjectPodId: projectData?.project?.project.id,
@@ -103,7 +103,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           });
         },
       });
-      addProjectToPod({
+      await addProjectToPod({
         variables: {
           addProjectToPodId: pod.data.createPod.id,
           projectId: projectData?.project?.project.id,
@@ -123,25 +123,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
       });
     } else {
       const pod = availablePodsData?.findPod?.pod;
-      updateProjectPod({
-        variables: {
-          podId: pod.id,
-          updateProjectPodId: projectData?.project?.project.id,
-        },
-        update: (cache, { data }) => {
-          cache.writeQuery<ProjectQuery>({
-            query: ProjectDocument,
-            data: {
-              __typename: "Query",
-              project: {
-                errors: data?.updateProjectPod.errors,
-                project: data?.updateProjectPod.project,
-              },
-            },
-          });
-        },
-      });
-      addProjectToPod({
+      await addProjectToPod({
         variables: {
           addProjectToPodId: pod.id,
           projectId: projectData?.project?.project.id,
@@ -159,12 +141,30 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           });
         },
       });
+      await updateProjectPod({
+        variables: {
+          podId: pod.id,
+          updateProjectPodId: projectData?.project?.project.id,
+        },
+        update: (cache, { data }) => {
+          cache.writeQuery<ProjectQuery>({
+            query: ProjectDocument,
+            data: {
+              __typename: "Query",
+              project: {
+                errors: data?.updateProjectPod.errors,
+                project: data?.updateProjectPod.project,
+              },
+            },
+          });
+        },
+      });
     }
     setPodJoined(true);
   };
 
-  const exitPod = () => {
-    updateProjectPod({
+  const exitPod = async () => {
+    await updateProjectPod({
       variables: {
         podId: 0,
         updateProjectPodId: projectData?.project?.project.id,
@@ -182,7 +182,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
         });
       },
     });
-    removeProjectFromPod({
+    await removeProjectFromPod({
       variables: {
         removeProjectFromPodId: podData?.pod.pod.id,
         projectId: projectData?.project?.project.id,
@@ -205,13 +205,17 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
 
   return (
     <Box h={"100%"} w={"100%"}>
-      {projectsDataLoading ? (
+      {projectsDataLoading || projectDataLoading ? (
         <Box color={"white"}>loading...</Box>
       ) : podJoined && _podProjects ? (
         <div>
           <PodCreated projectsData={_podProjects} />
           <Box mt={"2em"}>
-            <Button bgColor="gainsboro" onClick={() => exitPod()}>
+            <Button
+              cursor={"pointer"}
+              bgColor="gainsboro"
+              onClick={() => exitPod()}
+            >
               exit pod
             </Button>
           </Box>
@@ -223,9 +227,10 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
               <PhoneNumber setPhone={setPhone} />
               <Button
                 ml={2}
-                colorScheme={"gray"}
-                onClick={() => {
-                  updateProjectGroupSize({
+                bgColor="gainsboro"
+                cursor={"pointer"}
+                onClick={async () => {
+                  await updateProjectGroupSize({
                     variables: {
                       groupSize: podSize,
                       updateProjectGroupSizeId:
@@ -233,7 +238,7 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
                     },
                   });
                   if (phone) {
-                    updatePhone({
+                    await updatePhone({
                       variables: {
                         updatePhoneId: projectData?.project?.project?.userId,
                         phone: phone,
