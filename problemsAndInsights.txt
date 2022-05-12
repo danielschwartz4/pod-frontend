@@ -52,3 +52,7 @@ Can't use window.innerWidth with next.js, need to do it with like
 5-11-22
 Problem: Pod wasn't rendering after clicking join
 Solution: Had to refetch data by using "refetch()" in the query
+
+5-12-22
+Very important to make sure that when fetching data, you are fetching it deliberately, in an 
+order that makes sense

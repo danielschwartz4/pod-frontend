@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactFlowProvider } from "react-flow-renderer";
-import { Project } from "../../generated/graphql";
+import { Project, useMeQuery } from "../../generated/graphql";
 import pink_monster from "../../images/Avatars/pink_monster.jpeg";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
@@ -17,10 +17,13 @@ interface PodCardProps {
 }
 
 const PodCard: React.FC<PodCardProps> = (props) => {
+  const { data, loading } = useMeQuery({});
   const date = props.project.updatedAt.split(".")[0].split("T");
   return (
     <Center>
       <Box
+        border={props.project?.userId === data?.me?.id ? "4px" : ""}
+        borderColor="#3EE76D"
         maxH={"350px"}
         width={"350px"}
         bg={useColorModeValue("white", "gray.900")}

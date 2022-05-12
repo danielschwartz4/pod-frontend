@@ -65,6 +65,8 @@ const Home: React.FC<homeProps> = ({}) => {
           ) : null}
         </Flex>
         <Tabs
+          border={"1px solid #7e9cd6"}
+          borderRadius={"lg"}
           mt={"8"}
           mx={"auto"}
           w={{ base: "425px", md: "800px", lg: "1024px" }}
@@ -84,7 +86,7 @@ const Home: React.FC<homeProps> = ({}) => {
             </Tab> */}
           </TabList>
           <TabPanels>
-            <TabPanel outlineColor={"black"} h={"600px"} outlineOffset={-16}>
+            <TabPanel h={"600px"} outlineOffset={-16}>
               {!loading ? (
                 <FlowChartMain
                   milestoneProgress={
