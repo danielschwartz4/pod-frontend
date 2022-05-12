@@ -27,6 +27,8 @@ import { InputField } from "../Inputs/InputField";
 import { removeItemByIndex } from "../../utils/removeItem";
 import formatDate from "../../utils/formatDate";
 import {
+  ProjectDocument,
+  ProjectQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
@@ -171,6 +173,18 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                       updateProjectMilestonesId: props.projectId,
                       milestones: _milestones,
                     },
+                    update: (cache, { data }) => {
+                      cache.writeQuery<ProjectQuery>({
+                        query: ProjectDocument,
+                        data: {
+                          __typename: "Query",
+                          project: {
+                            errors: data?.updateProjectMilestones.errors,
+                            project: data?.updateProjectMilestones.project,
+                          },
+                        },
+                      });
+                    },
                   });
 
                   if (response.data?.updateProjectMilestones) {
@@ -178,6 +192,19 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                       variables: {
                         updateProjectMilestoneDatesId: props.projectId,
                         milestoneDates: _milestoneDates,
+                      },
+                      update: (cache, { data }) => {
+                        cache.writeQuery<ProjectQuery>({
+                          query: ProjectDocument,
+                          data: {
+                            __typename: "Query",
+                            project: {
+                              errors: data?.updateProjectMilestoneDates.errors,
+                              project:
+                                data?.updateProjectMilestoneDates.project,
+                            },
+                          },
+                        });
                       },
                     });
                     if (response2.data?.updateProjectMilestoneDates) {
@@ -188,6 +215,18 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     variables: {
                       updateProjectProgressId: props.projectId,
                       milestoneProgress: _milestoneProgress,
+                    },
+                    update: (cache, { data }) => {
+                      cache.writeQuery<ProjectQuery>({
+                        query: ProjectDocument,
+                        data: {
+                          __typename: "Query",
+                          project: {
+                            errors: data?.updateProjectProgress.errors,
+                            project: data?.updateProjectProgress.project,
+                          },
+                        },
+                      });
                     },
                   });
                   if (response3.data?.updateProjectProgress) {

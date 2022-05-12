@@ -11,6 +11,9 @@ const convertFromMilitaryTime = (date: string): string => {
 };
 
 const formatDate = (date: string): string => {
+  if (!date) {
+    return date;
+  }
   let day = date.split(" ")[0];
   let month = date.split(" ").slice(1, 3).join(" ");
   let year = date.split(" ")[3];
@@ -20,6 +23,7 @@ const formatDate = (date: string): string => {
   }
   let t = convertFromMilitaryTime(date.split(" ")[4]);
   return day + ", " + month + ", " + " " + t;
+  return date;
 };
 
 export default formatDate;
