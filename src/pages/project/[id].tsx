@@ -11,15 +11,15 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import router from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
-import { MyProjectNotes } from "../../components/MyProjectNotes/MyProjectNotes";
+import NewMilestone from "../../components/MyProject/NewMilestone";
 import { Warning } from "../../components/Warning";
+import { delayAlert } from "../../utils/delay";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
-import { delayAlert } from "../../utils/delay";
 
 interface homeProps {}
 
@@ -44,11 +44,7 @@ const Home: React.FC<homeProps> = ({}) => {
 
   return (
     <Layout isProfile>
-      <Box
-        // h={"100vh"}
-        m={4}
-        h={"100%"}
-      >
+      <Box m={4} h={"100%"}>
         <Flex alignItems={"center"}>
           <Button
             bg={"#7e9cd6"}
@@ -62,7 +58,16 @@ const Home: React.FC<homeProps> = ({}) => {
               <AlertIcon />
               Congrats! Your pod has been alerted!
             </Alert>
-          ) : null}
+          ) : (
+            <NewMilestone
+              milestones={projectData?.project?.project?.milestones}
+              milestoneDates={projectData?.project?.project?.milestoneDates}
+              milestoneProgress={
+                projectData?.project?.project?.milestoneProgress
+              }
+              projectId={projectData?.project?.project?.id}
+            ></NewMilestone>
+          )}
         </Flex>
         <Tabs
           border={"1px solid #7e9cd6"}
