@@ -1,9 +1,9 @@
 import {
   ArrowBackIcon,
-  CheckIcon,
-  EditIcon,
   CalendarIcon,
+  CheckIcon,
   DeleteIcon,
+  EditIcon,
 } from "@chakra-ui/icons";
 import {
   Box,
@@ -20,12 +20,7 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import { ErrorMessage, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import { FlowNode } from "../../types";
-import DatePickerInput from "../Inputs/DatePickerInput";
-import { InputField } from "../Inputs/InputField";
-import { removeItemByIndex } from "../../utils/removeItem";
-import formatDate from "../../utils/formatDate";
+import React, { useState } from "react";
 import {
   ProjectDocument,
   ProjectQuery,
@@ -33,7 +28,11 @@ import {
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
-import { ApolloQueryResult } from "@apollo/client";
+import { FlowNode } from "../../types";
+import formatDate from "../../utils/formatDate";
+import { removeItemByIndex } from "../../utils/removeItem";
+import DatePickerInput from "../Inputs/DatePickerInput";
+import { InputField } from "../Inputs/InputField";
 
 interface ProgressPopoverProps {
   close: () => void;
@@ -42,7 +41,6 @@ interface ProgressPopoverProps {
   milestones: string[];
   milestoneDates: string[];
   projectId: number;
-  refetchProject: () => Promise<ApolloQueryResult<ProjectQuery>>;
   milestoneProgress: number[];
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setNewProgress?: React.Dispatch<
@@ -231,7 +229,8 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     },
                   });
                   if (response3.data?.updateProjectProgress) {
-                    props.refetchProject();
+                    // !! terrible practice
+                    window.location.reload();
                   }
                 }}
               >

@@ -24,9 +24,7 @@ interface horizontalFlowProps {
   milestoneProgress: number[];
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   showAlert?: boolean;
-  refetchProject?: () => Promise<ApolloQueryResult<ProjectQuery>>;
   setKeepMounted?: React.Dispatch<React.SetStateAction<boolean>>;
-  // handleKeepMounted?: () => void;
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = ({
@@ -35,9 +33,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   milestoneProgress,
   setShowAlert,
   setKeepMounted,
-  // handleKeepMounted,
   showAlert,
-  refetchProject,
 }) => {
   const { data, loading } = useMeQuery({});
 
@@ -170,6 +166,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
           }
         }
       });
+      setKeepMounted(false);
       setMilestones(tmp);
     }
   }, [newMilestone]);
@@ -200,6 +197,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
           }
         }
       });
+      setKeepMounted(false);
       setMilestoneDates(tmp);
     }
   }, [newMilestoneDate]);
@@ -261,7 +259,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
                 updatedMilestoneDates={_milestoneDates}
                 setNewMilestoneDate={setNewMilestoneDate}
                 setIsOpen={setIsOpen}
-                refetchProject={refetchProject}
                 setShowAlert={setShowAlert}
               />
             </Box>

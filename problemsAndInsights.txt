@@ -1,3 +1,4 @@
+
 3-3-22
 Tyring to figure out if I should put userIds in pod entity in array which would be more compact but harder to query
 
@@ -56,3 +57,9 @@ Solution: Had to refetch data by using "refetch()" in the query
 5-12-22
 Very important to make sure that when fetching data, you are fetching it deliberately, in an 
 order that makes sense
+
+5-13-22
+1. Changing from unmount to keepMounted for the chakra tabs... It's half working it just messes up on
+the tab back... May want to keep unmount turned on
+2. Currently reloading the page to get the data which is terrible...
+		I need to restructure the statefulness of the components to get arount this I believe

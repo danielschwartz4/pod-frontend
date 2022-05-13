@@ -26,11 +26,7 @@ interface homeProps {}
 const Home: React.FC<homeProps> = ({}) => {
   useIsAuth();
 
-  const {
-    data: projectData,
-    loading,
-    refetch: refetchProject,
-  } = useGetProjectFromUrl();
+  const { data: projectData, loading } = useGetProjectFromUrl();
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -55,7 +51,7 @@ const Home: React.FC<homeProps> = ({}) => {
   return (
     <Layout isProfile>
       <VStack>
-        <Button onClick={() => refetchProject}>Click me</Button>
+        <Button onClick={() => console.log("helo")}>Click me</Button>
         <Flex w={{ base: "425px", md: "800px", lg: "1024px" }}>
           {/* !! Maybe keep EnterNewMilestone in because we want to order milestones by date and it would be easier that way*/}
           <AddNewMilestone
@@ -119,7 +115,6 @@ const Home: React.FC<homeProps> = ({}) => {
                   milestones={projectData?.project?.project?.milestones}
                   milestoneDates={projectData?.project?.project?.milestoneDates}
                   setShowAlert={setShowAlert}
-                  refetchProject={refetchProject}
                   showAlert={showAlert}
                   setKeepMounted={setKeepMounted}
                 />

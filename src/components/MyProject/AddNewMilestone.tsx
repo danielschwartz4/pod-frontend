@@ -102,6 +102,8 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
                   },
                 });
                 if (response3.data?.updateProjectProgress) {
+                  // !! Terrible practice
+                  window.location.reload();
                   console.log("success");
                 }
               }}
