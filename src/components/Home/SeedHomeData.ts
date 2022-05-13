@@ -62,7 +62,7 @@ const SeedData = {
         "I know I'm late, but I'm trying to read the Harry Potter Books. First on the list: Harry Potter and the Sorcerer's Stone!",
       createdAt: "Mar 29 2022",
       updatedAt: "Mar 28 2022",
-      projectName: "Read Harry Potter (finally)",
+      projectName: "Read Harry Potter",
       groupSize: 3,
       id: 3,
       userId: 3,

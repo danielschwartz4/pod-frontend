@@ -19,5 +19,6 @@ export function generateSms(progress: number[]) {
   const progSquares = generateProgress(progress);
   const message =
     "Hey hey! Your pod member has made progress! Congratulate them in the app :)";
-  return message + "\n" + progSquares + " 🚀";
+  const footer = "Check out the progress with this link: https://poddds.com";
+  return message + "\n" + progSquares + " 🚀" + "\n" + footer;
 }

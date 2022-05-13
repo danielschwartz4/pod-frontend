@@ -9,27 +9,36 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  VStack,
 } from "@chakra-ui/react";
-import router from "next/router";
 import React, { useState } from "react";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
+import AddNewMilestone from "../../components/MyProject/AddNewMilestone";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
-import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
 import { Warning } from "../../components/Warning";
 import { delayAlert } from "../../utils/delay";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
-import AddNewMilestone from "../../components/MyProject/AddNewMilestone";
 
 interface homeProps {}
 
 const Home: React.FC<homeProps> = ({}) => {
   useIsAuth();
 
-  const { data: projectData, loading } = useGetProjectFromUrl();
+  const {
+    data: projectData,
+    loading,
+    refetch: refetchProject,
+  } = useGetProjectFromUrl();
 
   const [showAlert, setShowAlert] = useState(false);
+
+  const [keepMounted, setKeepMounted] = useState(true);
+
+  function handleKeepMounted() {
+    setKeepMounted(!keepMounted);
+  }
 
   if (!projectData) {
     return null;
@@ -45,8 +54,9 @@ const Home: React.FC<homeProps> = ({}) => {
 
   return (
     <Layout isProfile>
-      <Box m={12} h={"100%"}>
-        <Flex>
+      <VStack>
+        <Button onClick={() => refetchProject}>Click me</Button>
+        <Flex w={{ base: "425px", md: "800px", lg: "1024px" }}>
           {/* !! Maybe keep EnterNewMilestone in because we want to order milestones by date and it would be easier that way*/}
           <AddNewMilestone
             milestones={projectData?.project?.project?.milestones}
@@ -56,11 +66,10 @@ const Home: React.FC<homeProps> = ({}) => {
           />
           {showAlert ? (
             <Alert
-              w={"75%"}
-              // h={"20%"}
+              w={{ base: "55%", md: "75%", lg: "80%" }}
               ml={"auto"}
               mt={"auto"}
-              mr={12}
+              h={"24px"}
               borderRadius={6}
               status="success"
               variant={"solid"}
@@ -84,14 +93,21 @@ const Home: React.FC<homeProps> = ({}) => {
           defaultIndex={0}
           // ? Made isLazy so tab rerenders flow since flow only appears correctly upon rendering
           isLazy
-          lazyBehavior="keepMounted"
+          lazyBehavior={keepMounted ? "keepMounted" : "unmount"}
         >
           <TabList mb="1em">
-            <Tab _selected={{ color: "white", bg: "#1a202c" }}>My project</Tab>
-            <Tab _selected={{ color: "white", bg: "#1a202c" }}>My pod</Tab>
-            {/* <Tab _selected={{ color: "white", bg: "#1a202c" }}>
-              My project notes
-            </Tab> */}
+            <Tab
+              onClick={() => setKeepMounted(true)}
+              _selected={{ color: "white", bg: "#1a202c" }}
+            >
+              My project
+            </Tab>
+            <Tab
+              onClick={() => setKeepMounted(true)}
+              _selected={{ color: "white", bg: "#1a202c" }}
+            >
+              My pod
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel h={"600px"} outlineOffset={-16}>
@@ -103,7 +119,9 @@ const Home: React.FC<homeProps> = ({}) => {
                   milestones={projectData?.project?.project?.milestones}
                   milestoneDates={projectData?.project?.project?.milestoneDates}
                   setShowAlert={setShowAlert}
+                  refetchProject={refetchProject}
                   showAlert={showAlert}
+                  setKeepMounted={setKeepMounted}
                 />
               ) : (
                 <Box>Loading...</Box>
@@ -112,12 +130,9 @@ const Home: React.FC<homeProps> = ({}) => {
             <TabPanel>
               <MyPod></MyPod>
             </TabPanel>
-            {/* <TabPanel>
-              <MyProjectNotes></MyProjectNotes>
-            </TabPanel> */}
           </TabPanels>
         </Tabs>
-      </Box>
+      </VStack>
     </Layout>
   );
 };

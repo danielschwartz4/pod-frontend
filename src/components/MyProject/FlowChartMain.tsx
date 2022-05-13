@@ -1,3 +1,4 @@
+import { ApolloQueryResult } from "@apollo/client";
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
@@ -23,6 +24,9 @@ interface horizontalFlowProps {
   milestoneProgress: number[];
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   showAlert?: boolean;
+  refetchProject?: () => Promise<ApolloQueryResult<ProjectQuery>>;
+  setKeepMounted?: React.Dispatch<React.SetStateAction<boolean>>;
+  // handleKeepMounted?: () => void;
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = ({
@@ -30,7 +34,10 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   milestoneDates,
   milestoneProgress,
   setShowAlert,
+  setKeepMounted,
+  // handleKeepMounted,
   showAlert,
+  refetchProject,
 }) => {
   const { data, loading } = useMeQuery({});
 
@@ -127,6 +134,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
         }
       });
       setMilestoneProgress(tmp);
+      setKeepMounted(false);
     }
   }, [newProgress]);
 
@@ -141,18 +149,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
           milestoneProgress: _milestoneProgress,
         },
         // !! Do I actually need this
-        update: (cache, { data }) => {
-          cache.writeQuery<ProjectQuery>({
-            query: ProjectDocument,
-            data: {
-              __typename: "Query",
-              project: {
-                errors: data?.updateProjectProgress.errors,
-                project: data?.updateProjectProgress.project,
-              },
-            },
-          });
-        },
       });
       // !! Only if person is in pod
       if (showAlert) {
@@ -188,18 +184,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
           updateProjectMilestonesId: projectId,
           milestones: _milestones,
         },
-        update: (cache, { data }) => {
-          cache.writeQuery<ProjectQuery>({
-            query: ProjectDocument,
-            data: {
-              __typename: "Query",
-              project: {
-                errors: data?.updateProjectMilestones.errors,
-                project: data?.updateProjectMilestones.project,
-              },
-            },
-          });
-        },
       });
     }
   }, [_milestones]);
@@ -229,18 +213,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
         variables: {
           updateProjectMilestoneDatesId: projectId,
           milestoneDates: _milestoneDates,
-        },
-        update: (cache, { data }) => {
-          cache.writeQuery<ProjectQuery>({
-            query: ProjectDocument,
-            data: {
-              __typename: "Query",
-              project: {
-                errors: data?.updateProjectMilestoneDates.errors,
-                project: data?.updateProjectMilestoneDates.project,
-              },
-            },
-          });
         },
       });
     }
@@ -273,12 +245,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
             nodesDraggable={false}
             preventScrolling={false}
           >
-            <Background
-              gap={50}
-              size={2}
-              color="firebrick"
-              style={{ background: "gray.800" }}
-            />
+            <Background gap={50} size={2} color="firebrick" />
             <Box>
               <ProgressPopover
                 projectId={projectId}
@@ -294,6 +261,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
                 updatedMilestoneDates={_milestoneDates}
                 setNewMilestoneDate={setNewMilestoneDate}
                 setIsOpen={setIsOpen}
+                refetchProject={refetchProject}
                 setShowAlert={setShowAlert}
               />
             </Box>

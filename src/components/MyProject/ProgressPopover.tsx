@@ -33,6 +33,7 @@ import {
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
+import { ApolloQueryResult } from "@apollo/client";
 
 interface ProgressPopoverProps {
   close: () => void;
@@ -41,6 +42,7 @@ interface ProgressPopoverProps {
   milestones: string[];
   milestoneDates: string[];
   projectId: number;
+  refetchProject: () => Promise<ApolloQueryResult<ProjectQuery>>;
   milestoneProgress: number[];
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setNewProgress?: React.Dispatch<
@@ -160,7 +162,6 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     props.milestoneProgress
                   );
                   const nodeId = parseInt(props.currNode.id.split("-")[1]);
-
                   _milestones = removeItemByIndex(_milestones, nodeId);
                   _milestoneDates = removeItemByIndex(_milestoneDates, nodeId);
                   _milestoneProgress = removeItemByIndex(
@@ -230,7 +231,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     },
                   });
                   if (response3.data?.updateProjectProgress) {
-                    console.log("success");
+                    props.refetchProject();
                   }
                 }}
               >
@@ -298,7 +299,6 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
               >
                 Edit your milestone
               </PopoverHeader>
-
               <PopoverCloseButton cursor={"pointer"} />
             </Flex>
             <Formik

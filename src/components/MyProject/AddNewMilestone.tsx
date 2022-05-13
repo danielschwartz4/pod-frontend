@@ -1,13 +1,12 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
-import { ErrorMessage, Form, Formik } from "formik";
 import React from "react";
 import {
+  ProjectDocument,
+  ProjectQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
-import DatePickerInput from "../Inputs/DatePickerInput";
-import { InputField } from "../Inputs/InputField";
 
 interface AddNewMilestoneProps {
   milestones: string[];
@@ -33,7 +32,7 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
     <Box>
       <Box>
         <Flex alignItems={"center"} mt={4}>
-          <Box ml={"50px"} mt={"auto"}>
+          <Box>
             <Button
               h={"48px"}
               type="submit"
@@ -48,12 +47,36 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
                     updateProjectMilestonesId: projectId,
                     milestones: _milestones,
                   },
+                  update: (cache, { data }) => {
+                    cache.writeQuery<ProjectQuery>({
+                      query: ProjectDocument,
+                      data: {
+                        __typename: "Query",
+                        project: {
+                          errors: data?.updateProjectMilestones.errors,
+                          project: data?.updateProjectMilestones.project,
+                        },
+                      },
+                    });
+                  },
                 });
                 if (response.data?.updateProjectMilestones) {
                   const response2 = await updateProjectMilestoneDates({
                     variables: {
                       updateProjectMilestoneDatesId: projectId,
                       milestoneDates: _milestoneDates,
+                    },
+                    update: (cache, { data }) => {
+                      cache.writeQuery<ProjectQuery>({
+                        query: ProjectDocument,
+                        data: {
+                          __typename: "Query",
+                          project: {
+                            errors: data?.updateProjectMilestoneDates.errors,
+                            project: data?.updateProjectMilestoneDates.project,
+                          },
+                        },
+                      });
                     },
                   });
                   if (response2.data?.updateProjectMilestoneDates) {
@@ -64,6 +87,18 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
                   variables: {
                     updateProjectProgressId: projectId,
                     milestoneProgress: _milestoneProgress,
+                  },
+                  update: (cache, { data }) => {
+                    cache.writeQuery<ProjectQuery>({
+                      query: ProjectDocument,
+                      data: {
+                        __typename: "Query",
+                        project: {
+                          errors: data?.updateProjectProgress.errors,
+                          project: data?.updateProjectProgress.project,
+                        },
+                      },
+                    });
                   },
                 });
                 if (response3.data?.updateProjectProgress) {
