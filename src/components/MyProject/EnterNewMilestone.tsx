@@ -9,14 +9,14 @@ import {
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
 
-interface NewMilestoneProps {
+interface EnterNewMilestoneProps {
   milestones: string[];
   milestoneDates: string[];
   milestoneProgress: number[];
   projectId: number;
 }
 
-const NewMilestone: React.FC<NewMilestoneProps> = ({
+const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = ({
   milestoneDates,
   milestones,
   milestoneProgress,
@@ -112,4 +112,4 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
   );
 };
 
-export default NewMilestone;
+export default EnterNewMilestone;

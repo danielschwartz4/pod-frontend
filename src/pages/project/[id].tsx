@@ -15,11 +15,12 @@ import React, { useState } from "react";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
-import NewMilestone from "../../components/MyProject/NewMilestone";
+import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
 import { Warning } from "../../components/Warning";
 import { delayAlert } from "../../utils/delay";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import AddNewMilestone from "../../components/MyProject/AddNewMilestone";
 
 interface homeProps {}
 
@@ -44,29 +45,31 @@ const Home: React.FC<homeProps> = ({}) => {
 
   return (
     <Layout isProfile>
-      <Box m={4} h={"100%"}>
-        <Flex alignItems={"center"}>
-          {/* <Button
-            bg={"#7e9cd6"}
-            cursor={"pointer"}
-            onClick={() => router.push("/profile")}
-          >
-            my projects
-          </Button> */}
+      <Box m={12} h={"100%"}>
+        <Flex>
+          {/* !! Maybe keep EnterNewMilestone in because we want to order milestones by date and it would be easier that way*/}
+          <AddNewMilestone
+            milestones={projectData?.project?.project?.milestones}
+            milestoneDates={projectData?.project?.project?.milestoneDates}
+            milestoneProgress={projectData?.project?.project?.milestoneProgress}
+            projectId={projectData?.project?.project?.id}
+          />
           {showAlert ? (
-            <Alert w={"80%"} ml={"auto"} status="success" variant={"solid"}>
+            <Alert
+              w={"75%"}
+              // h={"20%"}
+              ml={"auto"}
+              mt={"auto"}
+              mr={12}
+              borderRadius={6}
+              status="success"
+              variant={"solid"}
+            >
               <AlertIcon />
               Congrats! Your pod has been alerted!
             </Alert>
           ) : (
-            <NewMilestone
-              milestones={projectData?.project?.project?.milestones}
-              milestoneDates={projectData?.project?.project?.milestoneDates}
-              milestoneProgress={
-                projectData?.project?.project?.milestoneProgress
-              }
-              projectId={projectData?.project?.project?.id}
-            />
+            <></>
           )}
         </Flex>
         <Tabs
