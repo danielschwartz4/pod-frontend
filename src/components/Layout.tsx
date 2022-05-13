@@ -8,12 +8,14 @@ import { Wrapper, WrapperVariant } from "./Wrapper";
 interface LayoutProps {
   variant?: WrapperVariant;
   isProfile?: boolean;
+  isProjectsPage?: boolean;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
   children,
   variant,
   isProfile = false,
+  isProjectsPage = false,
 }) => {
   return (
     <Box
@@ -22,7 +24,11 @@ export const Layout: React.FC<LayoutProps> = ({
       m={-2}
       // w={"fit-content"}
     >
-      {!isProfile ? <HomeNavBar /> : <ProfileNavBar />}
+      {!isProfile ? (
+        <HomeNavBar />
+      ) : (
+        <ProfileNavBar isProjectsPage={isProjectsPage} />
+      )}
       <Wrapper variant={variant}>{children}</Wrapper>
       <Box mt={16}>
         <Footer />

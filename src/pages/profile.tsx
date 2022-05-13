@@ -21,7 +21,7 @@ const Profile: React.FC<profileProps> = ({}) => {
 
   if (!projectsData?.projects) {
     return (
-      <Layout isProfile>
+      <Layout isProjectsPage isProfile>
         <NextLink href="/project-info">
           <Link mr={2}>Create your first project!</Link>
         </NextLink>
@@ -29,7 +29,7 @@ const Profile: React.FC<profileProps> = ({}) => {
     );
   }
   return (
-    <Layout isProfile>
+    <Layout isProjectsPage isProfile>
       {loading && !data ? (
         <div>Loading...</div>
       ) : (

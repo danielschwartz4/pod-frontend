@@ -6,9 +6,13 @@ import { useLogoutMutation, useMeQuery } from "../generated/graphql";
 import firstLogo from "../images/Logos/firstLogo.png";
 import { isServer } from "../utils/isServer";
 
-interface ProfileNavBarProps {}
+interface ProfileNavBarProps {
+  isProjectsPage?: boolean;
+}
 
-export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
+export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
+  isProjectsPage = false,
+}) => {
   const [logout, { loading: logoutLoading }] = useLogoutMutation();
   const { data, loading, error } = useMeQuery({
     // !! Look up wtf this is!!!!!!!!
@@ -66,6 +70,16 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({}) => {
             <Box fontSize={18} mr={6} color={"gainsboro"}>
               {data.me.username}
             </Box>
+            {!isProjectsPage ? (
+              <Button
+                mr={4}
+                colorScheme={"tan"}
+                cursor={"pointer"}
+                onClick={() => router.push("/profile")}
+              >
+                My projects
+              </Button>
+            ) : null}
             <Button
               onClick={() => {
                 logout({

@@ -40,6 +40,7 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
           _milestones.push(description);
           _milestoneDates.push(completionDate);
           _milestoneProgress.push(1);
+          console.log(completionDate);
           const response = await updateProjectMilestones({
             variables: {
               updateProjectMilestonesId: projectId,
@@ -83,7 +84,7 @@ const NewMilestone: React.FC<NewMilestoneProps> = ({
                 </Box>
                 <Box>
                   <DatePickerInput
-                    name={"completeionDate"}
+                    name={"completionDate"}
                     label="Completion date"
                     showTimeSelect
                   />

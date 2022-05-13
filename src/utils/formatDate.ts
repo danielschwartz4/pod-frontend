@@ -1,4 +1,7 @@
 const convertFromMilitaryTime = (date: string): string => {
+  if (!date) {
+    return date;
+  }
   const [hours, minutes] = date.split(":");
   const [hour, minute] = [hours, minutes].map(Number);
   const isAM = hour < 12;

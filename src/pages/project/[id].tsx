@@ -46,13 +46,13 @@ const Home: React.FC<homeProps> = ({}) => {
     <Layout isProfile>
       <Box m={4} h={"100%"}>
         <Flex alignItems={"center"}>
-          <Button
+          {/* <Button
             bg={"#7e9cd6"}
             cursor={"pointer"}
             onClick={() => router.push("/profile")}
           >
             my projects
-          </Button>
+          </Button> */}
           {showAlert ? (
             <Alert w={"80%"} ml={"auto"} status="success" variant={"solid"}>
               <AlertIcon />
