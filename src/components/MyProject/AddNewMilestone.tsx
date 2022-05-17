@@ -2,7 +2,6 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 import React from "react";
 import {
   ProjectDocument,
-  ProjectQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
@@ -13,6 +12,9 @@ interface AddNewMilestoneProps {
   milestoneDates: string[];
   milestoneProgress: number[];
   projectId: number;
+  setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
@@ -20,6 +22,9 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
   milestones,
   milestoneProgress,
   projectId,
+  setMilestones,
+  setMilestoneDates,
+  setMilestoneProgress,
 }) => {
   const [updateProjectMilestoneDates] =
     useUpdateProjectMilestoneDatesMutation();
@@ -28,6 +33,7 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
   let _milestones = Object.assign([], milestones);
   let _milestoneDates = Object.assign([], milestoneDates);
   let _milestoneProgress = Object.assign([], milestoneProgress);
+
   return (
     <Box>
       <Box>
@@ -47,63 +53,29 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
                     updateProjectMilestonesId: projectId,
                     milestones: _milestones,
                   },
-                  update: (cache, { data }) => {
-                    cache.writeQuery<ProjectQuery>({
-                      query: ProjectDocument,
-                      data: {
-                        __typename: "Query",
-                        project: {
-                          errors: data?.updateProjectMilestones.errors,
-                          project: data?.updateProjectMilestones.project,
-                        },
-                      },
-                    });
-                  },
                 });
                 if (response.data?.updateProjectMilestones) {
-                  const response2 = await updateProjectMilestoneDates({
-                    variables: {
-                      updateProjectMilestoneDatesId: projectId,
-                      milestoneDates: _milestoneDates,
-                    },
-                    update: (cache, { data }) => {
-                      cache.writeQuery<ProjectQuery>({
-                        query: ProjectDocument,
-                        data: {
-                          __typename: "Query",
-                          project: {
-                            errors: data?.updateProjectMilestoneDates.errors,
-                            project: data?.updateProjectMilestoneDates.project,
-                          },
-                        },
-                      });
-                    },
-                  });
-                  if (response2.data?.updateProjectMilestoneDates) {
-                    console.log("success");
-                  }
+                  console.log("success");
+                }
+                const response2 = await updateProjectMilestoneDates({
+                  variables: {
+                    updateProjectMilestoneDatesId: projectId,
+                    milestoneDates: _milestoneDates,
+                  },
+                });
+                if (response2.data?.updateProjectMilestoneDates) {
+                  console.log("success");
                 }
                 const response3 = await updateProjectProgress({
                   variables: {
                     updateProjectProgressId: projectId,
                     milestoneProgress: _milestoneProgress,
                   },
-                  update: (cache, { data }) => {
-                    cache.writeQuery<ProjectQuery>({
-                      query: ProjectDocument,
-                      data: {
-                        __typename: "Query",
-                        project: {
-                          errors: data?.updateProjectProgress.errors,
-                          project: data?.updateProjectProgress.project,
-                        },
-                      },
-                    });
-                  },
                 });
                 if (response3.data?.updateProjectProgress) {
-                  // !! Terrible practice
-                  window.location.reload();
+                  setMilestones(_milestones);
+                  setMilestoneDates(_milestoneDates);
+                  setMilestoneProgress(_milestoneProgress);
                   console.log("success");
                 }
               }}

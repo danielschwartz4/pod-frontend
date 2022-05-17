@@ -1,16 +1,13 @@
-import { ApolloQueryResult } from "@apollo/client";
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import {
-  ProjectDocument,
-  ProjectQuery,
   useMeQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
-import { FlowNode } from "../../types";
+import { FlowNode, NodeDate, NodeMilestone, NodeProgress } from "../../types";
 import { delayAlert } from "../../utils/delay";
 import init_elements from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
@@ -25,6 +22,9 @@ interface horizontalFlowProps {
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   showAlert?: boolean;
   setKeepMounted?: React.Dispatch<React.SetStateAction<boolean>>;
+  setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = ({
@@ -34,6 +34,9 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   setShowAlert,
   setKeepMounted,
   showAlert,
+  setMilestones,
+  setMilestoneDates,
+  setMilestoneProgress,
 }) => {
   const { data, loading } = useMeQuery({});
 
@@ -59,68 +62,47 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
   // Project progress
   const [updateProjectProgress] = useUpdateProjectProgressMutation();
 
-  const [_milestoneProgress, setMilestoneProgress] =
-    useState<number[]>(milestoneProgress);
-
-  const [newProgress, setNewProgress] = useState<{
-    id: string;
-    progress: number;
-  }>({
-    id: "",
-    progress: 1,
-  } as {
-    id: string;
-    progress: number;
-  });
-
   // Project milestones
   const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
-
-  const [_milestones, setMilestones] = useState<string[]>(milestones);
-
-  const [newMilestone, setNewMilestone] = useState<{
-    id: string;
-    text: string;
-  }>({
-    id: "",
-    text: "",
-  } as {
-    id: string;
-    text: string;
-  });
-
   // Project milestone dates
   const [updateProjectMilestoneDates] =
     useUpdateProjectMilestoneDatesMutation();
 
-  const [_milestoneDates, setMilestoneDates] =
+  const [_milestones, _setMilestones] = useState<string[]>(milestones);
+  const [_milestoneDates, _setMilestoneDates] =
     useState<string[]>(milestoneDates);
+  const [_milestoneProgress, _setMilestoneProgress] =
+    useState<number[]>(milestoneProgress);
 
-  const [newMilestoneDate, setNewMilestoneDate] = useState<{
-    id: string;
-    date: string;
-  }>({
+  const [newMilestone, setNewMilestone] = useState<NodeMilestone>({
+    id: "",
+    text: "",
+  } as NodeMilestone);
+  const [newMilestoneDate, setNewMilestoneDate] = useState<NodeDate>({
     id: "",
     date: "",
-  } as {
-    id: string;
-    date: string;
-  });
+  } as NodeDate);
+  const [newProgress, setNewProgress] = useState<NodeProgress>({
+    id: "",
+    progress: 1,
+  } as NodeProgress);
 
-  // Flowchart elements
   const eles = init_elements(
-    _milestones,
-    _milestoneDates,
-    _milestoneProgress,
+    milestones,
+    milestoneDates,
+    milestoneProgress,
     true
   );
 
   const [elements, setElements] = useState<any[]>(eles);
 
+  //! ---------------------------------------------------------------------------
+
   useEffect(() => {
-    if (_milestoneProgress && currNode.id != null) {
+    console.log("1111");
+    if (milestoneProgress && currNode.id != null) {
       let tmp = [];
-      _milestoneProgress.forEach((ele, i) => {
+      milestoneProgress.forEach((ele, i) => {
         if (typeof currNode.id === "string") {
           if (i == parseInt(currNode.id.split("-")[1])) {
             tmp.push(newProgress["progress"]);
@@ -130,34 +112,38 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
         }
       });
       setMilestoneProgress(tmp);
+      _setMilestoneProgress(tmp);
       setKeepMounted(false);
     }
   }, [newProgress]);
 
   useEffect(() => {
+    console.log("2222");
     setElements(
-      init_elements(_milestones, _milestones, _milestoneProgress, true)
+      init_elements(milestones, milestoneDates, _milestoneProgress, true)
     );
-    if (projectId && _milestoneProgress) {
+
+    if (projectId && milestoneProgress) {
       updateProjectProgress({
         variables: {
           updateProjectProgressId: projectId,
-          milestoneProgress: _milestoneProgress,
+          milestoneProgress: milestoneProgress,
         },
-        // !! Do I actually need this
       });
       // !! Only if person is in pod
       if (showAlert) {
-        const body = generateSms(_milestoneProgress);
+        const body = generateSms(milestoneProgress);
         sendMessage({ to: "+12173817277", body: body });
       }
     }
   }, [_milestoneProgress]);
 
+  //! ---------------------------------------------------------------------------
+
   useEffect(() => {
-    if (_milestones && currNode.id != null) {
+    if (milestones && currNode.id != null) {
       let tmp = [];
-      _milestones.forEach((ele, i) => {
+      milestones.forEach((ele, i) => {
         if (typeof currNode.id === "string") {
           if (i == parseInt(currNode.id.split("-")[1])) {
             tmp.push(newMilestone["text"]);
@@ -167,28 +153,31 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
         }
       });
       setKeepMounted(false);
+      _setMilestones(tmp);
       setMilestones(tmp);
     }
   }, [newMilestone]);
 
   useEffect(() => {
     setElements(
-      init_elements(_milestones, _milestones, _milestoneProgress, true)
+      init_elements(_milestones, milestoneDates, milestoneProgress, true)
     );
-    if (projectId && _milestones) {
+    if (projectId && milestones) {
       updateProjectMilestones({
         variables: {
           updateProjectMilestonesId: projectId,
-          milestones: _milestones,
+          milestones: milestones,
         },
       });
     }
   }, [_milestones]);
 
+  //! ---------------------------------------------------------------------------
+
   useEffect(() => {
-    if (_milestoneDates && currNode.id != null) {
+    if (milestoneDates && currNode.id != null) {
       let tmp = [];
-      _milestoneDates.forEach((ele, i) => {
+      milestoneDates.forEach((ele, i) => {
         if (typeof currNode.id === "string") {
           if (i == parseInt(currNode.id.split("-")[1])) {
             tmp.push(newMilestoneDate["date"]);
@@ -198,23 +187,26 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
         }
       });
       setKeepMounted(false);
+      _setMilestoneDates(tmp);
       setMilestoneDates(tmp);
     }
   }, [newMilestoneDate]);
 
   useEffect(() => {
     setElements(
-      init_elements(_milestones, _milestoneDates, _milestoneProgress, true)
+      init_elements(milestones, _milestoneDates, milestoneProgress, true)
     );
-    if (projectId && _milestoneDates) {
+    if (projectId && milestoneDates) {
       updateProjectMilestoneDates({
         variables: {
           updateProjectMilestoneDatesId: projectId,
-          milestoneDates: _milestoneDates,
+          milestoneDates: milestoneDates,
         },
       });
     }
   }, [_milestoneDates]);
+
+  //! ---------------------------------------------------------------------------
 
   const onNodeContextMenu = (event, _) => {
     event.preventDefault();
@@ -250,16 +242,17 @@ const FlowChartMain: React.FC<horizontalFlowProps> = ({
                 close={close}
                 isOpen={isOpen}
                 milestoneDates={milestoneDates}
-                milestoneProgress={_milestoneProgress}
+                milestoneProgress={milestoneProgress}
                 milestones={milestones}
                 currNode={currNode}
                 setNewProgress={setNewProgress}
-                updatedMilestones={_milestones}
                 setNewMilestone={setNewMilestone}
-                updatedMilestoneDates={_milestoneDates}
                 setNewMilestoneDate={setNewMilestoneDate}
                 setIsOpen={setIsOpen}
                 setShowAlert={setShowAlert}
+                setMilestones={setMilestones}
+                setMilestoneDates={setMilestoneDates}
+                setMilestoneProgress={setMilestoneProgress}
               />
             </Box>
           </ReactFlow>

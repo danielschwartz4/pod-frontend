@@ -1,0 +1,50 @@
+3-3-22
+Tyring to figure out if I should put userIds in pod entity in array which would be more compact but harder to query
+
+3-4-22
+So much error handling
+
+3-5-22
+Have to keep in mind data state in query and cache. For example logging in used to show the last person's profile
+
+3-7-22
+Different types for different things (e.g. join pod function in my pod when creating new pod vs calling old one)
+
+4-17-22
+Have to separate flowcharts into mini and main so they don't inherit the others' properties
+
+4-18-22
+Removed dist file from gitignore so it could be pushed to heroku
+
+Need to run 'source src/.env' in terminal to use environment variables
+
+4-19-22
+Keep getting module not found error
+Solution: rm -rf node_modules -> npm install
+
+Selecting user in postgres CLI doesn't work since user is a key word so must select "user"
+
+4-22-22
+Code was running in production for some reason so had to change process.env.NODE_ENV
+	
+4-25-22
+Getting the error "RangeError [ERR_SOCKET_BAD_PORT]: Port should be >= 0 and < 65536. Received NaN"
+Solution: load env file (source src/.env)
+
+4-30-22
+Finally fixed deployment heroku problem
+Solution: 
+1. Make sure have own url (api.poddds.com or poddds.com)
+2. Make sure env variable is set in heroku
+
+5-01-22
+Twilio wasn't working because wasn't calling it in yarn start and port was messed up
+Did stupid hack by putting it all in index.js file
+Learn how to create proxy with this:
+https://www.manuelkruisz.com/blog/posts/nginx-multiple-domains-one-server
+
+5-09-22
+!! Making margin negative as a hack for now... not sure how to get around it
+
+5-09-22
+Can't use window.innerWidth with next.js, need to do it with like 

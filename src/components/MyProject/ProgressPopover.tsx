@@ -22,8 +22,6 @@ import {
 import { ErrorMessage, Form, Formik } from "formik";
 import React, { useState } from "react";
 import {
-  ProjectDocument,
-  ProjectQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
@@ -38,32 +36,33 @@ interface ProgressPopoverProps {
   close: () => void;
   isOpen: boolean;
   currNode: FlowNode;
+  projectId: number;
   milestones: string[];
   milestoneDates: string[];
-  projectId: number;
   milestoneProgress: number[];
-  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  setNewProgress?: React.Dispatch<
-    React.SetStateAction<{
-      id: string;
-      progress: number;
-    }>
-  >;
   setNewMilestone?: React.Dispatch<
     React.SetStateAction<{
       id: string;
       text: string;
     }>
   >;
-  updatedMilestones?: string[];
   setNewMilestoneDate?: React.Dispatch<
     React.SetStateAction<{
       id: string;
       date: string;
     }>
   >;
-  updatedMilestoneDates?: string[];
+  setNewProgress?: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      progress: number;
+    }>
+  >;
+  setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
@@ -97,7 +96,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
             <PopoverBody>
               <Box>
                 {typeof props.currNode.id === "string"
-                  ? props.updatedMilestones[props.currNode.id.split("-")[1]]
+                  ? props.milestones[props.currNode.id.split("-")[1]]
                   : null}
               </Box>
             </PopoverBody>
@@ -113,11 +112,12 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     });
                   }}
                   background="#F26D51"
+                  cursor={"pointer"}
                 >
                   not started!
                 </Button>
                 <Button
-                  onClick={() => {
+                  onClick={async () => {
                     props.setIsOpen(!props.isOpen);
                     props.setNewProgress({
                       id: props.currNode.id,
@@ -125,6 +125,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     });
                   }}
                   background="#6097F8"
+                  cursor={"pointer"}
                 >
                   in progress
                 </Button>
@@ -138,6 +139,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     props.setShowAlert(true);
                   }}
                   background="#3EE76D"
+                  cursor={"pointer"}
                 >
                   all done!
                 </Button>
@@ -153,7 +155,10 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                 w={6}
                 h={6}
                 onClick={async () => {
-                  let _milestones = Object.assign([], props.milestones);
+                  let _milestones = Object.assign(
+                    [],
+                    props.milestones
+                  ) as string[];
                   let _milestoneDates = Object.assign([], props.milestoneDates);
                   let _milestoneProgress = Object.assign(
                     [],
@@ -166,48 +171,20 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     _milestoneProgress,
                     nodeId
                   );
-
                   const response = await updateProjectMilestones({
                     variables: {
                       updateProjectMilestonesId: props.projectId,
                       milestones: _milestones,
                     },
-                    update: (cache, { data }) => {
-                      cache.writeQuery<ProjectQuery>({
-                        query: ProjectDocument,
-                        data: {
-                          __typename: "Query",
-                          project: {
-                            errors: data?.updateProjectMilestones.errors,
-                            project: data?.updateProjectMilestones.project,
-                          },
-                        },
-                      });
-                    },
                   });
-
                   if (response.data?.updateProjectMilestones) {
                     const response2 = await updateProjectMilestoneDates({
                       variables: {
                         updateProjectMilestoneDatesId: props.projectId,
                         milestoneDates: _milestoneDates,
                       },
-                      update: (cache, { data }) => {
-                        cache.writeQuery<ProjectQuery>({
-                          query: ProjectDocument,
-                          data: {
-                            __typename: "Query",
-                            project: {
-                              errors: data?.updateProjectMilestoneDates.errors,
-                              project:
-                                data?.updateProjectMilestoneDates.project,
-                            },
-                          },
-                        });
-                      },
                     });
                     if (response2.data?.updateProjectMilestoneDates) {
-                      console.log("success");
                     }
                   }
                   const response3 = await updateProjectProgress({
@@ -215,22 +192,12 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                       updateProjectProgressId: props.projectId,
                       milestoneProgress: _milestoneProgress,
                     },
-                    update: (cache, { data }) => {
-                      cache.writeQuery<ProjectQuery>({
-                        query: ProjectDocument,
-                        data: {
-                          __typename: "Query",
-                          project: {
-                            errors: data?.updateProjectProgress.errors,
-                            project: data?.updateProjectProgress.project,
-                          },
-                        },
-                      });
-                    },
                   });
                   if (response3.data?.updateProjectProgress) {
-                    // !! terrible practice
-                    window.location.reload();
+                    props.setMilestones(_milestones);
+                    props.setMilestoneDates(_milestoneDates);
+                    props.setMilestoneProgress(_milestoneProgress);
+                    console.log("success");
                   }
                 }}
               >
@@ -266,9 +233,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                 {typeof props.currNode.id === "string"
                   ? formatDate(
                       String(
-                        props.updatedMilestoneDates[
-                          props.currNode.id.split("-")[1]
-                        ]
+                        props.milestoneDates[props.currNode.id.split("-")[1]]
                       )
                     )
                   : null}
