@@ -228,8 +228,10 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
   const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
 
   const onNodeMouseEnter = (_, node) => {
-    setCurrNode(node);
-    setCanClick(true);
+    if (!isOpen) {
+      setCurrNode(node);
+      setCanClick(true);
+    }
   };
 
   const onNodeMouseLeave = (_, node) => {
@@ -239,6 +241,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
   const close = () => setIsOpen(false);
 
   const onClick = () => {
+    console.log(canClick);
     if (canClick) {
       setIsOpen(true);
     }
