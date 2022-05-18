@@ -40,7 +40,6 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
           _milestones.push(description);
           _milestoneDates.push(String(completionDate));
           _milestoneProgress.push(1);
-          console.log(completionDate);
           const response = await updateProjectMilestones({
             variables: {
               updateProjectMilestonesId: props.projectId,

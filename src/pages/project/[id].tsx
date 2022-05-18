@@ -1,9 +1,7 @@
-import { NetworkStatus } from "@apollo/client";
 import {
   Alert,
   AlertIcon,
   Box,
-  Button,
   Flex,
   Tab,
   TabList,
@@ -15,7 +13,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
-import AddNewMilestone from "../../components/MyProject/AddNewMilestone";
 import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
 import { Warning } from "../../components/Warning";

@@ -8,7 +8,7 @@ const convertFromMilitaryTime = (date: string): string => {
   const isPM = hour >= 12;
   const hour12 = isAM ? hour : hour - 12;
   const minute12 = isAM ? minute : minute + 12;
-  const hour12Str = hour12.toString().padStart(2, "0");
+  const hour12Str = hour12.toString().padStart(2, "");
   const minute12Str = minute12.toString().padStart(2, "0");
   return `${hour12Str}:${minute12Str} ${isPM ? "PM" : "AM"}`;
 };
@@ -26,7 +26,6 @@ const formatDate = (date: string): string => {
   }
   let t = convertFromMilitaryTime(date.split(" ")[4]);
   return day + ", " + month + ", " + " " + t;
-  return date;
 };
 
 export default formatDate;
