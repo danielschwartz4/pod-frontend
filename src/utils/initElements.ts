@@ -75,76 +75,87 @@ export default function init_elements(
     return;
   }
 
+  console.log(milestones);
   if (window.innerWidth > window.innerHeight || !allowVertical) {
     milestones?.forEach((_, i) => {
-      if (i % 3 == 0) {
-        goingRight = !goingRight;
-      }
-
-      elements.push({
-        id: "horizontal-" + i,
-        sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
-        targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
-        type: i == 0 ? "input" : null,
-        data:
-          milestones[i].length > milestoneSnippetSize
-            ? {
-                label: milestones[i].slice(0, 94) + "...",
-              }
-            : { label: milestones[i] },
-        position: goingRight
-          ? { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 }
-          : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 100 },
-        style: {
-          background: nodeProgressMap[milestoneProgress[i]],
-          color: "black",
-          border: "1px solid #222138",
-        },
-      });
-
-      if (i > 0) {
+      if (
+        typeof milestones[i] != "undefined" &&
+        typeof milestoneProgress[i] != "undefined"
+      ) {
+        if (i % 3 == 0) {
+          goingRight = !goingRight;
+        }
         elements.push({
-          id: "e" + i,
-          arrowHeadType: "arrow",
-          source: "horizontal-" + (i - 1),
-          target: "horizontal-" + i,
-          animated: edgeProgressMap[milestoneProgress[i]],
+          id: "horizontal-" + i,
           sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
-          targetPosition: i % 3 == 2 ? "top" : goingRight ? "left" : "right",
+          targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
+          type: i == 0 ? "input" : null,
+          data:
+            milestones[i].length > milestoneSnippetSize
+              ? {
+                  label: milestones[i].slice(0, 94) + "...",
+                }
+              : { label: milestones[i] },
+          position: goingRight
+            ? { x: 275 * (i % 3), y: Math.floor(i / 3) * 100 }
+            : { x: 275 * (2 - (i % 3)), y: Math.floor(i / 3) * 100 },
+          style: {
+            background: nodeProgressMap[milestoneProgress[i]],
+            color: "black",
+            border: "1px solid #222138",
+          },
         });
+
+        if (i > 0) {
+          elements.push({
+            id: "e" + i,
+            arrowHeadType: "arrow",
+            source: "horizontal-" + (i - 1),
+            target: "horizontal-" + i,
+            animated: edgeProgressMap[milestoneProgress[i]],
+            sourcePosition:
+              i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
+            targetPosition: i % 3 == 2 ? "top" : goingRight ? "left" : "right",
+          });
+        }
       }
     });
   } else {
     milestones?.forEach((_, i) => {
-      elements.push({
-        id: "vertical-" + i,
-        sourcePosition: "bottom",
-        targetPosition: "top",
-        type: i == 0 ? "input" : null,
-        data:
-          milestones[i].length > milestoneSnippetSize
-            ? {
-                label: milestones[i].slice(0, 94) + "...",
-              }
-            : { label: milestones[i] },
-        position: { x: 100, y: i * 100 },
-        style: {
-          background: nodeProgressMap[milestoneProgress[i]],
-          color: "black",
-          border: "1px solid #222138",
-        },
-      });
-
-      if (i > 0) {
+      if (
+        typeof milestones[i] != "undefined" &&
+        typeof milestoneProgress[i] != "undefined"
+      ) {
         elements.push({
-          id: "e" + i,
-          arrowHeadType: "arrow",
-          source: "vertical-" + (i - 1),
-          target: "vertical-" + i,
-          animated: edgeProgressMap[milestoneProgress[i]],
+          id: "vertical-" + i,
           sourcePosition: "bottom",
           targetPosition: "top",
+          type: i == 0 ? "input" : null,
+          data:
+            milestones[i].length > milestoneSnippetSize
+              ? {
+                  label: milestones[i].slice(0, 94) + "...",
+                }
+              : { label: milestones[i] },
+          position: { x: 100, y: i * 100 },
+          style: {
+            background: nodeProgressMap[milestoneProgress[i]],
+            color: "black",
+            border: "1px solid #222138",
+          },
         });
+
+        if (i > 0) {
+          elements.push({
+            id: "e" + i,
+            arrowHeadType: "arrow",
+            source: "vertical-" + (i - 1),
+            target: "vertical-" + i,
+            animated: edgeProgressMap[milestoneProgress[i]],
+            sourcePosition: "bottom",
+            targetPosition: "top",
+          });
+        }
       }
     });
   }
