@@ -55,7 +55,6 @@ export const sortMilestones = (
     progress[k] = list[k].progress;
   }
 
-  console.log(milestones);
   return {
     milestones: milestones,
     dates: dates,
@@ -72,20 +71,10 @@ export default function init_elements(
   const elements = [];
   let goingRight = false;
 
-  // const sortedData = sortMilestones(
-  //   milestones,
-  //   milestoneDates,
-  //   milestoneProgress
-  // );
-  // console.log(sortedData);
-  // milestones = sortedData["milestones"];
-  // milestoneDates = sortedData["dates"];
-  // milestoneProgress = sortedData["progress"];
-
   if (typeof window === "undefined") {
     return;
   }
-
+  console.log(milestones);
   if (window.innerWidth > window.innerHeight || !allowVertical) {
     milestones?.forEach((_, i) => {
       if (i % 3 == 0) {

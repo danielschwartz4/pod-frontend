@@ -36,35 +36,42 @@ const Home: React.FC<homeProps> = ({}) => {
 
   // !! -------------------------------------------------- !!
 
-  const [_milestones, setMilestones] = useState<string[]>([]);
-  const [_milestoneDates, setMilestoneDates] = useState<string[]>([]);
-  const [_milestoneProgress, setMilestoneProgress] = useState<number[]>([]);
+  const [_milestones, setMilestones] = useState<string[]>(
+    projectData?.project?.project?.milestones
+  );
+  const [_milestoneDates, setMilestoneDates] = useState<string[]>(
+    projectData?.project?.project?.milestoneDates
+  );
+  const [_milestoneProgress, setMilestoneProgress] = useState<number[]>(
+    projectData?.project?.project?.milestoneProgress
+  );
 
   // useEffect(() => {
-
-  // refetch();
-  // setMilestones(projectData?.project?.project?.milestones);
-  // setMilestoneDates(projectData?.project?.project?.milestoneDates);
-  // setMilestoneProgress(projectData?.project?.project?.milestoneProgress);
+  //   // refetch();
+  //   setMilestones(projectData?.project?.project?.milestones);
+  //   setMilestoneDates(projectData?.project?.project?.milestoneDates);
+  //   setMilestoneProgress(projectData?.project?.project?.milestoneProgress);
   // }, [projectData]);
 
   useEffect(() => {
-    refetch();
-    const sortedData = sortMilestones(
-      projectData?.project?.project?.milestones,
-      projectData?.project?.project?.milestoneDates,
-      projectData?.project?.project?.milestoneProgress
-    );
-    // !! When we change the date, the data is cleared... need to figure that out lol
-    // setMilestones(projectData?.project?.project?.milestones);
-    // setMilestoneDates(projectData?.project?.project?.milestoneDates);
-    // setMilestoneProgress(projectData?.project?.project?.milestoneProgress);
+    // refetch();
+    if (projectData?.project?.project) {
+      console.log("projectData", projectData?.project?.project);
+      const sortedData = sortMilestones(
+        projectData?.project?.project?.milestones,
+        projectData?.project?.project?.milestoneDates,
+        projectData?.project?.project?.milestoneProgress
+      );
+      // !! When we change the date, the data is cleared... need to figure that out lol
+      // !! A lot of undefined shit goin on
+      // !! Might be disappearing because we are just saying "return" instaed of waiting for data
 
-    console.log(sortedData);
-    if (sortedData) {
-      setMilestones(sortedData["milestones"]);
-      setMilestoneDates(sortedData["dates"]);
-      setMilestoneProgress(sortedData["progress"]);
+      console.log("sorted", sortedData);
+      if (sortedData) {
+        setMilestones(sortedData["milestones"]);
+        setMilestoneDates(sortedData["dates"]);
+        setMilestoneProgress(sortedData["progress"]);
+      }
     }
   }, [projectData]);
 
