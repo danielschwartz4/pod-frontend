@@ -38,7 +38,7 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
         }}
         onSubmit={async ({ description, completionDate }, { setErrors }) => {
           _milestones.push(description);
-          _milestoneDates.push(completionDate);
+          _milestoneDates.push(String(completionDate));
           _milestoneProgress.push(1);
           console.log(completionDate);
           const response = await updateProjectMilestones({
@@ -105,7 +105,7 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
                         regularPosition={false}
                         name={"completionDate"}
                         label="Completion date"
-                        placeholder="Choose a new Date"
+                        placeholder="choose a date"
                         showTimeSelect
                       />
                       <ErrorMessage

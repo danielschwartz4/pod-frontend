@@ -241,9 +241,8 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
   const close = () => setIsOpen(false);
 
   const onClick = () => {
-    console.log(canClick);
     if (canClick) {
-      setIsOpen(true);
+      setIsOpen(!isOpen);
     }
   };
 
