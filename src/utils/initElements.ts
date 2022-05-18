@@ -12,6 +12,57 @@ const edgeProgressMap = {
 
 const milestoneSnippetSize = 94;
 
+export const sortMilestones = (
+  milestones: string[],
+  dates: string[],
+  progress: number[]
+) => {
+  if (
+    typeof milestones === "undefined" ||
+    typeof dates === "undefined" ||
+    typeof progress === "undefined"
+  ) {
+    return;
+  }
+
+  var milestones = [...milestones];
+  var dates = [...dates];
+  var progress = [...progress];
+
+  //1) combine the arrays:
+  var list = [];
+  for (var j = 0; j < dates.length; j++)
+    list.push({
+      milestone: milestones[j],
+      date: dates[j],
+      progress: progress[j],
+    });
+
+  list.sort(function (a, b) {
+    const aDate = new Date(a.date);
+    const bDate = new Date(b.date);
+    return aDate.getTime() < bDate.getTime()
+      ? -1
+      : aDate.getTime() == bDate.getTime()
+      ? 0
+      : 1;
+  });
+
+  //3) separate them back out:
+  for (var k = 0; k < list.length; k++) {
+    milestones[k] = list[k].milestone;
+    dates[k] = list[k].date;
+    progress[k] = list[k].progress;
+  }
+
+  console.log(milestones);
+  return {
+    milestones: milestones,
+    dates: dates,
+    progress: progress,
+  };
+};
+
 export default function init_elements(
   milestones: string[],
   milestoneDates: string[],
@@ -20,6 +71,16 @@ export default function init_elements(
 ) {
   const elements = [];
   let goingRight = false;
+
+  // const sortedData = sortMilestones(
+  //   milestones,
+  //   milestoneDates,
+  //   milestoneProgress
+  // );
+  // console.log(sortedData);
+  // milestones = sortedData["milestones"];
+  // milestoneDates = sortedData["dates"];
+  // milestoneProgress = sortedData["progress"];
 
   if (typeof window === "undefined") {
     return;

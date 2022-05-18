@@ -83,6 +83,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
         placement="bottom"
         closeOnBlur={false}
       >
+        {/* !! Put popover triger on each milestone */}
         <PopoverTrigger>
           <Button visibility={"hidden"} colorScheme="pink">
             Popover Target

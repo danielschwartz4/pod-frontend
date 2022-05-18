@@ -1,6 +1,6 @@
-import { FormLabel } from "@chakra-ui/react";
+import { Box, FormLabel } from "@chakra-ui/react";
 import { useField, useFormikContext } from "formik";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -9,29 +9,48 @@ interface DatePickerInputProps {
   name?: string;
   placeholder?: string;
   label?: string;
+  regularPosition?: boolean;
 }
 
-const DatePickerInput: React.FC<DatePickerInputProps> = (props) => {
-  const [field, { error }] = useField(props.name);
+const DatePickerInput: React.FC<DatePickerInputProps> = ({
+  showTimeSelect,
+  name,
+  placeholder,
+  label,
+  regularPosition = true,
+}) => {
+  const [field, { error }] = useField(name);
   const { setFieldValue } = useFormikContext();
 
   return (
     <>
-      {props.label != null ? (
-        <FormLabel htmlFor={field.name}>{props.label}</FormLabel>
+      {label != null ? (
+        <FormLabel htmlFor={field.name}>{label}</FormLabel>
       ) : null}
-      <DatePicker
-        width={"fill-available"}
-        className="date-picker"
-        placeholderText={props.placeholder}
-        {...field}
-        {...props}
-        autoComplete="off"
-        selected={(field.value && new Date(field.value)) || null}
-        onChange={(val) => {
-          setFieldValue(field.name, val);
-        }}
-      />
+      <Box zIndex={3}>
+        <DatePicker
+          width={"fill-available"}
+          className="date-picker"
+          placeholderText={placeholder}
+          {...field}
+          showTimeSelect={showTimeSelect}
+          autoComplete="off"
+          selected={(field.value && new Date(field.value)) || null}
+          onChange={(val) => {
+            setFieldValue(field.name, val);
+          }}
+          dateFormat="MMMM d, yyyy h:mm aa"
+          popperPlacement={!regularPosition ? "top-end" : "top-start"}
+          popperModifiers={[
+            {
+              name: "offset",
+              options: {
+                offset: !regularPosition ? [100, -100] : [0, 0],
+              },
+            },
+          ]}
+        />
+      </Box>
     </>
   );
 };

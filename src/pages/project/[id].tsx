@@ -15,9 +15,11 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
 import AddNewMilestone from "../../components/MyProject/AddNewMilestone";
+import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
 import { Warning } from "../../components/Warning";
 import { delayAlert } from "../../utils/delay";
+import { sortMilestones } from "../../utils/initElements";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 
@@ -38,11 +40,32 @@ const Home: React.FC<homeProps> = ({}) => {
   const [_milestoneDates, setMilestoneDates] = useState<string[]>([]);
   const [_milestoneProgress, setMilestoneProgress] = useState<number[]>([]);
 
+  // useEffect(() => {
+
+  // refetch();
+  // setMilestones(projectData?.project?.project?.milestones);
+  // setMilestoneDates(projectData?.project?.project?.milestoneDates);
+  // setMilestoneProgress(projectData?.project?.project?.milestoneProgress);
+  // }, [projectData]);
+
   useEffect(() => {
     refetch();
-    setMilestones(projectData?.project?.project?.milestones);
-    setMilestoneDates(projectData?.project?.project?.milestoneDates);
-    setMilestoneProgress(projectData?.project?.project?.milestoneProgress);
+    const sortedData = sortMilestones(
+      projectData?.project?.project?.milestones,
+      projectData?.project?.project?.milestoneDates,
+      projectData?.project?.project?.milestoneProgress
+    );
+    // !! When we change the date, the data is cleared... need to figure that out lol
+    // setMilestones(projectData?.project?.project?.milestones);
+    // setMilestoneDates(projectData?.project?.project?.milestoneDates);
+    // setMilestoneProgress(projectData?.project?.project?.milestoneProgress);
+
+    console.log(sortedData);
+    if (sortedData) {
+      setMilestones(sortedData["milestones"]);
+      setMilestoneDates(sortedData["dates"]);
+      setMilestoneProgress(sortedData["progress"]);
+    }
   }, [projectData]);
 
   useEffect(() => {
@@ -69,7 +92,7 @@ const Home: React.FC<homeProps> = ({}) => {
         <VStack>
           <Flex w={{ base: "425px", md: "800px", lg: "1024px" }}>
             {/* !! Maybe keep EnterNewMilestone in because we want to order milestones by date and it would be easier that way*/}
-            <AddNewMilestone
+            <EnterNewMilestone
               milestones={_milestones}
               milestoneDates={_milestoneDates}
               milestoneProgress={_milestoneProgress}

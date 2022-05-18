@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { ErrorMessage, Form, Formik } from "formik";
 import React from "react";
 import {
@@ -14,21 +14,21 @@ interface EnterNewMilestoneProps {
   milestoneDates: string[];
   milestoneProgress: number[];
   projectId: number;
+  setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
+  setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = ({
-  milestoneDates,
-  milestones,
-  milestoneProgress,
-  projectId,
-}) => {
+const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
   const [updateProjectMilestoneDates] =
     useUpdateProjectMilestoneDatesMutation();
   const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
   const [updateProjectProgress] = useUpdateProjectProgressMutation();
-  let _milestones = Object.assign([], milestones);
-  let _milestoneDates = Object.assign([], milestoneDates);
-  let _milestoneProgress = Object.assign([], milestoneProgress);
+  let _milestones = Object.assign([], props.milestones);
+  let _milestoneDates = Object.assign([], props.milestoneDates);
+  let _milestoneProgress = Object.assign([], props.milestoneProgress);
+  const [isAddingMilestone, setIsAddingMilestone] = React.useState(false);
+
   return (
     <Box>
       <Formik
@@ -43,7 +43,7 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = ({
           console.log(completionDate);
           const response = await updateProjectMilestones({
             variables: {
-              updateProjectMilestonesId: projectId,
+              updateProjectMilestonesId: props.projectId,
               milestones: _milestones,
             },
           });
@@ -51,7 +51,7 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = ({
           if (response.data?.updateProjectMilestones) {
             const response2 = await updateProjectMilestoneDates({
               variables: {
-                updateProjectMilestoneDatesId: projectId,
+                updateProjectMilestoneDatesId: props.projectId,
                 milestoneDates: _milestoneDates,
               },
             });
@@ -61,11 +61,14 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = ({
           }
           const response3 = await updateProjectProgress({
             variables: {
-              updateProjectProgressId: projectId,
+              updateProjectProgressId: props.projectId,
               milestoneProgress: _milestoneProgress,
             },
           });
           if (response3.data?.updateProjectProgress) {
+            props.setMilestones(_milestones);
+            props.setMilestoneDates(_milestoneDates);
+            props.setMilestoneProgress(_milestoneProgress);
             console.log("success");
           }
         }}
@@ -74,35 +77,55 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = ({
           <Form>
             <Box>
               <Flex alignItems={"center"} mt={4}>
-                <Box>
-                  <InputField
-                    name={"description"}
-                    placeholder="milestone"
-                    label={"Milestone"}
-                    autoComplete="off"
-                  />
-                </Box>
-                <Box>
-                  <DatePickerInput
-                    name={"completionDate"}
-                    label="Completion date"
-                    showTimeSelect
-                  />
-                  <ErrorMessage
-                    name={"completeionDate"}
-                    component="div"
-                    className="field-error"
-                  />
-                </Box>
-                <Box ml={"50px"} mt={"28px"}>
+                <Box mt={"28px"} mr={4}>
                   <Button
-                    type="submit"
-                    isLoading={isSubmitting ? true : false}
                     cursor="pointer"
+                    onClick={() => setIsAddingMilestone(!isAddingMilestone)}
                   >
-                    Add milestone
+                    {isAddingMilestone ? (
+                      <Text>Cancel</Text>
+                    ) : (
+                      <Text>Add milestone</Text>
+                    )}
                   </Button>
                 </Box>
+                {isAddingMilestone ? (
+                  <Flex>
+                    <Box mr={4} textColor="gainsboro">
+                      <InputField
+                        name={"description"}
+                        placeholder="milestone"
+                        label={"Milestone"}
+                        autoComplete="off"
+                      />
+                    </Box>
+
+                    <Box mr={12} textColor="gainsboro">
+                      <DatePickerInput
+                        regularPosition={false}
+                        name={"completionDate"}
+                        label="Completion date"
+                        placeholder="Choose a new Date"
+                        showTimeSelect
+                      />
+                      <ErrorMessage
+                        name={"completeionDate"}
+                        component="div"
+                        className="field-error"
+                      />
+                    </Box>
+                    <Box mt={"28px"}>
+                      <Button
+                        type="submit"
+                        isLoading={isSubmitting ? true : false}
+                        cursor="pointer"
+                        color={"white"}
+                      >
+                        Add milestone
+                      </Button>
+                    </Box>
+                  </Flex>
+                ) : null}
               </Flex>
             </Box>
           </Form>

@@ -17,22 +17,14 @@ interface AddNewMilestoneProps {
   setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
-  milestoneDates,
-  milestones,
-  milestoneProgress,
-  projectId,
-  setMilestones,
-  setMilestoneDates,
-  setMilestoneProgress,
-}) => {
+const AddNewMilestone: React.FC<AddNewMilestoneProps> = (props) => {
   const [updateProjectMilestoneDates] =
     useUpdateProjectMilestoneDatesMutation();
   const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
   const [updateProjectProgress] = useUpdateProjectProgressMutation();
-  let _milestones = Object.assign([], milestones);
-  let _milestoneDates = Object.assign([], milestoneDates);
-  let _milestoneProgress = Object.assign([], milestoneProgress);
+  let _milestones = Object.assign([], props.milestones);
+  let _milestoneDates = Object.assign([], props.milestoneDates);
+  let _milestoneProgress = Object.assign([], props.milestoneProgress);
 
   return (
     <Box>
@@ -50,7 +42,7 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
                 _milestoneProgress.push(1);
                 const response = await updateProjectMilestones({
                   variables: {
-                    updateProjectMilestonesId: projectId,
+                    updateProjectMilestonesId: props.projectId,
                     milestones: _milestones,
                   },
                 });
@@ -59,7 +51,7 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
                 }
                 const response2 = await updateProjectMilestoneDates({
                   variables: {
-                    updateProjectMilestoneDatesId: projectId,
+                    updateProjectMilestoneDatesId: props.projectId,
                     milestoneDates: _milestoneDates,
                   },
                 });
@@ -68,14 +60,14 @@ const AddNewMilestone: React.FC<AddNewMilestoneProps> = ({
                 }
                 const response3 = await updateProjectProgress({
                   variables: {
-                    updateProjectProgressId: projectId,
+                    updateProjectProgressId: props.projectId,
                     milestoneProgress: _milestoneProgress,
                   },
                 });
                 if (response3.data?.updateProjectProgress) {
-                  setMilestones(_milestones);
-                  setMilestoneDates(_milestoneDates);
-                  setMilestoneProgress(_milestoneProgress);
+                  props.setMilestones(_milestones);
+                  props.setMilestoneDates(_milestoneDates);
+                  props.setMilestoneProgress(_milestoneProgress);
                   console.log("success");
                 }
               }}

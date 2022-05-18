@@ -63,3 +63,8 @@ order that makes sense
 the tab back... May want to keep unmount turned on
 2. Currently reloading the page to get the data which is terrible...
 		I need to restructure the statefulness of the components to get arount this I believe
+
+5-16-22
+First of all, I'm not completely sure that the state way I did it was how you're supposed to do it
+Nevertheless, it's inmportant to think about what components need access to what state
+To get the add drop functionality I had to add a refetch() effect if [id]
