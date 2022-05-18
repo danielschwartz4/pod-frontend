@@ -74,7 +74,7 @@ export default function init_elements(
   if (typeof window === "undefined") {
     return;
   }
-  console.log(milestones);
+
   if (window.innerWidth > window.innerHeight || !allowVertical) {
     milestones?.forEach((_, i) => {
       if (i % 3 == 0) {

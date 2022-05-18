@@ -9,7 +9,7 @@ import {
 } from "../../generated/graphql";
 import { FlowNode, NodeDate, NodeMilestone, NodeProgress } from "../../types";
 import { delayAlert } from "../../utils/delay";
-import init_elements from "../../utils/initElements";
+import init_elements, { sortMilestones } from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
 import { sendMessage } from "../Sms/sendMessage";
@@ -187,9 +187,25 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
           }
         }
       });
+      const sortedData = sortMilestones(
+        props.milestones,
+        tmp,
+        props.milestoneProgress
+      );
+      // !! Still get an error when I use delete
+      if (sortedData) {
+        props.setMilestones(sortedData["milestones"]);
+        props.setMilestoneDates(sortedData["dates"]);
+        props.setMilestoneProgress(sortedData["progress"]);
+      }
       props.setKeepMounted(false);
-      _setMilestoneDates(tmp);
-      props.setMilestoneDates(tmp);
+      _setMilestones(sortedData["milestones"]);
+      _setMilestoneDates(sortedData["dates"]);
+      _setMilestoneProgress(sortedData["progress"]);
+
+      // props.setKeepMounted(false);
+      // _setMilestoneDates(tmp);
+      // props.setMilestoneDates(tmp);
     }
   }, [newMilestoneDate]);
 

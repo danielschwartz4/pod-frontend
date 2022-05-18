@@ -68,3 +68,6 @@ the tab back... May want to keep unmount turned on
 First of all, I'm not completely sure that the state way I did it was how you're supposed to do it
 Nevertheless, it's inmportant to think about what components need access to what state
 To get the add drop functionality I had to add a refetch() effect if [id]
+
+5-17-22
+Need to initialize _milestone state in [id] with project data so that data doesn't dissappear on rerender

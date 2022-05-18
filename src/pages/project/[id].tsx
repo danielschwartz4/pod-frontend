@@ -1,3 +1,4 @@
+import { NetworkStatus } from "@apollo/client";
 import {
   Alert,
   AlertIcon,
@@ -28,7 +29,12 @@ interface homeProps {}
 const Home: React.FC<homeProps> = ({}) => {
   useIsAuth();
 
-  const { data: projectData, loading, refetch } = useGetProjectFromUrl();
+  const {
+    data: projectData,
+    loading,
+    refetch,
+    networkStatus,
+  } = useGetProjectFromUrl();
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -54,19 +60,13 @@ const Home: React.FC<homeProps> = ({}) => {
   // }, [projectData]);
 
   useEffect(() => {
-    // refetch();
     if (projectData?.project?.project) {
-      console.log("projectData", projectData?.project?.project);
       const sortedData = sortMilestones(
         projectData?.project?.project?.milestones,
         projectData?.project?.project?.milestoneDates,
         projectData?.project?.project?.milestoneProgress
       );
-      // !! When we change the date, the data is cleared... need to figure that out lol
-      // !! A lot of undefined shit goin on
-      // !! Might be disappearing because we are just saying "return" instaed of waiting for data
-
-      console.log("sorted", sortedData);
+      // !! Still get an error when I use delete
       if (sortedData) {
         setMilestones(sortedData["milestones"]);
         setMilestoneDates(sortedData["dates"]);
