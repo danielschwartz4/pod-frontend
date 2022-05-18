@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import {
   useMeQuery,
@@ -32,19 +32,10 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
 
   const projectId = useGetIntId();
 
-  const [nodeActive, setNodeActive] = useState(true);
+  const [canClick, setCanClick] = useState(false);
 
   // Popover functionality (delaying a second after popover is opened)
   const [isOpen, setIsOpen] = useState(false);
-  const open = (_, node) => {
-    if (nodeActive) {
-      setCurrNode(node);
-      setIsOpen(!isOpen);
-    }
-    delayAlert(1000, setNodeActive, true);
-    setNodeActive(false);
-  };
-  const close = () => setIsOpen(false);
 
   // Get the current node
   const [currNode, setCurrNode] = useState<FlowNode>({} as FlowNode);
@@ -236,6 +227,23 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
 
   const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
 
+  const onNodeMouseEnter = (_, node) => {
+    setCurrNode(node);
+    setCanClick(true);
+  };
+
+  const onNodeMouseLeave = (_, node) => {
+    setCanClick(false);
+  };
+
+  const close = () => setIsOpen(false);
+
+  const onClick = () => {
+    if (canClick) {
+      setIsOpen(true);
+    }
+  };
+
   return (
     <Box h={"100%"} w={"100%"} bg={"#1a202c"}>
       {loading && !data ? (
@@ -254,9 +262,13 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
             paneMoveable={false}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
-            onNodeMouseEnter={open}
+            onNodeMouseEnter={onNodeMouseEnter}
+            onNodeMouseLeave={onNodeMouseLeave}
             nodesDraggable={false}
             preventScrolling={false}
+            onClick={() => {
+              onClick();
+            }}
           >
             <Background gap={50} size={2} color="firebrick" />
             <Box>
