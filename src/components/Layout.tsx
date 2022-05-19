@@ -18,13 +18,7 @@ export const Layout: React.FC<LayoutProps> = ({
   isProjectsPage = false,
 }) => {
   return (
-    <Box
-      margin={"auto"}
-      bg={"gray.800"}
-      m={-2}
-      // w={"fit-content"}
-      // h={"fit-content"}
-    >
+    <Box margin={"auto"} bg={"gray.800"} m={-2}>
       {!isProfile ? (
         <HomeNavBar />
       ) : (

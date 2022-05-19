@@ -31,6 +31,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
         />
       ) : (
         <Textarea
+          textColor={"gainsboro"}
           // width={"fill-available"}
           {...field}
           id={field.name}

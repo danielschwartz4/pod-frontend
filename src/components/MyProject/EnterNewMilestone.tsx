@@ -78,8 +78,8 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <Flex mb={2} flexDirection={{ base: "column", md: "row" }} mt={8}>
-              <Box mt={"28px"} mr={0}>
+            <Flex mb={2} flexDirection={{ base: "column", md: "row" }}>
+              <Box mt={"28px"} ml={4} mr={0}>
                 <Button
                   cursor="pointer"
                   onClick={() => setIsAddingMilestone(!isAddingMilestone)}
@@ -120,7 +120,7 @@ const DesktopEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
           autoComplete="off"
         />
       </Box>
-      <Box ml={4} textColor="gainsboro">
+      <Box ml={12} textColor="gainsboro">
         <DatePickerInput
           regularPosition={false}
           name={"completionDate"}
@@ -150,8 +150,8 @@ const DesktopEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
 
 const MobileEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
   return (
-    <Flex direction={"column"}>
-      <Box textColor="gainsboro" w={"250px"}>
+    <Flex direction={"column"} width={"250px"} ml={4}>
+      <Box textColor="gainsboro" mt={4}>
         <InputField
           name={"description"}
           placeholder="milestone"
@@ -159,7 +159,7 @@ const MobileEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
           autoComplete="off"
         />
       </Box>
-      <Box textColor="gainsboro" w={"250px"}>
+      <Box textColor="gainsboro" mt={4}>
         <DatePickerInput
           regularPosition={false}
           name={"completionDate"}
@@ -173,7 +173,7 @@ const MobileEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
           className="field-error"
         />
       </Box>
-      <Box>
+      <Box mt={4}>
         <Button
           type="submit"
           isLoading={isSubmitting ? true : false}
