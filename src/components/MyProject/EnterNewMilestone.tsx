@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react";
 import { ErrorMessage, Form, Formik } from "formik";
 import React from "react";
 import {
@@ -17,6 +17,10 @@ interface EnterNewMilestoneProps {
   setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
+}
+
+interface SubProps {
+  isSubmitting: boolean;
 }
 
 const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
@@ -74,63 +78,112 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
       >
         {({ isSubmitting }) => (
           <Form>
-            <Box>
-              <Flex alignItems={"center"} mt={4}>
-                <Box mt={"28px"} mr={4}>
-                  <Button
-                    cursor="pointer"
-                    onClick={() => setIsAddingMilestone(!isAddingMilestone)}
-                  >
-                    {isAddingMilestone ? (
-                      <Text>Cancel</Text>
-                    ) : (
-                      <Text>Add milestone</Text>
-                    )}
-                  </Button>
-                </Box>
-                {isAddingMilestone ? (
-                  <Flex>
-                    <Box mr={4} textColor="gainsboro">
-                      <InputField
-                        name={"description"}
-                        placeholder="milestone"
-                        label={"Milestone"}
-                        autoComplete="off"
-                      />
-                    </Box>
-
-                    <Box mr={12} textColor="gainsboro">
-                      <DatePickerInput
-                        regularPosition={false}
-                        name={"completionDate"}
-                        label="Completion date"
-                        placeholder="choose a date"
-                        showTimeSelect
-                      />
-                      <ErrorMessage
-                        name={"completeionDate"}
-                        component="div"
-                        className="field-error"
-                      />
-                    </Box>
-                    <Box mt={"28px"}>
-                      <Button
-                        type="submit"
-                        isLoading={isSubmitting ? true : false}
-                        cursor="pointer"
-                        color={"white"}
-                      >
-                        Add milestone
-                      </Button>
-                    </Box>
-                  </Flex>
-                ) : null}
-              </Flex>
-            </Box>
+            <Flex mb={2} flexDirection={{ base: "column", md: "row" }} mt={8}>
+              <Box mt={"28px"} mr={0}>
+                <Button
+                  cursor="pointer"
+                  onClick={() => setIsAddingMilestone(!isAddingMilestone)}
+                >
+                  {isAddingMilestone ? (
+                    <Text>Cancel</Text>
+                  ) : (
+                    <Text>Add milestone</Text>
+                  )}
+                </Button>
+              </Box>
+              {isAddingMilestone ? (
+                <>
+                  <Box display={{ base: "none", md: "flex" }}>
+                    <DesktopEnterNewMilestone isSubmitting={isSubmitting} />
+                  </Box>
+                  <Box display={{ base: "flex", md: "none" }}>
+                    <MobileEnterNewMilestone isSubmitting={isSubmitting} />
+                  </Box>
+                </>
+              ) : null}
+            </Flex>
           </Form>
         )}
       </Formik>
     </Box>
+  );
+};
+
+const DesktopEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
+  return (
+    <Flex>
+      <Box ml={4} textColor="gainsboro">
+        <InputField
+          name={"description"}
+          placeholder="milestone"
+          label={"Milestone"}
+          autoComplete="off"
+        />
+      </Box>
+      <Box ml={4} textColor="gainsboro">
+        <DatePickerInput
+          regularPosition={false}
+          name={"completionDate"}
+          label="Completion date"
+          placeholder="choose a date"
+          showTimeSelect
+        />
+        <ErrorMessage
+          name={"completeionDate"}
+          component="div"
+          className="field-error"
+        />
+      </Box>
+      <Box ml={12} mt={"auto"} mb={"2px"}>
+        <Button
+          type="submit"
+          isLoading={isSubmitting ? true : false}
+          cursor="pointer"
+          color={"white"}
+        >
+          Add milestone
+        </Button>
+      </Box>
+    </Flex>
+  );
+};
+
+const MobileEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
+  return (
+    <Flex direction={"column"}>
+      <Box textColor="gainsboro" w={"250px"}>
+        <InputField
+          name={"description"}
+          placeholder="milestone"
+          label={"Milestone"}
+          autoComplete="off"
+        />
+      </Box>
+      <Box textColor="gainsboro" w={"250px"}>
+        <DatePickerInput
+          regularPosition={false}
+          name={"completionDate"}
+          label="Completion date"
+          placeholder="choose a date"
+          showTimeSelect
+        />
+        <ErrorMessage
+          name={"completeionDate"}
+          component="div"
+          className="field-error"
+        />
+      </Box>
+      <Box>
+        <Button
+          type="submit"
+          isLoading={isSubmitting ? true : false}
+          cursor="pointer"
+          color={"white"}
+        >
+          Add milestone
+        </Button>
+      </Box>
+    </Flex>
   );
 };
 

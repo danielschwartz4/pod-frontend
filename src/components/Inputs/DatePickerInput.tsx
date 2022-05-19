@@ -27,9 +27,9 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
       {label != null ? (
         <FormLabel htmlFor={field.name}>{label}</FormLabel>
       ) : null}
-      <Box zIndex={3}>
+      <Box>
         <DatePicker
-          width={"fill-available"}
+          // width={"fill-available"}
           className="date-picker"
           placeholderText={placeholder}
           {...field}

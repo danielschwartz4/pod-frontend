@@ -102,22 +102,25 @@ const Login: React.FC<{}> = ({}) => {
               {({ isSubmitting }) => (
                 <Form>
                   <Box>
-                    <Box>
-                      <InputField
-                        name="usernameOrEmail"
-                        label="Username or Email"
-                        placeholder="Username or email"
-                      />
+                    <Box mr={8}>
+                      <Box>
+                        <InputField
+                          name="usernameOrEmail"
+                          label="Username or Email"
+                          placeholder="Username or email"
+                        />
+                      </Box>
+                      <Box mt={4}>
+                        <InputField
+                          name="password"
+                          label="Password"
+                          placeholder="password"
+                          type="password"
+                        />
+                      </Box>
                     </Box>
-                    <Box mt={4}>
-                      <InputField
-                        name="password"
-                        label="Password"
-                        placeholder="password"
-                        type="password"
-                      />
-                    </Box>
-                    <Stack spacing={10}>
+
+                    <Stack spacing={10} pt={2}>
                       <Flex
                         alignItems={"center"}
                         justify={"space-between"}
@@ -129,19 +132,24 @@ const Login: React.FC<{}> = ({}) => {
                         </NextLink>
                       </Flex>
 
-                      <Button
-                        bg={"blue.400"}
-                        color={"white"}
-                        _hover={{
-                          bg: "blue.500",
-                        }}
-                        isLoading={isSubmitting}
-                        type="submit"
-                        width={"100%"}
-                        cursor={"pointer"}
-                      >
-                        Sign in
-                      </Button>
+                      <Box>
+                        <Button
+                          w={"100%"}
+                          bg={"blue.400"}
+                          color={"white"}
+                          size={"lg"}
+                          _hover={{
+                            bg: "blue.500",
+                          }}
+                          isLoading={isSubmitting}
+                          type="submit"
+                          width={"100%"}
+                          cursor={"pointer"}
+                          loadingText="Submitting"
+                        >
+                          Sign in
+                        </Button>
+                      </Box>
                     </Stack>
                   </Box>
                 </Form>

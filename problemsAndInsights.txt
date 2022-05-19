@@ -17,6 +17,7 @@ Have to separate flowcharts into mini and main so they don't inherit the others'
 4-18-22
 Removed dist file from gitignore so it could be pushed to heroku
 
+Error: secret option required for sessions
 Need to run 'source src/.env' in terminal to use environment variables
 
 4-19-22
@@ -72,3 +73,6 @@ To get the add drop functionality I had to add a refetch() effect if [id]
 5-17-22
 Need to initialize _milestone state in [id] with project data so that data doesn't dissappear on rerender
 Deleted all update queries from my pod hopefully that doesn't break anything
+
+5-19-22
+Don't be frugal with media queries, use when needed

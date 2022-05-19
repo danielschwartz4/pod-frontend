@@ -90,8 +90,8 @@ const Register: React.FC<registerProps> = ({}) => {
               >
                 {({ isSubmitting }) => (
                   <Form>
-                    <Box maxW={"448px"}>
-                      <Box>
+                    <Box>
+                      <Box mr={8}>
                         <InputField
                           name="username"
                           placeholder="username"
@@ -116,7 +116,7 @@ const Register: React.FC<registerProps> = ({}) => {
                         <Box>
                           <Button
                             mt={4}
-                            width={"100%"}
+                            w={"100%"}
                             loadingText="Submitting"
                             size="lg"
                             bg={"blue.400"}
@@ -131,8 +131,6 @@ const Register: React.FC<registerProps> = ({}) => {
                             Join the community!
                           </Button>
                         </Box>
-                      </Stack>
-                      <Stack pt={6}>
                         <Text align={"center"}>
                           Already a user?{" "}
                           <NextLink href={"/login"}>
