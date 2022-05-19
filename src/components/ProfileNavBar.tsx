@@ -154,7 +154,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                     color={"gainsboro"}
                     fontSize={18}
                   >
-                    My projects
+                    <b>My projects</b>
                   </Text>
                 ) : null}
               </Flex>
@@ -175,7 +175,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                   variant={"link"}
                   color={"gainsboro"}
                 >
-                  Logout
+                  <b>Logout</b>
                 </Text>
               </Flex>
               <Divider />

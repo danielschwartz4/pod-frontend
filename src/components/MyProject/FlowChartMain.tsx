@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import {
   useMeQuery,
@@ -8,7 +8,6 @@ import {
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
 import { FlowNode, NodeDate, NodeMilestone, NodeProgress } from "../../types";
-import { delayAlert } from "../../utils/delay";
 import init_elements, { sortMilestones } from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";

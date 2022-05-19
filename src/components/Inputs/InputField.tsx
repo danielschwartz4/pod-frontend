@@ -13,6 +13,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   placeholder: string;
   isField?: boolean;
+  textColor?: string;
 };
 
 export const InputField: React.FC<InputFieldProps> = (props) => {
@@ -22,7 +23,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       <FormLabel htmlFor={field.name}>{props.label}</FormLabel>
       {!props.isField ? (
         <Input
-          textColor={"gainsboro"}
+          textColor={!props.textColor ? "gainsboro" : props.textColor}
           autoComplete={props.autoComplete}
           {...field}
           id={field.name}
@@ -30,7 +31,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
         />
       ) : (
         <Textarea
-          textColor={"gainsboro"}
+          textColor={!props.textColor ? "gainsboro" : props.textColor}
           {...field}
           id={field.name}
           placeholder={props.placeholder}

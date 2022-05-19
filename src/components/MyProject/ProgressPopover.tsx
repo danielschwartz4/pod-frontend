@@ -291,8 +291,9 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                 <Form>
                   <PopoverBody>
                     {isEditingText ? (
-                      <Box>
+                      <Box mr={8}>
                         <InputField
+                          textColor={"black"}
                           label=""
                           name="milestone"
                           placeholder="Actuallyyyy I think I'm gonna..."
