@@ -17,26 +17,23 @@ export const Features: React.FC<FeaturesProps> = ({}) => {
         spacingY={{ base: "8", md: "14" }}
       >
         <Feature title="Track your progress" icon={<FcSerialTasks />}>
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-          kasd gubergren, no sea takimata sanctus.
+          Generate a custom flow chart to see a visual representation of your
+          progress
         </Feature>
         <Feature
           title="Join a pod to track others' progress"
           icon={<TiThLargeOutline color="lightblue" />}
         >
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore.
+          Join a "pod" to see the progress of others and stay motivated
         </Feature>
         <Feature title="Update yours peers on your progress" icon={<HiChat />}>
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-          kasd gubergren, no sea takimata sanctus.
+          Update your pod members on your progress through SMS notifications
         </Feature>
         <Feature
           title="Join a pod with your friend!"
           icon={<FcConferenceCall />}
         >
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore.
+          Join a pod with your friends to hold eachother accountable!
         </Feature>
       </SimpleGrid>
     </Box>
