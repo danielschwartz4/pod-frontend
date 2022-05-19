@@ -93,7 +93,10 @@ const Home: React.FC<homeProps> = ({}) => {
     <Layout isProfile>
       {_milestones && _milestoneDates && _milestoneProgress && !loading ? (
         <VStack>
-          <Flex w={{ base: "425px", md: "800px", lg: "1024px" }}>
+          <Flex
+            // color={"white"}
+            w={{ base: "100%", md: "800px", lg: "1024px" }}
+          >
             <EnterNewMilestone
               milestones={_milestones}
               milestoneDates={_milestoneDates}
@@ -121,11 +124,9 @@ const Home: React.FC<homeProps> = ({}) => {
             )}
           </Flex>
           <Tabs
-            border={"1px solid #7e9cd6"}
+            border={{ base: "none", md: "1px solid #7e9cd6" }}
             borderRadius={"lg"}
-            mt={"8"}
-            mx={"auto"}
-            w={{ base: "425px", md: "800px", lg: "1024px" }}
+            w={{ base: "100%", md: "800px", lg: "1024px" }}
             isFitted={true}
             variant="enclosed"
             align={"center"}

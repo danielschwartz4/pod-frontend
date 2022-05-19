@@ -125,7 +125,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
       </Flex>
 
       {/* !! MOBILE ----------------------------------- */}
-      <Collapse in={isOpen} animateOpacity endingHeight={"150px"}>
+      <Collapse in={isOpen} animateOpacity>
         <VStack
           bg={useColorModeValue("white", "gray.800")}
           p={4}

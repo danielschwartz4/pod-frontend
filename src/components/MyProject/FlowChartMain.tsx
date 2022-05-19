@@ -247,7 +247,13 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
   };
 
   return (
-    <Box h={"100%"} w={"100%"} bg={"#1a202c"}>
+    <Box
+      h={"100%"}
+      w={"100%"}
+      bg={"#1a202c"}
+      border={{ base: "1px solid #7e9cd6", md: "none" }}
+      borderRadius={"lg"}
+    >
       {loading && !data ? (
         <div> loading... </div>
       ) : (

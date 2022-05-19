@@ -1,10 +1,6 @@
 import { Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
-  PodDocument,
-  PodQuery,
-  ProjectDocument,
-  ProjectQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
   useFindPodQuery,

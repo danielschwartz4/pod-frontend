@@ -75,6 +75,14 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
                   {data?.me?.username}
                 </Box>
                 <Button
+                  mr={4}
+                  colorScheme={"tan"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/profile")}
+                >
+                  My projects
+                </Button>
+                <Button
                   onClick={() => {
                     logout({
                       update: (cache) => {
@@ -141,7 +149,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
       </Flex>
 
       {/* !! MOBILE ----------------------------------- */}
-      <Collapse in={isOpen} animateOpacity endingHeight={"150px"}>
+      <Collapse in={isOpen} animateOpacity>
         <VStack
           bg={useColorModeValue("white", "gray.800")}
           p={4}
@@ -157,6 +165,19 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
               >
                 <Text colorScheme={"tan"} color={"gainsboro"} fontSize={18}>
                   {data?.me?.username}
+                </Text>
+              </Flex>
+              <Divider />
+              <Flex justify={"end"}>
+                <Text
+                  mr={6}
+                  colorScheme={"tan"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/profile")}
+                  color={"gainsboro"}
+                  fontSize={18}
+                >
+                  My projects
                 </Text>
               </Flex>
               <Divider />
