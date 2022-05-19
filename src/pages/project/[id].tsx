@@ -92,11 +92,8 @@ const Home: React.FC<homeProps> = ({}) => {
   return (
     <Layout isProfile>
       {_milestones && _milestoneDates && _milestoneProgress && !loading ? (
-        <VStack>
-          <Flex
-            // color={"white"}
-            w={{ base: "100%", md: "800px", lg: "1024px" }}
-          >
+        <VStack minH={"100vh"} h={"100%"}>
+          <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
             <EnterNewMilestone
               milestones={_milestones}
               milestoneDates={_milestoneDates}

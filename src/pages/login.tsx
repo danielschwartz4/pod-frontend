@@ -4,12 +4,11 @@ import {
   Checkbox,
   Flex,
   Heading,
+  Image,
   Link,
   Stack,
   Text,
-  Image,
   useColorModeValue,
-  Input,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
@@ -18,8 +17,8 @@ import React from "react";
 import { InputField } from "../components/Inputs/InputField";
 import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
-import { toErrorMap } from "../utils/toErrorMap";
 import firstLogo from "../images/Logos/firstLogo.png";
+import { toErrorMap } from "../utils/toErrorMap";
 
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
@@ -38,9 +37,9 @@ const Login: React.FC<{}> = ({}) => {
           <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
         </NextLink>
       </Flex>
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+      <Stack spacing={8} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"} color={"gainsboro"}>
+          <Heading textAlign={"center"} fontSize={"4xl"} color={"gainsboro"}>
             Sign in to your account
           </Heading>
           <Text fontSize={"lg"} color={"gray.600"}>

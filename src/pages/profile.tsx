@@ -33,7 +33,7 @@ const Profile: React.FC<profileProps> = ({}) => {
       {loading && !data ? (
         <div>Loading...</div>
       ) : (
-        <Box m={4} h={"100%"}>
+        <Box m={4} minH={"100vh"} h={"100%"}>
           <Button
             bg={"#7e9cd6"}
             mt={8}
