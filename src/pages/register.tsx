@@ -27,34 +27,40 @@ const Register: React.FC<registerProps> = ({}) => {
 
   return (
     <Flex
-      minH={"100vh"}
+      h={"100vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      bg={"gray.800"}
       m={-2}
     >
-      <Flex pos={"absolute"} top={0} left={0} p={6}>
-        <NextLink href="/">
-          <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
-        </NextLink>
-      </Flex>
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"4xl"} textAlign={"center"} color={"gainsboro"}>
-            Join the community!
-          </Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool features 🔥
-          </Text>
-        </Stack>
+      <Box w={"500px"}>
+        <Flex pos={"absolute"} top={0} left={0} p={4}>
+          <NextLink href="/">
+            <Image
+              cursor={"pointer"}
+              h={70}
+              w={200}
+              src={firstLogo.src}
+              alt=""
+            />
+          </NextLink>
+        </Flex>
+        <Stack spacing={4} maxW={"lg"} pt={12} mx={4}>
+          <Stack align={"center"}>
+            <Heading fontSize={"4xl"} textAlign={"center"} color={"gainsboro"}>
+              Join the community!
+            </Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>
+              to enjoy all of our cool features 🔥
+            </Text>
+          </Stack>
 
-        <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
-        >
-          <Stack spacing={4} p={8}>
-            <Wrapper variant="small">
+          <Box
+            rounded={"lg"}
+            bg={useColorModeValue("white", "gray.700")}
+            boxShadow={"lg"}
+          >
+            <Stack spacing={4} p={8}>
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}
                 onSubmit={async (values, { setErrors }) => {
@@ -140,10 +146,10 @@ const Register: React.FC<registerProps> = ({}) => {
                   </Form>
                 )}
               </Formik>
-            </Wrapper>
-          </Stack>
-        </Box>
-      </Stack>
+            </Stack>
+          </Box>
+        </Stack>
+      </Box>
     </Flex>
   );
 };

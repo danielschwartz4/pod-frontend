@@ -26,40 +26,47 @@ const Login: React.FC<{}> = ({}) => {
 
   return (
     <Flex
-      minH={"100vh"}
+      h={"100vh"}
       align={"center"}
       justify={"center"}
       bg={"gray.800"}
       m={-2}
     >
-      <Flex pos={"absolute"} top={0} left={0} p={6}>
-        <NextLink href="/">
-          <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
-        </NextLink>
-      </Flex>
-      <Stack spacing={8} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading textAlign={"center"} fontSize={"4xl"} color={"gainsboro"}>
-            Sign in to your account
-          </Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            or register
-            <NextLink href={"/register"}>
-              <Link color={"blue.400"} marginLeft={"0.3em"}>
-                here
-              </Link>
-            </NextLink>
-            ✌️
-          </Text>
-        </Stack>
+      <Box w={"500px"}>
+        <Flex pos={"absolute"} top={0} left={0} p={4}>
+          <NextLink href="/">
+            <Image
+              cursor={"pointer"}
+              h={70}
+              w={200}
+              src={firstLogo.src}
+              alt=""
+            />
+          </NextLink>
+        </Flex>
+        <Stack spacing={4} maxW={"lg"} pt={12} mx={4}>
+          <Stack align={"center"}>
+            <Heading textAlign={"center"} fontSize={"4xl"} color={"gainsboro"}>
+              Sign in to your account
+            </Heading>
+            <Text fontSize={"lg"} color={"gray.600"}>
+              or register
+              <NextLink href={"/register"}>
+                <Link color={"blue.400"} marginLeft={"0.3em"}>
+                  here
+                </Link>
+              </NextLink>
+              ✌️
+            </Text>
+          </Stack>
 
-        <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
-          p={8}
-        >
-          <Wrapper variant="small">
+          <Box
+            rounded={"lg"}
+            bg={useColorModeValue("white", "gray.700")}
+            boxShadow={"lg"}
+            p={8}
+            justifyContent={"center"}
+          >
             <Formik
               initialValues={{ usernameOrEmail: "", password: "" }}
               onSubmit={async (
@@ -94,7 +101,7 @@ const Login: React.FC<{}> = ({}) => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <Box maxW={"448px"}>
+                  <Box>
                     <Box>
                       <InputField
                         name="usernameOrEmail"
@@ -111,9 +118,8 @@ const Login: React.FC<{}> = ({}) => {
                       />
                     </Box>
                     <Stack spacing={10}>
-                      <Stack
-                        direction={{ base: "column", sm: "row" }}
-                        align={"start"}
+                      <Flex
+                        alignItems={"center"}
                         justify={"space-between"}
                         mt={6}
                       >
@@ -121,7 +127,8 @@ const Login: React.FC<{}> = ({}) => {
                         <NextLink href={"/forgot-password"}>
                           <Link color={"blue.400"}>forgot password?</Link>
                         </NextLink>
-                      </Stack>
+                      </Flex>
+
                       <Button
                         bg={"blue.400"}
                         color={"white"}
@@ -140,9 +147,9 @@ const Login: React.FC<{}> = ({}) => {
                 </Form>
               )}
             </Formik>
-          </Wrapper>
-        </Box>
-      </Stack>
+          </Box>
+        </Stack>
+      </Box>
     </Flex>
   );
 };
