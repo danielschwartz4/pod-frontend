@@ -1,23 +1,12 @@
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  HamburgerIcon,
-} from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Collapse,
   Divider,
   Flex,
-  Icon,
   IconButton,
   Image,
-  Link,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Stack,
   Text,
   useColorModeValue,
   useDisclosure,
@@ -154,7 +143,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                   {data?.me?.username}
                 </Text>
               </Flex>
-              <Divider />
+              {!isProjectsPage ? <Divider /> : null}
               <Flex justifyContent={"end"}>
                 {!isProjectsPage ? (
                   <Text

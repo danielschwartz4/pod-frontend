@@ -25,7 +25,9 @@ const PodCard: React.FC<PodCardProps> = (props) => {
         border={props.project?.userId === data?.me?.id ? "4px" : ""}
         borderColor="#3EE76D"
         maxH={"350px"}
-        width={"350px"}
+        width={"100%"}
+        maxW={"350px"}
+        mx={4}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}

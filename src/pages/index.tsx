@@ -10,7 +10,7 @@ interface IndexProps {}
 const Index: React.FC<IndexProps> = ({}) => {
   return (
     <Layout>
-      <Box mt={"4em"}>
+      <Box mt={"4em"} mx={2}>
         <Selector></Selector>
       </Box>
       <Box mt={"4em"}>

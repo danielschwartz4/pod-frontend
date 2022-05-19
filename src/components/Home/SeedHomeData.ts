@@ -14,7 +14,7 @@ const SeedData = {
       milestoneProgress: [3, 3, 3, 2, 1, 1, 1],
 
       overview:
-        "I'm learning a new Scott Joplin song for my upcoming recital in July! Excited & Nervous!",
+        "Learning a new Scott Joplin song for my recital in July! Excited/Nervous!",
       createdAt: "Mar 29 2022",
       updatedAt: "Mar 27 2022",
       projectName: "Learn to play The Entertainer",

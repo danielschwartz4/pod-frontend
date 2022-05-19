@@ -8,15 +8,14 @@ interface HeroProps {}
 const Hero: React.FC<HeroProps> = ({}) => {
   return (
     <Box
-      p={2}
       zIndex={1}
-      // !! See if there's a way to not use a negative margin
-      mx={["-10%", "10%"]}
+      maxW={"850px"}
       borderRadius={20}
       border={"4px"}
       borderColor={"#F6793D"}
+      py={4}
       mb={4}
-      // width={{ sm: "80%", lg: "50%" }}
+      mx={"auto"}
     >
       <PodCreated
         projectsData={[
