@@ -1,4 +1,4 @@
-import { Box, Button, Heading } from "@chakra-ui/react";
+import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import router from "next/router";
 import React from "react";
@@ -25,18 +25,20 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
       <Box h={"100%"} minH={"60vh"}>
         <Box
           mt={20}
-          mx={"auto"}
-          mr={2}
-          ml={2}
+          mx={{ base: 2, sm: "auto" }}
           padding={4}
           border="4px"
           borderColor={"gainsboro"}
           borderRadius={12}
           maxW={"600px"}
+          justifyContent={"center"}
         >
           <Heading fontSize={24} color={"gainsboro"}>
             Tell us what you're working on so we can build a flow for you!
           </Heading>
+          <Text color={"grey"}>
+            * you can edit your project as much as you'd like later *
+          </Text>
           <Formik
             initialValues={{
               groupSize: "",
@@ -64,7 +66,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                     overview: overview,
                     milestoneDates: completionDateArray,
                     milestoneProgress: Array(descriptionArray.length).fill(1),
-                    projectName: "Click to name your project",
+                    projectName: "Click here to name project",
                   },
                 },
               });
@@ -76,13 +78,17 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                 <Box>
                   <Box mr={8} color={"gainsboro"}>
                     <InputField
-                      color="gainsboro"
+                      color="grey"
                       name="overview"
-                      placeholder="overview"
+                      placeholder="enter a brief overview of your project for your pod members"
                       label="Overview"
                       isField={true}
                     />
                   </Box>
+                  <Divider mt={4} color={"grey"}></Divider>
+                  <Text color={"grey"}>
+                    * enter your milestones and tentative completion dates *
+                  </Text>
                   <Box color={"gainsboro"}>
                     <MilestoneInputs values={values} />
                   </Box>

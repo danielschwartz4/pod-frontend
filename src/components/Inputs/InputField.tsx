@@ -23,7 +23,6 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       {!props.isField ? (
         <Input
           textColor={"gainsboro"}
-          // width={"fill-available"}
           autoComplete={props.autoComplete}
           {...field}
           id={field.name}
@@ -32,7 +31,6 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       ) : (
         <Textarea
           textColor={"gainsboro"}
-          // width={"fill-available"}
           {...field}
           id={field.name}
           placeholder={props.placeholder}

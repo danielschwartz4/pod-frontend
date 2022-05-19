@@ -96,7 +96,9 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
           <Box
             ref={wrapperRef}
             ml={"1em"}
-            onClick={() => setIsChangingName(true)}
+            onClick={() => {
+              setIsChangingName(true);
+            }}
             cursor={isChangingName ? "text" : "pointer"}
           >
             {isChangingName ? (

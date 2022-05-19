@@ -20,10 +20,10 @@ const MilestoneInputs: React.FC<milestoneInputsProps> = ({ values }) => {
           {values.milestone.length > 0 &&
             values.milestone.map((milestone, index) => (
               <Flex alignItems={"end"} mt={4} key={index}>
-                <Box width={"fill-available"}>
+                <Box w={"300px"}>
                   <InputField
                     name={`milestone.${index}.description`}
-                    placeholder="milestone"
+                    placeholder={"milestone"}
                     label={"Milestone " + (index + 1)}
                     autoComplete="off"
                   />
@@ -33,6 +33,7 @@ const MilestoneInputs: React.FC<milestoneInputsProps> = ({ values }) => {
                     name={`milestone.${index}.completionDate`}
                     label="Completion date"
                     showTimeSelect
+                    placeholder="date"
                   />
                   <ErrorMessage
                     name={`milestone.${index}.completionDate`}
@@ -54,10 +55,10 @@ const MilestoneInputs: React.FC<milestoneInputsProps> = ({ values }) => {
               </Flex>
             ))}
           <Box mt={2}>
-            {numMilestones < 5 ? (
+            {numMilestones < maxNumMilestones ? (
               <Button
                 onClick={() => {
-                  if (numMilestones >= 5) {
+                  if (numMilestones >= maxNumMilestones) {
                     return;
                   }
                   push({ description: "", completionDate: "" });
