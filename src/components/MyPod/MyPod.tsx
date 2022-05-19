@@ -68,7 +68,6 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
   }, [projectData]);
 
   useEffect(() => {
-    // refetchProjects();
     refetchProject();
   }, [podJoined]);
 
@@ -90,35 +89,11 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           podId: pod.data.createPod.id,
           updateProjectPodId: projectData?.project?.project.id,
         },
-        update: (cache, { data }) => {
-          cache.writeQuery<ProjectQuery>({
-            query: ProjectDocument,
-            data: {
-              __typename: "Query",
-              project: {
-                errors: data?.updateProjectPod.errors,
-                project: data?.updateProjectPod.project,
-              },
-            },
-          });
-        },
       });
       await addProjectToPod({
         variables: {
           addProjectToPodId: pod.data.createPod.id,
           projectId: projectData?.project?.project.id,
-        },
-        update: (cache, { data }) => {
-          cache.writeQuery<PodQuery>({
-            query: PodDocument,
-            data: {
-              __typename: "Query",
-              pod: {
-                errors: data?.addProjectToPod.errors,
-                pod: data?.addProjectToPod.pod,
-              },
-            },
-          });
         },
       });
     } else {
@@ -128,35 +103,11 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
           addProjectToPodId: pod.id,
           projectId: projectData?.project?.project.id,
         },
-        update: (cache, { data }) => {
-          cache.writeQuery<PodQuery>({
-            query: PodDocument,
-            data: {
-              __typename: "Query",
-              pod: {
-                errors: data?.addProjectToPod.errors,
-                pod: data?.addProjectToPod.pod,
-              },
-            },
-          });
-        },
       });
       await updateProjectPod({
         variables: {
           podId: pod.id,
           updateProjectPodId: projectData?.project?.project.id,
-        },
-        update: (cache, { data }) => {
-          cache.writeQuery<ProjectQuery>({
-            query: ProjectDocument,
-            data: {
-              __typename: "Query",
-              project: {
-                errors: data?.updateProjectPod.errors,
-                project: data?.updateProjectPod.project,
-              },
-            },
-          });
         },
       });
     }
@@ -169,35 +120,11 @@ export const MyPod: React.FC<MyPodProps> = ({}) => {
         podId: 0,
         updateProjectPodId: projectData?.project?.project.id,
       },
-      update: (cache, { data }) => {
-        cache.writeQuery<ProjectQuery>({
-          query: ProjectDocument,
-          data: {
-            __typename: "Query",
-            project: {
-              errors: data?.updateProjectPod.errors,
-              project: data?.updateProjectPod.project,
-            },
-          },
-        });
-      },
     });
     await removeProjectFromPod({
       variables: {
         removeProjectFromPodId: podData?.pod.pod.id,
         projectId: projectData?.project?.project.id,
-      },
-      update: (cache, { data }) => {
-        cache.writeQuery<PodQuery>({
-          query: PodDocument,
-          data: {
-            __typename: "Query",
-            pod: {
-              errors: data?.removeProjectFromPod.errors,
-              pod: data?.removeProjectFromPod.pod,
-            },
-          },
-        });
       },
     });
     setPodJoined(false);

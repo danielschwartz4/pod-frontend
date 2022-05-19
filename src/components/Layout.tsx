@@ -23,6 +23,7 @@ export const Layout: React.FC<LayoutProps> = ({
       bg={"gray.800"}
       m={-2}
       // w={"fit-content"}
+      // h={"fit-content"}
     >
       {!isProfile ? (
         <HomeNavBar />

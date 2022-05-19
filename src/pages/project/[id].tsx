@@ -63,7 +63,6 @@ const Home: React.FC<homeProps> = ({}) => {
         projectData?.project?.project?.milestoneDates,
         projectData?.project?.project?.milestoneProgress
       );
-      // !! Still get an error when I use delete
       if (sortedData) {
         setMilestones(sortedData["milestones"]);
         setMilestoneDates(sortedData["dates"]);
@@ -95,7 +94,6 @@ const Home: React.FC<homeProps> = ({}) => {
       {_milestones && _milestoneDates && _milestoneProgress && !loading ? (
         <VStack>
           <Flex w={{ base: "425px", md: "800px", lg: "1024px" }}>
-            {/* !! Maybe keep EnterNewMilestone in because we want to order milestones by date and it would be easier that way*/}
             <EnterNewMilestone
               milestones={_milestones}
               milestoneDates={_milestoneDates}
