@@ -26,6 +26,7 @@ interface horizontalFlowProps {
   setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
   usersData: PodUsersQuery;
+  username: string;
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
@@ -71,8 +72,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
     true
   );
 
-  console.log(props.usersData);
-
   const [elements, setElements] = useState<any[]>(eles);
 
   //! ---------------------------------------------------------------------------
@@ -114,7 +113,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
       // !! Only if person is in pod
       if (props.showAlert) {
         const body = generateSms(props.milestoneProgress);
-        sendMessages(props.usersData, body);
+        sendMessages(props.username, props.usersData, body);
       }
     }
   }, [_milestoneProgress]);

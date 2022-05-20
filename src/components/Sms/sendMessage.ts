@@ -30,22 +30,29 @@ export function sendMessage(message: Message) {
 }
 
 function compileNumbers(users: PodUsersQuery) {
-  const numbers = [];
+  const numbers = {} as { [key: string]: string };
+
   users.podUsers.forEach((user) => {
     if (user.phone != null) {
-      numbers.push(user.phone);
+      numbers[user.username] = user.phone;
     }
   });
   return numbers;
 }
 
-export function sendMessages(users: PodUsersQuery, body: string) {
+export function sendMessages(
+  username: string,
+  users: PodUsersQuery,
+  body: string
+) {
   const numbers = compileNumbers(users);
   console.log(numbers);
-  numbers.forEach((number) => {
-    sendMessage({
-      to: number,
-      body: body,
-    });
-  });
+  for (const [_username, _number] of Object.entries(numbers)) {
+    if (_username != username) {
+      sendMessage({
+        to: _number,
+        body: body,
+      });
+    }
+  }
 }
