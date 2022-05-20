@@ -175,6 +175,7 @@ const Home: React.FC<homeProps> = ({}) => {
                     setMilestones={setMilestones}
                     setMilestoneDates={setMilestoneDates}
                     setMilestoneProgress={setMilestoneProgress}
+                    usersData={usersData}
                   />
                 ) : (
                   <Box>Loading...</Box>

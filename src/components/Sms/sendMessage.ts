@@ -1,3 +1,5 @@
+import { PodUsersQuery } from "../../generated/graphql";
+
 interface Message {
   to: string;
   body: string;
@@ -27,7 +29,19 @@ export function sendMessage(message: Message) {
     });
 }
 
-export function sendMessages(numbers: string[], body: string) {
+function compileNumbers(users: PodUsersQuery) {
+  const numbers = [];
+  users.podUsers.forEach((user) => {
+    if (user.phone != null) {
+      numbers.push(user.phone);
+    }
+  });
+  return numbers;
+}
+
+export function sendMessages(users: PodUsersQuery, body: string) {
+  const numbers = compileNumbers(users);
+  console.log(numbers);
   numbers.forEach((number) => {
     sendMessage({
       to: number,

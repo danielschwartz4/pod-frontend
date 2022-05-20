@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import {
+  PodUsersQuery,
   useMeQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
@@ -11,7 +12,7 @@ import { FlowNode, NodeDate, NodeMilestone, NodeProgress } from "../../types";
 import init_elements, { sortMilestones } from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
-import { sendMessage } from "../Sms/sendMessage";
+import { sendMessage, sendMessages } from "../Sms/sendMessage";
 import ProgressPopover from "./ProgressPopover";
 
 interface horizontalFlowProps {
@@ -24,6 +25,7 @@ interface horizontalFlowProps {
   setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
+  usersData: PodUsersQuery;
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
@@ -69,6 +71,8 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
     true
   );
 
+  console.log(props.usersData);
+
   const [elements, setElements] = useState<any[]>(eles);
 
   //! ---------------------------------------------------------------------------
@@ -110,7 +114,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
       // !! Only if person is in pod
       if (props.showAlert) {
         const body = generateSms(props.milestoneProgress);
-        sendMessage({ to: "+12173817277", body: body });
+        sendMessages(props.usersData, body);
       }
     }
   }, [_milestoneProgress]);
