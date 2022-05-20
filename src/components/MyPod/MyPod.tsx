@@ -5,19 +5,15 @@ import {
   Exact,
   PodProjectsQuery,
   PodQuery,
-  Project,
   ProjectQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
   useFindPodQuery,
-  usePodProjectsQuery,
-  usePodQuery,
   useRemoveProjectFromPodMutation,
   useUpdatePhoneMutation,
   useUpdateProjectGroupSizeMutation,
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
-import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
 import { PodCreated } from "./PodCreated";
@@ -43,6 +39,7 @@ interface MyPodProps {
       }>
     >
   ) => Promise<ApolloQueryResult<PodProjectsQuery>>;
+  userPhone: string;
 }
 
 export const MyPod: React.FC<MyPodProps> = ({
@@ -53,6 +50,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   projectsData,
   projectsDataLoading,
   refetchProjects,
+  userPhone,
 }) => {
   useIsAuth();
 
@@ -182,7 +180,7 @@ export const MyPod: React.FC<MyPodProps> = ({
         <PodNotCreated podSize={podSize} setPodSize={setPodSize}>
           {podSize != null ? (
             <>
-              <PhoneNumber setPhone={setPhone} />
+              {userPhone == null ? <PhoneNumber setPhone={setPhone} /> : null}
               <Button
                 ml={2}
                 bgColor="gainsboro"

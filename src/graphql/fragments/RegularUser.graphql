@@ -1,6 +1,7 @@
 fragment RegularUser on User {
   createdAt
   email
+  phone
   id
   updatedAt
   username
