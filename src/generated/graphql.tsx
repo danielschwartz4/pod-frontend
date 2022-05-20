@@ -182,6 +182,7 @@ export type Query = {
   me?: Maybe<User>;
   pod?: Maybe<PodResponse>;
   podProjects?: Maybe<Array<Project>>;
+  podUsers?: Maybe<Array<User>>;
   pods: Array<Pod>;
   project?: Maybe<ProjectResponse>;
   projects?: Maybe<Array<Project>>;
@@ -204,6 +205,11 @@ export type QueryPodProjectsArgs = {
 };
 
 
+export type QueryPodUsersArgs = {
+  ids: Array<Scalars['Int']>;
+};
+
+
 export type QueryProjectArgs = {
   id: Scalars['Int'];
 };
@@ -213,7 +219,7 @@ export type User = {
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['Int'];
-  phone: Scalars['String'];
+  phone?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
 };
@@ -234,7 +240,7 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string };
 
-export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone: string, id: number, updatedAt: any, username: string };
+export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -242,7 +248,7 @@ export type UpdatePhoneMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePhoneMutation = { __typename?: 'Mutation', updatePhone?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone: string, id: number, updatedAt: any, username: string } | null } | null };
+export type UpdatePhoneMutation = { __typename?: 'Mutation', updatePhone?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string } | null } | null };
 
 export type AddProjectInfoMutationVariables = Exact<{
   projectOptions: ProjectInput;
@@ -279,7 +285,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone: string, id: number, updatedAt: any, username: string } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -291,7 +297,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone: string, id: number, updatedAt: any, username: string } | null } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string } | null } };
 
 export type RemoveProjectFromPodMutationVariables = Exact<{
   projectId: Scalars['Float'];
@@ -360,7 +366,7 @@ export type FindPodQuery = { __typename?: 'Query', findPod: { __typename?: 'PodR
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', createdAt: any, email: string, phone: string, id: number, updatedAt: any, username: string } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string } | null };
 
 export type PodQueryVariables = Exact<{
   podId: Scalars['Float'];
@@ -392,6 +398,13 @@ export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ProjectsQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string }> | null };
+
+export type PodUsersQueryVariables = Exact<{
+  ids: Array<Scalars['Int']> | Scalars['Int'];
+}>;
+
+
+export type PodUsersQuery = { __typename?: 'Query', podUsers?: Array<{ __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string }> | null };
 
 export const RegularPodFragmentDoc = gql`
     fragment RegularPod on Pod {
@@ -1230,3 +1243,38 @@ export function useProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProjectsQueryHookResult = ReturnType<typeof useProjectsQuery>;
 export type ProjectsLazyQueryHookResult = ReturnType<typeof useProjectsLazyQuery>;
 export type ProjectsQueryResult = Apollo.QueryResult<ProjectsQuery, ProjectsQueryVariables>;
+export const PodUsersDocument = gql`
+    query PodUsers($ids: [Int!]!) {
+  podUsers(ids: $ids) {
+    ...RegularUser
+  }
+}
+    ${RegularUserFragmentDoc}`;
+
+/**
+ * __usePodUsersQuery__
+ *
+ * To run a query within a React component, call `usePodUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePodUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePodUsersQuery({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function usePodUsersQuery(baseOptions: Apollo.QueryHookOptions<PodUsersQuery, PodUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PodUsersQuery, PodUsersQueryVariables>(PodUsersDocument, options);
+      }
+export function usePodUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PodUsersQuery, PodUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PodUsersQuery, PodUsersQueryVariables>(PodUsersDocument, options);
+        }
+export type PodUsersQueryHookResult = ReturnType<typeof usePodUsersQuery>;
+export type PodUsersLazyQueryHookResult = ReturnType<typeof usePodUsersLazyQuery>;
+export type PodUsersQueryResult = Apollo.QueryResult<PodUsersQuery, PodUsersQueryVariables>;

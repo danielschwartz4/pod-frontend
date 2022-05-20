@@ -69,6 +69,8 @@ export default function init_elements(
   allowVertical: boolean
 ) {
   const elements = [];
+  const nodes = [];
+  const edges = [];
   let goingRight = false;
 
   if (typeof window === "undefined") {
@@ -84,6 +86,7 @@ export default function init_elements(
         if (i % 3 == 0) {
           goingRight = !goingRight;
         }
+
         elements.push({
           id: "horizontal-" + i,
           sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
@@ -159,4 +162,5 @@ export default function init_elements(
     });
   }
   return elements;
+  return [nodes, edges];
 }

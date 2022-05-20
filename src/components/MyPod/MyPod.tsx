@@ -54,11 +54,6 @@ export const MyPod: React.FC<MyPodProps> = ({
 }) => {
   useIsAuth();
 
-  // const {
-  //   data: projectData,
-  //   loading: projectDataLoading,
-  //   refetch: refetchProject,
-  // } = useGetProjectFromUrl();
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
@@ -78,17 +73,6 @@ export const MyPod: React.FC<MyPodProps> = ({
       projectId: projectData?.project?.project.id,
     },
   });
-  // const { data: podData } = usePodQuery({
-  //   variables: { podId: projectData?.project?.project.podId },
-  // });
-
-  // const {
-  //   data: projectsData,
-  //   loading: projectsDataLoading,
-  //   refetch: refetchProjects,
-  // } = usePodProjectsQuery({
-  //   variables: { podId: podData?.pod?.pod?.id },
-  // });
 
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
 
@@ -115,13 +99,13 @@ export const MyPod: React.FC<MyPodProps> = ({
       });
       await updateProjectPod({
         variables: {
-          podId: pod.data.createPod.id,
+          podId: pod?.data?.createPod?.id,
           updateProjectPodId: projectData?.project?.project.id,
         },
       });
       await addProjectToPod({
         variables: {
-          addProjectToPodId: pod.data.createPod.id,
+          addProjectToPodId: pod?.data?.createPod?.id,
           projectId: projectData?.project?.project.id,
         },
       });
@@ -129,7 +113,7 @@ export const MyPod: React.FC<MyPodProps> = ({
       const pod = availablePodsData?.findPod?.pod;
       await addProjectToPod({
         variables: {
-          addProjectToPodId: pod.id,
+          addProjectToPodId: pod?.id,
           projectId: projectData?.project?.project.id,
         },
       });

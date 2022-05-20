@@ -97,7 +97,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                     mx={"auto"}
                     mt={4}
                     type="submit"
-                    isLoading={isSubmitting ? true : false}
+                    isloading={isSubmitting ? "true" : "false"}
                     cursor="pointer"
                   >
                     Get started!

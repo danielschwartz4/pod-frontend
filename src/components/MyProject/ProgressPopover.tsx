@@ -320,7 +320,7 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
                     <Button
                       type="submit"
                       w={"100%"}
-                      isLoading={isSubmitting ? true : false}
+                      isloading={isSubmitting ? "true" : "false"}
                       cursor={"pointer"}
                     >
                       <CheckIcon />

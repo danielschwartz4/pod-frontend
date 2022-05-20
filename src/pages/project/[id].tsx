@@ -20,6 +20,7 @@ import {
   useMeQuery,
   usePodProjectsQuery,
   usePodQuery,
+  usePodUsersQuery,
 } from "../../generated/graphql";
 import { delayAlert } from "../../utils/delay";
 import { sortMilestones } from "../../utils/initElements";
@@ -51,11 +52,12 @@ const Home: React.FC<homeProps> = ({}) => {
     variables: { podId: podData?.pod?.pod?.id },
   });
 
+  const { data: usersData } = usePodUsersQuery({
+    variables: { ids: podData?.pod?.pod?.userIds },
+  });
+
   const [showAlert, setShowAlert] = useState(false);
-
   const [keepMounted, setKeepMounted] = useState(true);
-
-  // !! -------------------------------------------------- !!
 
   const [_milestones, setMilestones] = useState<string[]>(
     projectData?.project?.project?.milestones

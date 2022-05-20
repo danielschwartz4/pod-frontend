@@ -1,0 +1,5 @@
+query PodUsers($ids: [Int!]!) {
+  podUsers(ids: $ids) {
+    ...RegularUser
+  }
+}

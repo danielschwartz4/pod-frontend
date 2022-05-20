@@ -173,7 +173,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
         tmp,
         props.milestoneProgress
       );
-      // !! Still get an error when I use delete
+
       if (sortedData) {
         props.setMilestones(sortedData["milestones"]);
         props.setMilestoneDates(sortedData["dates"]);
@@ -183,10 +183,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
       _setMilestones(sortedData["milestones"]);
       _setMilestoneDates(sortedData["dates"]);
       _setMilestoneProgress(sortedData["progress"]);
-
-      // props.setKeepMounted(false);
-      // _setMilestoneDates(tmp);
-      // props.setMilestoneDates(tmp);
     }
   }, [newMilestoneDate]);
 
@@ -251,6 +247,8 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
           <ReactFlow
             unselectable="off"
             elements={elements}
+            // nodes={elements[0]}
+            // edges={elements[1]}
             nodesConnectable={false}
             onLoad={onLoad}
             selectNodesOnDrag={false}

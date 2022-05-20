@@ -94,7 +94,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                       },
                     });
                   }}
-                  isLoading={logoutLoading}
+                  isloading={logoutLoading.toString()}
                   colorScheme={"tan"}
                   type="button"
                   cursor={"pointer"}
@@ -169,7 +169,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                       },
                     });
                   }}
-                  isLoading={logoutLoading}
+                  isloading={logoutLoading.toString()}
                   fontSize={18}
                   type="button"
                   variant={"link"}
