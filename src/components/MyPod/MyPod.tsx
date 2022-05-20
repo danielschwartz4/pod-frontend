@@ -3,6 +3,7 @@ import { Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   Exact,
+  PodQuery,
   Project,
   ProjectQuery,
   useAddProjectToPodMutation,
@@ -31,12 +32,14 @@ interface MyPodProps {
       }>
     >
   ) => Promise<ApolloQueryResult<ProjectQuery>>;
+  podData: PodQuery;
 }
 
 export const MyPod: React.FC<MyPodProps> = ({
   projectData,
   projectDataLoading,
   refetchProject,
+  podData,
 }) => {
   useIsAuth();
 
@@ -64,9 +67,9 @@ export const MyPod: React.FC<MyPodProps> = ({
       projectId: projectData?.project?.project.id,
     },
   });
-  const { data: podData } = usePodQuery({
-    variables: { podId: projectData?.project?.project.podId },
-  });
+  // const { data: podData } = usePodQuery({
+  //   variables: { podId: projectData?.project?.project.podId },
+  // });
   const {
     data: projectsData,
     loading: projectsDataLoading,

@@ -16,6 +16,7 @@ import { MyPod } from "../../components/MyPod/MyPod";
 import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
 import { Warning } from "../../components/Warning";
+import { usePodQuery } from "../../generated/graphql";
 import { delayAlert } from "../../utils/delay";
 import { sortMilestones } from "../../utils/initElements";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
@@ -32,6 +33,10 @@ const Home: React.FC<homeProps> = ({}) => {
     refetch: refetchProject,
   } = useGetProjectFromUrl();
 
+  const { data: podData } = usePodQuery({
+    variables: { podId: projectData?.project?.project.podId },
+  });
+
   const [showAlert, setShowAlert] = useState(false);
 
   const [keepMounted, setKeepMounted] = useState(true);
@@ -47,13 +52,6 @@ const Home: React.FC<homeProps> = ({}) => {
   const [_milestoneProgress, setMilestoneProgress] = useState<number[]>(
     projectData?.project?.project?.milestoneProgress
   );
-
-  // useEffect(() => {
-  //   // refetch();
-  //   setMilestones(projectData?.project?.project?.milestones);
-  //   setMilestoneDates(projectData?.project?.project?.milestoneDates);
-  //   setMilestoneProgress(projectData?.project?.project?.milestoneProgress);
-  // }, [projectData]);
 
   useEffect(() => {
     if (projectData?.project?.project) {
@@ -171,6 +169,7 @@ const Home: React.FC<homeProps> = ({}) => {
                   projectData={projectData}
                   projectDataLoading={projectDataLoading}
                   refetchProject={refetchProject}
+                  podData={podData}
                 ></MyPod>
               </TabPanel>
             </TabPanels>
