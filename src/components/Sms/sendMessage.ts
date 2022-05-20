@@ -26,3 +26,12 @@ export function sendMessage(message: Message) {
       }
     });
 }
+
+export function sendMessages(numbers: string[], body: string) {
+  numbers.forEach((number) => {
+    sendMessage({
+      to: number,
+      body: body,
+    });
+  });
+}

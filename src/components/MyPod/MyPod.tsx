@@ -1,6 +1,10 @@
+import { ApolloQueryResult } from "@apollo/client";
 import { Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
+  Exact,
+  Project,
+  ProjectQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
   useFindPodQuery,
@@ -17,16 +21,30 @@ import { PhoneNumber } from "../Inputs/PhoneNumber";
 import { PodCreated } from "./PodCreated";
 import { PodNotCreated } from "./PodNotCreated";
 
-interface MyPodProps {}
+interface MyPodProps {
+  projectData: ProjectQuery;
+  projectDataLoading: boolean;
+  refetchProject: (
+    variables?: Partial<
+      Exact<{
+        id: number;
+      }>
+    >
+  ) => Promise<ApolloQueryResult<ProjectQuery>>;
+}
 
-export const MyPod: React.FC<MyPodProps> = ({}) => {
+export const MyPod: React.FC<MyPodProps> = ({
+  projectData,
+  projectDataLoading,
+  refetchProject,
+}) => {
   useIsAuth();
 
-  const {
-    data: projectData,
-    loading: projectDataLoading,
-    refetch: refetchProject,
-  } = useGetProjectFromUrl();
+  // const {
+  //   data: projectData,
+  //   loading: projectDataLoading,
+  //   refetch: refetchProject,
+  // } = useGetProjectFromUrl();
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();

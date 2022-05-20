@@ -27,24 +27,16 @@ interface horizontalFlowProps {
 }
 
 const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
-  const { data, loading } = useMeQuery({});
-
-  const projectId = useGetIntId();
-
   const [canClick, setCanClick] = useState(false);
-
-  // Popover functionality (delaying a second after popover is opened)
   const [isOpen, setIsOpen] = useState(false);
-
-  // Get the current node
   const [currNode, setCurrNode] = useState<FlowNode>({} as FlowNode);
 
-  // Project progress
-  const [updateProjectProgress] = useUpdateProjectProgressMutation();
+  const { data, loading } = useMeQuery({});
+  const projectId = useGetIntId();
 
-  // Project milestones
+  // Update project mutations
+  const [updateProjectProgress] = useUpdateProjectProgressMutation();
   const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
-  // Project milestone dates
   const [updateProjectMilestoneDates] =
     useUpdateProjectMilestoneDatesMutation();
 
@@ -108,7 +100,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
         true
       )
     );
-
     if (projectId && props.milestoneProgress) {
       updateProjectProgress({
         variables: {

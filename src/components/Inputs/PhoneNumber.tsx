@@ -16,6 +16,7 @@ export const PhoneNumber: React.FC<PhoneNumberProps> = (props) => {
       <InputLeftAddon children="+1" />
       <NumberInput>
         <NumberInputField
+          textColor={"gainsboro"}
           onChange={(event) => {
             props.setPhone("+1" + event.target.value);
           }}

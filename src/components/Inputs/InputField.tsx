@@ -23,6 +23,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       <FormLabel htmlFor={field.name}>{props.label}</FormLabel>
       {!props.isField ? (
         <Input
+          maxLength={200}
           textColor={!props.textColor ? "gainsboro" : props.textColor}
           autoComplete={props.autoComplete}
           {...field}
@@ -31,6 +32,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
         />
       ) : (
         <Textarea
+          maxLength={200}
           textColor={!props.textColor ? "gainsboro" : props.textColor}
           {...field}
           id={field.name}

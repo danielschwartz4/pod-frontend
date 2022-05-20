@@ -28,9 +28,8 @@ const Home: React.FC<homeProps> = ({}) => {
 
   const {
     data: projectData,
-    loading,
-    refetch,
-    networkStatus,
+    loading: projectDataLoading,
+    refetch: refetchProject,
   } = useGetProjectFromUrl();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -72,7 +71,7 @@ const Home: React.FC<homeProps> = ({}) => {
   }, [projectData]);
 
   useEffect(() => {
-    refetch();
+    refetchProject();
   }, [_milestones, _milestoneDates, _milestoneProgress]);
 
   // !! -------------------------------------------------- !!
@@ -91,7 +90,10 @@ const Home: React.FC<homeProps> = ({}) => {
 
   return (
     <Layout isProfile>
-      {_milestones && _milestoneDates && _milestoneProgress && !loading ? (
+      {_milestones &&
+      _milestoneDates &&
+      _milestoneProgress &&
+      !projectDataLoading ? (
         <VStack minH={"100vh"} h={"100%"} mt={{ base: 0, md: 16 }}>
           <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
             <EnterNewMilestone
@@ -148,7 +150,7 @@ const Home: React.FC<homeProps> = ({}) => {
             </TabList>
             <TabPanels>
               <TabPanel h={"600px"} outlineOffset={-16}>
-                {!loading ? (
+                {!projectDataLoading ? (
                   <FlowChartMain
                     milestones={_milestones}
                     milestoneDates={_milestoneDates}
@@ -165,7 +167,11 @@ const Home: React.FC<homeProps> = ({}) => {
                 )}
               </TabPanel>
               <TabPanel>
-                <MyPod></MyPod>
+                <MyPod
+                  projectData={projectData}
+                  projectDataLoading={projectDataLoading}
+                  refetchProject={refetchProject}
+                ></MyPod>
               </TabPanel>
             </TabPanels>
           </Tabs>

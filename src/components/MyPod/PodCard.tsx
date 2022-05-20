@@ -10,6 +10,7 @@ import {
 import { ReactFlowProvider } from "react-flow-renderer";
 import { Project, useMeQuery } from "../../generated/graphql";
 import pink_monster from "../../images/Avatars/pink_monster.jpeg";
+import formatDate from "../../utils/formatDate";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {
