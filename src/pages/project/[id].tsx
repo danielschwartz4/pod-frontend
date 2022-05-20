@@ -16,7 +16,7 @@ import { MyPod } from "../../components/MyPod/MyPod";
 import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
 import { Warning } from "../../components/Warning";
-import { usePodQuery } from "../../generated/graphql";
+import { usePodProjectsQuery, usePodQuery } from "../../generated/graphql";
 import { delayAlert } from "../../utils/delay";
 import { sortMilestones } from "../../utils/initElements";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
@@ -35,6 +35,14 @@ const Home: React.FC<homeProps> = ({}) => {
 
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project.podId },
+  });
+
+  const {
+    data: projectsData,
+    loading: projectsDataLoading,
+    refetch: refetchProjects,
+  } = usePodProjectsQuery({
+    variables: { podId: podData?.pod?.pod?.id },
   });
 
   const [showAlert, setShowAlert] = useState(false);
@@ -170,6 +178,9 @@ const Home: React.FC<homeProps> = ({}) => {
                   projectDataLoading={projectDataLoading}
                   refetchProject={refetchProject}
                   podData={podData}
+                  projectsData={projectsData}
+                  projectsDataLoading={projectsDataLoading}
+                  refetchProjects={refetchProjects}
                 ></MyPod>
               </TabPanel>
             </TabPanels>

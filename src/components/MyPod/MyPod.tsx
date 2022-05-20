@@ -3,6 +3,7 @@ import { Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   Exact,
+  PodProjectsQuery,
   PodQuery,
   Project,
   ProjectQuery,
@@ -33,6 +34,15 @@ interface MyPodProps {
     >
   ) => Promise<ApolloQueryResult<ProjectQuery>>;
   podData: PodQuery;
+  projectsData: PodProjectsQuery;
+  projectsDataLoading: boolean;
+  refetchProjects: (
+    variables?: Partial<
+      Exact<{
+        podId: number;
+      }>
+    >
+  ) => Promise<ApolloQueryResult<PodProjectsQuery>>;
 }
 
 export const MyPod: React.FC<MyPodProps> = ({
@@ -40,6 +50,9 @@ export const MyPod: React.FC<MyPodProps> = ({
   projectDataLoading,
   refetchProject,
   podData,
+  projectsData,
+  projectsDataLoading,
+  refetchProjects,
 }) => {
   useIsAuth();
 
@@ -70,13 +83,14 @@ export const MyPod: React.FC<MyPodProps> = ({
   // const { data: podData } = usePodQuery({
   //   variables: { podId: projectData?.project?.project.podId },
   // });
-  const {
-    data: projectsData,
-    loading: projectsDataLoading,
-    refetch: refetchProjects,
-  } = usePodProjectsQuery({
-    variables: { podId: podData?.pod?.pod?.id },
-  });
+
+  // const {
+  //   data: projectsData,
+  //   loading: projectsDataLoading,
+  //   refetch: refetchProjects,
+  // } = usePodProjectsQuery({
+  //   variables: { podId: podData?.pod?.pod?.id },
+  // });
 
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
 
