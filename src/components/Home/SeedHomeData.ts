@@ -17,7 +17,7 @@ const SeedData = {
         "Learning a new Scott Joplin song for my recital in July! Excited/Nervous!",
       createdAt: "Mar 29 2022",
       updatedAt: "Mar 27 2022",
-      projectName: "Learn to play Homecoming by Kanye West 🎹",
+      projectName: "Learn to play 🎹 Homecoming by Kanye",
       groupSize: 3,
       id: 1,
       userId: 1,
