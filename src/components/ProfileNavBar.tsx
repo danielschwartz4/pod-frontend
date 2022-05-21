@@ -38,9 +38,9 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
   return (
     <Box>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
-        color={useColorModeValue("gray.600", "white")}
-        minH={"60px"}
+        // bg={"gray.700"}
+        bg={"#3c4349"}
+        minH={"100px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}

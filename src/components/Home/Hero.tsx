@@ -21,7 +21,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         transform={{ base: "translateY(-20px)", lg: "translateY(-100px)" }}
       >
         <Text>
-          A place to stay motivated and accountable when pursing a solo goal
+          A place to stay motivated and accountable while pursing a goal solo
         </Text>
       </Box>
       <Box

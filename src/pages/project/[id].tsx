@@ -163,7 +163,16 @@ const Home: React.FC<homeProps> = ({}) => {
               </Tab>
             </TabList>
             <TabPanels>
-              <TabPanel h={"600px"} outlineOffset={-16}>
+              <TabPanel
+                h={
+                  window.innerWidth < window.innerHeight
+                    ? _milestones.length * 120 + "px"
+                    : "600px"
+                }
+                minH={"600px"}
+                // h={"600px"}
+                outlineOffset={-16}
+              >
                 {!projectDataLoading ? (
                   <FlowChartMain
                     milestones={_milestones}

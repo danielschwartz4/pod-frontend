@@ -103,6 +103,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
           >
             {isChangingName ? (
               <input
+                maxLength={30}
                 autoFocus={true}
                 type="text"
                 value={newName}

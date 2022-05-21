@@ -23,20 +23,7 @@ const DesktopSelector: React.FC<SelectorProps> = ({}) => {
       <Box mr={4} color={"gainsboro"} textAlign={"center"} fontSize={24}>
         Who are you?
       </Box>
-      <Box width={"300px"} color={"gainsboro"}>
-        <Select
-          color={"gainsboro"}
-          textColor={"gainsboro"}
-          cursor={"pointer"}
-          name="dropdown"
-          placeholder="I am a..."
-        >
-          <option value="Writer">Writer </option>
-          <option value="Musician">Musician</option>
-          <option value="Influencer">Influencer</option>
-          <option value="Entrepreneur">Entrepreneur</option>
-        </Select>
-      </Box>
+      <SelectBox />
       <Box ml={4}>
         <Button
           textColor={"gainsboro"}
@@ -62,20 +49,7 @@ const MobileSelector: React.FC<SelectorProps> = ({}) => {
       <Box mr={4} color={"gainsboro"} textAlign={"center"} fontSize={24}>
         Who are you?
       </Box>
-      <Box width={"300px"} color={"gainsboro"}>
-        <Select
-          color={"gainsboro"}
-          textColor={"gainsboro"}
-          cursor={"pointer"}
-          name="dropdown"
-          placeholder="I am a..."
-        >
-          <option value="Writer">Writer </option>
-          <option value="Musician">Musician</option>
-          <option value="Influencer">Influencer</option>
-          <option value="Entrepreneur">Entrepreneur</option>
-        </Select>
-      </Box>
+      <SelectBox />
       <Box ml={4}>
         <Button
           textColor={"gainsboro"}
@@ -88,6 +62,26 @@ const MobileSelector: React.FC<SelectorProps> = ({}) => {
         </Button>
       </Box>
     </VStack>
+  );
+};
+
+const SelectBox: React.FC<SelectorProps> = ({}) => {
+  return (
+    <Box width={"300px"} color={"gainsboro"}>
+      <Select
+        color={"gainsboro"}
+        textColor={"gainsboro"}
+        cursor={"pointer"}
+        name="dropdown"
+        placeholder="I am a..."
+      >
+        <option value="Writer">Writer </option>
+        <option value="Musician">Musician</option>
+        <option value="Influencer">Influencer</option>
+        <option value="Entrepreneur">Entrepreneur</option>
+        <option value="Other">Entrepreneur</option>
+      </Select>
+    </Box>
   );
 };
 
