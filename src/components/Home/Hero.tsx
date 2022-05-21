@@ -16,8 +16,8 @@ const Hero: React.FC<HeroProps> = ({}) => {
         mx={"auto"}
         textAlign={"center"}
         maxW={550}
-        textColor={"white"}
-        fontSize={{ base: 36, md: 38 }}
+        textColor={"gainsboro"}
+        fontSize={{ base: 36, md: 48 }}
         transform={{ base: "translateY(-20px)", lg: "translateY(-100px)" }}
       >
         <Text>
@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         </Text>
       </Box>
       <Box
-        minW={"700px"}
+        minW={{ base: "0px", sm: "700px" }}
         maxW={"850px"}
         borderRadius={20}
         border={"4px"}
