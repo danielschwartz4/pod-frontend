@@ -12,7 +12,7 @@ import { FlowNode, NodeDate, NodeMilestone, NodeProgress } from "../../types";
 import init_elements, { sortMilestones } from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
-import { sendMessage, sendMessages } from "../Sms/sendMessage";
+import { sendMessages } from "../Sms/sendMessage";
 import ProgressPopover from "./ProgressPopover";
 
 interface horizontalFlowProps {
