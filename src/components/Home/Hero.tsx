@@ -14,14 +14,18 @@ const Hero: React.FC<HeroProps> = ({}) => {
     >
       <Box
         mx={"auto"}
+        p={2}
         textAlign={"center"}
         maxW={550}
         textColor={"gainsboro"}
         fontSize={{ base: 36, md: 48 }}
         transform={{ base: "translateY(-20px)", lg: "translateY(-100px)" }}
+        borderRadius={20}
+        border={"4px"}
+        borderColor={"#f63de7"}
       >
         <Text>
-          A place to stay motivated and accountable while pursing a goal solo
+          Stay <b>motivated</b> and <b>accountable</b> while pursing a solo goal
         </Text>
       </Box>
       <Box

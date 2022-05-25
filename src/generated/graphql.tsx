@@ -34,6 +34,8 @@ export type Mutation = {
   register: UserResponse;
   removeProjectFromPod: PodResponse;
   updatePhone?: Maybe<UserResponse>;
+  updateProjectFriendProposals: ProjectResponse;
+  updateProjectFriendRequests: ProjectResponse;
   updateProjectGroupSize: ProjectResponse;
   updateProjectMilestoneDates: ProjectResponse;
   updateProjectMilestones: ProjectResponse;
@@ -84,6 +86,18 @@ export type MutationRemoveProjectFromPodArgs = {
 export type MutationUpdatePhoneArgs = {
   id: Scalars['Float'];
   phone: Scalars['String'];
+};
+
+
+export type MutationUpdateProjectFriendProposalsArgs = {
+  friendProposals: Array<Scalars['String']>;
+  id: Scalars['Float'];
+};
+
+
+export type MutationUpdateProjectFriendRequestsArgs = {
+  friendRequests: Array<Scalars['String']>;
+  id: Scalars['Float'];
 };
 
 
@@ -141,6 +155,8 @@ export type PodResponse = {
 export type Project = {
   __typename?: 'Project';
   createdAt: Scalars['DateTime'];
+  friendProposals: Array<Scalars['String']>;
+  friendRequests: Array<Scalars['String']>;
   groupSize: Scalars['Int'];
   id: Scalars['Int'];
   milestoneDates: Array<Scalars['String']>;
@@ -306,6 +322,22 @@ export type RemoveProjectFromPodMutationVariables = Exact<{
 
 
 export type RemoveProjectFromPodMutation = { __typename?: 'Mutation', removeProjectFromPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, userIds: Array<number> } | null } };
+
+export type UpdateProjectFriendProposalsMutationVariables = Exact<{
+  friendProposals: Array<Scalars['String']> | Scalars['String'];
+  updateProjectFriendProposalsId: Scalars['Float'];
+}>;
+
+
+export type UpdateProjectFriendProposalsMutation = { __typename?: 'Mutation', updateProjectFriendProposals: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
+
+export type UpdateProjectFriendRequestsMutationVariables = Exact<{
+  friendRequests: Array<Scalars['String']> | Scalars['String'];
+  updateProjectFriendRequestsId: Scalars['Float'];
+}>;
+
+
+export type UpdateProjectFriendRequestsMutation = { __typename?: 'Mutation', updateProjectFriendRequests: { __typename?: 'ProjectResponse', errors?: string | null, project?: { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, groupSize: number, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string } | null } };
 
 export type UpdateProjectGroupSizeMutationVariables = Exact<{
   groupSize: Scalars['Float'];
@@ -763,6 +795,86 @@ export function useRemoveProjectFromPodMutation(baseOptions?: Apollo.MutationHoo
 export type RemoveProjectFromPodMutationHookResult = ReturnType<typeof useRemoveProjectFromPodMutation>;
 export type RemoveProjectFromPodMutationResult = Apollo.MutationResult<RemoveProjectFromPodMutation>;
 export type RemoveProjectFromPodMutationOptions = Apollo.BaseMutationOptions<RemoveProjectFromPodMutation, RemoveProjectFromPodMutationVariables>;
+export const UpdateProjectFriendProposalsDocument = gql`
+    mutation UpdateProjectFriendProposals($friendProposals: [String!]!, $updateProjectFriendProposalsId: Float!) {
+  updateProjectFriendProposals(
+    friendProposals: $friendProposals
+    id: $updateProjectFriendProposalsId
+  ) {
+    errors
+    project {
+      ...RegularProject
+    }
+  }
+}
+    ${RegularProjectFragmentDoc}`;
+export type UpdateProjectFriendProposalsMutationFn = Apollo.MutationFunction<UpdateProjectFriendProposalsMutation, UpdateProjectFriendProposalsMutationVariables>;
+
+/**
+ * __useUpdateProjectFriendProposalsMutation__
+ *
+ * To run a mutation, you first call `useUpdateProjectFriendProposalsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProjectFriendProposalsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProjectFriendProposalsMutation, { data, loading, error }] = useUpdateProjectFriendProposalsMutation({
+ *   variables: {
+ *      friendProposals: // value for 'friendProposals'
+ *      updateProjectFriendProposalsId: // value for 'updateProjectFriendProposalsId'
+ *   },
+ * });
+ */
+export function useUpdateProjectFriendProposalsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProjectFriendProposalsMutation, UpdateProjectFriendProposalsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProjectFriendProposalsMutation, UpdateProjectFriendProposalsMutationVariables>(UpdateProjectFriendProposalsDocument, options);
+      }
+export type UpdateProjectFriendProposalsMutationHookResult = ReturnType<typeof useUpdateProjectFriendProposalsMutation>;
+export type UpdateProjectFriendProposalsMutationResult = Apollo.MutationResult<UpdateProjectFriendProposalsMutation>;
+export type UpdateProjectFriendProposalsMutationOptions = Apollo.BaseMutationOptions<UpdateProjectFriendProposalsMutation, UpdateProjectFriendProposalsMutationVariables>;
+export const UpdateProjectFriendRequestsDocument = gql`
+    mutation UpdateProjectFriendRequests($friendRequests: [String!]!, $updateProjectFriendRequestsId: Float!) {
+  updateProjectFriendRequests(
+    friendRequests: $friendRequests
+    id: $updateProjectFriendRequestsId
+  ) {
+    errors
+    project {
+      ...RegularProject
+    }
+  }
+}
+    ${RegularProjectFragmentDoc}`;
+export type UpdateProjectFriendRequestsMutationFn = Apollo.MutationFunction<UpdateProjectFriendRequestsMutation, UpdateProjectFriendRequestsMutationVariables>;
+
+/**
+ * __useUpdateProjectFriendRequestsMutation__
+ *
+ * To run a mutation, you first call `useUpdateProjectFriendRequestsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProjectFriendRequestsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProjectFriendRequestsMutation, { data, loading, error }] = useUpdateProjectFriendRequestsMutation({
+ *   variables: {
+ *      friendRequests: // value for 'friendRequests'
+ *      updateProjectFriendRequestsId: // value for 'updateProjectFriendRequestsId'
+ *   },
+ * });
+ */
+export function useUpdateProjectFriendRequestsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateProjectFriendRequestsMutation, UpdateProjectFriendRequestsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateProjectFriendRequestsMutation, UpdateProjectFriendRequestsMutationVariables>(UpdateProjectFriendRequestsDocument, options);
+      }
+export type UpdateProjectFriendRequestsMutationHookResult = ReturnType<typeof useUpdateProjectFriendRequestsMutation>;
+export type UpdateProjectFriendRequestsMutationResult = Apollo.MutationResult<UpdateProjectFriendRequestsMutation>;
+export type UpdateProjectFriendRequestsMutationOptions = Apollo.BaseMutationOptions<UpdateProjectFriendRequestsMutation, UpdateProjectFriendRequestsMutationVariables>;
 export const UpdateProjectGroupSizeDocument = gql`
     mutation UpdateProjectGroupSize($groupSize: Float!, $updateProjectGroupSizeId: Float!) {
   updateProjectGroupSize(groupSize: $groupSize, id: $updateProjectGroupSizeId) {

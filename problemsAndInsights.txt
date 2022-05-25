@@ -76,3 +76,6 @@ Deleted all update queries from my pod hopefully that doesn't break anything
 
 5-19-22
 Don't be frugal with media queries, use when needed
+
+5-25-22
+Friend requests and proposals in different entities since a user can have many projects

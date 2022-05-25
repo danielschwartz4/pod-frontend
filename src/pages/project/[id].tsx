@@ -170,7 +170,6 @@ const Home: React.FC<homeProps> = ({}) => {
                     : "600px"
                 }
                 minH={"600px"}
-                // h={"600px"}
                 outlineOffset={-16}
               >
                 {!projectDataLoading ? (
@@ -191,7 +190,7 @@ const Home: React.FC<homeProps> = ({}) => {
                   <Box>Loading...</Box>
                 )}
               </TabPanel>
-              <TabPanel>
+              <TabPanel minH={"600px"}>
                 <MyPod
                   projectData={projectData}
                   projectDataLoading={projectDataLoading}

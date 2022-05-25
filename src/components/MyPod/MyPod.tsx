@@ -161,7 +161,11 @@ export const MyPod: React.FC<MyPodProps> = ({
           </Box>
         </div>
       ) : (
-        <PodNotCreated podSize={podSize} setPodSize={setPodSize}>
+        <PodNotCreated
+          projectData={projectData}
+          podSize={podSize}
+          setPodSize={setPodSize}
+        >
           {podSize != null ? (
             <>
               {userPhone == null ? <PhoneNumber setPhone={setPhone} /> : null}

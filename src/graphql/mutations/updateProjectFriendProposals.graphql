@@ -1,0 +1,14 @@
+mutation UpdateProjectFriendProposals(
+  $friendProposals: [String!]!
+  $updateProjectFriendProposalsId: Float!
+) {
+  updateProjectFriendProposals(
+    friendProposals: $friendProposals
+    id: $updateProjectFriendProposalsId
+  ) {
+    errors
+    project {
+      ...RegularProject
+    }
+  }
+}
