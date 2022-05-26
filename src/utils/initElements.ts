@@ -87,7 +87,7 @@ export default function init_elements(
           goingRight = !goingRight;
         }
 
-        elements.push({
+        nodes.push({
           id: "horizontal-" + i,
           sourcePosition: i % 3 == 2 ? "bottom" : goingRight ? "right" : "left",
           targetPosition: i % 3 == 0 ? "top" : goingRight ? "left" : "right",
@@ -109,7 +109,7 @@ export default function init_elements(
         });
 
         if (i > 0) {
-          elements.push({
+          edges.push({
             id: "e" + i,
             arrowHeadType: "arrow",
             source: "horizontal-" + (i - 1),
@@ -128,7 +128,7 @@ export default function init_elements(
         typeof milestones[i] != "undefined" &&
         typeof milestoneProgress[i] != "undefined"
       ) {
-        elements.push({
+        nodes.push({
           id: "vertical-" + i,
           sourcePosition: "bottom",
           targetPosition: "top",
@@ -148,7 +148,7 @@ export default function init_elements(
         });
 
         if (i > 0) {
-          elements.push({
+          edges.push({
             id: "e" + i,
             arrowHeadType: "arrow",
             source: "vertical-" + (i - 1),
@@ -161,6 +161,6 @@ export default function init_elements(
       }
     });
   }
-  return elements;
+  // return elements;
   return [nodes, edges];
 }

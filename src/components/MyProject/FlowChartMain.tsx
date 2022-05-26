@@ -214,7 +214,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
     event.preventDefault();
   };
 
-  const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
+  // const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
 
   const onNodeMouseEnter = (_, node) => {
     if (!isOpen) {
@@ -249,16 +249,18 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
         <>
           <ReactFlow
             unselectable="off"
-            elements={elements}
-            // nodes={elements[0]}
-            // edges={elements[1]}
+            // elements={elements}
+            nodes={elements[0]}
+            edges={elements[1]}
             nodesConnectable={false}
-            onLoad={onLoad}
+            // onLoad={onLoad}
+            fitView
             selectNodesOnDrag={false}
             zoomOnPinch={false}
             zoomOnScroll={false}
             zoomOnDoubleClick={false}
-            paneMoveable={false}
+            // panemoveable={"false"}
+            panOnDrag={false}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
             onNodeMouseEnter={onNodeMouseEnter}

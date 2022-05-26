@@ -36,7 +36,7 @@ const FlowChartMini: React.FC<horizontalFlowProps> = ({
     event.preventDefault();
   };
 
-  const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
+  // const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
 
   return (
     <>
@@ -46,14 +46,16 @@ const FlowChartMini: React.FC<horizontalFlowProps> = ({
         <>
           <ReactFlow
             style={{ width: "100%", height: "100%" }}
-            elements={elements}
+            // elements={elements}
+            nodes={elements[0]}
+            edges={elements[1]}
             nodesConnectable={false}
-            onLoad={onLoad}
             selectNodesOnDrag={false}
             zoomOnPinch={false}
             zoomOnScroll={false}
             zoomOnDoubleClick={false}
-            paneMoveable={false}
+            fitView
+            panOnDrag={false}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
             nodesDraggable={false}
