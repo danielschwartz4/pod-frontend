@@ -27,10 +27,9 @@ const RadioCard: React.FC<radioCardProps> = (props) => {
     <Box
       w={{ base: "100px", md: "200px" }}
       cursor="pointer"
-      borderWidth="1px"
       borderRadius="md"
-      boxShadow="md"
-      bg={props.isChecked ? "#7e9cd6" : "#3766c4"}
+      bg={props.isChecked ? "#3766c4" : "#7e9cd6"}
+      border={props.isChecked ? "1px" : "none"}
       color={"white"}
       px={5}
       py={3}
