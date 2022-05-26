@@ -69,16 +69,27 @@ const FriendPodOptions: React.FC<{
       <Formik
         initialValues={{ user1: "", user2: "", user3: "" }}
         onSubmit={async (values, { setSubmitting }) => {
-          await updateProjectFriendProposals({
+          const friends = [values.user1, values.user2, values.user3];
+          console.log(friends);
+          const friendProposals = await updateProjectFriendProposals({
             variables: {
               updateProjectFriendProposalsId: projectData?.project?.project?.id,
-              friendProposals: [values.user1, values.user2, values.user3],
+              friendProposals: friends,
             },
           });
-          // !! 1. Query each of these users by their email or username
-          // !! 2. Add the project to each of these users' friendProposals
+          // !! After new proposal remove old friend proposal and requests
           // !! Text or email the person to login and accept the friend request
-          await updateProjectFriendRequests({});
+
+          friends.forEach(async (friend) => {
+            console.log(projectData?.project?.project?.id);
+            const user = await updateUserFriendRequests({
+              variables: {
+                usernameOrEmail: friend,
+                friendRequest: projectData?.project?.project?.id,
+              },
+            });
+            console.log(user);
+          });
         }}
       >
         {({ isSubmitting }) => (

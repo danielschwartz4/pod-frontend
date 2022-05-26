@@ -1,10 +1,10 @@
 mutation UpdateUserFriendRequests(
-  $friendRequests: [String!]!
-  $updateUserFriendRequestsId: Float!
+  $friendRequest: Int!
+  $usernameOrEmail: String!
 ) {
   updateUserFriendRequests(
-    friendRequests: $friendRequests
-    id: $updateUserFriendRequestsId
+    friendRequest: $friendRequest
+    usernameOrEmail: $usernameOrEmail
   ) {
     errors {
       field

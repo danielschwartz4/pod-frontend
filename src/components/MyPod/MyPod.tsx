@@ -16,6 +16,7 @@ import {
 } from "../../generated/graphql";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
+import { exitPod, joinPod } from "./JoinExit";
 import { PodCreated } from "./PodCreated";
 import { PodNotCreated } from "./PodNotCreated";
 
@@ -89,60 +90,6 @@ export const MyPod: React.FC<MyPodProps> = ({
     setPodProjects(projectsData?.podProjects);
   }, [projectsData]);
 
-  // ! Make it so you can't add duplicate project or user ids to same pod
-  const joinPod = async (cap: number) => {
-    if (availablePodsData?.findPod?.errors) {
-      const pod = await createPod({
-        variables: {
-          cap: cap,
-        },
-      });
-      await updateProjectPod({
-        variables: {
-          podId: pod?.data?.createPod?.id,
-          updateProjectPodId: projectData?.project?.project.id,
-        },
-      });
-      await addProjectToPod({
-        variables: {
-          addProjectToPodId: pod?.data?.createPod?.id,
-          projectId: projectData?.project?.project.id,
-        },
-      });
-    } else {
-      const pod = availablePodsData?.findPod?.pod;
-      await addProjectToPod({
-        variables: {
-          addProjectToPodId: pod?.id,
-          projectId: projectData?.project?.project.id,
-        },
-      });
-      await updateProjectPod({
-        variables: {
-          podId: pod.id,
-          updateProjectPodId: projectData?.project?.project.id,
-        },
-      });
-    }
-    setPodJoined(true);
-  };
-
-  const exitPod = async () => {
-    await updateProjectPod({
-      variables: {
-        podId: 0,
-        updateProjectPodId: projectData?.project?.project.id,
-      },
-    });
-    await removeProjectFromPod({
-      variables: {
-        removeProjectFromPodId: podData?.pod.pod.id,
-        projectId: projectData?.project?.project.id,
-      },
-    });
-    setPodJoined(false);
-  };
-
   return (
     <Box h={"100%"} w={"100%"}>
       {projectsDataLoading || projectDataLoading ? (
@@ -154,7 +101,15 @@ export const MyPod: React.FC<MyPodProps> = ({
             <Button
               cursor={"pointer"}
               bgColor="gainsboro"
-              onClick={() => exitPod()}
+              onClick={() =>
+                exitPod(
+                  projectData,
+                  podData,
+                  setPodJoined,
+                  removeProjectFromPod,
+                  updateProjectPod
+                )
+              }
             >
               exit pod
             </Button>
@@ -190,7 +145,15 @@ export const MyPod: React.FC<MyPodProps> = ({
                       },
                     });
                   }
-                  joinPod(podSize);
+                  joinPod(
+                    podSize,
+                    availablePodsData,
+                    projectData,
+                    setPodJoined,
+                    createPod,
+                    updateProjectPod,
+                    addProjectToPod
+                  );
                 }}
               >
                 Join!
