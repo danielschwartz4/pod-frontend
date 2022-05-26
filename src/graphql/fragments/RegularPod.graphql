@@ -4,5 +4,6 @@ fragment RegularPod on Pod {
   projectIds
   updatedAt
   createdAt
+  isPrivate
   userIds
 }

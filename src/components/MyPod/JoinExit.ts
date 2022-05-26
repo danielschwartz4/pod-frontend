@@ -9,7 +9,7 @@ import {
   AddProjectToPodMutation,
   CreatePodMutation,
   Exact,
-  FindPodQuery,
+  FindPublicPodQuery,
   PodQuery,
   ProjectQuery,
   RemoveProjectFromPodMutation,
@@ -19,7 +19,7 @@ import {
 // ! Make it so you can't add duplicate project or user ids to same pod
 export const joinPod = async (
   cap: number,
-  availablePodsData: FindPodQuery,
+  availablePodsData: FindPublicPodQuery,
   projectData: ProjectQuery,
   setPodJoined: React.Dispatch<React.SetStateAction<boolean>>,
   createPod: (
@@ -27,6 +27,7 @@ export const joinPod = async (
       CreatePodMutation,
       Exact<{
         cap: number;
+        isPrivate: boolean;
       }>,
       DefaultContext,
       ApolloCache<any>
@@ -69,10 +70,11 @@ export const joinPod = async (
     >
   >
 ) => {
-  if (availablePodsData?.findPod?.errors) {
+  if (availablePodsData?.findPublicPod?.errors) {
     const pod = await createPod({
       variables: {
         cap: cap,
+        isPrivate: false,
       },
     });
     await updateProjectPod({
@@ -88,7 +90,7 @@ export const joinPod = async (
       },
     });
   } else {
-    const pod = availablePodsData?.findPod?.pod;
+    const pod = availablePodsData?.findPublicPod?.pod;
     await addProjectToPod({
       variables: {
         addProjectToPodId: pod?.id,

@@ -1,5 +1,5 @@
-query FindPod($projectId: Float!, $cap: Float!) {
-  findPod(projectId: $projectId, cap: $cap) {
+query FindPublicPod($projectId: Float!, $cap: Float!) {
+  findPublicPod(projectId: $projectId, cap: $cap) {
     errors
     pod {
       ...RegularPod

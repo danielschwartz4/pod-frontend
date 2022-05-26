@@ -8,7 +8,7 @@ import {
   ProjectQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
-  useFindPodQuery,
+  useFindPublicPodQuery,
   useRemoveProjectFromPodMutation,
   useUpdatePhoneMutation,
   useUpdateProjectGroupSizeMutation,
@@ -68,12 +68,13 @@ export const MyPod: React.FC<MyPodProps> = ({
   );
   const [phone, setPhone] = useState(null);
 
-  const { data: availablePodsData } = useFindPodQuery({
+  const { data: availablePodsData } = useFindPublicPodQuery({
     variables: {
       cap: podSize,
       projectId: projectData?.project?.project.id,
     },
   });
+  console.log(availablePodsData);
 
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
 
@@ -101,8 +102,8 @@ export const MyPod: React.FC<MyPodProps> = ({
             <Button
               cursor={"pointer"}
               bgColor="gainsboro"
-              onClick={() =>
-                exitPod(
+              onClick={async () =>
+                await exitPod(
                   projectData,
                   podData,
                   setPodJoined,
@@ -117,6 +118,11 @@ export const MyPod: React.FC<MyPodProps> = ({
         </div>
       ) : (
         <PodNotCreated
+          availablePodsData={availablePodsData}
+          addProjectToPod={addProjectToPod}
+          createPod={createPod}
+          setPodJoined={setPodJoined}
+          updateProjectPod={updateProjectPod}
           projectData={projectData}
           podSize={podSize}
           setPodSize={setPodSize}
@@ -130,13 +136,14 @@ export const MyPod: React.FC<MyPodProps> = ({
                 bgColor="gainsboro"
                 cursor={"pointer"}
                 onClick={async () => {
-                  await updateProjectGroupSize({
-                    variables: {
-                      groupSize: podSize,
-                      updateProjectGroupSizeId:
-                        projectData?.project?.project.id,
-                    },
-                  });
+                  console.log("here ", podSize);
+                  // await updateProjectGroupSize({
+                  //   variables: {
+                  //     groupSize: podSize,
+                  //     updateProjectGroupSizeId:
+                  //       projectData?.project?.project.id,
+                  //   },
+                  // });
                   if (phone) {
                     await updatePhone({
                       variables: {
@@ -145,7 +152,7 @@ export const MyPod: React.FC<MyPodProps> = ({
                       },
                     });
                   }
-                  joinPod(
+                  await joinPod(
                     podSize,
                     availablePodsData,
                     projectData,
