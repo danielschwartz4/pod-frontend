@@ -18,7 +18,6 @@ const Profile: React.FC<profileProps> = ({}) => {
   const { data, loading } = useMeQuery({});
 
   const { data: projectsData, refetch } = useProjectsQuery();
-  console.log(data.me.friendRequests);
 
   useEffect(() => {
     refetch();
@@ -39,7 +38,10 @@ const Profile: React.FC<profileProps> = ({}) => {
         <div>Loading...</div>
       ) : (
         <Box m={4} minH={"100vh"} h={"100%"}>
-          <Flex alignItems={"center"}>
+          <Flex
+            display={{ base: "contents", sm: "flex" }}
+            alignItems={"center"}
+          >
             <Button
               bg={"#7e9cd6"}
               mt={8}
@@ -58,37 +60,6 @@ const Profile: React.FC<profileProps> = ({}) => {
             )}
           </Flex>
           <ProjectsGrid projectsData={projectsData} />
-          {/* <Grid
-            mt={8}
-            w="auto"
-            h="auto"
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              sm: "repeat(3, 1fr)",
-              lg: "repeat(4, 1fr)",
-              xl: "repeat(5, 1fr)",
-            }}
-            gap={6}
-            outline={4}
-            borderRadius={20}
-            border={"4px"}
-            borderColor={"#F6793D"}
-            p={4}
-          >
-            {projectsData?.projects
-              ?.slice(0)
-              .reverse()
-              .map((p) => (
-                <Project
-                  key={p.id}
-                  project={{
-                    id: p.id,
-                    podId: p.podId,
-                    projectName: p.projectName,
-                  }}
-                />
-              ))}
-          </Grid> */}
         </Box>
       )}
     </Layout>
