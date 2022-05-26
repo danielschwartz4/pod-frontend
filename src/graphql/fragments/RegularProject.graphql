@@ -10,4 +10,5 @@ fragment RegularProject on Project {
   overview
   podId
   projectName
+  friendProposals
 }

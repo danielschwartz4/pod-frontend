@@ -170,6 +170,7 @@ export const MyPod: React.FC<MyPodProps> = ({
             <>
               {userPhone == null ? <PhoneNumber setPhone={setPhone} /> : null}
               <Button
+                w={"100px"}
                 ml={2}
                 bgColor="gainsboro"
                 cursor={"pointer"}

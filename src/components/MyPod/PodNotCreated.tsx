@@ -16,7 +16,7 @@ import React from "react";
 import {
   ProjectQuery,
   useUpdateProjectFriendProposalsMutation,
-  useUpdateProjectFriendRequestsMutation,
+  useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
 import { InputField } from "../Inputs/InputField";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
@@ -60,8 +60,7 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = ({
 const FriendPodOptions: React.FC<{
   projectData: ProjectQuery;
 }> = ({ children, projectData }) => {
-  const [updateProjectFriendRequests] =
-    useUpdateProjectFriendRequestsMutation();
+  const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
   const [updateProjectFriendProposals] =
     useUpdateProjectFriendProposalsMutation();
 
@@ -76,6 +75,10 @@ const FriendPodOptions: React.FC<{
               friendProposals: [values.user1, values.user2, values.user3],
             },
           });
+          // !! 1. Query each of these users by their email or username
+          // !! 2. Add the project to each of these users' friendProposals
+          // !! Text or email the person to login and accept the friend request
+          await updateProjectFriendRequests({});
         }}
       >
         {({ isSubmitting }) => (
@@ -127,6 +130,7 @@ const RandomPodOptions: React.FC<{
           bg={"#7e9cd6"}
           as={Button}
           rightIcon={<ChevronDownIcon />}
+          w={"200px"}
         >
           {podSize == null ? "Select pod size" : podSize}
         </MenuButton>

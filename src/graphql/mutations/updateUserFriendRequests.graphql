@@ -1,0 +1,17 @@
+mutation UpdateUserFriendRequests(
+  $friendRequests: [String!]!
+  $updateUserFriendRequestsId: Float!
+) {
+  updateUserFriendRequests(
+    friendRequests: $friendRequests
+    id: $updateUserFriendRequestsId
+  ) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}
