@@ -1,10 +1,14 @@
-import { Box, Button, Grid, Link } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import router from "next/router";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
 import { Project } from "../components/Profile/Project";
-import { useMeQuery, useProjectsQuery } from "../generated/graphql";
+import {
+  ProjectsQuery,
+  useMeQuery,
+  useProjectsQuery,
+} from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
 
 interface profileProps {}
@@ -14,6 +18,7 @@ const Profile: React.FC<profileProps> = ({}) => {
   const { data, loading } = useMeQuery({});
 
   const { data: projectsData, refetch } = useProjectsQuery();
+  console.log(data.me.friendRequests);
 
   useEffect(() => {
     refetch();
@@ -34,15 +39,26 @@ const Profile: React.FC<profileProps> = ({}) => {
         <div>Loading...</div>
       ) : (
         <Box m={4} minH={"100vh"} h={"100%"}>
-          <Button
-            bg={"#7e9cd6"}
-            mt={8}
-            cursor={"pointer"}
-            onClick={() => router.push("/project-info")}
-          >
-            create project
-          </Button>
-          <Grid
+          <Flex alignItems={"center"}>
+            <Button
+              bg={"#7e9cd6"}
+              mt={8}
+              cursor={"pointer"}
+              onClick={() => router.push("/project-info")}
+            >
+              create project
+            </Button>
+            {data?.me?.friendRequests ? (
+              <Box ml={"auto"} mt={8} color={"#71ec44"}>
+                You've got {data?.me?.friendRequests.length} pod request(s). Go
+                into the project of your choice to accept of decline.
+              </Box>
+            ) : (
+              <></>
+            )}
+          </Flex>
+          <ProjectsGrid projectsData={projectsData} />
+          {/* <Grid
             mt={8}
             w="auto"
             h="auto"
@@ -72,10 +88,50 @@ const Profile: React.FC<profileProps> = ({}) => {
                   }}
                 />
               ))}
-          </Grid>
+          </Grid> */}
         </Box>
       )}
     </Layout>
+  );
+};
+
+interface projectsGridProps {
+  projectsData: ProjectsQuery;
+}
+
+const ProjectsGrid: React.FC<projectsGridProps> = ({ projectsData }) => {
+  return (
+    <Grid
+      mt={8}
+      w="auto"
+      h="auto"
+      templateColumns={{
+        base: "repeat(1, 1fr)",
+        sm: "repeat(3, 1fr)",
+        lg: "repeat(4, 1fr)",
+        xl: "repeat(5, 1fr)",
+      }}
+      gap={6}
+      outline={4}
+      borderRadius={20}
+      border={"4px"}
+      borderColor={"#F6793D"}
+      p={4}
+    >
+      {projectsData?.projects
+        ?.slice(0)
+        .reverse()
+        .map((p) => (
+          <Project
+            key={p.id}
+            project={{
+              id: p.id,
+              podId: p.podId,
+              projectName: p.projectName,
+            }}
+          />
+        ))}
+    </Grid>
   );
 };
 

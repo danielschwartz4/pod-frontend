@@ -74,7 +74,6 @@ export const MyPod: React.FC<MyPodProps> = ({
       projectId: projectData?.project?.project.id,
     },
   });
-  console.log(availablePodsData);
 
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
 

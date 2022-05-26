@@ -242,15 +242,19 @@ const FriendPodOptions: React.FC<{
                     cap: 4,
                   },
                 });
-                // await joinPod(
-                //   (podSize = podSize),
-                //   props.availablePodsData,
-                //   props.projectData,
-                //   props.setPodJoined,
-                //   props.createPod,
-                //   props.updateProjectPod,
-                //   props.addProjectToPod
-                // );
+                await props.updateProjectPod({
+                  variables: {
+                    podId: pod?.data?.createPod?.id,
+                    updateProjectPodId: props.projectData?.project?.project.id,
+                  },
+                });
+                await props.addProjectToPod({
+                  variables: {
+                    addProjectToPodId: pod?.data?.createPod?.id,
+                    projectId: props.projectData?.project?.project.id,
+                  },
+                });
+                props.setPodJoined(true);
               }}
             >
               Send Request
@@ -266,7 +270,6 @@ const RandomPodOptions: React.FC<{
   podSize: number;
   setPodSize: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ podSize, setPodSize, children }) => {
-  console.log(podSize);
   return (
     <Flex alignItems="center" justifyContent={"center"}>
       <Menu>

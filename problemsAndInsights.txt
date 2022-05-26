@@ -79,3 +79,7 @@ Don't be frugal with media queries, use when needed
 
 5-25-22
 Friend requests and proposals in different entities since a user can have many projects
+
+5-26-22
+isPrivate protects against random pod users joining a private pod,
+it doesn't affect what private pod users join
