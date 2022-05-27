@@ -134,6 +134,7 @@ export type MutationUpdateProjectProgressArgs = {
 
 export type MutationUpdateUserFriendRequestsArgs = {
   friendRequest: Scalars['Int'];
+  isAdding: Scalars['Boolean'];
   usernameOrEmail: Scalars['String'];
 };
 
@@ -385,6 +386,7 @@ export type UpdateProjectProgressMutation = { __typename?: 'Mutation', updatePro
 export type UpdateUserFriendRequestsMutationVariables = Exact<{
   friendRequest: Scalars['Int'];
   usernameOrEmail: Scalars['String'];
+  isAdding: Scalars['Boolean'];
 }>;
 
 
@@ -1071,10 +1073,11 @@ export type UpdateProjectProgressMutationHookResult = ReturnType<typeof useUpdat
 export type UpdateProjectProgressMutationResult = Apollo.MutationResult<UpdateProjectProgressMutation>;
 export type UpdateProjectProgressMutationOptions = Apollo.BaseMutationOptions<UpdateProjectProgressMutation, UpdateProjectProgressMutationVariables>;
 export const UpdateUserFriendRequestsDocument = gql`
-    mutation UpdateUserFriendRequests($friendRequest: Int!, $usernameOrEmail: String!) {
+    mutation UpdateUserFriendRequests($friendRequest: Int!, $usernameOrEmail: String!, $isAdding: Boolean!) {
   updateUserFriendRequests(
     friendRequest: $friendRequest
     usernameOrEmail: $usernameOrEmail
+    isAdding: $isAdding
   ) {
     errors {
       field
@@ -1103,6 +1106,7 @@ export type UpdateUserFriendRequestsMutationFn = Apollo.MutationFunction<UpdateU
  *   variables: {
  *      friendRequest: // value for 'friendRequest'
  *      usernameOrEmail: // value for 'usernameOrEmail'
+ *      isAdding: // value for 'isAdding'
  *   },
  * });
  */

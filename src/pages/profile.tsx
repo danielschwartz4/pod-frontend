@@ -32,6 +32,7 @@ const Profile: React.FC<profileProps> = ({}) => {
       </Layout>
     );
   }
+  console.log(data?.me?.friendRequests);
   return (
     <Layout isProjectsPage isProfile>
       {loading && !data ? (
@@ -50,10 +51,12 @@ const Profile: React.FC<profileProps> = ({}) => {
             >
               create project
             </Button>
-            {data?.me?.friendRequests ? (
+            {data?.me?.friendRequests?.length != 0 &&
+            data?.me?.friendRequests != null ? (
               <Box ml={"auto"} mt={8} color={"#71ec44"}>
-                You've got {data?.me?.friendRequests.length} pod request(s). Go
-                into the project of your choice to accept of decline.
+                You've got <b>{data?.me?.friendRequests?.length}</b> pod
+                request(s). Go into the project of your choice to accept of
+                decline.
               </Box>
             ) : (
               <></>

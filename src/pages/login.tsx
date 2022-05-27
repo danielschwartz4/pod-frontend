@@ -15,7 +15,6 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import firstLogo from "../images/Logos/firstLogo.png";
 import { toErrorMap } from "../utils/toErrorMap";

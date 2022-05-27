@@ -1,10 +1,12 @@
 mutation UpdateUserFriendRequests(
   $friendRequest: Int!
   $usernameOrEmail: String!
+  $isAdding: Boolean!
 ) {
   updateUserFriendRequests(
     friendRequest: $friendRequest
     usernameOrEmail: $usernameOrEmail
+    isAdding: $isAdding
   ) {
     errors {
       field

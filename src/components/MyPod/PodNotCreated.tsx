@@ -6,7 +6,6 @@ import {
 } from "@apollo/client";
 import { CheckIcon, ChevronDownIcon, CloseIcon } from "@chakra-ui/icons";
 import {
-  Text,
   Box,
   Button,
   Divider,
@@ -16,6 +15,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -25,6 +25,7 @@ import {
   CreatePodMutation,
   Exact,
   FindPublicPodQuery,
+  MeDocument,
   MeQuery,
   ProjectQuery,
   UpdateProjectFriendProposalsMutation,
@@ -112,6 +113,7 @@ interface PodNotCreatedProps {
       Exact<{
         usernameOrEmail: string;
         friendRequest: number;
+        isAdding: boolean;
       }>,
       DefaultContext,
       ApolloCache<any>
@@ -126,9 +128,10 @@ interface PodNotCreatedProps {
   meData?: MeQuery;
 }
 
+interface FriendRequestsProps extends PodNotCreatedProps {}
+
 export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
   const [isRandom, setIsRandom] = React.useState(false);
-  console.log(props.meData);
 
   return (
     <Box>
@@ -160,12 +163,11 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
   const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
   const [updateProjectFriendProposals] =
     useUpdateProjectFriendProposalsMutation();
-  console.log(props.meData);
 
   return (
     <HStack spacing={8} mt={8} justifyContent={"center"}>
       <Box mb={"auto"}>
-        <FriendRequests friendRequests={props.meData?.me?.friendRequests} />
+        <FriendRequests meData={props.meData} />
       </Box>
       <Divider h={"400px"} color={"white"} orientation="vertical" />
       <Box>
@@ -183,12 +185,9 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
   );
 };
 
-const FriendRequests: React.FC<{
-  friendRequests: number[];
-}> = (props) => {
-  const sampleArray = [2];
-  // !! Fix this asap
-  console.log(props.friendRequests);
+const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
+  const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
+
   return (
     <Box>
       <Flex>
@@ -196,9 +195,22 @@ const FriendRequests: React.FC<{
           Pod Invites
         </Text>
       </Flex>
-      {props.friendRequests != null ? (
+      {props.meData?.me?.friendRequests?.length == 0 ||
+      props.meData?.me?.friendRequests == null ? (
+        <Flex
+          borderRadius={20}
+          color={"gainsboro"}
+          h={"44px"}
+          w={{ base: "250px", md: "400px" }}
+          borderTop={"1px"}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <Box ml={2}>No Invites</Box>
+        </Flex>
+      ) : (
         <VStack spacing={10}>
-          {props.friendRequests.map((value, index) => (
+          {props.meData?.me?.friendRequests?.map((value, index) => (
             <Flex
               key={index}
               borderRadius={6}
@@ -211,24 +223,42 @@ const FriendRequests: React.FC<{
               <Box ml={2}>{value}</Box>
 
               <Box ml={"auto"} mr={2}>
-                <CloseIcon cursor={"pointer"} mr={4} color={"red"} />
+                <CloseIcon
+                  onClick={async () => {
+                    const user = await updateUserFriendRequests({
+                      variables: {
+                        friendRequest: value,
+                        usernameOrEmail: props.meData?.me?.email,
+                        isAdding: false,
+                      },
+                      update: (cache, { data }) => {
+                        const { me } = cache.readQuery({ query: MeDocument });
+                        cache.writeQuery({
+                          query: MeDocument,
+                          data: {
+                            me: {
+                              ...me,
+                              friendRequests: me.friendRequests.filter(
+                                (friendRequest) => friendRequest !== value
+                              ),
+                            },
+                          },
+                        });
+                      },
+                    });
+
+                    if (user) {
+                    }
+                  }}
+                  cursor={"pointer"}
+                  mr={4}
+                  color={"red"}
+                />
                 <CheckIcon cursor={"pointer"} color={"#71ec44"} />
               </Box>
             </Flex>
           ))}
         </VStack>
-      ) : (
-        <Flex
-          borderRadius={10}
-          color={"gainsboro"}
-          h={"44px"}
-          w={{ base: "250px", md: "400px" }}
-          borderTop={"1px"}
-          alignItems={"center"}
-          justifyContent={"center"}
-        >
-          <Box ml={2}>No Invites</Box>
-        </Flex>
       )}
     </Box>
   );
@@ -255,6 +285,7 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
             variables: {
               usernameOrEmail: friend,
               friendRequest: props.projectData?.project?.project?.id,
+              isAdding: true,
             },
           });
           console.log(user);
