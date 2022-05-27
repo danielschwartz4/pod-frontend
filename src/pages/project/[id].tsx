@@ -199,7 +199,7 @@ const Home: React.FC<homeProps> = ({}) => {
                   projectsData={projectsData}
                   projectsDataLoading={projectsDataLoading}
                   refetchProjects={refetchProjects}
-                  userPhone={data?.me?.phone}
+                  meData={data}
                 ></MyPod>
               </TabPanel>
             </TabPanels>

@@ -3,6 +3,7 @@ import { Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   Exact,
+  MeQuery,
   PodProjectsQuery,
   PodQuery,
   ProjectQuery,
@@ -40,7 +41,7 @@ interface MyPodProps {
       }>
     >
   ) => Promise<ApolloQueryResult<PodProjectsQuery>>;
-  userPhone: string;
+  meData: MeQuery;
 }
 
 export const MyPod: React.FC<MyPodProps> = ({
@@ -51,7 +52,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   projectsData,
   projectsDataLoading,
   refetchProjects,
-  userPhone,
+  meData,
 }) => {
   useIsAuth();
 
@@ -125,10 +126,13 @@ export const MyPod: React.FC<MyPodProps> = ({
           projectData={projectData}
           podSize={podSize}
           setPodSize={setPodSize}
+          meData={meData}
         >
           {podSize != null ? (
             <>
-              {userPhone == null ? <PhoneNumber setPhone={setPhone} /> : null}
+              {meData?.me?.phone == null ? (
+                <PhoneNumber setPhone={setPhone} />
+              ) : null}
               <Button
                 w={"100px"}
                 mt={"8"}

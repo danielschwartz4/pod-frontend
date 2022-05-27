@@ -1,11 +1,12 @@
 import {
-  MutationFunctionOptions,
-  DefaultContext,
   ApolloCache,
+  DefaultContext,
   FetchResult,
+  MutationFunctionOptions,
 } from "@apollo/client";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronDownIcon, CloseIcon } from "@chakra-ui/icons";
 import {
+  Text,
   Box,
   Button,
   Divider,
@@ -15,7 +16,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Stack,
   VStack,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -25,6 +25,7 @@ import {
   CreatePodMutation,
   Exact,
   FindPublicPodQuery,
+  MeQuery,
   ProjectQuery,
   UpdateProjectFriendProposalsMutation,
   UpdateProjectPodMutation,
@@ -33,8 +34,6 @@ import {
   useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
 import { InputField } from "../Inputs/InputField";
-import { PhoneNumber } from "../Inputs/PhoneNumber";
-import { joinPod } from "./JoinExit";
 import PodRadio from "./Radio";
 
 interface PodNotCreatedProps {
@@ -124,10 +123,12 @@ interface PodNotCreatedProps {
       Record<string, any>
     >
   >;
+  meData?: MeQuery;
 }
 
 export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
   const [isRandom, setIsRandom] = React.useState(false);
+  console.log(props.meData);
 
   return (
     <Box>
@@ -148,6 +149,7 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
           createPod={props.createPod}
           updateProjectPod={props.updateProjectPod}
           setPodJoined={props.setPodJoined}
+          meData={props.meData}
         />
       )}
     </Box>
@@ -158,11 +160,12 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
   const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
   const [updateProjectFriendProposals] =
     useUpdateProjectFriendProposalsMutation();
+  console.log(props.meData);
 
   return (
     <HStack spacing={8} mt={8} justifyContent={"center"}>
-      <Box>
-        <FriendRequests />
+      <Box mb={"auto"}>
+        <FriendRequests friendRequests={props.meData?.me?.friendRequests} />
       </Box>
       <Divider h={"400px"} color={"white"} orientation="vertical" />
       <Box>
@@ -180,19 +183,54 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
   );
 };
 
-const FriendRequests: React.FC<{}> = (props) => {
+const FriendRequests: React.FC<{
+  friendRequests: number[];
+}> = (props) => {
+  const sampleArray = [2];
+  // !! Fix this asap
+  console.log(props.friendRequests);
   return (
-    <VStack>
-      <Box
-        borderRadius={10}
-        color={"gainsboro"}
-        h={"44px"}
-        w={{ base: "250px", md: "400px" }}
-        border={"1px"}
-      >
-        Hlelleo
-      </Box>
-    </VStack>
+    <Box>
+      <Flex>
+        <Text fontSize={20} color={"gainsboro"}>
+          Pod Invites
+        </Text>
+      </Flex>
+      {props.friendRequests != null ? (
+        <VStack spacing={10}>
+          {props.friendRequests.map((value, index) => (
+            <Flex
+              key={index}
+              borderRadius={6}
+              color={"gainsboro"}
+              h={"44px"}
+              w={{ base: "250px", md: "400px" }}
+              border={"1px"}
+              alignItems={"center"}
+            >
+              <Box ml={2}>{value}</Box>
+
+              <Box ml={"auto"} mr={2}>
+                <CloseIcon cursor={"pointer"} mr={4} color={"red"} />
+                <CheckIcon cursor={"pointer"} color={"#71ec44"} />
+              </Box>
+            </Flex>
+          ))}
+        </VStack>
+      ) : (
+        <Flex
+          borderRadius={10}
+          color={"gainsboro"}
+          h={"44px"}
+          w={{ base: "250px", md: "400px" }}
+          borderTop={"1px"}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <Box ml={2}>No Invites</Box>
+        </Flex>
+      )}
+    </Box>
   );
 };
 
@@ -202,7 +240,6 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
       initialValues={{ user1: "", user2: "", user3: "" }}
       onSubmit={async (values, { setSubmitting }) => {
         const friends = [values.user1, values.user2, values.user3];
-        console.log(friends);
         const friendProposals = await props.updateProjectFriendProposals({
           variables: {
             updateProjectFriendProposalsId:
@@ -214,7 +251,6 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
         // !! Text or email the person to login and accept the friend request
 
         friends.forEach(async (friend) => {
-          console.log(props.projectData?.project?.project?.id);
           const user = await props.updateUserFriendRequests({
             variables: {
               usernameOrEmail: friend,
@@ -231,7 +267,6 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
             spacing={4}
             color="gainsboro"
             w={{ base: "250px", md: "400px" }}
-            // mr={8}
           >
             <InputField label="User 1" name="user1" placeholder="User 1" />
             <InputField
