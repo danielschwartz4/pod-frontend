@@ -12,7 +12,7 @@ interface PhoneNumberProps {
 
 export const PhoneNumber: React.FC<PhoneNumberProps> = (props) => {
   return (
-    <InputGroup w={"250px"} ml={2} mr={12}>
+    <InputGroup w={"250px"} ml={2} mt={"auto"} mr={12}>
       <InputLeftAddon children="+1" />
       <NumberInput>
         <NumberInputField

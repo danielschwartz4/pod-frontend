@@ -2,6 +2,7 @@ import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { Features } from "../components/Home/Features/Features";
 import Hero from "../components/Home/Hero";
+import { Samples } from "../components/Home/Samples";
 import Selector from "../components/Home/Selector";
 import { Layout } from "../components/Layout";
 
@@ -16,11 +17,8 @@ const Index: React.FC<IndexProps> = ({}) => {
       <Box mt={"4em"}>
         <Hero></Hero>
       </Box>
-      <Box>
-        <Text fontSize={28} textColor={"white"}>
-          Flow chart with react flow circles going down 1. Create a project 2.
-          Join a pod 3. Accomplish your goals
-        </Text>
+      <Box mx={"auto"}>
+        <Samples />
       </Box>
       <Box mt={"4em"}>
         <Features></Features>

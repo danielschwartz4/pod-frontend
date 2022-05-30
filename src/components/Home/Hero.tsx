@@ -1,6 +1,7 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import React from "react";
 import { PodCreated } from "../MyPod/PodCreated";
+import { Project } from "../Profile/Project";
 import SeedData from "./SeedHomeData";
 
 interface HeroProps {}
@@ -43,6 +44,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
           ]}
         />
       </Box>
+
       {/* <Box>
         <Image width={"100%"} m={-10} opacity={"40%"} src={bgImage.src}></Image>
       </Box> */}
