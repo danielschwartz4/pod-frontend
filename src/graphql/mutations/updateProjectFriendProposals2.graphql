@@ -1,14 +1,14 @@
-mutation UpdateProjectFriendProposals(
-  $friendProposals: [String!]!
+mutation UpdateProjectFriendProposals2(
   $updateProjectFriendProposalsId: Float!
   $isAdding: Boolean!
+  $addedFriends: [String!]!
   $deletedFriend: String!
 ) {
-  updateProjectFriendProposals(
-    friendProposals: $friendProposals
+  updateProjectFriendProposals2(
     id: $updateProjectFriendProposalsId
     isAdding: $isAdding
     deletedFriend: $deletedFriend
+    addedFriends: $addedFriends
   ) {
     errors
     project {

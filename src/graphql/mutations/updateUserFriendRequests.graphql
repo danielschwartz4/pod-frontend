@@ -1,11 +1,11 @@
 mutation UpdateUserFriendRequests(
   $friendRequest: Int!
-  $usernameOrEmail: String!
+  $username: String!
   $isAdding: Boolean!
 ) {
   updateUserFriendRequests(
     friendRequest: $friendRequest
-    usernameOrEmail: $usernameOrEmail
+    username: $username
     isAdding: $isAdding
   ) {
     errors {

@@ -19,7 +19,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AddProjectToPodMutation,
   CreatePodMutation,
@@ -28,9 +28,13 @@ import {
   MeDocument,
   MeQuery,
   ProjectQuery,
+  UpdateProjectFriendProposals2Mutation,
   UpdateProjectFriendProposalsMutation,
   UpdateProjectPodMutation,
   UpdateUserFriendRequestsMutation,
+  useProjectQuery,
+  useProjectsQuery,
+  useUpdateProjectFriendProposals2Mutation,
   useUpdateProjectFriendProposalsMutation,
   useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
@@ -96,6 +100,8 @@ interface PodNotCreatedProps {
       Exact<{
         updateProjectFriendProposalsId: number;
         friendProposals: string[];
+        isAdding: boolean;
+        deletedFriend: string;
       }>,
       DefaultContext,
       ApolloCache<any>
@@ -107,11 +113,32 @@ interface PodNotCreatedProps {
       Record<string, any>
     >
   >;
+
+  updateProjectFriendProposals2?: (
+    options?: MutationFunctionOptions<
+      UpdateProjectFriendProposals2Mutation,
+      Exact<{
+        updateProjectFriendProposalsId: number;
+        isAdding: boolean;
+        addedFriends: string[];
+        deletedFriend: string;
+      }>,
+      DefaultContext,
+      ApolloCache<any>
+    >
+  ) => Promise<
+    FetchResult<
+      UpdateProjectFriendProposals2Mutation,
+      Record<string, any>,
+      Record<string, any>
+    >
+  >;
+
   updateUserFriendRequests?: (
     options?: MutationFunctionOptions<
       UpdateUserFriendRequestsMutation,
       Exact<{
-        usernameOrEmail: string;
+        username: string;
         friendRequest: number;
         isAdding: boolean;
       }>,
@@ -163,6 +190,8 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
   const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
   const [updateProjectFriendProposals] =
     useUpdateProjectFriendProposalsMutation();
+  const [updateProjectFriendProposals2] =
+    useUpdateProjectFriendProposals2Mutation();
 
   return (
     <HStack spacing={8} mt={8} justifyContent={"center"}>
@@ -178,7 +207,8 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
           updateProjectPod={props.updateProjectPod}
           setPodJoined={props.setPodJoined}
           updateUserFriendRequests={updateUserFriendRequests}
-          updateProjectFriendProposals={updateProjectFriendProposals}
+          // updateProjectFriendProposals={updateProjectFriendProposals}
+          updateProjectFriendProposals2={updateProjectFriendProposals2}
         />
       </Box>
     </HStack>
@@ -187,6 +217,25 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
 
 const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
   const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
+  const [updateProjectFriendProposals] =
+    useUpdateProjectFriendProposalsMutation();
+  const [updateProjectFriendProposals2] =
+    useUpdateProjectFriendProposals2Mutation();
+
+  console.log(props.meData?.me?.friendRequests);
+
+  // !! Fix this so that on the click, it only queries the clicked project's friend proposals
+  // !! Remember the reason we are querying is to get the OG friend's proposals and deleting our name from them
+  // !! Query with inner join for project and user on userId
+  // const projectsData = [];
+  // props.meData?.me?.friendRequests?.forEach((friendRequest) => {
+  //   const { data: projectData } = useProjectQuery({
+  //     variables: {
+  //       id: friendRequest,
+  //     },
+  //   });
+  //   projectsData.push(projectData);
+  // });
 
   return (
     <Box>
@@ -220,7 +269,18 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
               border={"1px"}
               alignItems={"center"}
             >
-              <Box ml={2}>{value}</Box>
+              {/* <Box ml={2}>
+                {projectsData[0]?.project?.project?.projectName.includes(
+                  "Click here"
+                )
+                  ? "untitled project"
+                  : projectsData[0]?.project?.project?.projectName}{" "}
+              </Box> */}
+              <Box>
+                <Text fontSize={20}>
+                  {props.meData?.me?.friendRequests?.[index]}
+                </Text>
+              </Box>
 
               <Box ml={"auto"} mr={2}>
                 <CloseIcon
@@ -228,11 +288,13 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
                     const user = await updateUserFriendRequests({
                       variables: {
                         friendRequest: value,
-                        usernameOrEmail: props.meData?.me?.email,
+                        username: props.meData?.me?.username,
                         isAdding: false,
                       },
                       update: (cache, { data }) => {
-                        const { me } = cache.readQuery({ query: MeDocument });
+                        const { me } = cache.readQuery({
+                          query: MeDocument,
+                        });
                         cache.writeQuery({
                           query: MeDocument,
                           data: {
@@ -246,8 +308,25 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
                         });
                       },
                     });
-
                     if (user) {
+                      // await updateProjectFriendProposals({
+                      //   variables: {
+                      //     updateProjectFriendProposalsId: value,
+                      //     friendProposals:
+                      //       projectsData[index]?.project?.project
+                      //         ?.friendProposals,
+                      //     isAdding: false,
+                      //     deletedFriend: props.meData?.me?.username,
+                      //   },
+                      // });
+                      await updateProjectFriendProposals2({
+                        variables: {
+                          updateProjectFriendProposalsId: value,
+                          isAdding: false,
+                          addedFriends: [],
+                          deletedFriend: props.meData?.me?.username,
+                        },
+                      });
                     }
                   }}
                   cursor={"pointer"}
@@ -270,11 +349,22 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
       initialValues={{ user1: "", user2: "", user3: "" }}
       onSubmit={async (values, { setSubmitting }) => {
         const friends = [values.user1, values.user2, values.user3];
-        const friendProposals = await props.updateProjectFriendProposals({
+        // const friendProposals = await props.updateProjectFriendProposals({
+        //   variables: {
+        //     updateProjectFriendProposalsId:
+        //       props.projectData?.project?.project?.id,
+        //     friendProposals: friends,
+        //     isAdding: true,
+        //     deletedFriend: "",
+        //   },
+        // });
+        const friendProposals = await props.updateProjectFriendProposals2({
           variables: {
             updateProjectFriendProposalsId:
               props.projectData?.project?.project?.id,
-            friendProposals: friends,
+            addedFriends: friends,
+            isAdding: true,
+            deletedFriend: "",
           },
         });
         // !! After new proposal remove old friend proposal and requests
@@ -283,7 +373,7 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
         friends.forEach(async (friend) => {
           const user = await props.updateUserFriendRequests({
             variables: {
-              usernameOrEmail: friend,
+              username: friend,
               friendRequest: props.projectData?.project?.project?.id,
               isAdding: true,
             },
