@@ -32,7 +32,7 @@ export function sendMessage(message: Message) {
 function compileNumbers(users: PodUsersQuery) {
   const numbers = {} as { [key: string]: string };
 
-  users.podUsers.forEach((user) => {
+  users?.podUsers.forEach((user) => {
     if (user.phone != null) {
       numbers[user.username] = user.phone;
     }

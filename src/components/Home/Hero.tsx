@@ -26,7 +26,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         </Text>
       </Box>
       <Box
-        minW={{ base: "0px", sm: "700px" }}
+        minW={{ base: "0px", sm: "800px" }}
         maxW={"850px"}
         borderRadius={20}
         border={"4px"}

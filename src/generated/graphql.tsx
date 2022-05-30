@@ -410,6 +410,13 @@ export type PodProjectsQueryVariables = Exact<{
 
 export type PodProjectsQuery = { __typename?: 'Query', podProjects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
 
+export type PodUsersQueryVariables = Exact<{
+  ids: Array<Scalars['Int']> | Scalars['Int'];
+}>;
+
+
+export type PodUsersQuery = { __typename?: 'Query', podUsers?: Array<{ __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null }> | null };
+
 export type PodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -426,13 +433,6 @@ export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ProjectsQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
-
-export type PodUsersQueryVariables = Exact<{
-  ids: Array<Scalars['Int']> | Scalars['Int'];
-}>;
-
-
-export type PodUsersQuery = { __typename?: 'Query', podUsers?: Array<{ __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null }> | null };
 
 export const RegularPodFragmentDoc = gql`
     fragment RegularPod on Pod {
@@ -1222,6 +1222,41 @@ export function usePodProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type PodProjectsQueryHookResult = ReturnType<typeof usePodProjectsQuery>;
 export type PodProjectsLazyQueryHookResult = ReturnType<typeof usePodProjectsLazyQuery>;
 export type PodProjectsQueryResult = Apollo.QueryResult<PodProjectsQuery, PodProjectsQueryVariables>;
+export const PodUsersDocument = gql`
+    query PodUsers($ids: [Int!]!) {
+  podUsers(ids: $ids) {
+    ...RegularUser
+  }
+}
+    ${RegularUserFragmentDoc}`;
+
+/**
+ * __usePodUsersQuery__
+ *
+ * To run a query within a React component, call `usePodUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePodUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePodUsersQuery({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function usePodUsersQuery(baseOptions: Apollo.QueryHookOptions<PodUsersQuery, PodUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PodUsersQuery, PodUsersQueryVariables>(PodUsersDocument, options);
+      }
+export function usePodUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PodUsersQuery, PodUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PodUsersQuery, PodUsersQueryVariables>(PodUsersDocument, options);
+        }
+export type PodUsersQueryHookResult = ReturnType<typeof usePodUsersQuery>;
+export type PodUsersLazyQueryHookResult = ReturnType<typeof usePodUsersLazyQuery>;
+export type PodUsersQueryResult = Apollo.QueryResult<PodUsersQuery, PodUsersQueryVariables>;
 export const PodsDocument = gql`
     query Pods {
   pods {
@@ -1328,38 +1363,3 @@ export function useProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProjectsQueryHookResult = ReturnType<typeof useProjectsQuery>;
 export type ProjectsLazyQueryHookResult = ReturnType<typeof useProjectsLazyQuery>;
 export type ProjectsQueryResult = Apollo.QueryResult<ProjectsQuery, ProjectsQueryVariables>;
-export const PodUsersDocument = gql`
-    query PodUsers($ids: [Int!]!) {
-  podUsers(ids: $ids) {
-    ...RegularUser
-  }
-}
-    ${RegularUserFragmentDoc}`;
-
-/**
- * __usePodUsersQuery__
- *
- * To run a query within a React component, call `usePodUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `usePodUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePodUsersQuery({
- *   variables: {
- *      ids: // value for 'ids'
- *   },
- * });
- */
-export function usePodUsersQuery(baseOptions: Apollo.QueryHookOptions<PodUsersQuery, PodUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PodUsersQuery, PodUsersQueryVariables>(PodUsersDocument, options);
-      }
-export function usePodUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PodUsersQuery, PodUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PodUsersQuery, PodUsersQueryVariables>(PodUsersDocument, options);
-        }
-export type PodUsersQueryHookResult = ReturnType<typeof usePodUsersQuery>;
-export type PodUsersLazyQueryHookResult = ReturnType<typeof usePodUsersLazyQuery>;
-export type PodUsersQueryResult = Apollo.QueryResult<PodUsersQuery, PodUsersQueryVariables>;
