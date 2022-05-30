@@ -64,17 +64,17 @@ export default function CaptionCarousel() {
   // This can be static or loaded from a server
   const cards = [
     {
-      title: "Design Projects 1",
+      title: "SCREENSHOTS OF PROJECT FLOW",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       // image: createProject.src,
     },
     {
-      title: "Design Projects 2",
+      title: "SCREENSHOTS OF PROJECT FLOW",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       // image: joinPod.src,
     },
     {
-      title: "Design Projects 3",
+      title: "SCREENSHOTS OF PROJECT FLOW",
       text: "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
       // image: editProject.src,
     },
@@ -135,7 +135,7 @@ export default function CaptionCarousel() {
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
-            backgroundImage={`url(${card.image})`}
+            // backgroundImage={`url(${card.image})`}
           >
             {/* This is the block you need to change, to customize the caption */}
             <Container size="container.lg" height="600px" position="relative">

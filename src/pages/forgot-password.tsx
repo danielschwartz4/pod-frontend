@@ -14,44 +14,47 @@ const ForgotPassword: React.FC<{}> = ({}) => {
   const [forgotPassword] = useForgotPasswordMutation();
 
   return (
-    <Wrapper variant="small">
-      <Formik
-        initialValues={{ email: "" }}
-        onSubmit={async (values, { setErrors }) => {
-          await forgotPassword({
-            variables: values,
-          });
-          setComplete(true);
-        }}
-      >
-        {({ isSubmitting }) =>
-          complete ? (
-            <Box>
-              if an account with that email exists, we sent you an email
-            </Box>
-          ) : (
-            <Form>
-              <Box mt={4}>
-                <InputField
-                  name="email"
-                  label="Email"
-                  placeholder="email"
-                  type="email"
-                />
+    <Flex justify={"center"} mt={20}>
+      <Box w={"300px"}>
+        <Formik
+          initialValues={{ email: "" }}
+          onSubmit={async (values, { setErrors }) => {
+            await forgotPassword({
+              variables: values,
+            });
+            setComplete(true);
+          }}
+        >
+          {({ isSubmitting }) =>
+            complete ? (
+              <Box>
+                if an account with that email exists, we sent you an email
               </Box>
-              <Button
-                mt={4}
-                isLoading={isSubmitting}
-                colorScheme="teal"
-                type="submit"
-              >
-                forgot password
-              </Button>
-            </Form>
-          )
-        }
-      </Formik>
-    </Wrapper>
+            ) : (
+              <Form>
+                <Box mt={4}>
+                  <InputField
+                    name="email"
+                    label="Enter email to reset password"
+                    placeholder="email"
+                    type="email"
+                  />
+                </Box>
+                <Button
+                  mt={4}
+                  isLoading={isSubmitting}
+                  colorScheme="teal"
+                  type="submit"
+                  cursor={isSubmitting ? "not-allowed" : "pointer"}
+                >
+                  forgot password
+                </Button>
+              </Form>
+            )
+          }
+        </Formik>
+      </Box>
+    </Flex>
   );
 };
 
