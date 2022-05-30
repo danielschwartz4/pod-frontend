@@ -20,9 +20,6 @@ const Hero: React.FC<HeroProps> = ({}) => {
         textColor={"gainsboro"}
         fontSize={{ base: 36, md: 48 }}
         transform={{ base: "translateY(-20px)", lg: "translateY(-100px)" }}
-        borderRadius={20}
-        border={"4px"}
-        borderColor={"#f63de7"}
       >
         <Text>
           Stay <b>motivated</b> and <b>accountable</b> while pursing a solo goal
