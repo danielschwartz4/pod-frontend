@@ -1,3 +1,5 @@
+import { MarkerType } from "react-flow-renderer";
+
 const nodeProgressMap = {
   1: "#F26D51",
   2: "#6097F8",
@@ -111,7 +113,11 @@ export default function init_elements(
         if (i > 0) {
           edges.push({
             id: "e" + i,
-            arrowHeadType: "arrow",
+            markerEnd: {
+              type: edgeProgressMap[milestoneProgress[i]]
+                ? MarkerType.Arrow
+                : MarkerType.ArrowClosed,
+            },
             source: "horizontal-" + (i - 1),
             target: "horizontal-" + i,
             animated: edgeProgressMap[milestoneProgress[i]],
@@ -150,7 +156,11 @@ export default function init_elements(
         if (i > 0) {
           edges.push({
             id: "e" + i,
-            arrowHeadType: "arrow",
+            markerEnd: {
+              type: edgeProgressMap[milestoneProgress[i]]
+                ? MarkerType.Arrow
+                : MarkerType.ArrowClosed,
+            },
             source: "vertical-" + (i - 1),
             target: "vertical-" + i,
             animated: edgeProgressMap[milestoneProgress[i]],
