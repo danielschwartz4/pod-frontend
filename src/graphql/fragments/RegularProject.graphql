@@ -4,7 +4,6 @@ fragment RegularProject on Project {
   milestoneDates
   milestones
   milestoneProgress
-  groupSize
   createdAt
   updatedAt
   overview

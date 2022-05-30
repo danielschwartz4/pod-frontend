@@ -41,7 +41,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
           </Text>
           <Formik
             initialValues={{
-              groupSize: "",
               milestone: [
                 {
                   description: "",
@@ -61,7 +60,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                 variables: {
                   projectOptions: {
                     userId: data?.me.id,
-                    groupSize: 1,
                     milestones: descriptionArray,
                     overview: overview,
                     milestoneDates: completionDateArray,

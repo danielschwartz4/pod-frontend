@@ -12,7 +12,6 @@ import {
   useFindPublicPodQuery,
   useRemoveProjectFromPodMutation,
   useUpdatePhoneMutation,
-  useUpdateProjectGroupSizeMutation,
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
 import { useIsAuth } from "../../utils/usIsAuth";
@@ -59,7 +58,6 @@ export const MyPod: React.FC<MyPodProps> = ({
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateProjectPod] = useUpdateProjectPodMutation();
-  const [updateProjectGroupSize] = useUpdateProjectGroupSizeMutation();
   const [createPod] = useCreatePodMutation();
   const [updatePhone] = useUpdatePhoneMutation();
 
@@ -141,13 +139,6 @@ export const MyPod: React.FC<MyPodProps> = ({
                 cursor={"pointer"}
                 onClick={async () => {
                   console.log("here ", podSize);
-                  // await updateProjectGroupSize({
-                  //   variables: {
-                  //     groupSize: podSize,
-                  //     updateProjectGroupSizeId:
-                  //       projectData?.project?.project.id,
-                  //   },
-                  // });
                   if (phone) {
                     await updatePhone({
                       variables: {
