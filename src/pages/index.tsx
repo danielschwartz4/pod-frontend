@@ -17,7 +17,7 @@ const Index: React.FC<IndexProps> = ({}) => {
       <Box mt={"4em"}>
         <Hero></Hero>
       </Box>
-      <Box mx={"auto"}>
+      <Box mt={"4em"}>
         <Samples />
       </Box>
       <Box mt={"4em"}>
