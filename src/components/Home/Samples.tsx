@@ -27,7 +27,6 @@ export const Samples: React.FC = ({}) => {
   );
 };
 
-// Settings for the slider
 const settings = {
   dots: true,
   arrows: false,
