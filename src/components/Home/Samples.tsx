@@ -26,7 +26,7 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
 
-export const Samples: React.FC<SamplesProps> = ({}) => {
+export const Samples: React.FC = ({}) => {
   return (
     <Box mx={"auto"}>
       <CaptionCarousel />
