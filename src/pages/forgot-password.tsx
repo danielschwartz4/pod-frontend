@@ -1,13 +1,10 @@
-import { Box, Flex, Button } from "@chakra-ui/react";
-import { Formik, Form } from "formik";
-import Link from "next/link";
-import router from "next/router";
+import { Box, Button, Flex, Image } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
+import NextLink from "next/link";
 import React, { useState } from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { Wrapper } from "../components/Wrapper";
 import { useForgotPasswordMutation } from "../generated/graphql";
-import { toErrorMap } from "../utils/toErrorMap";
-import login from "./login";
+import firstLogo from "../images/Logos/firstLogo.png";
 
 const ForgotPassword: React.FC<{}> = ({}) => {
   const [complete, setComplete] = useState(false);
@@ -15,6 +12,11 @@ const ForgotPassword: React.FC<{}> = ({}) => {
 
   return (
     <Flex justify={"center"} mt={20}>
+      <Flex pos={"absolute"} top={0} left={0} p={4}>
+        <NextLink href="/">
+          <Image cursor={"pointer"} h={70} w={200} src={firstLogo.src} alt="" />
+        </NextLink>
+      </Flex>
       <Box w={"300px"}>
         <Formik
           initialValues={{ email: "" }}

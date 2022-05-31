@@ -32,7 +32,6 @@ const Profile: React.FC<profileProps> = ({}) => {
       </Layout>
     );
   }
-  console.log(data?.me?.friendRequests);
   return (
     <Layout isProjectsPage isProfile>
       {loading && !data ? (
