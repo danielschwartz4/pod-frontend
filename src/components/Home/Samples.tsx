@@ -14,10 +14,10 @@ import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
 import flowImage from "../../images/Samples/flow.png";
-import friendInvitesImage from "../../images/Samples/friendInvites.png";
+// import friendInvitesImage from "../../images/Samples/friendInvites.png";
 import joinPodImage from "../../images/Samples/pod.png";
 import progressWithAlertImage from "../../images/Samples/progressWithAlert.png";
-import progressWithTextImage from "../../images/Samples/progressWithText.png";
+// import progressWithTextImage from "../../images/Samples/progressWithText.png";
 
 export const Samples: React.FC = ({}) => {
   return (
@@ -54,7 +54,8 @@ export default function CaptionCarousel() {
     {
       title: "Join a pod with your friends or at random!",
       text: "Invite friends to join your pod and hold eachother accountable. Pods can hold up to 4 members (I can increase the limit if people want)",
-      image: friendInvitesImage.src,
+      // image: friendInvitesImage.src,
+      image: "",
     },
     {
       title: "Watch your pod members' progress in real time",
@@ -69,7 +70,8 @@ export default function CaptionCarousel() {
     {
       title: "Get motivated to achieve your goals",
       text: "Recieve text notifications when your pod members are close to their goals for some extra motivatio ",
-      image: progressWithTextImage.src,
+      // image: progressWithTextImage.src,
+      image: "",
     },
   ];
 
