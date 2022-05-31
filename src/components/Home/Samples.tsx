@@ -1,30 +1,23 @@
 import {
   Box,
-  Image,
-  IconButton,
-  useBreakpointValue,
-  Stack,
-  Heading,
-  Text,
-  Container,
   Flex,
+  Heading,
+  IconButton,
+  Image,
+  Text,
+  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-import createProject from "../../images/Samples/createProject.gif";
-import joinPod from "../../images/Samples/joinPod.gif";
-import editProject from "../../images/Samples/editProject.gif";
-import flowImage from "../../images/Samples/flow.png";
-import createProjectImage from "../../images/Samples/createProject.png";
-import joinPodImage from "../../images/Samples/pod.png";
-import progressWithAlertImage from "../../images/Samples/progressWithAlert.png";
-import friendInvitesImage from "../../images/Samples/friendInvites.png";
-import progressWithTextImage from "../../images/Samples/progressWithText.png";
-
 // Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
 import Slider from "react-slick";
+import flowImage from "../../images/Samples/flow.png";
+import friendInvitesImage from "../../images/Samples/friendInvites.png";
+import joinPodImage from "../../images/Samples/pod.png";
+import progressWithAlertImage from "../../images/Samples/progressWithAlert.png";
+import progressWithTextImage from "../../images/Samples/progressWithText.png";
 
 export const Samples: React.FC = ({}) => {
   return (

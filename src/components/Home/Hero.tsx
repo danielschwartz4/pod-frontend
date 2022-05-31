@@ -36,13 +36,23 @@ const Hero: React.FC<HeroProps> = ({}) => {
         mb={4}
         mx={"auto"}
       >
-        <PodCreated
-          projectsData={[
-            SeedData.ExampleProject1.project,
-            SeedData.ExampleProject2.project,
-            SeedData.ExampleProject3.project,
-          ]}
-        />
+        <Box display={{ base: "none", lg: "block" }}>
+          <PodCreated
+            projectsData={[
+              SeedData.ExampleProject1.project,
+              SeedData.ExampleProject2.project,
+              SeedData.ExampleProject3.project,
+            ]}
+          />
+        </Box>
+        <Box display={{ base: "block", lg: "none" }}>
+          <PodCreated
+            projectsData={[
+              SeedData.ExampleProject1.project,
+              SeedData.ExampleProject2.project,
+            ]}
+          />
+        </Box>
       </Box>
 
       {/* <Box>
