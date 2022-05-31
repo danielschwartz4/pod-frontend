@@ -9,15 +9,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
-// Here we have used react-icons package for the icons
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-// And react-slick as our Carousel Lib
 import Slider from "react-slick";
 import flowImage from "../../images/Samples/flow.png";
 // import friendInvitesImage from "../../images/Samples/friendInvites.png";
 import joinPodImage from "../../images/Samples/pod.png";
 import progressWithAlertImage from "../../images/Samples/progressWithAlert.png";
-// import progressWithTextImage from "../../images/Samples/progressWithText.png";
+import progressWithTextImage from "../../images/Samples/progressWithText.png";
 
 export const Samples: React.FC = ({}) => {
   return (
@@ -69,9 +67,9 @@ export default function CaptionCarousel() {
     },
     {
       title: "Get motivated to achieve your goals",
-      text: "Recieve text notifications when your pod members are close to their goals for some extra motivatio ",
-      // image: progressWithTextImage.src,
-      image: "",
+      text: "Receive text notifications when your pod members are close to their goals for some extra motivation",
+      image: progressWithTextImage.src,
+      // image: "",
     },
   ];
 
@@ -262,7 +260,7 @@ const MobileDisplay: React.FC<SamplesProps> = (props) => {
               <Box>
                 <Image
                   m={"auto"}
-                  width={{ base: "350px", sm: "500px", md: "700px" }}
+                  width={{ base: "360px", sm: "500px", md: "700px" }}
                   src={card.image}
                 ></Image>
               </Box>
