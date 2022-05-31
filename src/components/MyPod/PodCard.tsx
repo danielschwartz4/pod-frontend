@@ -28,7 +28,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
         width={"100%"}
         maxW={"350px"}
         mx={[2, 4]}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("gainsboro", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}
         p={6}
@@ -46,7 +46,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
         <Box>
           <Stack maxH={"120px"}>
             <Heading
-              color={useColorModeValue("gray.700", "white")}
+              color={useColorModeValue("gray.700", "gainsboro")}
               fontSize={"2xl"}
               fontFamily={"body"}
             >
