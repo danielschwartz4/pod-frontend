@@ -75,6 +75,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         divider={
           <Box>
             <Divider
+              color={"gray.700"}
               mx={"auto"}
               w={"90%"}
               orientation="horizontal"
@@ -86,7 +87,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         h={"250px"}
       >
         <Box textAlign={"center"} margin={"auto"}>
-          <Heading
+          {/* <Heading
             fontSize="xl"
             ref={wrapperRef}
             ml={"1em"}
@@ -109,12 +110,25 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
             ) : (
               newName
             )}
+          </Heading> */}
+          <Heading fontSize={"xl"}>
+            <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
+              <Link>
+                {project?.podId == 0
+                  ? "not in pod yet"
+                  : "pod #: " + project?.podId}
+              </Link>
+            </NextLink>
           </Heading>
         </Box>
         <Box>
-          <Box ml={4}>
-            <NextDueDate project={project} />
-          </Box>
+          <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
+            <Link>
+              <Box ml={4}>
+                <NextDueDate project={project} />
+              </Box>
+            </Link>
+          </NextLink>
         </Box>
         <Box>
           <Box ml={4}>
@@ -126,16 +140,30 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
           </Box>
         </Box>
         <Box>
-          {/* <Divider mb={4}></Divider> */}
           <Flex alignItems={"center"} mb={6}>
             <Box ml={"1em"}>
-              <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
-                <Link>
-                  {project?.podId == 0
-                    ? "not in pod yet"
-                    : "pod #: " + project?.podId}
-                </Link>
-              </NextLink>
+              <Box
+                ref={wrapperRef}
+                onClick={() => {
+                  setIsChangingName(true);
+                }}
+                cursor={isChangingName ? "text" : "pointer"}
+              >
+                {isChangingName ? (
+                  <input
+                    maxLength={30}
+                    autoFocus={true}
+                    type="text"
+                    value={newName}
+                    onKeyDown={handleKeyDown}
+                    onChange={(e) => {
+                      setNewName(e.target.value);
+                    }}
+                  />
+                ) : (
+                  newName
+                )}
+              </Box>
             </Box>
 
             <Box ml={"auto"} mr={"1em"}>
