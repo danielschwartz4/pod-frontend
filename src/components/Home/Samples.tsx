@@ -36,7 +36,7 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-
+//
 export default function CaptionCarousel() {
   const [slider, setSlider] = React.useState<Slider | null>(null);
 
