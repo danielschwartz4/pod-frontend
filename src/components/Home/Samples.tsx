@@ -15,7 +15,7 @@ import flowImage from "../../images/Samples/flow.png";
 import invitesImage from "../../images/Samples/invites.png";
 import joinPodImage from "../../images/Samples/pod.png";
 import progressImage from "../../images/Samples/progress.png";
-import textMessageImage from "../../images/Samples/textMessage.png";
+import smsImage from "../../images/Samples/sms.png";
 
 export const Samples: React.FC = ({}) => {
   return (
@@ -68,7 +68,7 @@ export default function CaptionCarousel() {
     {
       title: "Get motivated and achieve your goals",
       text: "Receive text notifications when your pod members are close to their goals for some extra motivation",
-      image: textMessageImage.src,
+      image: smsImage.src,
       // image: "",
     },
   ];
