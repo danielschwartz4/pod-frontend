@@ -14,8 +14,8 @@ import Slider from "react-slick";
 import flowImage from "../../images/Samples/flow.png";
 import invitesImage from "../../images/Samples/invites.png";
 import joinPodImage from "../../images/Samples/pod.png";
-import progressWithAlertImage from "../../images/Samples/progressWithAlert.png";
-// import progressWithTextImage from "../../images/Samples/progressWithText.png";
+import progressImage from "../../images/Samples/progress.png";
+import textMessageImage from "../../images/Samples/textMessage.png";
 
 export const Samples: React.FC = ({}) => {
   return (
@@ -63,13 +63,13 @@ export default function CaptionCarousel() {
     {
       title: "Update your project progress and motivate your pod members",
       text: "Alert your pod members when you reach a milestone",
-      image: progressWithAlertImage.src,
+      image: progressImage.src,
     },
     {
       title: "Get motivated and achieve your goals",
       text: "Receive text notifications when your pod members are close to their goals for some extra motivation",
-      // image: progressWithTextImage.src,
-      image: "",
+      image: textMessageImage.src,
+      // image: "",
     },
   ];
 
