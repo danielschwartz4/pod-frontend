@@ -1,4 +1,4 @@
-const convertFromMilitaryTime = (date: string): string => {
+export const convertFromMilitaryTime = (date: string): string => {
   if (!date) {
     return date;
   }

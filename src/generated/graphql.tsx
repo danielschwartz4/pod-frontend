@@ -243,6 +243,7 @@ export type QueryProjectArgs = {
 
 export type User = {
   __typename?: 'User';
+  avatar?: Maybe<Scalars['Int']>;
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   friendRequests?: Maybe<Array<Scalars['JSONObject']>>;
@@ -268,7 +269,7 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null };
+export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -276,7 +277,7 @@ export type UpdatePhoneMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePhoneMutation = { __typename?: 'Mutation', updatePhone?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null } | null } | null };
+export type UpdatePhoneMutation = { __typename?: 'Mutation', updatePhone?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null } | null };
 
 export type AddProjectInfoMutationVariables = Exact<{
   projectOptions: ProjectInput;
@@ -299,7 +300,7 @@ export type ChangePasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null } | null } };
+export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null } };
 
 export type CreatePodMutationVariables = Exact<{
   isPrivate: Scalars['Boolean'];
@@ -329,7 +330,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -341,7 +342,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null } | null } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null } };
 
 export type RemoveProjectFromPodMutationVariables = Exact<{
   projectId: Scalars['Float'];
@@ -409,7 +410,7 @@ export type UpdateUserFriendRequestsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserFriendRequestsMutation = { __typename?: 'Mutation', updateUserFriendRequests?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null } | null } | null };
+export type UpdateUserFriendRequestsMutation = { __typename?: 'Mutation', updateUserFriendRequests?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null } | null };
 
 export type FindPublicPodQueryVariables = Exact<{
   projectId: Scalars['Float'];
@@ -422,7 +423,7 @@ export type FindPublicPodQuery = { __typename?: 'Query', findPublicPod: { __type
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null };
 
 export type PodQueryVariables = Exact<{
   podId: Scalars['Float'];
@@ -443,7 +444,7 @@ export type PodUsersQueryVariables = Exact<{
 }>;
 
 
-export type PodUsersQuery = { __typename?: 'Query', podUsers?: Array<{ __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null }> | null };
+export type PodUsersQuery = { __typename?: 'Query', podUsers?: Array<{ __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null }> | null };
 
 export type PodsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -497,6 +498,7 @@ export const RegularUserFragmentDoc = gql`
   updatedAt
   username
   friendRequests
+  avatar
 }
     `;
 export const UpdatePhoneDocument = gql`

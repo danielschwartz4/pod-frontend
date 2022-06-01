@@ -9,7 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { ReactFlowProvider } from "react-flow-renderer";
 import { Project, useMeQuery } from "../../generated/graphql";
-import pink_monster from "../../images/Avatars/pink_monster.jpeg";
+import avatarMap from "../../utils/avatarMap";
+import { convertFromMilitaryTime } from "../../utils/formatDate";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {
@@ -58,10 +59,10 @@ const PodCard: React.FC<PodCardProps> = (props) => {
             </Text>
           </Stack>
           <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
-            <Avatar src={pink_monster.src} alt={"Author"} />
+            <Avatar src={avatarMap(data?.me?.avatar)} alt={"Author"} />
             <Stack direction={"column"} spacing={0} fontSize={"sm"}>
               <Text color={"gray.500"}>
-                Last update: {date[0]} {date[1]}
+                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
               </Text>
             </Stack>
           </Stack>
