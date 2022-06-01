@@ -1,7 +1,7 @@
-import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import router from "next/router";
 import React from "react";
 import { PodCreated } from "../MyPod/PodCreated";
-import { Project } from "../Profile/Project";
 import SeedData from "./SeedHomeData";
 
 interface HeroProps {}
@@ -25,6 +25,18 @@ const Hero: React.FC<HeroProps> = ({}) => {
         <Text>
           Stay <b>motivated</b> and <b>accountable</b> while pursing a solo goal
         </Text>
+        <Box ml={4}>
+          <Button
+            textColor={"gainsboro"}
+            fontSize={".5em"}
+            height={"75px"}
+            color={"gainsboro"}
+            cursor={"pointer"}
+            onClick={() => router.push("/register")}
+          >
+            Join a pod and get started! 😆
+          </Button>
+        </Box>
       </Box>
       <Box
         minW={{ base: "0px", sm: "800px" }}
