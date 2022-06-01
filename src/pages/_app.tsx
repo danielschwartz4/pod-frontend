@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ColorModeProvider, ThemeProvider } from "@chakra-ui/react";
+import Head from "next/head";
 import "../css/DatePickerInput.css";
 import theme from "../theme";
 
@@ -21,6 +22,9 @@ function MyApp({ Component, pageProps }: any) {
             useSystemColorMode: true,
           }}
         >
+          {/* <Head>
+            <link rel="shortcut icon" href="/favicon.ico" />
+          </Head> */}
           <Component {...pageProps} />
         </ColorModeProvider>
       </ThemeProvider>

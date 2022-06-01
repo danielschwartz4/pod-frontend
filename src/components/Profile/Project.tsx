@@ -209,13 +209,11 @@ const NextDueDate: React.FC<ProjectProps> = ({ project }) => {
     return d > today;
   });
   if (!nextDueDate) {
-    console.log(project?.milestoneDates);
     nextDueDate = project?.milestoneDates.find((date) => {
       return date != "";
     });
 
     if (nextDueDate == undefined) {
-      console.log("hello");
       return <Box>Next target date: NA</Box>;
     }
     return <Box>Next target date: {formatDate(nextDueDate)}*</Box>;

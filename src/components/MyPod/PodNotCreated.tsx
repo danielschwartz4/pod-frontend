@@ -15,6 +15,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -222,7 +223,12 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
     useUpdateProjectFriendProposalsMutation();
 
   return (
-    <HStack spacing={8} mt={8} justifyContent={"center"}>
+    <Stack
+      direction={{ base: "column", md: "row" }}
+      spacing={8}
+      mt={8}
+      justifyContent={"center"}
+    >
       <Box mb={"auto"}>
         <FriendRequests
           updateProjectPod={props.updateProjectPod}
@@ -234,7 +240,12 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
           meData={props.meData}
         />
       </Box>
-      <Divider h={"400px"} color={"white"} orientation="vertical" />
+      <Box display={{ base: "none", md: "block" }}>
+        <Divider h={"400px"} color={"white"} orientation={"vertical"} />
+      </Box>
+      <Box display={{ base: "block", md: "none" }}>
+        <Divider color={"white"} orientation={"horizontal"} />
+      </Box>
       <Box>
         <FriendForm
           addProjectToPod={props.addProjectToPod}
@@ -246,7 +257,7 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
           updateProjectFriendProposals={updateProjectFriendProposals}
         />
       </Box>
-    </HStack>
+    </Stack>
   );
 };
 
