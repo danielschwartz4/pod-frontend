@@ -12,7 +12,7 @@ import React from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 import flowImage from "../../images/Samples/flow.png";
-import invitesImage from "../../images/Samples/friendInvites.png";
+import invitesImage from "../../images/Samples/invites.png";
 import joinPodImage from "../../images/Samples/pod.png";
 import progressWithAlertImage from "../../images/Samples/progressWithAlert.png";
 // import progressWithTextImage from "../../images/Samples/progressWithText.png";
