@@ -11,28 +11,27 @@ import {
 import NextLink from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  ProjectQuery,
   useDeleteProjectMutation,
   useUpdateProjectNameMutation,
 } from "../../generated/graphql";
+import formatDate from "../../utils/formatDate";
+import { generateProgress, generateSms } from "../../utils/smsBody";
 
 interface ProjectProps {
-  project: {
-    id: number;
-    podId: number;
-    projectName: string;
-  };
+  project: ProjectQuery["project"]["project"];
 }
 
 export const Project: React.FC<ProjectProps> = ({ project }) => {
   const [deleteProject] = useDeleteProjectMutation();
-  const [newName, setNewName] = useState<string>(project.projectName);
+  const [newName, setNewName] = useState<string>(project?.projectName);
   const [isChangingName, setIsChangingName] = useState<boolean>(false);
   const [updateProjectName] = useUpdateProjectNameMutation();
 
   const handleUpdateProjectName = async () => {
     updateProjectName({
       variables: {
-        updateProjectNameId: project.id,
+        updateProjectNameId: project?.id,
         projectName: newName,
       },
     });
@@ -41,9 +40,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   // Ref for handling outside click
   function useOutsideAlerter(ref) {
     useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
       function handleClickOutside(event) {
         if (
           ref.current &&
@@ -76,24 +72,22 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   return (
     <GridItem borderRadius={8} h={"auto"} bg="#4c5e81">
       <VStack
-        divider={<Divider orientation="horizontal" />}
-        spacing={4}
+        divider={
+          <Box>
+            <Divider
+              mx={"auto"}
+              w={"90%"}
+              orientation="horizontal"
+              display={""}
+            />
+          </Box>
+        }
         align="stretch"
         h={"250px"}
       >
-        <Box textAlign={"center"} h={"120px"} margin={"auto"}>
-          <NextLink href="/project/[id]" as={`/project/${project.id}`}>
-            <Link>
-              <Heading fontSize="xl">
-                {project.podId == 0
-                  ? "not in pod yet"
-                  : "podId: " + project.podId}
-              </Heading>
-            </Link>
-          </NextLink>
-        </Box>
-        <Flex alignItems={"center"} mb={"1em"}>
-          <Box
+        <Box textAlign={"center"} margin={"auto"}>
+          <Heading
+            fontSize="xl"
             ref={wrapperRef}
             ml={"1em"}
             onClick={() => {
@@ -115,27 +109,89 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
             ) : (
               newName
             )}
+          </Heading>
+        </Box>
+        <Box>
+          <Box ml={4}>
+            <NextDueDate project={project} />
           </Box>
+        </Box>
+        <Box>
+          <Box ml={4}>
+            <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
+              <Link>
+                <ProjectVis project={project} />
+              </Link>
+            </NextLink>
+          </Box>
+        </Box>
+        <Box>
+          {/* <Divider mb={4}></Divider> */}
+          <Flex alignItems={"center"} mb={6}>
+            <Box ml={"1em"}>
+              <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
+                <Link>
+                  {project?.podId == 0
+                    ? "not in pod yet"
+                    : "pod #: " + project?.podId}
+                </Link>
+              </NextLink>
+            </Box>
 
-          <Box ml={"auto"} mr={"1em"}>
-            <DeleteIcon
-              cursor={"pointer"}
-              onClick={async () =>
-                await deleteProject({
-                  variables: {
-                    deleteProjectId: project.id,
-                  },
-                  update: (cache, { data }) => {
-                    if (data?.deleteProject) {
-                      cache.evict({ id: "Project:" + project.id });
-                    }
-                  },
-                })
-              }
-            />
-          </Box>
-        </Flex>
+            <Box ml={"auto"} mr={"1em"}>
+              <DeleteIcon
+                cursor={"pointer"}
+                onClick={async () =>
+                  await deleteProject({
+                    variables: {
+                      deleteProjectId: project?.id,
+                    },
+                    update: (cache, { data }) => {
+                      if (data?.deleteProject) {
+                        cache.evict({ id: "Project:" + project?.id });
+                      }
+                    },
+                  })
+                }
+              />
+            </Box>
+          </Flex>
+        </Box>
       </VStack>
     </GridItem>
   );
+};
+
+const ProjectVis: React.FC<ProjectProps> = ({ project }) => {
+  let progress = project?.milestoneProgress;
+  let progressVis;
+  if (progress.length > 7) {
+    progress = progress.slice(0, 7);
+    progressVis = generateProgress(progress) + " ...";
+  } else {
+    progressVis = generateProgress(progress);
+  }
+  return <Box>{progressVis}</Box>;
+};
+
+const NextDueDate: React.FC<ProjectProps> = ({ project }) => {
+  const today = new Date();
+  let nextDueDate = project?.milestoneDates.find((date) => {
+    let d = new Date(date);
+    return d > today;
+  });
+  if (!nextDueDate) {
+    console.log(project?.milestoneDates);
+    nextDueDate = project?.milestoneDates.find((date) => {
+      return date != "";
+    });
+
+    if (nextDueDate == undefined) {
+      console.log("hello");
+      return <Box>Next target date: NA</Box>;
+    }
+    return <Box>Next target date: {formatDate(nextDueDate)}*</Box>;
+  }
+
+  return <Box>Next target date: {formatDate(nextDueDate)}</Box>;
 };

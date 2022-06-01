@@ -4,7 +4,7 @@ const boxMapping = {
   3: "🟩",
 };
 
-function generateProgress(progress: number[]) {
+export function generateProgress(progress: number[]) {
   let tmp = "";
   for (const i in progress) {
     if (i != "0") {

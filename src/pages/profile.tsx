@@ -95,14 +95,7 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({ projectsData }) => {
         ?.slice(0)
         .reverse()
         .map((p) => (
-          <Project
-            key={p.id}
-            project={{
-              id: p.id,
-              podId: p.podId,
-              projectName: p.projectName,
-            }}
-          />
+          <Project key={p.id} project={p} />
         ))}
     </Grid>
   );
