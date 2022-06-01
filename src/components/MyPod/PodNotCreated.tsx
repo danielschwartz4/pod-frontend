@@ -164,6 +164,58 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
   );
 };
 
+const RandomPodOptions: React.FC<{
+  podSize: number;
+  setPodSize: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ podSize, setPodSize, children }) => {
+  return (
+    <Flex alignItems="center" justifyContent={"center"}>
+      <Menu>
+        <MenuButton
+          cursor={"pointer"}
+          bg={"#7e9cd6"}
+          as={Button}
+          rightIcon={<ChevronDownIcon />}
+          w={"200px"}
+          mt={8}
+        >
+          {podSize == null ? "Select pod size" : podSize}
+        </MenuButton>
+        <MenuList>
+          <MenuItem
+            value={2}
+            onClick={(e) => {
+              let size = parseInt((e.target as HTMLTextAreaElement).value);
+              setPodSize(size);
+            }}
+          >
+            2
+          </MenuItem>
+          <MenuItem
+            value={3}
+            onClick={(e) => {
+              let size = parseInt((e.target as HTMLTextAreaElement).value);
+              setPodSize(size);
+            }}
+          >
+            3
+          </MenuItem>
+          <MenuItem
+            value={4}
+            onClick={(e) => {
+              let size = parseInt((e.target as HTMLTextAreaElement).value);
+              setPodSize(size);
+            }}
+          >
+            4
+          </MenuItem>
+        </MenuList>
+      </Menu>
+      {children}
+    </Flex>
+  );
+};
+
 const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
   const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
   const [updateProjectFriendProposals] =
@@ -199,19 +251,6 @@ const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
 };
 
 const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
-  // !! Fix this so that on the click, it only queries the clicked project's friend proposals
-  // !! Remember the reason we are querying is to get the OG friend's proposals and deleting our name from them
-  // !! Query with inner join for project and user on userId
-  // const projectsData = [];
-  // props.meData?.me?.friendRequests?.forEach((friendRequest) => {
-  //   const { data: projectData } = useProjectQuery({
-  //     variables: {
-  //       id: friendRequest,
-  //     },
-  //   });
-  //   projectsData.push(projectData);
-  // });
-
   return (
     <Box>
       <Flex>
@@ -234,135 +273,129 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
         </Flex>
       ) : (
         <VStack spacing={10}>
-          {props.meData?.me?.friendRequests?.map(
-            (values, index) => (
-              console.log(values),
-              (
-                <Flex
-                  key={index}
-                  borderRadius={6}
-                  color={"gainsboro"}
-                  h={"44px"}
-                  w={{ base: "250px", md: "400px" }}
-                  border={"1px"}
-                  alignItems={"center"}
-                >
-                  {/* <Box ml={2}>
+          {props.meData?.me?.friendRequests?.map((values, index) => (
+            <Flex
+              key={index}
+              borderRadius={6}
+              color={"gainsboro"}
+              h={"44px"}
+              w={{ base: "250px", md: "400px" }}
+              border={"1px"}
+              alignItems={"center"}
+            >
+              {/* <Box ml={2}>
                 {projectsData[0]?.project?.project?.projectName.includes(
                   "Click here"
                 )
                   ? "untitled project"
                   : projectsData[0]?.project?.project?.projectName}{" "}
               </Box> */}
-                  <Box>
-                    <Text ml={2} fontSize={20}>
-                      {/* {props.meData?.me?.friendRequests[index].projectId} */}
-                      Daniel S
-                    </Text>
-                  </Box>
+              <Box>
+                <Text ml={2} fontSize={20}>
+                  {/* {props.meData?.me?.friendRequests[index].projectId} */}
+                  Daniel S
+                </Text>
+              </Box>
 
-                  <Box ml={"auto"} mr={2}>
-                    <CloseIcon
-                      onClick={async () => {
-                        const user = await props.updateUserFriendRequests({
-                          variables: {
-                            username: props.meData?.me?.username,
-                            projectId: values.projectId,
-                            podId: values.podId,
-                            isAdding: false,
-                          },
-                          update: (cache, { data }) => {
-                            const { me } = cache.readQuery({
-                              query: MeDocument,
-                            });
-                            cache.writeQuery({
-                              query: MeDocument,
-                              data: {
-                                me: {
-                                  ...me,
-                                  friendRequests: me.friendRequests.filter(
-                                    (req) => req.projectId !== values.projectId
-                                  ),
-                                },
-                              },
-                            });
-                          },
+              <Box ml={"auto"} mr={2}>
+                <CloseIcon
+                  onClick={async () => {
+                    const user = await props.updateUserFriendRequests({
+                      variables: {
+                        username: props.meData?.me?.username,
+                        projectId: values.projectId,
+                        podId: values.podId,
+                        isAdding: false,
+                      },
+                      update: (cache, { data }) => {
+                        const { me } = cache.readQuery({
+                          query: MeDocument,
                         });
-                        if (user) {
-                          await props.updateProjectFriendProposals({
-                            variables: {
-                              updateProjectFriendProposalsId: values.projectId,
-                              isAdding: false,
-                              addedFriends: [],
-                              deletedFriend: props.meData?.me?.username,
+                        cache.writeQuery({
+                          query: MeDocument,
+                          data: {
+                            me: {
+                              ...me,
+                              friendRequests: me.friendRequests.filter(
+                                (req) => req.projectId !== values.projectId
+                              ),
                             },
-                          });
-                        }
-                      }}
-                      cursor={"pointer"}
-                      mr={4}
-                      color={"red"}
-                    />
-                    <CheckIcon
-                      onClick={async () => {
-                        const user = await props.updateUserFriendRequests({
-                          variables: {
-                            username: props.meData?.me?.username,
-                            projectId: values.projectId,
-                            podId: values.podId,
-                            isAdding: false,
-                          },
-                          update: (cache, { data }) => {
-                            const { me } = cache.readQuery({
-                              query: MeDocument,
-                            });
-                            cache.writeQuery({
-                              query: MeDocument,
-                              data: {
-                                me: {
-                                  ...me,
-                                  friendRequests: me.friendRequests.filter(
-                                    (req) => req.projectId !== values.projectId
-                                  ),
-                                },
-                              },
-                            });
                           },
                         });
-                        const project =
-                          await props.updateProjectFriendProposals({
-                            variables: {
-                              updateProjectFriendProposalsId: values.projectId,
-                              isAdding: false,
-                              addedFriends: [],
-                              deletedFriend: props.meData?.me?.username,
+                      },
+                    });
+                    if (user) {
+                      await props.updateProjectFriendProposals({
+                        variables: {
+                          updateProjectFriendProposalsId: values.projectId,
+                          isAdding: false,
+                          addedFriends: [],
+                          deletedFriend: props.meData?.me?.username,
+                        },
+                      });
+                    }
+                  }}
+                  cursor={"pointer"}
+                  mr={4}
+                  color={"red"}
+                />
+                <CheckIcon
+                  onClick={async () => {
+                    const user = await props.updateUserFriendRequests({
+                      variables: {
+                        username: props.meData?.me?.username,
+                        projectId: values.projectId,
+                        podId: values.podId,
+                        isAdding: false,
+                      },
+                      update: (cache, { data }) => {
+                        const { me } = cache.readQuery({
+                          query: MeDocument,
+                        });
+                        cache.writeQuery({
+                          query: MeDocument,
+                          data: {
+                            me: {
+                              ...me,
+                              friendRequests: me.friendRequests.filter(
+                                (req) => req.projectId !== values.projectId
+                              ),
                             },
-                          });
-
-                        await props.updateProjectPod({
-                          variables: {
-                            podId: values.podId,
-                            updateProjectPodId:
-                              props.projectData?.project?.project.id,
                           },
                         });
-                        await props.addProjectToPod({
-                          variables: {
-                            addProjectToPodId: values.podId,
-                            projectId: props.projectData?.project?.project.id,
-                          },
-                        });
+                      },
+                    });
+                    const project = await props.updateProjectFriendProposals({
+                      variables: {
+                        updateProjectFriendProposalsId: values.projectId,
+                        isAdding: false,
+                        addedFriends: [],
+                        deletedFriend: props.meData?.me?.username,
+                      },
+                    });
 
-                        props.setPodJoined(true);
-                      }}
-                      cursor={"pointer"}
-                      color={"#71ec44"}
-                    />
-                  </Box>
-                </Flex>
-              )
-            )
-          )}
+                    await props.updateProjectPod({
+                      variables: {
+                        podId: values.podId,
+                        updateProjectPodId:
+                          props.projectData?.project?.project.id,
+                      },
+                    });
+                    await props.addProjectToPod({
+                      variables: {
+                        addProjectToPodId: values.podId,
+                        projectId: props.projectData?.project?.project.id,
+                      },
+                    });
+
+                    props.setPodJoined(true);
+                  }}
+                  cursor={"pointer"}
+                  color={"#71ec44"}
+                />
+              </Box>
+            </Flex>
+          ))}
         </VStack>
       )}
     </Box>
@@ -453,7 +486,6 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
                       isAdding: true,
                     },
                   });
-                  console.log(user);
                 });
                 props.setPodJoined(true);
               }}
@@ -464,57 +496,5 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
         )}
       </Formik>
     </Box>
-  );
-};
-
-const RandomPodOptions: React.FC<{
-  podSize: number;
-  setPodSize: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ podSize, setPodSize, children }) => {
-  return (
-    <Flex alignItems="center" justifyContent={"center"}>
-      <Menu>
-        <MenuButton
-          cursor={"pointer"}
-          bg={"#7e9cd6"}
-          as={Button}
-          rightIcon={<ChevronDownIcon />}
-          w={"200px"}
-          mt={8}
-        >
-          {podSize == null ? "Select pod size" : podSize}
-        </MenuButton>
-        <MenuList>
-          <MenuItem
-            value={2}
-            onClick={(e) => {
-              let size = parseInt((e.target as HTMLTextAreaElement).value);
-              setPodSize(size);
-            }}
-          >
-            2
-          </MenuItem>
-          <MenuItem
-            value={3}
-            onClick={(e) => {
-              let size = parseInt((e.target as HTMLTextAreaElement).value);
-              setPodSize(size);
-            }}
-          >
-            3
-          </MenuItem>
-          <MenuItem
-            value={4}
-            onClick={(e) => {
-              let size = parseInt((e.target as HTMLTextAreaElement).value);
-              setPodSize(size);
-            }}
-          >
-            4
-          </MenuItem>
-        </MenuList>
-      </Menu>
-      {children}
-    </Flex>
   );
 };

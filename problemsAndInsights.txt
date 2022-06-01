@@ -86,3 +86,7 @@ it doesn't affect what private pod users join
 
 5-30-22
 GraphQLJSONObject for graphql field types
+
+6-01-22
+For some reason some of the image files with camel case wern't reading
+Not adding error mapping for adding pod friend so that people don't spam random users
