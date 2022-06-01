@@ -12,7 +12,7 @@ import React from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 import flowImage from "../../images/Samples/flow.png";
-// import friendInvitesImage from "../../images/Samples/friendInvites.png";
+import invitesImage from "../../images/Samples/friendInvites.png";
 import joinPodImage from "../../images/Samples/pod.png";
 import progressWithAlertImage from "../../images/Samples/progressWithAlert.png";
 // import progressWithTextImage from "../../images/Samples/progressWithText.png";
@@ -51,13 +51,13 @@ export default function CaptionCarousel() {
     },
     {
       title: "Join a pod with your friends or at random!",
-      text: "Invite friends to join your pod and hold eachother accountable. Pods can hold up to 4 members (I can increase the limit if people want)",
-      // image: friendInvitesImage.src,
-      image: "",
+      text: "Pods can hold up to 4 members (I can increase the limit if people want)",
+      image: invitesImage.src,
+      // image: "",
     },
     {
       title: "Watch your pod members' progress in real time",
-      text: "Watch as your group members accomplish their goals",
+      text: "See accomplish their goals",
       image: joinPodImage.src,
     },
     {
@@ -66,7 +66,7 @@ export default function CaptionCarousel() {
       image: progressWithAlertImage.src,
     },
     {
-      title: "Get motivated to achieve your goals",
+      title: "Get motivated and achieve your goals",
       text: "Receive text notifications when your pod members are close to their goals for some extra motivation",
       // image: progressWithTextImage.src,
       image: "",
