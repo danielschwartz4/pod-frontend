@@ -3,6 +3,7 @@ import { ErrorMessage, Form, Formik } from "formik";
 import React from "react";
 import {
   PodQuery,
+  ProjectQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
@@ -14,10 +15,10 @@ interface EnterNewMilestoneProps {
   milestones: string[];
   milestoneDates: string[];
   milestoneProgress: number[];
-  projectId: number;
   setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
+  projectData: ProjectQuery;
   changeTab: string;
   podData: PodQuery;
 }
@@ -49,7 +50,8 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
           _milestoneProgress.push(1);
           const response = await updateProjectMilestones({
             variables: {
-              updateProjectMilestonesId: props.projectId,
+              updateProjectMilestonesId:
+                props.projectData?.project?.project?.id,
               milestones: _milestones,
             },
           });
@@ -57,7 +59,8 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
           if (response.data?.updateProjectMilestones) {
             const response2 = await updateProjectMilestoneDates({
               variables: {
-                updateProjectMilestoneDatesId: props.projectId,
+                updateProjectMilestoneDatesId:
+                  props.projectData?.project?.project?.id,
                 milestoneDates: _milestoneDates,
               },
             });
@@ -67,7 +70,7 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
           }
           const response3 = await updateProjectProgress({
             variables: {
-              updateProjectProgressId: props.projectId,
+              updateProjectProgressId: props.projectData?.project?.project?.id,
               milestoneProgress: _milestoneProgress,
             },
           });
@@ -96,10 +99,14 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
                   </Button>
                 ) : (
                   <Button>
-                    <Text>
-                      This pod has a cap of {props.podData?.pod?.pod?.cap}{" "}
-                      members
-                    </Text>
+                    {props.projectData?.project?.project?.podId == 0 ? (
+                      <Text>Pod not joined</Text>
+                    ) : (
+                      <Text>
+                        This pod has a cap of {props.podData?.pod?.pod?.cap}{" "}
+                        members
+                      </Text>
+                    )}
                   </Button>
                 )}
               </Box>
