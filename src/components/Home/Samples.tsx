@@ -36,7 +36,7 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
-//
+
 export default function CaptionCarousel() {
   const [slider, setSlider] = React.useState<Slider | null>(null);
 
@@ -45,31 +45,32 @@ export default function CaptionCarousel() {
 
   const cards = [
     {
-      title: "Enter your project milestones for an auto-generated flow",
-      text: "Enter your milestone dates and estimated completion dates to build a flow",
+      title:
+        "Enter your project milestones and dates for an auto-generated flow",
+      // text: "Enter your milestone dates and estimated completion dates to build a flow",
       image: flowImage.src,
     },
     {
-      title: "Join a pod with your friends or at random!",
-      text: "Pods can hold up to 4 members (I can increase the limit if people want)",
+      title: "Join a 2, 3, or 4 person pod with your friends or at random!",
+      // text: "Pods can hold up to 4 members (I can increase the limit if people want)",
       image: invitesImage.src,
-      // image: "",
     },
     {
       title: "Watch your pod members' progress in real time",
-      text: "See them accomplish their goals",
+      // text: "See them accomplish their goals",
       image: joinPodImage.src,
     },
     {
-      title: "Update your project progress and motivate your pod members",
-      text: "Alert your pod members when you reach a milestone",
+      title:
+        "Update your project progress and motivate your pod members with alerts",
+      // text: "Alert your pod members when you reach a milestone",
       image: progressImage.src,
     },
     {
-      title: "Get motivated and achieve your goals",
-      text: "Receive text notifications when your pod members are close to their goals for some extra motivation",
+      title:
+        "Receive sms when your pod members are close to their goals for some extra motivation",
+      // text: "Receive text notifications when your pod members are close to their goals for some extra motivation",
       image: smsImage.src,
-      // image: "",
     },
   ];
 
@@ -102,7 +103,7 @@ interface SamplesProps {
   setSlider: React.Dispatch<React.SetStateAction<Slider | null>>;
   top: string;
   side: string;
-  cards: { title: string; text: string; image: string }[];
+  cards: { title: string; text?: string; image: string }[];
 }
 
 const DesktopDisplay: React.FC<SamplesProps> = (props) => {
@@ -260,7 +261,7 @@ const MobileDisplay: React.FC<SamplesProps> = (props) => {
               <Box>
                 <Image
                   m={"auto"}
-                  width={{ base: "360px", sm: "500px", md: "700px" }}
+                  width={{ base: "100%", sm: "500px", md: "700px" }}
                   src={card.image}
                 ></Image>
               </Box>

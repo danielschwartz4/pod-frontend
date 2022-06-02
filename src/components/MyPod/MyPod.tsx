@@ -138,7 +138,6 @@ export const MyPod: React.FC<MyPodProps> = ({
                 bgColor="gainsboro"
                 cursor={"pointer"}
                 onClick={async () => {
-                  console.log("here ", podSize);
                   if (phone) {
                     await updatePhone({
                       variables: {

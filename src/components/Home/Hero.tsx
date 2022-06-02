@@ -12,9 +12,11 @@ const Hero: React.FC<HeroProps> = ({}) => {
       display={{ base: "block", lg: "flex" }}
       width={"100%"}
       alignItems={"center"}
+      minHeight={"65vh"}
     >
       <Box
         mx={"auto"}
+        mt={"auto"}
         p={2}
         textAlign={"center"}
         maxW={550}
@@ -25,6 +27,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         <Text>
           Stay <b>motivated</b> and <b>accountable</b> while pursing a solo goal
         </Text>
+
         <Box ml={4}>
           <Button
             textColor={"gainsboro"}
@@ -36,6 +39,10 @@ const Hero: React.FC<HeroProps> = ({}) => {
           >
             Join a pod and get started! 😆
           </Button>
+          <Text fontSize={24} mt={16}>
+            Whether you want to finish a book, a project, or anything else that
+            has a finite number of milestones, join others and make it happen
+          </Text>
         </Box>
       </Box>
       <Box
@@ -53,7 +60,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
             projectsData={[
               SeedData.ExampleProject1.project,
               SeedData.ExampleProject2.project,
-              SeedData.ExampleProject3.project,
+              // SeedData.ExampleProject3.project,
             ]}
           />
         </Box>
