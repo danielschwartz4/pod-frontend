@@ -6,6 +6,7 @@ import {
   Tab,
   TabList,
   TabPanel,
+  Text,
   TabPanels,
   Tabs,
   VStack,
@@ -69,6 +70,8 @@ const Home: React.FC<homeProps> = ({}) => {
     projectData?.project?.project?.milestoneProgress
   );
 
+  const [changeTab, useChangeTab] = useState<string>("project");
+
   useEffect(() => {
     if (projectData?.project?.project) {
       const sortedData = sortMilestones(
@@ -108,9 +111,10 @@ const Home: React.FC<homeProps> = ({}) => {
       _milestoneDates &&
       _milestoneProgress &&
       !projectDataLoading ? (
-        <VStack minH={"100vh"} h={"100%"} mt={{ base: 0, md: 16 }}>
+        <VStack minH={"100vh"} h={"100%"} w={"100%"} mt={{ base: 0, md: 16 }}>
           <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
             <EnterNewMilestone
+              changeTab={changeTab}
               milestones={_milestones}
               milestoneDates={_milestoneDates}
               milestoneProgress={_milestoneProgress}
@@ -118,6 +122,7 @@ const Home: React.FC<homeProps> = ({}) => {
               setMilestones={setMilestones}
               setMilestoneDates={setMilestoneDates}
               setMilestoneProgress={setMilestoneProgress}
+              podData={podData}
             />
             {showAlert ? (
               <Alert
@@ -150,13 +155,19 @@ const Home: React.FC<homeProps> = ({}) => {
           >
             <TabList mb="1em">
               <Tab
-                onClick={() => setKeepMounted(true)}
+                onClick={() => {
+                  useChangeTab("project");
+                  setKeepMounted(true);
+                }}
                 _selected={{ color: "white", bg: "#1a202c" }}
               >
                 My project
               </Tab>
               <Tab
-                onClick={() => setKeepMounted(true)}
+                onClick={() => {
+                  useChangeTab("pod");
+                  setKeepMounted(true);
+                }}
                 _selected={{ color: "white", bg: "#1a202c" }}
               >
                 My pod
@@ -190,6 +201,7 @@ const Home: React.FC<homeProps> = ({}) => {
                   <Box>Loading...</Box>
                 )}
               </TabPanel>
+
               <TabPanel minH={"600px"}>
                 <MyPod
                   projectData={projectData}
@@ -204,6 +216,13 @@ const Home: React.FC<homeProps> = ({}) => {
               </TabPanel>
             </TabPanels>
           </Tabs>
+          <Flex w={"80%"} color={"gainsboro"}>
+            {changeTab == "project" ? (
+              <Text ml={"auto"}>pinch and drag to zoom and pan*</Text>
+            ) : (
+              <></>
+            )}
+          </Flex>
         </VStack>
       ) : (
         <></>

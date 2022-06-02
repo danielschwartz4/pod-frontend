@@ -2,6 +2,7 @@ import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react";
 import { ErrorMessage, Form, Formik } from "formik";
 import React from "react";
 import {
+  PodQuery,
   useUpdateProjectMilestoneDatesMutation,
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
@@ -17,6 +18,8 @@ interface EnterNewMilestoneProps {
   setMilestones: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneDates: React.Dispatch<React.SetStateAction<string[]>>;
   setMilestoneProgress: React.Dispatch<React.SetStateAction<number[]>>;
+  changeTab: string;
+  podData: PodQuery;
 }
 
 interface SubProps {
@@ -80,17 +83,27 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
           <Form>
             <Flex mb={2} flexDirection={{ base: "column", md: "row" }}>
               <Box mt={"28px"} ml={4} mr={0}>
-                <Button
-                  cursor="pointer"
-                  onClick={() => setIsAddingMilestone(!isAddingMilestone)}
-                >
-                  {isAddingMilestone ? (
-                    <Text>Cancel</Text>
-                  ) : (
-                    <Text>Add milestone</Text>
-                  )}
-                </Button>
+                {props.changeTab == "project" ? (
+                  <Button
+                    cursor="pointer"
+                    onClick={() => setIsAddingMilestone(!isAddingMilestone)}
+                  >
+                    {isAddingMilestone ? (
+                      <Text>Cancel</Text>
+                    ) : (
+                      <Text>Add milestone</Text>
+                    )}
+                  </Button>
+                ) : (
+                  <Button>
+                    <Text>
+                      This pod has a cap of {props.podData?.pod?.pod?.cap}{" "}
+                      members
+                    </Text>
+                  </Button>
+                )}
               </Box>
+
               {isAddingMilestone ? (
                 <>
                   <Box display={{ base: "none", md: "flex" }}>
