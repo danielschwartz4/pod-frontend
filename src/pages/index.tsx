@@ -22,9 +22,9 @@ const Index: React.FC<IndexProps> = ({}) => {
         <Samples />
       </Box>
       <Divider w={"80%"} transform={"translateY(40px)"} />
-      {/* <Box mt={"4em"}>
+      <Box mt={"4em"}>
         <Features></Features>
-      </Box> */}
+      </Box>
     </Layout>
   );
 };

@@ -57,7 +57,7 @@ export default function CaptionCarousel() {
     },
     {
       title: "Watch your pod members' progress in real time",
-      text: "See accomplish their goals",
+      text: "See them accomplish their goals",
       image: joinPodImage.src,
     },
     {
