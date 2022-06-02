@@ -118,7 +118,7 @@ const Home: React.FC<homeProps> = ({}) => {
               milestones={_milestones}
               milestoneDates={_milestoneDates}
               milestoneProgress={_milestoneProgress}
-              projectId={projectData?.project?.project?.id}
+              projectData={projectData}
               setMilestones={setMilestones}
               setMilestoneDates={setMilestoneDates}
               setMilestoneProgress={setMilestoneProgress}
