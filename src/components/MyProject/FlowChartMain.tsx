@@ -249,18 +249,15 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
         <>
           <ReactFlow
             unselectable="off"
-            // elements={elements}
             nodes={elements[0]}
             edges={elements[1]}
             nodesConnectable={false}
-            // onLoad={onLoad}
             fitView
             selectNodesOnDrag={false}
-            zoomOnPinch={false}
+            zoomOnPinch={true}
             zoomOnScroll={false}
             zoomOnDoubleClick={false}
-            // panemoveable={"false"}
-            panOnDrag={false}
+            panOnDrag={true}
             onNodeContextMenu={onNodeContextMenu}
             suppressHydrationWarning={true}
             onNodeMouseEnter={onNodeMouseEnter}
