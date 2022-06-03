@@ -76,22 +76,11 @@ const Form = ({ meData, onClose, refetch }) => {
         bgColor="gainsboro"
         cursor={"pointer"}
         onClick={async () => {
-          console.log(meData?.me?.id);
-          console.log(phone);
           if (phone) {
             await updatePhone({
               variables: {
                 updatePhoneId: meData?.me?.id,
                 phone: phone,
-              },
-              update: (cache, { data }) => {
-                cache.writeQuery<MeQuery>({
-                  query: MeDocument,
-                  data: {
-                    __typename: "Query",
-                    me: data?.updatePhone?.user,
-                  },
-                });
               },
             });
           }

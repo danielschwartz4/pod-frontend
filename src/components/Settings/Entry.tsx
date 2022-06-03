@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
+import { useUpdatePhoneMutation } from "../../generated/graphql";
 import { accountProps } from "./Account";
 import Popup from "./Popup";
 
@@ -19,6 +20,8 @@ const Entry: React.FC<entryProps> = ({
   editable,
   refetch,
 }) => {
+  const [updatePhone] = useUpdatePhoneMutation();
+
   return (
     <Flex alignItems={"center"}>
       <Box>
@@ -35,17 +38,28 @@ const Entry: React.FC<entryProps> = ({
           </Text>
         )}
       </Box>
-
       {editable ? (
-        <Popup refetch={refetch} meData={meData}>
-          <Flex alignItems={"center"} textColor={"gainsboro"} ml={"auto"}>
-            {removable ? (
-              <Text cursor={"pointer"} onClick={() => console.log("hello")}>
-                <b> remove </b>
-              </Text>
-            ) : (
-              <></>
-            )}
+        <Flex alignItems={"center"} textColor={"gainsboro"} ml={"auto"}>
+          {removable ? (
+            <Text
+              // !! Fix margin so remove isn't overlapping button
+              cursor={"pointer"}
+              onClick={async () => {
+                await updatePhone({
+                  variables: {
+                    updatePhoneId: meData?.me?.id,
+                    phone: "",
+                  },
+                });
+                await refetch();
+              }}
+            >
+              remove
+            </Text>
+          ) : (
+            <></>
+          )}
+          <Popup refetch={refetch} meData={meData}>
             <Button
               ml={removable ? "1em" : "0"}
               textColor={"gainsboro"}
@@ -54,8 +68,8 @@ const Entry: React.FC<entryProps> = ({
             >
               <Text>Edit</Text>
             </Button>
-          </Flex>
-        </Popup>
+          </Popup>
+        </Flex>
       ) : (
         <></>
       )}

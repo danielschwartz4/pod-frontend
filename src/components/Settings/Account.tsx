@@ -23,6 +23,9 @@ const Account: React.FC<accountProps> = ({ meData, refetch }) => {
       h={"300px"}
       rounded={"lg"}
     >
+      <Box mt={2} mb={4}>
+        <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} />
+      </Box>
       <Entry
         refetch={refetch}
         title="USERNAME"
@@ -37,19 +40,7 @@ const Account: React.FC<accountProps> = ({ meData, refetch }) => {
         meData={meData}
         data={"phone"}
         editable
-      >
-        {/* <Button
-          ml={"1em"}
-          textColor={"gainsboro"}
-          bg={"gray.600"}
-          cursor={"pointer"}
-        >
-          <Text>Edit</Text>
-        </Button> */}
-      </Entry>
-      <Box mt={2} mb={4}>
-        <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} />
-      </Box>
+      ></Entry>
     </Flex>
   );
 };
