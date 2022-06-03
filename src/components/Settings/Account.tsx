@@ -1,14 +1,15 @@
 import { Flex, Box, Avatar } from "@chakra-ui/react";
 import React from "react";
-import { MeQuery } from "../../generated/graphql";
+import { MeQuery, ProjectQuery } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
 import Entry from "./Entry";
 
 export interface accountProps {
   meData: MeQuery;
+  projectData: ProjectQuery;
 }
 
-const Account: React.FC<accountProps> = ({ meData }) => {
+const Account: React.FC<accountProps> = ({ meData, projectData }) => {
   return (
     <Flex
       textColor={"gray.500"}
@@ -22,9 +23,20 @@ const Account: React.FC<accountProps> = ({ meData }) => {
       h={"300px"}
       rounded={"lg"}
     >
-      <Entry title="USERNAME" meData={meData} data={"username"}></Entry>
-      <Entry title="EMAIL" meData={meData} data={"email"}></Entry>
       <Entry
+        projectData={projectData}
+        title="USERNAME"
+        meData={meData}
+        data={"username"}
+      />
+      <Entry
+        projectData={projectData}
+        title="EMAIL"
+        meData={meData}
+        data={"email"}
+      />
+      <Entry
+        projectData={projectData}
         removable={true}
         title="PHONE NUMBER"
         meData={meData}

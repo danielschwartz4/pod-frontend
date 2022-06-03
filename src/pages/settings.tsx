@@ -1,22 +1,15 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Divider, Flex, VStack } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../components/Layout";
 import Account from "../components/Settings/Account";
 import Auth from "../components/Settings/Auth";
 import Removal from "../components/Settings/Removal";
-import { MeQuery, useMeQuery } from "../generated/graphql";
-import avatarMap from "../utils/avatarMap";
+import { useMeQuery } from "../generated/graphql";
+import { useGetProjectFromUrl } from "../utils/useGetProjectFromUrl";
 
 const Settings: React.FC = ({}) => {
   const { data: meData } = useMeQuery({});
+  const { data: projectData } = useGetProjectFromUrl();
 
   return (
     <Layout isProfile={false}>
@@ -28,13 +21,13 @@ const Settings: React.FC = ({}) => {
           w={"800px"}
         >
           <Box>
-            <Account meData={meData} />
+            <Account projectData={projectData} meData={meData} />
           </Box>
           <Box>
-            <Auth meData={meData} />
+            <Auth projectData={projectData} meData={meData} />
           </Box>
           <Box>
-            <Removal meData={meData} />
+            <Removal projectData={projectData} meData={meData} />
           </Box>
         </VStack>
       </Flex>
