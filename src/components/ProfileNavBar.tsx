@@ -38,7 +38,6 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
   return (
     <Box>
       <Flex
-        // bg={"gray.700"}
         bg={"#3c4349"}
         minH={"100px"}
         py={{ base: 2 }}
@@ -73,9 +72,17 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                 justifyContent={"end"}
                 alignItems={"center"}
               >
-                <Box fontSize={18} mr={6} color={"gainsboro"}>
+                {/* <Box fontSize={18} mr={6} color={"gainsboro"}>
                   {data?.me?.username}
-                </Box>
+                </Box> */}
+                <Button
+                  mr={4}
+                  colorScheme={"tan"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/settings")}
+                >
+                  {data?.me?.username}
+                </Button>
                 {!isProjectsPage ? (
                   <Button
                     mr={4}

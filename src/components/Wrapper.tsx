@@ -12,8 +12,7 @@ export const Wrapper: React.FC<WrapperProps> = ({
 }) => {
   return (
     <Box
-      mt={8}
-      // mx={"auto"}
+      // mt={8}
       width={
         variant === "large" ? "100vw" : variant === "medium" ? "60vw" : "40vw"
       }

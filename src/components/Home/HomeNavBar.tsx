@@ -37,7 +37,6 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
     <Box>
       <Flex
         bg={"gray.700"}
-        // bg={"#353b43"}
         minH={"100px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -71,9 +70,17 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
                 justifyContent={"end"}
                 alignItems={"center"}
               >
-                <Box fontSize={18} mr={6} color={"gainsboro"}>
+                {/* <Box fontSize={18} mr={6} color={"gainsboro"}>
                   {data?.me?.username}
-                </Box>
+                </Box> */}
+                <Button
+                  mr={4}
+                  colorScheme={"tan"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/settings")}
+                >
+                  {data?.me?.username}
+                </Button>
                 <Button
                   mr={4}
                   colorScheme={"tan"}

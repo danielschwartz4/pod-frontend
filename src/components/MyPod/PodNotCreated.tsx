@@ -303,7 +303,7 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
               </Box> */}
               <Box>
                 <Text ml={2} fontSize={20}>
-                  {props.meData?.me?.friendRequests[index].projectId}
+                  Project id {props.meData?.me?.friendRequests[index].projectId}{" "}
                 </Text>
               </Box>
 

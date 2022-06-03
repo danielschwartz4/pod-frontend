@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Center,
+  Flex,
   Heading,
   Stack,
   Text,
@@ -10,6 +11,7 @@ import {
 import { ReactFlowProvider } from "react-flow-renderer";
 import { Project, useMeQuery } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
+import compPercentage from "../../utils/compPercentage";
 import { convertFromMilitaryTime } from "../../utils/formatDate";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
@@ -58,13 +60,20 @@ const PodCard: React.FC<PodCardProps> = (props) => {
               {props.project.overview}
             </Text>
           </Stack>
-          <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
+          <Stack
+            textColor={"gray.500"}
+            mt={6}
+            direction={"row"}
+            spacing={4}
+            align={"center"}
+          >
             <Avatar src={avatarMap(data?.me?.avatar)} alt={"Author"} />
-            <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-              <Text color={"gray.500"}>
-                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
-              </Text>
-            </Stack>
+            <Text fontSize={14}>
+              Last update: {date[0]} {convertFromMilitaryTime(date[1])}
+            </Text>
+            <Text>
+              Done: {compPercentage(props.project?.milestoneProgress)}
+            </Text>
           </Stack>
         </Box>
       </Box>
