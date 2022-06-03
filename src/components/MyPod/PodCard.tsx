@@ -11,7 +11,9 @@ import {
 import { ReactFlowProvider } from "react-flow-renderer";
 import { Project, useMeQuery } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
-import compPercentage from "../../utils/compPercentage";
+import compPercentage, {
+  getColorForPercentage,
+} from "../../utils/compPercentage";
 import { convertFromMilitaryTime } from "../../utils/formatDate";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
@@ -55,10 +57,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
             >
               {props.project.projectName}
             </Heading>
-            <Text color={"gray.500"}>
-              {/* !! Make this cut off after certain number of words */}
-              {props.project.overview}
-            </Text>
+            <Text color={"gray.500"}>{props.project.overview}</Text>
           </Stack>
           <Stack
             textColor={"gray.500"}
@@ -71,8 +70,12 @@ const PodCard: React.FC<PodCardProps> = (props) => {
             <Text fontSize={14}>
               Last update: {date[0]} {convertFromMilitaryTime(date[1])}
             </Text>
-            <Text>
-              Done: {compPercentage(props.project?.milestoneProgress)}
+            <Text
+              textColor={getColorForPercentage(
+                compPercentage(props.project?.milestoneProgress) / 100
+              )}
+            >
+              Done: {compPercentage(props.project?.milestoneProgress) + "%"}
             </Text>
           </Stack>
         </Box>

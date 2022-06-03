@@ -13,6 +13,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   ProjectQuery,
   useDeleteProjectMutation,
+  useRemoveProjectFromPodMutation,
   useUpdateProjectNameMutation,
 } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
@@ -27,6 +28,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const [newName, setNewName] = useState<string>(project?.projectName);
   const [isChangingName, setIsChangingName] = useState<boolean>(false);
   const [updateProjectName] = useUpdateProjectNameMutation();
+  const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
 
   const handleUpdateProjectName = async () => {
     updateProjectName({
@@ -87,30 +89,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
         h={"250px"}
       >
         <Box textAlign={"center"} margin={"auto"}>
-          {/* <Heading
-            fontSize="xl"
-            ref={wrapperRef}
-            ml={"1em"}
-            onClick={() => {
-              setIsChangingName(true);
-            }}
-            cursor={isChangingName ? "text" : "pointer"}
-          >
-            {isChangingName ? (
-              <input
-                maxLength={30}
-                autoFocus={true}
-                type="text"
-                value={newName}
-                onKeyDown={handleKeyDown}
-                onChange={(e) => {
-                  setNewName(e.target.value);
-                }}
-              />
-            ) : (
-              newName
-            )}
-          </Heading> */}
           <Heading fontSize={"xl"}>
             <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
               <Link>
@@ -169,7 +147,17 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
             <Box ml={"auto"} mr={"1em"}>
               <DeleteIcon
                 cursor={"pointer"}
-                onClick={async () =>
+                onClick={async () => {
+                  const pod = project?.podId;
+                  if (pod != 0) {
+                    // First remove project from pod
+                    await removeProjectFromPod({
+                      variables: {
+                        removeProjectFromPodId: project?.podId,
+                        projectId: project?.id,
+                      },
+                    });
+                  }
                   await deleteProject({
                     variables: {
                       deleteProjectId: project?.id,
@@ -179,8 +167,8 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                         cache.evict({ id: "Project:" + project?.id });
                       }
                     },
-                  })
-                }
+                  });
+                }}
               />
             </Box>
           </Flex>
