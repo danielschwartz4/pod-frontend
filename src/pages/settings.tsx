@@ -12,7 +12,6 @@ const Settings: React.FC = ({}) => {
   useIsAuth();
 
   const { data: meData } = useMeQuery({});
-  const { data: projectData } = useGetProjectFromUrl();
 
   return (
     <Layout isProfile={false}>
@@ -24,13 +23,13 @@ const Settings: React.FC = ({}) => {
           w={"800px"}
         >
           <Box>
-            <Account projectData={projectData} meData={meData} />
+            <Account meData={meData} />
           </Box>
           <Box>
-            <Auth projectData={projectData} meData={meData} />
+            <Auth meData={meData} />
           </Box>
           <Box>
-            <Removal projectData={projectData} meData={meData} />
+            <Removal meData={meData} />
           </Box>
         </VStack>
       </Flex>

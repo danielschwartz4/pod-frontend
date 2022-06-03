@@ -10,16 +10,21 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import FocusLock from "react-focus-lock";
-import { ProjectQuery, useUpdatePhoneMutation } from "../../generated/graphql";
+import {
+  MeQuery,
+  ProjectQuery,
+  useUpdatePhoneMutation,
+  MeDocument,
+} from "../../generated/graphql";
 import { COUNTRIES } from "../Inputs/countries";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
 import PhoneNumber2 from "../Inputs/PhoneNumber2";
 
 interface PopupProps {
-  projectData: ProjectQuery;
+  meData: MeQuery;
 }
 
-const Popup: React.FC<PopupProps> = ({ children, projectData }) => {
+const Popup: React.FC<PopupProps> = ({ children, meData }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = React.useRef(null);
 
@@ -38,7 +43,7 @@ const Popup: React.FC<PopupProps> = ({ children, projectData }) => {
           <FocusLock returnFocus persistentFocus={false}>
             <PopoverArrow />
             <PopoverCloseButton />
-            <Form projectData={projectData} />
+            <Form onClose={onClose} meData={meData} />
           </FocusLock>
         </PopoverContent>
       </Popover>
@@ -46,7 +51,7 @@ const Popup: React.FC<PopupProps> = ({ children, projectData }) => {
   );
 };
 
-const Form = ({ projectData }) => {
+const Form = ({ meData, onClose }) => {
   const [phone, setPhone] = useState(null);
   const [updatePhone] = useUpdatePhoneMutation();
   const countryOptions = COUNTRIES.map(({ name, iso }) => ({
@@ -70,14 +75,26 @@ const Form = ({ projectData }) => {
         bgColor="gainsboro"
         cursor={"pointer"}
         onClick={async () => {
+          console.log(meData?.me?.id);
+          console.log(phone);
           if (phone) {
             await updatePhone({
               variables: {
-                updatePhoneId: projectData?.project?.project?.userId,
+                updatePhoneId: meData?.me?.id,
                 phone: phone,
+              },
+              update: (cache, { data }) => {
+                cache.writeQuery<MeQuery>({
+                  query: MeDocument,
+                  data: {
+                    __typename: "Query",
+                    me: data?.updatePhone?.user,
+                  },
+                });
               },
             });
           }
+          onClose();
         }}
       >
         Change

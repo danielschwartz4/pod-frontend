@@ -6,10 +6,9 @@ import Entry from "./Entry";
 
 export interface accountProps {
   meData: MeQuery;
-  projectData: ProjectQuery;
 }
 
-const Account: React.FC<accountProps> = ({ meData, projectData }) => {
+const Account: React.FC<accountProps> = ({ meData }) => {
   return (
     <Flex
       textColor={"gray.500"}
@@ -23,20 +22,9 @@ const Account: React.FC<accountProps> = ({ meData, projectData }) => {
       h={"300px"}
       rounded={"lg"}
     >
+      <Entry title="USERNAME" meData={meData} data={"username"} />
+      <Entry title="EMAIL" meData={meData} data={"email"} />
       <Entry
-        projectData={projectData}
-        title="USERNAME"
-        meData={meData}
-        data={"username"}
-      />
-      <Entry
-        projectData={projectData}
-        title="EMAIL"
-        meData={meData}
-        data={"email"}
-      />
-      <Entry
-        projectData={projectData}
         removable={true}
         title="PHONE NUMBER"
         meData={meData}

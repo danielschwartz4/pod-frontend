@@ -1,6 +1,5 @@
-import { Flex, Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
-import { ProjectQuery } from "../../generated/graphql";
 import { accountProps } from "./Account";
 import Popup from "./Popup";
 
@@ -9,7 +8,6 @@ interface entryProps extends accountProps {
   data: any;
   removable?: boolean;
   editable?: boolean;
-  projectData: ProjectQuery;
 }
 
 const Entry: React.FC<entryProps> = ({
@@ -18,7 +16,6 @@ const Entry: React.FC<entryProps> = ({
   data,
   removable,
   editable,
-  projectData,
 }) => {
   return (
     <Flex alignItems={"center"}>
@@ -38,7 +35,7 @@ const Entry: React.FC<entryProps> = ({
       </Box>
 
       {editable ? (
-        <Popup projectData={projectData}>
+        <Popup meData={meData}>
           <Flex alignItems={"center"} textColor={"gainsboro"} ml={"auto"}>
             {removable ? (
               <Text cursor={"pointer"} onClick={() => console.log("hello")}>
