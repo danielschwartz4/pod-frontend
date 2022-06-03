@@ -1,17 +1,20 @@
 import { Box, Divider, Flex, VStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
 import Account from "../components/Settings/Account";
 import Auth from "../components/Settings/Auth";
 import Removal from "../components/Settings/Removal";
 import { useMeQuery } from "../generated/graphql";
-import { useGetProjectFromUrl } from "../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../utils/usIsAuth";
 
 const Settings: React.FC = ({}) => {
   useIsAuth();
 
-  const { data: meData } = useMeQuery({});
+  const { data: meData, refetch } = useMeQuery({});
+
+  useEffect(() => {
+    refetch();
+  }, [meData]);
 
   return (
     <Layout isProfile={false}>
@@ -23,13 +26,13 @@ const Settings: React.FC = ({}) => {
           w={"800px"}
         >
           <Box>
-            <Account meData={meData} />
+            <Account refetch={refetch} meData={meData} />
           </Box>
           <Box>
-            <Auth meData={meData} />
+            <Auth refetch={refetch} meData={meData} />
           </Box>
           <Box>
-            <Removal meData={meData} />
+            <Removal refetch={refetch} meData={meData} />
           </Box>
         </VStack>
       </Flex>

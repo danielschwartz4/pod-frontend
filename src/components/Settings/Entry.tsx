@@ -8,6 +8,7 @@ interface entryProps extends accountProps {
   data: any;
   removable?: boolean;
   editable?: boolean;
+  refetch: () => void;
 }
 
 const Entry: React.FC<entryProps> = ({
@@ -16,6 +17,7 @@ const Entry: React.FC<entryProps> = ({
   data,
   removable,
   editable,
+  refetch,
 }) => {
   return (
     <Flex alignItems={"center"}>
@@ -35,7 +37,7 @@ const Entry: React.FC<entryProps> = ({
       </Box>
 
       {editable ? (
-        <Popup meData={meData}>
+        <Popup refetch={refetch} meData={meData}>
           <Flex alignItems={"center"} textColor={"gainsboro"} ml={"auto"}>
             {removable ? (
               <Text cursor={"pointer"} onClick={() => console.log("hello")}>

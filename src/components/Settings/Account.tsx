@@ -6,9 +6,10 @@ import Entry from "./Entry";
 
 export interface accountProps {
   meData: MeQuery;
+  refetch: () => void;
 }
 
-const Account: React.FC<accountProps> = ({ meData }) => {
+const Account: React.FC<accountProps> = ({ meData, refetch }) => {
   return (
     <Flex
       textColor={"gray.500"}
@@ -22,9 +23,15 @@ const Account: React.FC<accountProps> = ({ meData }) => {
       h={"300px"}
       rounded={"lg"}
     >
-      <Entry title="USERNAME" meData={meData} data={"username"} />
-      <Entry title="EMAIL" meData={meData} data={"email"} />
       <Entry
+        refetch={refetch}
+        title="USERNAME"
+        meData={meData}
+        data={"username"}
+      />
+      <Entry refetch={refetch} title="EMAIL" meData={meData} data={"email"} />
+      <Entry
+        refetch={refetch}
         removable={true}
         title="PHONE NUMBER"
         meData={meData}

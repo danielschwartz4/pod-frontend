@@ -22,9 +22,10 @@ import PhoneNumber2 from "../Inputs/PhoneNumber2";
 
 interface PopupProps {
   meData: MeQuery;
+  refetch: () => void;
 }
 
-const Popup: React.FC<PopupProps> = ({ children, meData }) => {
+const Popup: React.FC<PopupProps> = ({ children, meData, refetch }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = React.useRef(null);
 
@@ -43,7 +44,7 @@ const Popup: React.FC<PopupProps> = ({ children, meData }) => {
           <FocusLock returnFocus persistentFocus={false}>
             <PopoverArrow />
             <PopoverCloseButton />
-            <Form onClose={onClose} meData={meData} />
+            <Form refetch={refetch} onClose={onClose} meData={meData} />
           </FocusLock>
         </PopoverContent>
       </Popover>
@@ -51,7 +52,7 @@ const Popup: React.FC<PopupProps> = ({ children, meData }) => {
   );
 };
 
-const Form = ({ meData, onClose }) => {
+const Form = ({ meData, onClose, refetch }) => {
   const [phone, setPhone] = useState(null);
   const [updatePhone] = useUpdatePhoneMutation();
   const countryOptions = COUNTRIES.map(({ name, iso }) => ({
@@ -94,6 +95,7 @@ const Form = ({ meData, onClose }) => {
               },
             });
           }
+          await refetch();
           onClose();
         }}
       >
