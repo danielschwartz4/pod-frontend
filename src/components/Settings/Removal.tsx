@@ -2,11 +2,14 @@ import { LockIcon, WarningIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
+import { useDeleteUserMutation } from "../../generated/graphql";
 import { accountProps } from "./Account";
 
 interface removalProps extends accountProps {}
 
-const Removal: React.FC<removalProps> = ({}) => {
+const Removal: React.FC<removalProps> = ({ refetch }) => {
+  const [deleteUser] = useDeleteUserMutation();
+
   // !! Cascading delete
   return (
     <Flex
@@ -28,7 +31,15 @@ const Removal: React.FC<removalProps> = ({}) => {
       </Box>
       <Flex>
         <Box mr={"auto"}>
-          <Button colorScheme={"red"}>
+          <Button
+            colorScheme={"red"}
+            onClick={() => {
+              const user = deleteUser();
+              if (user) {
+                refetch();
+              }
+            }}
+          >
             <Text>delete account</Text>
           </Button>
         </Box>

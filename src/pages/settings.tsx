@@ -20,7 +20,7 @@ const Settings: React.FC = ({}) => {
     <Layout isProfile={false}>
       <Flex minH={"100vh"} h={"100%"}>
         <VStack
-          divider={<Divider />}
+          divider={<Divider color={"gray.600"} />}
           bgColor={"gray.700"}
           mx={"auto"}
           w={"800px"}
@@ -29,7 +29,7 @@ const Settings: React.FC = ({}) => {
             <Account refetch={refetch} meData={meData} />
           </Box>
           <Box>
-            <Auth refetch={refetch} meData={meData} />
+            <Auth meData={meData} />
           </Box>
           <Box>
             <Removal refetch={refetch} meData={meData} />

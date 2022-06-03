@@ -6,7 +6,7 @@ import Entry from "./Entry";
 
 export interface accountProps {
   meData: MeQuery;
-  refetch: () => void;
+  refetch?: () => void;
 }
 
 const Account: React.FC<accountProps> = ({ meData, refetch }) => {
