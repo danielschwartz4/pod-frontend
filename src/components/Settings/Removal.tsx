@@ -43,12 +43,14 @@ const Removal: React.FC<removalProps> = ({ refetch }) => {
               const data = await getProjectsData();
               data?.data?.projects?.forEach(async (project) => {
                 if (project?.podId != 0) {
+                  // update project pod
                   await updateProjectPod({
                     variables: {
                       podId: 0,
                       updateProjectPodId: project?.id,
                     },
                   });
+                  // remove project from pod
                   const pod = await removeProjectFromPod({
                     variables: {
                       removeProjectFromPodId: project?.podId,
@@ -57,6 +59,7 @@ const Removal: React.FC<removalProps> = ({ refetch }) => {
                   });
                 }
               });
+              //  Then delete user
               const user = await deleteUser();
               if (user) {
                 refetch();

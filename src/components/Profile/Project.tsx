@@ -159,12 +159,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                       },
                     });
                   }
-                  await updateProjectPod({
-                    variables: {
-                      podId: 0,
-                      updateProjectPodId: project?.id,
-                    },
-                  });
+                  // Then delete project
                   await deleteProject({
                     variables: {
                       deleteProjectId: project?.id,
