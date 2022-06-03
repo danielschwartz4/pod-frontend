@@ -1,16 +1,22 @@
-import { LockIcon, WarningIcon } from "@chakra-ui/icons";
+import { WarningIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import router from "next/router";
 import React from "react";
-import { useDeleteUserMutation } from "../../generated/graphql";
+import {
+  useDeleteUserMutation,
+  useProjectsLazyQuery,
+  useRemoveProjectFromPodMutation,
+  useUpdateProjectPodMutation,
+} from "../../generated/graphql";
 import { accountProps } from "./Account";
 
 interface removalProps extends accountProps {}
 
 const Removal: React.FC<removalProps> = ({ refetch }) => {
   const [deleteUser] = useDeleteUserMutation();
+  const [getProjectsData, { data: projectsData }] = useProjectsLazyQuery();
+  const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
+  const [updateProjectPod] = useUpdateProjectPodMutation();
 
-  // !! Cascading delete
   return (
     <Flex
       textColor={"gray.500"}
@@ -33,8 +39,25 @@ const Removal: React.FC<removalProps> = ({ refetch }) => {
         <Box mr={"auto"}>
           <Button
             colorScheme={"red"}
-            onClick={() => {
-              const user = deleteUser();
+            onClick={async () => {
+              const data = await getProjectsData();
+              data?.data?.projects?.forEach(async (project) => {
+                if (project?.podId != 0) {
+                  await updateProjectPod({
+                    variables: {
+                      podId: 0,
+                      updateProjectPodId: project?.id,
+                    },
+                  });
+                  const pod = await removeProjectFromPod({
+                    variables: {
+                      removeProjectFromPodId: project?.podId,
+                      projectId: project?.id,
+                    },
+                  });
+                }
+              });
+              const user = await deleteUser();
               if (user) {
                 refetch();
               }

@@ -90,3 +90,6 @@ GraphQLJSONObject for graphql field types
 6-01-22
 For some reason some of the image files with camel case wern't reading
 Not adding error mapping for adding pod friend so that people don't spam random users
+
+6-03-22
+Foreign key constraint violated due to many to one relationship in typeorm table

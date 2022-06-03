@@ -15,6 +15,7 @@ import {
   useDeleteProjectMutation,
   useRemoveProjectFromPodMutation,
   useUpdateProjectNameMutation,
+  useUpdateProjectPodMutation,
 } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 import { generateProgress, generateSms } from "../../utils/smsBody";
@@ -29,6 +30,7 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const [isChangingName, setIsChangingName] = useState<boolean>(false);
   const [updateProjectName] = useUpdateProjectNameMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
+  const [updateProjectPod] = useUpdateProjectPodMutation();
 
   const handleUpdateProjectName = async () => {
     updateProjectName({
@@ -143,7 +145,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                 )}
               </Box>
             </Box>
-
             <Box ml={"auto"} mr={"1em"}>
               <DeleteIcon
                 cursor={"pointer"}
@@ -158,6 +159,12 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
                       },
                     });
                   }
+                  await updateProjectPod({
+                    variables: {
+                      podId: 0,
+                      updateProjectPodId: project?.id,
+                    },
+                  });
                   await deleteProject({
                     variables: {
                       deleteProjectId: project?.id,
