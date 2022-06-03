@@ -6,8 +6,11 @@ import Auth from "../components/Settings/Auth";
 import Removal from "../components/Settings/Removal";
 import { useMeQuery } from "../generated/graphql";
 import { useGetProjectFromUrl } from "../utils/useGetProjectFromUrl";
+import { useIsAuth } from "../utils/usIsAuth";
 
 const Settings: React.FC = ({}) => {
+  useIsAuth();
+
   const { data: meData } = useMeQuery({});
   const { data: projectData } = useGetProjectFromUrl();
 

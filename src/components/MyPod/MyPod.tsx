@@ -15,6 +15,7 @@ import {
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
 import { useIsAuth } from "../../utils/usIsAuth";
+import { COUNTRIES } from "../Inputs/countries";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
 import { exitPod, joinPod } from "./JoinExit";
 import { PodCreated } from "./PodCreated";
@@ -54,6 +55,11 @@ export const MyPod: React.FC<MyPodProps> = ({
   meData,
 }) => {
   useIsAuth();
+
+  const countryOptions = COUNTRIES.map(({ name, iso }) => ({
+    label: name,
+    value: iso,
+  }));
 
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
@@ -129,7 +135,12 @@ export const MyPod: React.FC<MyPodProps> = ({
           {podSize != null ? (
             <>
               {meData?.me?.phone == null ? (
-                <PhoneNumber setPhone={setPhone} />
+                <PhoneNumber
+                  country="US"
+                  options={countryOptions}
+                  placeholder="Enter phone number"
+                  setPhone={setPhone}
+                />
               ) : null}
               <Button
                 w={"100px"}

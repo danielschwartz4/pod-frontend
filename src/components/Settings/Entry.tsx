@@ -2,7 +2,7 @@ import { Flex, Box, Button, Text } from "@chakra-ui/react";
 import React from "react";
 import { ProjectQuery } from "../../generated/graphql";
 import { accountProps } from "./Account";
-import { Popup } from "./Popup";
+import Popup from "./Popup";
 
 interface entryProps extends accountProps {
   title: string;

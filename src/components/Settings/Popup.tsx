@@ -11,13 +11,15 @@ import {
 import React, { useState } from "react";
 import FocusLock from "react-focus-lock";
 import { ProjectQuery, useUpdatePhoneMutation } from "../../generated/graphql";
+import { COUNTRIES } from "../Inputs/countries";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
+import PhoneNumber2 from "../Inputs/PhoneNumber2";
 
 interface PopupProps {
   projectData: ProjectQuery;
 }
 
-export const Popup: React.FC<PopupProps> = ({ children, projectData }) => {
+const Popup: React.FC<PopupProps> = ({ children, projectData }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = React.useRef(null);
 
@@ -47,10 +49,20 @@ export const Popup: React.FC<PopupProps> = ({ children, projectData }) => {
 const Form = ({ projectData }) => {
   const [phone, setPhone] = useState(null);
   const [updatePhone] = useUpdatePhoneMutation();
+  const countryOptions = COUNTRIES.map(({ name, iso }) => ({
+    label: name,
+    value: iso,
+  }));
 
   return (
     <Box>
-      <PhoneNumber setPhone={setPhone} />
+      <PhoneNumber
+        country="US"
+        options={countryOptions}
+        placeholder="Enter phone number"
+        setPhone={setPhone}
+      />
+
       <Button
         w={"100px"}
         mt={"8"}
@@ -68,8 +80,10 @@ const Form = ({ projectData }) => {
           }
         }}
       >
-        Join!
+        Change
       </Button>
     </Box>
   );
 };
+
+export default Popup;

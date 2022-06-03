@@ -25,6 +25,7 @@
     "graphql-tag": "^2.12.6",
     "graphql-type-json": "^0.3.2",
     "ioredis": "^4.28.5",
+    "libphonenumber-js": "^1.10.6",
     "next": "latest",
     "react": "^17.0.2",
     "react-datepicker": "^4.6.0",
@@ -33,6 +34,7 @@
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.1",
     "react-slick": "^0.29.0",
+    "react-world-flags": "^1.5.0",
     "states-cities-db": "^1.4.1"
   },
   "devDependencies": {
