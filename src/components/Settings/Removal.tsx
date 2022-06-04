@@ -8,6 +8,7 @@ import {
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
 import { accountProps } from "./Account";
+import Section from "./Section";
 
 interface removalProps extends accountProps {}
 
@@ -18,18 +19,7 @@ const Removal: React.FC<removalProps> = ({ refetch }) => {
   const [updateProjectPod] = useUpdateProjectPodMutation();
 
   return (
-    <Flex
-      textColor={"gray.500"}
-      fontSize={"lg"}
-      justifyContent={"space-between"}
-      direction={"column"}
-      m={4}
-      p={4}
-      bg={"gray.800"}
-      w={"500px"}
-      h={"100px"}
-      rounded={"lg"}
-    >
+    <Section>
       <Box mt={-4}>
         <Text fontSize={24} textColor={"gray.500"}>
           <b>ACCOUNT REMOVAL</b>
@@ -73,7 +63,7 @@ const Removal: React.FC<removalProps> = ({ refetch }) => {
           <WarningIcon />
         </Box>
       </Flex>
-    </Flex>
+    </Section>
   );
 };
 

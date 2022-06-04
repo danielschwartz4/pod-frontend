@@ -23,7 +23,7 @@ const Entry: React.FC<entryProps> = ({
   const [updatePhone] = useUpdatePhoneMutation();
 
   return (
-    <Flex alignItems={"center"}>
+    <Flex display={["block", "flex"]} alignItems={"center"}>
       <Box>
         <Text>
           <b> {title} </b>
@@ -42,7 +42,6 @@ const Entry: React.FC<entryProps> = ({
         <Flex alignItems={"center"} textColor={"gainsboro"} ml={"auto"}>
           {removable ? (
             <Text
-              // !! Fix margin so remove isn't overlapping button
               cursor={"pointer"}
               onClick={async () => {
                 await updatePhone({
@@ -51,7 +50,7 @@ const Entry: React.FC<entryProps> = ({
                     phone: "",
                   },
                 });
-                await refetch();
+                refetch();
               }}
             >
               remove

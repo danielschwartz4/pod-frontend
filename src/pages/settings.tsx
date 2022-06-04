@@ -18,12 +18,11 @@ const Settings: React.FC = ({}) => {
 
   return (
     <Layout isProfile={false}>
-      <Flex minH={"100vh"} h={"100%"}>
+      <Flex minH={"75vh"} h={"100%"}>
         <VStack
           divider={<Divider color={"gray.600"} />}
           bgColor={"gray.700"}
           mx={"auto"}
-          w={"800px"}
         >
           <Box>
             <Account refetch={refetch} meData={meData} />

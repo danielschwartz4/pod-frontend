@@ -31,13 +31,11 @@ const Popup: React.FC<PopupProps> = ({ children, meData, refetch }) => {
 
   return (
     <>
-      <Popover
+      <PopupWrap
         isOpen={isOpen}
-        initialFocusRef={firstFieldRef}
+        firstFieldRef={firstFieldRef}
         onOpen={onOpen}
         onClose={onClose}
-        placement="right"
-        closeOnBlur={false}
       >
         <PopoverTrigger>{children}</PopoverTrigger>
         <PopoverContent p={5}>
@@ -47,8 +45,39 @@ const Popup: React.FC<PopupProps> = ({ children, meData, refetch }) => {
             <Form refetch={refetch} onClose={onClose} meData={meData} />
           </FocusLock>
         </PopoverContent>
-      </Popover>
+      </PopupWrap>
     </>
+  );
+};
+
+const PopupWrap = ({ children, isOpen, firstFieldRef, onOpen, onClose }) => {
+  return (
+    <Box>
+      <Box display={["none", "block"]}>
+        <Popover
+          isOpen={isOpen}
+          initialFocusRef={firstFieldRef}
+          onOpen={onOpen}
+          onClose={onClose}
+          placement={"right"}
+          closeOnBlur={false}
+        >
+          {children}
+        </Popover>
+      </Box>
+      <Box display={["block", "none"]}>
+        <Popover
+          isOpen={isOpen}
+          initialFocusRef={firstFieldRef}
+          onOpen={onOpen}
+          onClose={onClose}
+          placement={"top"}
+          closeOnBlur={false}
+        >
+          {children}
+        </Popover>
+      </Box>
+    </Box>
   );
 };
 

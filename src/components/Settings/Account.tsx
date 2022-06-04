@@ -1,8 +1,9 @@
-import { Flex, Box, Avatar } from "@chakra-ui/react";
+import { Flex, Box, Text, Avatar } from "@chakra-ui/react";
 import React from "react";
 import { MeQuery, ProjectQuery } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
 import Entry from "./Entry";
+import Section from "./Section";
 
 export interface accountProps {
   meData: MeQuery;
@@ -11,21 +12,17 @@ export interface accountProps {
 
 const Account: React.FC<accountProps> = ({ meData, refetch }) => {
   return (
-    <Flex
-      textColor={"gray.500"}
-      fontSize={"lg"}
-      justifyContent={"space-between"}
-      direction={"column"}
-      m={4}
-      p={4}
-      bg={"gray.800"}
-      w={"500px"}
-      h={"300px"}
-      rounded={"lg"}
-    >
-      <Box mt={2} mb={4}>
-        <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} />
-      </Box>
+    <Section>
+      <Flex display={["block", "flex"]} mt={-4} alignItems={"center"}>
+        <Text fontSize={24} textColor={"gray.500"}>
+          <b>USER INFO</b>
+        </Text>
+        <Avatar
+          ml={"auto"}
+          src={avatarMap(meData?.me?.avatar)}
+          alt={"Author"}
+        />
+      </Flex>
       <Entry
         refetch={refetch}
         title="USERNAME"
@@ -35,13 +32,13 @@ const Account: React.FC<accountProps> = ({ meData, refetch }) => {
       <Entry refetch={refetch} title="EMAIL" meData={meData} data={"email"} />
       <Entry
         refetch={refetch}
-        removable={true}
         title="PHONE NUMBER"
         meData={meData}
         data={"phone"}
         editable
-      ></Entry>
-    </Flex>
+        removable
+      />
+    </Section>
   );
 };
 
