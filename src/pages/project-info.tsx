@@ -28,7 +28,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
           mx={{ base: 2, sm: "auto" }}
           padding={4}
           border="4px"
-          borderColor={"gainsboro"}
+          borderColor={"gray.600"}
           borderRadius={12}
           maxW={"600px"}
           justifyContent={"center"}
