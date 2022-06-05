@@ -2,11 +2,11 @@ import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../components/Layout";
 import EnterProject from "../components/ProjectInfo/EnterProject";
-import RecurringTask from "../components/ProjectInfo/recurringTask";
 import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { useIsAuth } from "../utils/usIsAuth";
+import RecurringTask from "../components/ProjectInfo/recurringTask";
 
 interface ProjectInfoProps {}
 
@@ -30,7 +30,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
           maxW={"600px"}
           justifyContent={"center"}
         >
-          <Tabs isFitted={true} variant="enclosed">
+          <Tabs isFitted={true} variant="enclosed" defaultIndex={1}>
             <TabList>
               <Tab _selected={{ color: "white", bg: "#1a202c" }}>
                 Project &#160; <RiFlowChart />
@@ -42,7 +42,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
             </TabList>
             <TabPanels>
               <TabPanel minH={"600px"}>
-                <EnterProject meData={data}></EnterProject>
+                <EnterProject meData={data} />
               </TabPanel>
 
               <TabPanel minH={"600px"}>

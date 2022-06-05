@@ -1,7 +1,6 @@
 fragment RegularRecurringTask on RecurringTask {
   userId
   id
-  dayData
   days
   endDate
   startDate

@@ -257,7 +257,6 @@ export type QueryRecurringTaskArgs = {
 export type RecurringTask = {
   __typename?: 'RecurringTask';
   createdAt: Scalars['DateTime'];
-  dayData: Array<Scalars['String']>;
   days: Array<Scalars['String']>;
   endDate: Scalars['DateTime'];
   friendProposals?: Maybe<Array<Scalars['String']>>;
@@ -314,7 +313,7 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, dayData: Array<string>, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
+export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -411,7 +410,7 @@ export type CreateRecurringTaskMutationVariables = Exact<{
 }>;
 
 
-export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, dayData: Array<string>, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
+export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -522,7 +521,7 @@ export type RecurringTaskQueryVariables = Exact<{
 }>;
 
 
-export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, dayData: Array<string>, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } | null };
+export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -559,7 +558,6 @@ export const RegularRecurringTaskFragmentDoc = gql`
     fragment RegularRecurringTask on RecurringTask {
   userId
   id
-  dayData
   days
   endDate
   startDate
