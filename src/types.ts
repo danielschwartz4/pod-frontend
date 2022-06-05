@@ -26,3 +26,11 @@ export interface NodeDate {
   id: string;
   date: string;
 }
+
+export interface EndOptions {
+  date: Date;
+  repetitions: number;
+  neverEnds: boolean;
+}
+
+export type EndOptionsSelector = "none" | "date" | "repetitions" | "never";

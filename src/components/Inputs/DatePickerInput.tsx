@@ -29,7 +29,6 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
       ) : null}
       <Box>
         <DatePicker
-          // width={"fill-available"}
           className="date-picker"
           placeholderText={placeholder}
           {...field}

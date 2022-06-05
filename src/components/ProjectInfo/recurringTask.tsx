@@ -1,15 +1,22 @@
-import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { Formik, Form, ErrorMessage } from "formik";
 import router from "next/router";
 import React from "react";
+import { EndOptions, EndOptionsSelector } from "../../types";
 import { objectToArray } from "../../utils/objectToArray";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
 import MilestoneInputs from "../Inputs/MilestoneInputs";
+import EndTaskSelection from "./EndTaskSelection";
 
 interface RecurringTaskProps {}
 
 const RecurringTask: React.FC<RecurringTaskProps> = ({}) => {
+  const [endOptionsSelector, setEndOptionsSelector] =
+    React.useState<EndOptionsSelector>("none");
+
+  console.log(endOptionsSelector);
+
   return (
     <Box>
       <Heading fontSize={24} color={"gainsboro"}>
@@ -22,8 +29,8 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({}) => {
         initialValues={{
           overview: "",
           projectName: "",
-          startDate: new Date(),
-          endDate: null,
+          startDate: null,
+          endOptions: { date: null, repetitions: null, neverEnds: true },
           days: [
             {
               monday: { isSelected: false, duration: null },
@@ -52,19 +59,61 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({}) => {
                     label="Overview"
                     isField={true}
                   />
-                  <Divider mt={4} color={"grey"} />
-                  <DatePickerInput
-                    name={"startDate"}
-                    label="Completion date"
-                    showTimeSelect={false}
-                    placeholder="date"
-                    regularPosition
-                  />
-                  <ErrorMessage
-                    name={"startDate"}
-                    component="div"
-                    className="field-error"
-                  />
+                  <Divider mx={"auto"} mt={4} color={"grey"} />
+
+                  <Box mt={4} maxW={"200px"}>
+                    <DatePickerInput
+                      name={"startDate"}
+                      label="Start date"
+                      showTimeSelect={false}
+                      placeholder="date"
+                      regularPosition
+                    />
+                    <ErrorMessage
+                      name={"startDate"}
+                      component="div"
+                      className="field-error"
+                    />
+                  </Box>
+                  <Box mt={4} maxW={"200px"}>
+                    {/* <DatePickerInput
+                      name={"endDate"}
+                      label="End date"
+                      showTimeSelect={false}
+                      placeholder="date"
+                      regularPosition
+                    />
+                    <ErrorMessage
+                      name={"endDate"}
+                      component="div"
+                      className="field-error"
+                    /> */}
+                    <Text mb={2} color={"gainsboro"}>
+                      End options
+                    </Text>
+
+                    <EndTaskSelection
+                      setEndOptionsSelector={setEndOptionsSelector}
+                    />
+                    {endOptionsSelector === "date" ? (
+                      <>
+                        <DatePickerInput
+                          name={"endDate"}
+                          label="End date"
+                          showTimeSelect={false}
+                          placeholder="date"
+                          regularPosition
+                        />
+                        <ErrorMessage
+                          name={"endDate"}
+                          component="div"
+                          className="field-error"
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </Box>
                 </Box>
               </Box>
             </Box>

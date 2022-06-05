@@ -6,7 +6,7 @@ import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { useIsAuth } from "../utils/usIsAuth";
-import RecurringTask from "../components/ProjectInfo/recurringTask";
+import RecurringTask from "../components/ProjectInfo/RecurringTask";
 
 interface ProjectInfoProps {}
 

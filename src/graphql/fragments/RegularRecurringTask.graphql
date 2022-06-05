@@ -2,8 +2,9 @@ fragment RegularRecurringTask on RecurringTask {
   userId
   id
   days
-  endDate
+  endOptions
   startDate
+  endOptions
   createdAt
   updatedAt
   overview
