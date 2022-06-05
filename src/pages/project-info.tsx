@@ -1,20 +1,17 @@
-import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
-import router from "next/router";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
-import { InputField } from "../components/Inputs/InputField";
-import MilestoneInputs from "../components/Inputs/MilestoneInputs";
 import { Layout } from "../components/Layout";
-import { useAddProjectInfoMutation, useMeQuery } from "../generated/graphql";
+import { MyPod } from "../components/MyPod/MyPod";
+import FlowChartMain from "../components/MyProject/FlowChartMain";
+import EnterProject from "../components/ProjectInfo/EnterProject";
+import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
-import { objectToArray } from "../utils/objectToArray";
 import { useIsAuth } from "../utils/usIsAuth";
 
 interface ProjectInfoProps {}
 
 const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
   useIsAuth();
-  const [addProjectInfo] = useAddProjectInfoMutation();
 
   const { data, loading, error } = useMeQuery({
     // !! Look up wtf this is!!!!!!!!
@@ -33,77 +30,21 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
           maxW={"600px"}
           justifyContent={"center"}
         >
-          <Heading fontSize={24} color={"gainsboro"}>
-            Tell us what you're working on so we can build a flow for you!
-          </Heading>
-          <Text color={"grey"}>
-            * you can edit your project as much as you'd like later *
-          </Text>
-          <Formik
-            initialValues={{
-              milestone: [
-                {
-                  description: "",
-                  completionDate: "",
-                },
-              ],
-              overview: "",
-              projectName: "",
-            }}
-            onSubmit={async ({ milestone, overview }, { setErrors }) => {
-              const descriptionArray = objectToArray(milestone, "description");
-              const completionDateArray = objectToArray(
-                milestone,
-                "completionDate"
-              );
-              const response = await addProjectInfo({
-                variables: {
-                  projectOptions: {
-                    userId: data?.me.id,
-                    milestones: descriptionArray,
-                    overview: overview,
-                    milestoneDates: completionDateArray,
-                    milestoneProgress: Array(descriptionArray.length).fill(1),
-                    projectName: "Click here to name project",
-                  },
-                },
-              });
-              router.push("/profile");
-            }}
-          >
-            {({ isSubmitting, values }) => (
-              <Form>
-                <Box>
-                  <Box mr={8} color={"gainsboro"}>
-                    <InputField
-                      color="grey"
-                      name="overview"
-                      placeholder="enter a brief overview of your project for your pod members"
-                      label="Overview"
-                      isField={true}
-                    />
-                  </Box>
-                  <Divider mt={4} color={"grey"}></Divider>
-                  <Text color={"grey"}>
-                    * enter your milestones and tentative completion dates *
-                  </Text>
-                  <Box color={"gainsboro"}>
-                    <MilestoneInputs values={values} />
-                  </Box>
+          <Tabs isFitted={true} variant="enclosed">
+            <TabList>
+              <Tab _selected={{ color: "white", bg: "#1a202c" }}>Project</Tab>
+              <Tab _selected={{ color: "white", bg: "#1a202c" }}>
+                Recurring task
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel minH={"600px"}>
+                <EnterProject meData={data}></EnterProject>
+              </TabPanel>
 
-                  <Button
-                    mx={"auto"}
-                    mt={4}
-                    type="submit"
-                    isloading={isSubmitting ? "true" : "false"}
-                    cursor="pointer"
-                  >
-                    Get started!
-                  </Button>
-                </Box>
-              </Form>
-            )}
-          </Formik>
+              <TabPanel minH={"600px"}></TabPanel>
+            </TabPanels>
+          </Tabs>
         </Box>
       </Box>
     </Layout>

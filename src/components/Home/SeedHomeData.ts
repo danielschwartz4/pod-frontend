@@ -11,7 +11,7 @@ const SeedData = {
         "Perform at the recital 😃🎹🎉",
       ],
       milestoneDates: ["1", "2", "3", "4", "5", "6", "7"],
-      milestoneProgress: [3, 3, 3, 2, 1, 1, 1],
+      milestoneProgress: [3, 3, 2, 1, 1, 1, 1],
 
       overview:
         "Learning a new Scott Joplin song for my recital in July! Excited/Nervous!",
@@ -32,7 +32,7 @@ const SeedData = {
         "Do 5 user interviews to see what’s missing",
       ],
       milestoneDates: ["1", "2", "3", "4"],
-      milestoneProgress: [3, 3, 2, 1],
+      milestoneProgress: [3, 3, 3, 2],
 
       overview: "I'd like to gain 10k followers by July 1st!",
       createdAt: "Mar 29 2022",

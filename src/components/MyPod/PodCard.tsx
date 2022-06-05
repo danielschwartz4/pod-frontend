@@ -75,7 +75,7 @@ const PodCard: React.FC<PodCardProps> = (props) => {
                 compPercentage(props.project?.milestoneProgress) / 100
               )}
             >
-              Done: {compPercentage(props.project?.milestoneProgress) + "%"}
+              Comp: {compPercentage(props.project?.milestoneProgress) + "%"}
             </Text>
           </Stack>
         </Box>

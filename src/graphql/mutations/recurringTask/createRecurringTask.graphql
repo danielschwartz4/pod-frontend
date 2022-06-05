@@ -1,0 +1,8 @@
+mutation CreateRecurringTask($recurringTaskOptions: RecurringTaskInput!) {
+  createRecurringTask(recurringTaskOptions: $recurringTaskOptions) {
+    errors
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}
