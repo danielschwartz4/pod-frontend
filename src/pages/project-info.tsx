@@ -1,11 +1,11 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../components/Layout";
-import { MyPod } from "../components/MyPod/MyPod";
-import FlowChartMain from "../components/MyProject/FlowChartMain";
 import EnterProject from "../components/ProjectInfo/EnterProject";
+import RecurringTask from "../components/ProjectInfo/recurringTask";
 import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
+import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { useIsAuth } from "../utils/usIsAuth";
 
 interface ProjectInfoProps {}
@@ -32,9 +32,12 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
         >
           <Tabs isFitted={true} variant="enclosed">
             <TabList>
-              <Tab _selected={{ color: "white", bg: "#1a202c" }}>Project</Tab>
               <Tab _selected={{ color: "white", bg: "#1a202c" }}>
-                Recurring task
+                Project &#160; <RiFlowChart />
+              </Tab>
+              <Tab _selected={{ color: "white", bg: "#1a202c" }}>
+                Recurring task &#160;
+                <RiRepeatLine />
               </Tab>
             </TabList>
             <TabPanels>
@@ -42,7 +45,9 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                 <EnterProject meData={data}></EnterProject>
               </TabPanel>
 
-              <TabPanel minH={"600px"}></TabPanel>
+              <TabPanel minH={"600px"}>
+                <RecurringTask />
+              </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>
