@@ -21,8 +21,8 @@ const RepetitionStepper: React.FC<RepetitionStepperProps> = ({ name }) => {
   return (
     <Box className={name} {...field}>
       <NumberInput
-        // onChange={(value) => setFieldValue(name, value)}
-        className={name}
+        onChange={(value) => setFieldValue(name, value)}
+        id={name}
         mr={4}
         min={1}
         mt={8}

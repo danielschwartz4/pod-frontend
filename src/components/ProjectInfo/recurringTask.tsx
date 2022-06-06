@@ -20,10 +20,10 @@ import {
 import { EndOptionsSelectorType } from "../../types";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
-import DayPicker from "./DayPicker";
+import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import { toErrorMap } from "../../utils/toErrorMap";
-import RepetitionStepper from "./RepetitionStepper";
+import RepetitionStepper from "./RepetitionStepperField";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -46,7 +46,6 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           projectName: "",
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
-          endDate: null,
           days:
             // [
             {
@@ -61,10 +60,10 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           // ],
         }}
         onSubmit={async (
-          { overview, projectName, startDate, endOptions, days, endDate },
+          { overview, projectName, startDate, endOptions, days },
           { setErrors }
         ) => {
-          console.log(endOptions);
+          console.log(overview, projectName, startDate, endOptions, days);
           // const response = await createRecurringTask({
           //   variables: {
           //     recurringTaskOptions: {
@@ -120,6 +119,8 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
                     </Text>
 
                     <EndTaskSelection
+                      endOptionsSelector={endOptionsSelector}
+                      name={"endOptions"}
                       setEndOptionsSelector={setEndOptionsSelector}
                     />
                   </Box>
