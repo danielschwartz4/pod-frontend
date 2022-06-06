@@ -19,9 +19,7 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
       <Heading fontSize={24} color={"gainsboro"}>
         Tell us what you're working on so we can build a flow for you!
       </Heading>
-      <Text color={"grey"}>
-        * you can edit your project as much as you'd like later *
-      </Text>
+
       <Formik
         initialValues={{
           milestone: [
@@ -80,6 +78,7 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
                 type="submit"
                 isloading={isSubmitting ? "true" : "false"}
                 cursor="pointer"
+                colorScheme="gray.300"
               >
                 Get started!
               </Button>

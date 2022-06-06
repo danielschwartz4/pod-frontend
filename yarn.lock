@@ -4464,6 +4464,11 @@ react-transition-group@^4.4.2:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-weekday-picker@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-weekday-picker/-/react-weekday-picker-1.0.8.tgz#b7e5598ddfe98a6ec5f01a4194b8f2de11104787"
+  integrity sha1-t+VZjd/pim7F8BpBlLjy3hEQR4c=
+
 react-world-flags@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/react-world-flags/-/react-world-flags-1.5.0.tgz#008dbad5d41fa5583c84f92bae18012aba98e15c"

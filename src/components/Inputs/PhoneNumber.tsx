@@ -77,7 +77,6 @@ export const PhoneNumber: React.FC<PhoneNumberProps> = ({
             )}
           </Flex>
         </InputLeftAddon>
-        {/* <InputLeftAddon children="+1" /> */}
         <NumberInput>
           <NumberInputField
             textColor={"gainsboro"}

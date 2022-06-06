@@ -33,4 +33,42 @@ export interface EndOptions {
   neverEnds: boolean;
 }
 
-export type EndOptionsSelector = "none" | "date" | "repetitions" | "never";
+export type EndOptionsSelectorType = "none" | "date" | "repetitions" | "never";
+
+export type DaysType = {
+  sunday: {
+    abr?: string;
+    isSelected: boolean;
+    duration: number;
+  };
+  monday: {
+    abr?: string;
+    isSelected: boolean;
+    duration: number;
+  };
+  tuesday: {
+    abr?: string;
+    isSelected: boolean;
+    duration: number;
+  };
+  wednesday: {
+    abr?: string;
+    isSelected: boolean;
+    duration: number;
+  };
+  thursday: {
+    abr?: string;
+    isSelected: boolean;
+    duration: number;
+  };
+  friday: {
+    abr?: string;
+    isSelected: boolean;
+    duration: number;
+  };
+  saturday: {
+    abr?: string;
+    isSelected: boolean;
+    duration: number;
+  };
+};
