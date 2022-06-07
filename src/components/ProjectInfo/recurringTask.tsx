@@ -1,30 +1,18 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Text,
-} from "@chakra-ui/react";
-import { ErrorMessage, Form, Formik } from "formik";
+import { Box, Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
+import router from "next/router";
 import React from "react";
 import {
   MeQuery,
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
 import { DaysType, EndOptionsSelectorType } from "../../types";
+import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
 import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
-import { toErrorMap } from "../../utils/toErrorMap";
 import RepetitionStepper from "./RepetitionStepperField";
-import router from "next/router";
 
 interface RecurringTaskProps {
   meData: MeQuery;

@@ -1,11 +1,6 @@
-import {
-  Box,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-} from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel } from "@chakra-ui/react";
 import { useField, useFormikContext } from "formik";
-import React, { useRef, useState } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -32,8 +27,9 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
       {label != null ? (
         <FormLabel htmlFor={field.name}>{label}</FormLabel>
       ) : null}
+
       <DatePicker
-        borderColor={error ? "red" : "gainsboro"}
+        // borderColor={error != undefined ? "red" : "gainsboro"}
         className="date-picker"
         placeholderText={placeholder}
         {...field}
@@ -54,6 +50,7 @@ const DatePickerInput: React.FC<DatePickerInputProps> = ({
           },
         ]}
       />
+
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
   );

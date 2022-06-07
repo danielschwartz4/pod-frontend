@@ -14,7 +14,7 @@ const Index: React.FC<IndexProps> = ({}) => {
       {/* <Box mt={"4em"} mx={2}>
         <Selector></Selector>
       </Box> */}
-      <Box mt={"4em"}>
+      <Box>
         <Hero></Hero>
       </Box>
       <Divider w={"80%"} transform={"translateY(40px)"} />

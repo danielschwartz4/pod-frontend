@@ -8,27 +8,27 @@ interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
   return (
-    <Flex
-      display={{ base: "block", lg: "flex" }}
+    <Box
+      // display={{ base: "block", lg: "flex" }}
       width={"100%"}
       alignItems={"center"}
       minHeight={"65vh"}
     >
       <Box
         mx={"auto"}
-        mt={"auto"}
+        // mt={"auto"}
         p={2}
         textAlign={"center"}
-        maxW={550}
+        maxW={700}
         textColor={"gainsboro"}
         fontSize={{ base: 36, md: 48 }}
-        transform={{ base: "translateY(-20px)", lg: "translateY(-100px)" }}
+        // transform={{ base: "translateY(-20px)", lg: "translateY(-100px)" }}
       >
         <Text>
           Stay <b>motivated</b> and <b>accountable</b> while pursing a solo goal
         </Text>
 
-        <Box ml={4}>
+        <Box ml={4} mb={16}>
           <Button
             textColor={"gainsboro"}
             fontSize={".5em"}
@@ -39,7 +39,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
           >
             Join a pod and get started! 😆
           </Button>
-          <Text fontSize={24} mt={16}>
+          <Text fontSize={24}>
             Whether you want to finish a book, a project, or anything else that
             has a finite number of milestones, join others and make it happen
           </Text>
@@ -73,11 +73,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
           />
         </Box>
       </Box>
-
-      {/* <Box>
-        <Image width={"100%"} m={-10} opacity={"40%"} src={bgImage.src}></Image>
-      </Box> */}
-    </Flex>
+    </Box>
   );
 };
 
