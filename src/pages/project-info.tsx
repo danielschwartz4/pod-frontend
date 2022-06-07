@@ -41,7 +41,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
             maxW={"600px"}
             justifyContent={"center"}
           >
-            <Tabs isFitted={true} variant="enclosed" defaultIndex={1}>
+            <Tabs isFitted={true} variant="enclosed" defaultIndex={0}>
               <TabList>
                 <Tab _selected={{ color: "white", bg: "#1a202c" }}>
                   Project &#160; <RiFlowChart />

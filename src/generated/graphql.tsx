@@ -221,6 +221,7 @@ export type Query = {
   project?: Maybe<ProjectResponse>;
   projects?: Maybe<Array<Project>>;
   recurringTask?: Maybe<RecurringTaskResponse>;
+  recurringTasks?: Maybe<Array<RecurringTask>>;
 };
 
 
@@ -258,23 +259,23 @@ export type RecurringTask = {
   __typename?: 'RecurringTask';
   createdAt: Scalars['DateTime'];
   days?: Maybe<Scalars['JSONObject']>;
-  endOptions: Scalars['JSONObject'];
+  endOptions?: Maybe<Scalars['JSONObject']>;
   friendProposals?: Maybe<Array<Scalars['String']>>;
   id: Scalars['Int'];
   overview: Scalars['String'];
   podId?: Maybe<Scalars['Int']>;
   projectName: Scalars['String'];
-  startDate: Scalars['DateTime'];
+  startDate?: Maybe<Scalars['DateTime']>;
   updatedAt: Scalars['DateTime'];
   userId: Scalars['Int'];
 };
 
 export type RecurringTaskInput = {
-  days: Scalars['JSONObject'];
-  endOptions: Scalars['JSONObject'];
+  days?: InputMaybe<Scalars['JSONObject']>;
+  endOptions?: InputMaybe<Scalars['JSONObject']>;
   overview: Scalars['String'];
   projectName: Scalars['String'];
-  startDate: Scalars['DateTime'];
+  startDate?: InputMaybe<Scalars['DateTime']>;
   userId: Scalars['Float'];
 };
 
@@ -312,7 +313,7 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
+export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -409,7 +410,7 @@ export type CreateRecurringTaskMutationVariables = Exact<{
 }>;
 
 
-export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
+export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -520,7 +521,12 @@ export type RecurringTaskQueryVariables = Exact<{
 }>;
 
 
-export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } | null };
+export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } | null };
+
+export type RecurringTasksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1628,6 +1634,40 @@ export function useRecurringTaskLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type RecurringTaskQueryHookResult = ReturnType<typeof useRecurringTaskQuery>;
 export type RecurringTaskLazyQueryHookResult = ReturnType<typeof useRecurringTaskLazyQuery>;
 export type RecurringTaskQueryResult = Apollo.QueryResult<RecurringTaskQuery, RecurringTaskQueryVariables>;
+export const RecurringTasksDocument = gql`
+    query RecurringTasks {
+  recurringTasks {
+    ...RegularRecurringTask
+  }
+}
+    ${RegularRecurringTaskFragmentDoc}`;
+
+/**
+ * __useRecurringTasksQuery__
+ *
+ * To run a query within a React component, call `useRecurringTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecurringTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecurringTasksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRecurringTasksQuery(baseOptions?: Apollo.QueryHookOptions<RecurringTasksQuery, RecurringTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecurringTasksQuery, RecurringTasksQueryVariables>(RecurringTasksDocument, options);
+      }
+export function useRecurringTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecurringTasksQuery, RecurringTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecurringTasksQuery, RecurringTasksQueryVariables>(RecurringTasksDocument, options);
+        }
+export type RecurringTasksQueryHookResult = ReturnType<typeof useRecurringTasksQuery>;
+export type RecurringTasksLazyQueryHookResult = ReturnType<typeof useRecurringTasksLazyQuery>;
+export type RecurringTasksQueryResult = Apollo.QueryResult<RecurringTasksQuery, RecurringTasksQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

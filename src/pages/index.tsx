@@ -15,7 +15,7 @@ const Index: React.FC<IndexProps> = ({}) => {
         <Selector></Selector>
       </Box> */}
       <Box>
-        <Hero></Hero>
+        <Hero />
       </Box>
       <Divider w={"80%"} transform={"translateY(40px)"} />
       <Box mt={"4em"}>
@@ -23,7 +23,7 @@ const Index: React.FC<IndexProps> = ({}) => {
       </Box>
       <Divider w={"80%"} transform={"translateY(40px)"} />
       <Box mt={"4em"}>
-        <Features></Features>
+        <Features />
       </Box>
     </Layout>
   );

@@ -1,12 +1,12 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import {
-  GridItem,
-  VStack,
-  Divider,
   Box,
-  Heading,
+  Divider,
   Flex,
+  GridItem,
+  Heading,
   Link,
+  VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React, { useEffect, useRef, useState } from "react";
@@ -15,10 +15,9 @@ import {
   useDeleteProjectMutation,
   useRemoveProjectFromPodMutation,
   useUpdateProjectNameMutation,
-  useUpdateProjectPodMutation,
 } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
-import { generateProgress, generateSms } from "../../utils/smsBody";
+import { generateProgress } from "../../utils/smsBody";
 
 interface ProjectProps {
   project: ProjectQuery["project"]["project"];
@@ -30,7 +29,6 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
   const [isChangingName, setIsChangingName] = useState<boolean>(false);
   const [updateProjectName] = useUpdateProjectNameMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
-  const [updateProjectPod] = useUpdateProjectPodMutation();
 
   const handleUpdateProjectName = async () => {
     updateProjectName({
