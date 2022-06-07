@@ -25,13 +25,7 @@ export default function mergeData(
     {},
     taskReduction,
     projectReduction
-    // orderBy === "createdAt"
-    //   ? Object?.values(taskReduction).sort((a, b) =>
-    //       a["createdAt"] > b["createdAt"] ? -1 : 1
-    //     )
-    //   : Object?.values(taskReduction).sort((a, b) =>
-    //       a["updatedAt"] > b["updatedAt"] ? -1 : 1
-    //     )
+    // !! order by clause right here
   );
 
   return merged;

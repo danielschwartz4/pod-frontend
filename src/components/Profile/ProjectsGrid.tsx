@@ -1,7 +1,7 @@
 import { Grid } from "@chakra-ui/react";
 import { ProjectsQuery, RecurringTasksQuery } from "../../generated/graphql";
 import mergeData from "../../utils/mergeData";
-import { Project } from "./Project";
+import { Project } from "./ProjectEntry";
 
 interface projectsGridProps {
   projectsData: ProjectsQuery;
@@ -51,12 +51,6 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
           return <Project key={m} project={tasksDataDict[pid]} />;
         }
       })}
-      {/* {projectsData?.projects
-        ?.slice(0)
-        .reverse()
-        .map((p) => (
-          <Project key={p.id} project={p} />
-        ))} */}
     </Grid>
   );
 };
