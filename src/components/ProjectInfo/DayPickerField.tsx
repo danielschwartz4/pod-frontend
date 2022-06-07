@@ -73,11 +73,11 @@ const Circle: React.FC<{
           x="50%"
           y="50%"
           textAnchor="middle"
-          stroke="black"
+          // stroke="gainsboro"
           fontFamily="auto"
           fontSize={12}
           strokeWidth="1px"
-          fill="black"
+          fill="gainsboro"
           dy=".3em"
         >
           {days[day].abr}

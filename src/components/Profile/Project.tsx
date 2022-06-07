@@ -180,8 +180,8 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
 
 const ProjectVis: React.FC<ProjectProps> = ({ project }) => {
   let progress = project?.milestoneProgress;
-  let progressVis;
-  if (progress.length > 7) {
+  let progressVis: string;
+  if (progress?.length > 7) {
     progress = progress.slice(0, 7);
     progressVis = generateProgress(progress) + " ...";
   } else {
@@ -192,12 +192,12 @@ const ProjectVis: React.FC<ProjectProps> = ({ project }) => {
 
 const NextDueDate: React.FC<ProjectProps> = ({ project }) => {
   const today = new Date();
-  let nextDueDate = project?.milestoneDates.find((date) => {
+  let nextDueDate = project?.milestoneDates?.find((date) => {
     let d = new Date(date);
     return d > today;
   });
   if (!nextDueDate) {
-    nextDueDate = project?.milestoneDates.find((date) => {
+    nextDueDate = project?.milestoneDates?.find((date) => {
       return date != "";
     });
 

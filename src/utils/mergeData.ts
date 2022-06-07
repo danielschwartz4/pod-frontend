@@ -6,12 +6,12 @@ export default function mergeData(
   orderBy: string
 ) {
   const taskReduction = tasks?.recurringTasks?.reduce((acc, task) => {
-    acc["c" + task.id] = {
+    acc["t" + task.id] = {
       createdAt: task.createdAt,
       updatedAt: task.updatedAt,
     };
     return acc;
-  }, {});
+  }, []);
 
   const projectReduction = projects?.projects?.reduce((acc, project) => {
     acc["p" + project.id] = {
