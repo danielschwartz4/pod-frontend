@@ -1,4 +1,4 @@
-import { Box, Flex, FormErrorMessage } from "@chakra-ui/react";
+import { Box, Flex, FormControl, FormErrorMessage } from "@chakra-ui/react";
 import { useField, useFormikContext } from "formik";
 import React, { useEffect } from "react";
 import { DaysType } from "../../types";
@@ -28,7 +28,7 @@ const DayPicker: React.FC<DayPickerProps> = ({ name }) => {
   }, [days]);
 
   return (
-    <>
+    <FormControl isInvalid={!!error}>
       <Flex className="days" {...field}>
         {Object.keys(days).map((key, index) => (
           <Box mx={2} key={index} day={key}>
@@ -37,7 +37,7 @@ const DayPicker: React.FC<DayPickerProps> = ({ name }) => {
         ))}
       </Flex>
       <FormErrorMessage>{error}</FormErrorMessage>
-    </>
+    </FormControl>
   );
 };
 
@@ -66,7 +66,6 @@ const Circle: React.FC<{
           cx="12"
           cy="12"
           r="12"
-          // fill="#F0F0F0"
           fill={days[day].isSelected ? "#F6793D" : "#7e9cd6"}
           strokeWidth={"3"}
         />
@@ -75,7 +74,7 @@ const Circle: React.FC<{
           y="50%"
           textAnchor="middle"
           stroke="black"
-          fontFamily="Arial"
+          fontFamily="auto"
           fontSize={12}
           strokeWidth="1px"
           fill="black"

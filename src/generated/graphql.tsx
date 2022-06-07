@@ -257,8 +257,8 @@ export type QueryRecurringTaskArgs = {
 export type RecurringTask = {
   __typename?: 'RecurringTask';
   createdAt: Scalars['DateTime'];
-  days: Array<Scalars['String']>;
-  endDate: Scalars['DateTime'];
+  days?: Maybe<Scalars['JSONObject']>;
+  endOptions: Scalars['JSONObject'];
   friendProposals?: Maybe<Array<Scalars['String']>>;
   id: Scalars['Int'];
   overview: Scalars['String'];
@@ -270,9 +270,8 @@ export type RecurringTask = {
 };
 
 export type RecurringTaskInput = {
-  dayData: Array<Scalars['String']>;
-  days: Array<Scalars['String']>;
-  endDate: Scalars['DateTime'];
+  days: Scalars['JSONObject'];
+  endOptions: Scalars['JSONObject'];
   overview: Scalars['String'];
   projectName: Scalars['String'];
   startDate: Scalars['DateTime'];
@@ -281,7 +280,7 @@ export type RecurringTaskInput = {
 
 export type RecurringTaskResponse = {
   __typename?: 'RecurringTaskResponse';
-  errors?: Maybe<Scalars['String']>;
+  errors?: Maybe<Array<FieldError>>;
   task?: Maybe<RecurringTask>;
 };
 
@@ -313,7 +312,7 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
+export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -410,7 +409,7 @@ export type CreateRecurringTaskMutationVariables = Exact<{
 }>;
 
 
-export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
+export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -521,7 +520,7 @@ export type RecurringTaskQueryVariables = Exact<{
 }>;
 
 
-export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: Array<string>, endDate: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } | null };
+export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -559,8 +558,9 @@ export const RegularRecurringTaskFragmentDoc = gql`
   userId
   id
   days
-  endDate
+  endOptions
   startDate
+  endOptions
   createdAt
   updatedAt
   overview
@@ -993,7 +993,10 @@ export type UpdateProjectProgressMutationOptions = Apollo.BaseMutationOptions<Up
 export const CreateRecurringTaskDocument = gql`
     mutation CreateRecurringTask($recurringTaskOptions: RecurringTaskInput!) {
   createRecurringTask(recurringTaskOptions: $recurringTaskOptions) {
-    errors
+    errors {
+      field
+      message
+    }
     task {
       ...RegularRecurringTask
     }
@@ -1587,7 +1590,10 @@ export type ProjectsQueryResult = Apollo.QueryResult<ProjectsQuery, ProjectsQuer
 export const RecurringTaskDocument = gql`
     query RecurringTask($recurringTaskId: Int!) {
   recurringTask(id: $recurringTaskId) {
-    errors
+    errors {
+      field
+      message
+    }
     task {
       ...RegularRecurringTask
     }

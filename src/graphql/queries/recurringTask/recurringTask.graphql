@@ -1,6 +1,9 @@
 query RecurringTask($recurringTaskId: Int!) {
   recurringTask(id: $recurringTaskId) {
-    errors
+    errors {
+      field
+      message
+    }
     task {
       ...RegularRecurringTask
     }

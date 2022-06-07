@@ -1,6 +1,9 @@
 mutation CreateRecurringTask($recurringTaskOptions: RecurringTaskInput!) {
   createRecurringTask(recurringTaskOptions: $recurringTaskOptions) {
-    errors
+    errors {
+      field
+      message
+    }
     task {
       ...RegularRecurringTask
     }

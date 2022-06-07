@@ -80,7 +80,6 @@ const Register: React.FC<registerProps> = ({}) => {
                       });
                     },
                   });
-                  console.log(response);
                   if (response.data.register.errors) {
                     setErrors(toErrorMap(response.data.register.errors));
                   } else if (response.data.register.user) {

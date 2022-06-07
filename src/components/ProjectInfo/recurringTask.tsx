@@ -17,13 +17,14 @@ import {
   MeQuery,
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
-import { EndOptionsSelectorType } from "../../types";
+import { DaysType, EndOptionsSelectorType } from "../../types";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
 import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import { toErrorMap } from "../../utils/toErrorMap";
 import RepetitionStepper from "./RepetitionStepperField";
+import router from "next/router";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -46,42 +47,40 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           projectName: "",
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
-          days:
-            // [
-            {
-              sunday: { isSelected: false, duration: null },
-              monday: { isSelected: false, duration: null },
-              tuesday: { isSelected: false, duration: null },
-              wednesday: { isSelected: false, duration: null },
-              thursday: { isSelected: false, duration: null },
-              friday: { isSelected: false, duration: null },
-              saturday: { isSelected: false, duration: null },
-            },
-          // ],
+          days: {
+            sunday: { isSelected: false, duration: null },
+            monday: { isSelected: false, duration: null },
+            tuesday: { isSelected: false, duration: null },
+            wednesday: { isSelected: false, duration: null },
+            thursday: { isSelected: false, duration: null },
+            friday: { isSelected: false, duration: null },
+            saturday: { isSelected: false, duration: null },
+          } as DaysType,
         }}
         onSubmit={async (
           { overview, projectName, startDate, endOptions, days },
           { setErrors }
         ) => {
-          console.log(overview, projectName, startDate, endOptions, days);
-          // const response = await createRecurringTask({
-          //   variables: {
-          //     recurringTaskOptions: {
-          //       userId: meData?.me.id,
-          //       overview: overview,
-          //       projectName: projectName,
-          //       startDate: startDate,
-          //       endOptions: endOptions,
-          //       days: {...days},
-          //     },
-          //   },
-          // });
-          // if (response.data?.login.errors) {
-          //   setErrors(toErrorMap(response.data.login.errors));
-          // }
+          const response = await createRecurringTask({
+            variables: {
+              recurringTaskOptions: {
+                userId: meData?.me.id,
+                overview: overview,
+                projectName: projectName,
+                startDate: startDate,
+                endOptions: endOptions,
+                days: days,
+              },
+            },
+          });
+          if (response?.data?.createRecurringTask?.errors) {
+            setErrors(toErrorMap(response.data.createRecurringTask.errors));
+          } else {
+            router.push("/profile");
+          }
         }}
       >
-        {({ isSubmitting, values }) => (
+        {({ isSubmitting }) => (
           <Form>
             <Box>
               <Box mr={8} color={"gainsboro"}>
@@ -99,13 +98,8 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
                     name={"startDate"}
                     label="Start date"
                     showTimeSelect={false}
-                    placeholder="date"
+                    placeholder="Date"
                     regularPosition
-                  />
-                  <ErrorMessage
-                    name={"startDate"}
-                    component="div"
-                    className="field-error"
                   />
                 </Box>
                 <Flex
@@ -124,20 +118,15 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
                       setEndOptionsSelector={setEndOptionsSelector}
                     />
                   </Box>
-                  <Box ml={{ sm: "none", md: "auto" }} mt={4} maxW="200px">
+                  <Box ml={{ sm: "none", md: "auto" }} mt={3} maxW="200px">
                     {endOptionsSelector === "date" ? (
                       <>
                         <DatePickerInput
-                          name={"endOptions.endDate"}
+                          name={"endOptions.date"}
                           label="End date"
                           showTimeSelect={false}
                           placeholder="date"
                           regularPosition
-                        />
-                        <ErrorMessage
-                          name={"endDate"}
-                          component="div"
-                          className="field-error"
                         />
                       </>
                     ) : endOptionsSelector === "repetitions" ? (
@@ -148,14 +137,12 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
                   </Box>
                 </Flex>
               </Box>
-              <Flex mt={6}>
-                <Box>
-                  <Text color={"gainsboro"}>
-                    Select the days you would like your task to recurr
-                  </Text>
-                  <DayPicker name={"days"} />
-                </Box>
-              </Flex>
+              <Box mt={6}>
+                <Text color={"gainsboro"}>
+                  Select the days you would like your task to recurr
+                </Text>
+                <DayPicker name={"days"} />
+              </Box>
               <Button
                 mx={"auto"}
                 mt={8}
