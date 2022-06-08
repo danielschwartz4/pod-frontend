@@ -1,4 +1,5 @@
 import { Grid } from "@chakra-ui/react";
+import { useRef, useState } from "react";
 import { ProjectsQuery, RecurringTasksQuery } from "../../generated/graphql";
 import mergeData from "../../utils/mergeData";
 import { Project } from "./ProjectEntry";
@@ -21,7 +22,9 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
     (acc, task) => ({ ...acc, [task.id]: task }),
     {}
   );
-  console.log(merged);
+  const [isChangingName, setIsChangingName] = useState<boolean>(false);
+
+  const wrapperRef = useRef(null);
 
   return (
     <Grid
@@ -44,11 +47,19 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
       {Object.keys(merged).map((m) => {
         if (m[0] == "p") {
           const pid = parseInt(m.slice(1));
-          return <Project key={m} project={projectsDataDict[pid]} />;
+          return (
+            <Project
+              setIsChangingName={setIsChangingName}
+              isChangingName={isChangingName}
+              wrapperRef={wrapperRef}
+              key={m}
+              project={projectsDataDict[pid]}
+            />
+          );
         }
         if (m[0] == "t") {
           const pid = parseInt(m.slice(1));
-          return <Project key={m} project={tasksDataDict[pid]} />;
+          // return <Project key={m} project={tasksDataDict[pid]} />;
         }
       })}
     </Grid>

@@ -9,24 +9,31 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   ProjectQuery,
   useDeleteProjectMutation,
   useRemoveProjectFromPodMutation,
   useUpdateProjectNameMutation,
 } from "../../generated/graphql";
-import formatDate from "../../utils/formatDate";
-import { generateProgress } from "../../utils/smsBody";
+import { NextDueDate, ProjectVis } from "./InnerProjectEntry";
+import useOutsideAlerter from "./nameChangeFunc";
 
 interface ProjectProps {
   project: ProjectQuery["project"]["project"];
+  isChangingName: boolean;
+  setIsChangingName: React.Dispatch<React.SetStateAction<boolean>>;
+  wrapperRef: React.MutableRefObject<HTMLDivElement>;
 }
 
-export const Project: React.FC<ProjectProps> = ({ project }) => {
+export const Project: React.FC<ProjectProps> = ({
+  project,
+  isChangingName,
+  setIsChangingName,
+  wrapperRef,
+}) => {
   const [deleteProject] = useDeleteProjectMutation();
   const [newName, setNewName] = useState<string>(project?.projectName);
-  const [isChangingName, setIsChangingName] = useState<boolean>(false);
   const [updateProjectName] = useUpdateProjectNameMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
 
@@ -39,37 +46,20 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
     });
   };
 
-  // Ref for handling outside click
-  function useOutsideAlerter(ref) {
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (
-          ref.current &&
-          !ref.current.contains(event.target) &&
-          isChangingName
-        ) {
-          handleUpdateProjectName();
-          setIsChangingName(false);
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref, isChangingName, newName]);
-  }
-
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setIsChangingName(false);
       handleUpdateProjectName();
     }
   };
+
+  useOutsideAlerter(
+    wrapperRef,
+    isChangingName,
+    setIsChangingName,
+    newName,
+    handleUpdateProjectName
+  );
 
   return (
     <GridItem borderRadius={8} h={"auto"} bg="#4c5e81">
@@ -176,36 +166,4 @@ export const Project: React.FC<ProjectProps> = ({ project }) => {
       </VStack>
     </GridItem>
   );
-};
-
-const ProjectVis: React.FC<ProjectProps> = ({ project }) => {
-  let progress = project?.milestoneProgress;
-  let progressVis: string;
-  if (progress?.length > 7) {
-    progress = progress.slice(0, 7);
-    progressVis = generateProgress(progress) + " ...";
-  } else {
-    progressVis = generateProgress(progress);
-  }
-  return <Box>{progressVis}</Box>;
-};
-
-const NextDueDate: React.FC<ProjectProps> = ({ project }) => {
-  const today = new Date();
-  let nextDueDate = project?.milestoneDates?.find((date) => {
-    let d = new Date(date);
-    return d > today;
-  });
-  if (!nextDueDate) {
-    nextDueDate = project?.milestoneDates?.find((date) => {
-      return date != "";
-    });
-
-    if (nextDueDate == undefined) {
-      return <Box>Next target date: NA</Box>;
-    }
-    return <Box>Next target date: {formatDate(nextDueDate)}*</Box>;
-  }
-
-  return <Box>Next target date: {formatDate(nextDueDate)}</Box>;
 };
