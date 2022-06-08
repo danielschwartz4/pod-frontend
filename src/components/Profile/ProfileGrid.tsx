@@ -2,7 +2,7 @@ import { Grid } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { ProjectsQuery, RecurringTasksQuery } from "../../generated/graphql";
 import mergeData from "../../utils/mergeData";
-import { Project } from "./ProjectEntry";
+import ProjectEntry from "./ProjectEntry";
 import RecurringTaskEntry from "./RecurringTaskEntry";
 
 interface projectsGridProps {
@@ -49,12 +49,13 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
         if (m[0] == "p") {
           const pid = parseInt(m.slice(1));
           return (
-            <Project
+            <ProjectEntry
+              key={m}
               setIsChangingName={setIsChangingName}
               isChangingName={isChangingName}
               wrapperRef={wrapperRef}
-              key={m}
               project={projectsDataDict[pid]}
+              toId={m}
             />
           );
         }

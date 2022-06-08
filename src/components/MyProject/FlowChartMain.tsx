@@ -35,7 +35,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
   const [currNode, setCurrNode] = useState<FlowNode>({} as FlowNode);
 
   const { data, loading } = useMeQuery({});
-  const projectId = useGetIntId();
+  const projectId = useGetIntId()[1];
 
   // Update project mutations
   const [updateProjectProgress] = useUpdateProjectProgressMutation();

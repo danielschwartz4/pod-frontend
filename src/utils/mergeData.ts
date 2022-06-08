@@ -9,6 +9,7 @@ export default function mergeData(
     acc["t" + task.id] = {
       createdAt: task.createdAt,
       updatedAt: task.updatedAt,
+      podId: task.podId,
     };
     return acc;
   }, []);
@@ -17,6 +18,7 @@ export default function mergeData(
     acc["p" + project.id] = {
       createdAt: project.createdAt,
       updatedAt: project.updatedAt,
+      podId: project.podId,
     };
     return acc;
   }, {});

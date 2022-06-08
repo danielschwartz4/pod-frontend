@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
 import ProfileHeading from "../components/Profile/ProfileHeading";
-import ProjectsGrid from "../components/Profile/ProjectsGrid";
+import ProfileGrid from "../components/Profile/ProfileGrid";
 import {
   useMeQuery,
   useProjectsQuery,
@@ -43,7 +43,7 @@ const Profile: React.FC<profileProps> = ({}) => {
       ) : (
         <Box m={4} minH={"100vh"} h={"100%"}>
           <ProfileHeading meData={meData} />
-          <ProjectsGrid tasksData={tasksData} projectsData={projectsData} />
+          <ProfileGrid tasksData={tasksData} projectsData={projectsData} />
         </Box>
       )}
     </Layout>

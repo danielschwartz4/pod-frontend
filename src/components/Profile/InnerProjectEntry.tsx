@@ -1,19 +1,21 @@
-import NextLink from "next/link";
-import { Box, Flex, Heading, Link } from "@chakra-ui/react";
-
+import { Box, Heading } from "@chakra-ui/react";
 import { ProjectQuery } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 import { generateProgress } from "../../utils/smsBody";
-import ToPageId from "./toPageId";
+import ToPageId from "./ToPageId";
 
 interface Props {
   project: ProjectQuery["project"]["project"];
 }
 
-export const ProjectHeading: React.FC<Props> = ({ project }) => {
+interface ExtProps extends Props {
+  toId: string;
+}
+
+export const ProjectEntryHeading: React.FC<ExtProps> = ({ project, toId }) => {
   return (
     <Heading fontSize={"xl"}>
-      <ToPageId project={project}>
+      <ToPageId toId={toId}>
         {project?.podId == 0 ? "not in pod yet" : "pod #: " + project?.podId}
       </ToPageId>
     </Heading>
@@ -32,17 +34,17 @@ const _ProjectVis: React.FC<Props> = ({ project }) => {
   return <Box>{progressVis}</Box>;
 };
 
-export const ProjectVis: React.FC<Props> = ({ project }) => {
+export const ProjectVis: React.FC<ExtProps> = ({ project, toId }) => {
   return (
     <Box ml={4}>
-      <ToPageId project={project}>
+      <ToPageId toId={toId}>
         <_ProjectVis project={project} />
       </ToPageId>
     </Box>
   );
 };
 
-const _NextDueDate: React.FC<Props> = ({ project }) => {
+const _NextProjectDueDate: React.FC<Props> = ({ project }) => {
   const today = new Date();
   let nextDueDate = project?.milestoneDates?.find((date) => {
     let d = new Date(date);
@@ -52,22 +54,18 @@ const _NextDueDate: React.FC<Props> = ({ project }) => {
     nextDueDate = project?.milestoneDates?.find((date) => {
       return date != "";
     });
-
     if (nextDueDate == undefined) {
       return <Box>Next target date: NA</Box>;
     }
     return <Box>Next target date: {formatDate(nextDueDate)}*</Box>;
   }
-
   return <Box>Next target date: {formatDate(nextDueDate)}</Box>;
 };
 
-export const NextDueDate: React.FC<Props> = ({ project }) => {
+export const NextProjectDueDate: React.FC<Props> = ({ project }) => {
   return (
-    <ToPageId project={project}>
-      <Box ml={4}>
-        <_NextDueDate project={project} />
-      </Box>
-    </ToPageId>
+    <Box ml={4}>
+      <_NextProjectDueDate project={project} />
+    </Box>
   );
 };

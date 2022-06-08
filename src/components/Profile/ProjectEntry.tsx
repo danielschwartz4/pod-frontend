@@ -1,6 +1,5 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Box, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
   ProjectQuery,
@@ -8,22 +7,28 @@ import {
   useRemoveProjectFromPodMutation,
   useUpdateProjectNameMutation,
 } from "../../generated/graphql";
-import { NextDueDate, ProjectHeading, ProjectVis } from "./InnerProjectEntry";
+import {
+  NextProjectDueDate,
+  ProjectEntryHeading,
+  ProjectVis,
+} from "./InnerProjectEntry";
 import useOutsideAlerter from "./nameChangeFunc";
 import { ProfileGridItem } from "./ProfileGridItem";
 
-interface ProjectProps {
+interface ProjectEntryProps {
   project: ProjectQuery["project"]["project"];
   isChangingName: boolean;
   setIsChangingName: React.Dispatch<React.SetStateAction<boolean>>;
   wrapperRef: React.MutableRefObject<HTMLDivElement>;
+  toId: string;
 }
 
-export const Project: React.FC<ProjectProps> = ({
+const ProjectEntry: React.FC<ProjectEntryProps> = ({
   project,
   isChangingName,
   setIsChangingName,
   wrapperRef,
+  toId,
 }) => {
   const [deleteProject] = useDeleteProjectMutation();
   const [newName, setNewName] = useState<string>(project?.projectName);
@@ -57,14 +62,13 @@ export const Project: React.FC<ProjectProps> = ({
   return (
     <ProfileGridItem type={"project"}>
       <Box textAlign={"center"} margin={"auto"}>
-        <ProjectHeading project={project} />
+        <ProjectEntryHeading toId={toId} project={project} />
       </Box>
       <Box>
-        <NextDueDate project={project} />
+        <NextProjectDueDate project={project} />
       </Box>
-
       <Box>
-        <ProjectVis project={project} />
+        <ProjectVis toId={toId} project={project} />
       </Box>
       <Box>
         <Flex alignItems={"center"} mb={6}>
@@ -125,3 +129,5 @@ export const Project: React.FC<ProjectProps> = ({
     </ProfileGridItem>
   );
 };
+
+export default ProjectEntry;
