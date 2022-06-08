@@ -8,15 +8,10 @@ interface ToPageIdProps {
   toId: string;
 }
 
-// const ToPageId: React.FC<ToPageIdProps> = ({ children, project }) => {
-//   return (
-//     <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
-//       <Link>{children}</Link>
-//     </NextLink>
-//   );
-// };
-
-const ToPageId: React.FC<ToPageIdProps> = ({ children, toId }) => {
+export const ToProjectPageId: React.FC<ToPageIdProps> = ({
+  children,
+  toId,
+}) => {
   return (
     <NextLink href="/project/[id]" as={`/project/${toId}`}>
       <Link>{children}</Link>
@@ -24,4 +19,10 @@ const ToPageId: React.FC<ToPageIdProps> = ({ children, toId }) => {
   );
 };
 
-export default ToPageId;
+export const ToTaskPageId: React.FC<ToPageIdProps> = ({ children, toId }) => {
+  return (
+    <NextLink href="/task/[id]" as={`/task/${toId}`}>
+      <Link>{children}</Link>
+    </NextLink>
+  );
+};

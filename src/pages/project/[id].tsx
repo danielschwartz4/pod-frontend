@@ -12,6 +12,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import DashTabs from "../../components/Dash/DashTabs";
+import DashWrapper from "../../components/Dash/DashWrapper";
 import { Layout } from "../../components/Layout";
 import { MyPod } from "../../components/MyPod/MyPod";
 import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
@@ -28,9 +30,9 @@ import { sortMilestones } from "../../utils/initElements";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 
-interface homeProps {}
+interface ProjectHomeProps {}
 
-const Home: React.FC<homeProps> = ({}) => {
+const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
   useIsAuth();
 
   const { data } = useMeQuery({});
@@ -40,8 +42,6 @@ const Home: React.FC<homeProps> = ({}) => {
     loading: projectDataLoading,
     refetch: refetchProject,
   } = useGetProjectFromUrl();
-
-  // !! If project from url then fetch all of these with project data, otherwise fetch them with task data
 
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project?.podId },
@@ -113,7 +113,7 @@ const Home: React.FC<homeProps> = ({}) => {
       _milestoneDates &&
       _milestoneProgress &&
       !projectDataLoading ? (
-        <VStack minH={"100vh"} h={"100%"} w={"100%"} mt={{ base: 0, md: 16 }}>
+        <DashWrapper>
           <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
             <EnterNewMilestone
               changeTab={changeTab}
@@ -143,38 +143,12 @@ const Home: React.FC<homeProps> = ({}) => {
               <></>
             )}
           </Flex>
-          <Tabs
-            border={{ base: "none", md: "1px solid #7e9cd6" }}
-            borderRadius={"lg"}
-            w={{ base: "100%", md: "800px", lg: "1024px" }}
-            isFitted={true}
-            variant="enclosed"
-            align={"center"}
-            defaultIndex={0}
-            // ? Made isLazy so tab rerenders flow since flow only appears correctly upon rendering
-            isLazy
-            lazyBehavior={keepMounted ? "keepMounted" : "unmount"}
+          <DashTabs
+            type="project"
+            keepMounted={keepMounted}
+            useChangeTab={useChangeTab}
+            setKeepMounted={setKeepMounted}
           >
-            <TabList mb="1em">
-              <Tab
-                onClick={() => {
-                  useChangeTab("project");
-                  setKeepMounted(true);
-                }}
-                _selected={{ color: "white", bg: "#1a202c" }}
-              >
-                My project
-              </Tab>
-              <Tab
-                onClick={() => {
-                  useChangeTab("pod");
-                  setKeepMounted(true);
-                }}
-                _selected={{ color: "white", bg: "#1a202c" }}
-              >
-                My pod
-              </Tab>
-            </TabList>
             <TabPanels>
               <TabPanel
                 h={
@@ -214,10 +188,10 @@ const Home: React.FC<homeProps> = ({}) => {
                   projectsDataLoading={projectsDataLoading}
                   refetchProjects={refetchProjects}
                   meData={data}
-                ></MyPod>
+                />
               </TabPanel>
             </TabPanels>
-          </Tabs>
+          </DashTabs>
           <Flex w={"80%"} color={"gainsboro"}>
             {changeTab == "project" ? (
               <Text ml={"auto"}>pinch and drag to zoom and pan*</Text>
@@ -225,7 +199,7 @@ const Home: React.FC<homeProps> = ({}) => {
               <></>
             )}
           </Flex>
-        </VStack>
+        </DashWrapper>
       ) : (
         <></>
       )}
@@ -233,4 +207,4 @@ const Home: React.FC<homeProps> = ({}) => {
   );
 };
 
-export default Home;
+export default ProjectHome;

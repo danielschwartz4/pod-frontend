@@ -2,7 +2,7 @@ import { Box, Heading } from "@chakra-ui/react";
 import { ProjectQuery } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 import { generateProgress } from "../../utils/smsBody";
-import ToPageId from "./ToPageId";
+import { ToProjectPageId } from "./ToPageId";
 
 interface Props {
   project: ProjectQuery["project"]["project"];
@@ -15,9 +15,9 @@ interface ExtProps extends Props {
 export const ProjectEntryHeading: React.FC<ExtProps> = ({ project, toId }) => {
   return (
     <Heading fontSize={"xl"}>
-      <ToPageId toId={toId}>
+      <ToProjectPageId toId={toId}>
         {project?.podId == 0 ? "not in pod yet" : "pod #: " + project?.podId}
-      </ToPageId>
+      </ToProjectPageId>
     </Heading>
   );
 };
@@ -37,9 +37,9 @@ const _ProjectVis: React.FC<Props> = ({ project }) => {
 export const ProjectVis: React.FC<ExtProps> = ({ project, toId }) => {
   return (
     <Box ml={4}>
-      <ToPageId toId={toId}>
+      <ToProjectPageId toId={toId}>
         <_ProjectVis project={project} />
-      </ToPageId>
+      </ToProjectPageId>
     </Box>
   );
 };

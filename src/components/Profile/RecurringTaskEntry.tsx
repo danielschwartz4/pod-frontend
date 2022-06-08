@@ -3,7 +3,7 @@ import React from "react";
 import { RecurringTaskQuery } from "../../generated/graphql";
 import { TaskEntryHeading } from "./InnerRecurringTaskEntry";
 import { ProfileGridItem } from "./ProfileGridItem";
-import ToPageId from "./ToPageId";
+import { ToProjectPageId, ToTaskPageId } from "./ToPageId";
 
 interface RecurringTaskEntryProps {
   task: RecurringTaskQuery["recurringTask"]["task"];
@@ -16,9 +16,9 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({
   return (
     <ProfileGridItem type="recurringTask">
       <Heading fontSize={"xl"}>
-        <ToPageId toId={toId}>
+        <ToTaskPageId toId={toId}>
           {task?.podId == 0 ? "not in pod yet" : "pod #: " + task?.podId}
-        </ToPageId>
+        </ToTaskPageId>
       </Heading>
     </ProfileGridItem>
   );

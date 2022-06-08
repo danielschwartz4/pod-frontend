@@ -93,3 +93,6 @@ Not adding error mapping for adding pod friend so that people don't spam random 
 
 6-03-22
 Foreign key constraint violated due to many to one relationship in typeorm table
+
+6-08-22
+Think very hard about what goes into the url I guess lol

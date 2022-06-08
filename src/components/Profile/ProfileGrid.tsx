@@ -28,6 +28,7 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
   const wrapperRef = useRef(null);
 
   return (
+    // !! Use space in between for formatting profile projects so theat they stay the same size just have different spacing
     <Grid
       mt={8}
       w="auto"
