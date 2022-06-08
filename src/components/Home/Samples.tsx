@@ -166,7 +166,7 @@ const DesktopDisplay: React.FC<SamplesProps> = (props) => {
             <Flex spacing={6}>
               <VStack ml={120} mr={4} my={"auto"} textAlign={"center"}>
                 <Heading
-                  color={"gray.500"}
+                  color={"#4c5e81"}
                   fontFamily={"serif"}
                   fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
                 >

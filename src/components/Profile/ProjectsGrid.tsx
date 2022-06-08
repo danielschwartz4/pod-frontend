@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { ProjectsQuery, RecurringTasksQuery } from "../../generated/graphql";
 import mergeData from "../../utils/mergeData";
 import { Project } from "./ProjectEntry";
+import RecurringTaskEntry from "./RecurringTaskEntry";
 
 interface projectsGridProps {
   projectsData: ProjectsQuery;
@@ -58,8 +59,8 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
           );
         }
         if (m[0] == "t") {
-          const pid = parseInt(m.slice(1));
-          // return <Project key={m} project={tasksDataDict[pid]} />;
+          const tid = parseInt(m.slice(1));
+          return <RecurringTaskEntry key={m} task={tasksDataDict[tid]} />;
         }
       })}
     </Grid>
