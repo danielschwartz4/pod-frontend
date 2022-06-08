@@ -1,4 +1,4 @@
-import { useProjectQuery } from "../generated/graphql";
+import { useProjectQuery, useRecurringTaskQuery } from "../generated/graphql";
 import { useGetIntId } from "./useGetIntId";
 
 export const useGetProjectFromUrl = () => {
@@ -10,6 +10,14 @@ export const useGetProjectFromUrl = () => {
       skip: intId === -1,
       variables: {
         id: intId,
+      },
+    });
+  }
+  if (type == "t") {
+    return useRecurringTaskQuery({
+      skip: intId === -1,
+      variables: {
+        recurringTaskId: intId,
       },
     });
   }

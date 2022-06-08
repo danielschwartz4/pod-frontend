@@ -17,8 +17,6 @@ interface ToPageIdProps {
 // };
 
 const ToPageId: React.FC<ToPageIdProps> = ({ children, toId }) => {
-  console.log("HELLOOOO");
-  console.log(toId);
   return (
     <NextLink href="/project/[id]" as={`/project/${toId}`}>
       <Link>{children}</Link>

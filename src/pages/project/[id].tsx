@@ -41,6 +41,8 @@ const Home: React.FC<homeProps> = ({}) => {
     refetch: refetchProject,
   } = useGetProjectFromUrl();
 
+  // !! If project from url then fetch all of these with project data, otherwise fetch them with task data
+
   const { data: podData } = usePodQuery({
     variables: { podId: projectData?.project?.project?.podId },
   });
