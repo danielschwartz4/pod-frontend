@@ -9,9 +9,9 @@ interface WarningProps {}
 export const Warning: React.FC<WarningProps> = ({}) => {
   return (
     <Layout isProfile>
-      <Box textAlign="center" py={10} px={6}>
+      <Box minH={"100vh"} h={"100%"} textAlign="center" py={10} px={6}>
         <WarningTwoIcon boxSize={"50px"} color={"orange.300"} />
-        <Heading as="h2" size="xl" mt={6} mb={2}>
+        <Heading color={"gainsboro"} as="h2" size="xl" mt={6} mb={2}>
           Sorry, this page isn't available.
         </Heading>
         <Text color={"gray.500"}>

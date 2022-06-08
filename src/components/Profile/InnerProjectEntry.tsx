@@ -4,6 +4,7 @@ import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 import { ProjectQuery } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 import { generateProgress } from "../../utils/smsBody";
+import ToPageId from "./toPageId";
 
 interface Props {
   project: ProjectQuery["project"]["project"];
@@ -12,11 +13,9 @@ interface Props {
 export const ProjectHeading: React.FC<Props> = ({ project }) => {
   return (
     <Heading fontSize={"xl"}>
-      <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
-        <Link>
-          {project?.podId == 0 ? "not in pod yet" : "pod #: " + project?.podId}
-        </Link>
-      </NextLink>
+      <ToPageId project={project}>
+        {project?.podId == 0 ? "not in pod yet" : "pod #: " + project?.podId}
+      </ToPageId>
     </Heading>
   );
 };
@@ -36,11 +35,9 @@ const _ProjectVis: React.FC<Props> = ({ project }) => {
 export const ProjectVis: React.FC<Props> = ({ project }) => {
   return (
     <Box ml={4}>
-      <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
-        <Link>
-          <_ProjectVis project={project} />
-        </Link>
-      </NextLink>
+      <ToPageId project={project}>
+        <_ProjectVis project={project} />
+      </ToPageId>
     </Box>
   );
 };
@@ -67,12 +64,10 @@ const _NextDueDate: React.FC<Props> = ({ project }) => {
 
 export const NextDueDate: React.FC<Props> = ({ project }) => {
   return (
-    <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
-      <Link>
-        <Box ml={4}>
-          <_NextDueDate project={project} />
-        </Box>
-      </Link>
-    </NextLink>
+    <ToPageId project={project}>
+      <Box ml={4}>
+        <_NextDueDate project={project} />
+      </Box>
+    </ToPageId>
   );
 };
