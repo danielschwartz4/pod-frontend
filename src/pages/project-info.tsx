@@ -8,13 +8,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { Layout } from "../components/Layout";
 import EnterProject from "../components/ProjectInfo/EnterProject";
-import { MeQuery, useMeQuery } from "../generated/graphql";
-import { isServer } from "../utils/isServer";
-import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
-import { useIsAuth } from "../utils/usIsAuth";
 import RecurringTask from "../components/ProjectInfo/RecurringTask";
+import { useMeQuery } from "../generated/graphql";
+import { isServer } from "../utils/isServer";
+import { useIsAuth } from "../utils/usIsAuth";
 
 interface ProjectInfoProps {}
 
