@@ -7,16 +7,12 @@ import { ToProjectPageId, ToTaskPageId } from "./ToPageId";
 
 interface RecurringTaskEntryProps {
   task: RecurringTaskQuery["recurringTask"]["task"];
-  toId: string;
 }
-const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({
-  task,
-  toId,
-}) => {
+const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
   return (
     <ProfileGridItem type="recurringTask">
       <Heading fontSize={"xl"}>
-        <ToTaskPageId toId={toId}>
+        <ToTaskPageId task={task}>
           {task?.podId == 0 ? "not in pod yet" : "pod #: " + task?.podId}
         </ToTaskPageId>
       </Heading>

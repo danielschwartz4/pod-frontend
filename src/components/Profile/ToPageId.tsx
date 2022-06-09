@@ -1,27 +1,33 @@
 import { Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import { ProjectQuery } from "../../generated/graphql";
+import { ProjectQuery, RecurringTaskQuery } from "../../generated/graphql";
 
-interface ToPageIdProps {
-  // project: ProjectQuery["project"]["project"];
-  toId: string;
+interface ToProjectPageIdProps {
+  project: ProjectQuery["project"]["project"];
 }
 
-export const ToProjectPageId: React.FC<ToPageIdProps> = ({
+interface ToTaskPageIdProps {
+  task: RecurringTaskQuery["recurringTask"]["task"];
+}
+
+export const ToProjectPageId: React.FC<ToProjectPageIdProps> = ({
   children,
-  toId,
+  project,
 }) => {
   return (
-    <NextLink href="/project/[id]" as={`/project/${toId}`}>
+    <NextLink href="/project/[id]" as={`/project/${project?.id}`}>
       <Link>{children}</Link>
     </NextLink>
   );
 };
 
-export const ToTaskPageId: React.FC<ToPageIdProps> = ({ children, toId }) => {
+export const ToTaskPageId: React.FC<ToTaskPageIdProps> = ({
+  children,
+  task,
+}) => {
   return (
-    <NextLink href="/task/[id]" as={`/task/${toId}`}>
+    <NextLink href="/task/[id]" as={`/task/${task?.id}`}>
       <Link>{children}</Link>
     </NextLink>
   );

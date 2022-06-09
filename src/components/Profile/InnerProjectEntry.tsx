@@ -8,14 +8,10 @@ interface Props {
   project: ProjectQuery["project"]["project"];
 }
 
-interface ExtProps extends Props {
-  toId: string;
-}
-
-export const ProjectEntryHeading: React.FC<ExtProps> = ({ project, toId }) => {
+export const ProjectEntryHeading: React.FC<Props> = ({ project }) => {
   return (
     <Heading fontSize={"xl"}>
-      <ToProjectPageId toId={toId}>
+      <ToProjectPageId project={project}>
         {project?.podId == 0 ? "not in pod yet" : "pod #: " + project?.podId}
       </ToProjectPageId>
     </Heading>
@@ -34,10 +30,10 @@ const _ProjectVis: React.FC<Props> = ({ project }) => {
   return <Box>{progressVis}</Box>;
 };
 
-export const ProjectVis: React.FC<ExtProps> = ({ project, toId }) => {
+export const ProjectVis: React.FC<Props> = ({ project }) => {
   return (
     <Box ml={4}>
-      <ToProjectPageId toId={toId}>
+      <ToProjectPageId project={project}>
         <_ProjectVis project={project} />
       </ToProjectPageId>
     </Box>

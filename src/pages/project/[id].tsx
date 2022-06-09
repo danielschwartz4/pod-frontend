@@ -35,7 +35,7 @@ interface ProjectHomeProps {}
 const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
   useIsAuth();
 
-  const { data } = useMeQuery({});
+  const { data: meData } = useMeQuery({});
 
   const {
     data: projectData,
@@ -171,7 +171,7 @@ const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
                     setMilestoneDates={setMilestoneDates}
                     setMilestoneProgress={setMilestoneProgress}
                     usersData={usersData}
-                    username={data?.me?.username}
+                    username={meData?.me?.username}
                   />
                 ) : (
                   <Box>Loading...</Box>
@@ -187,7 +187,7 @@ const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
                   projectsData={projectsData}
                   projectsDataLoading={projectsDataLoading}
                   refetchProjects={refetchProjects}
-                  meData={data}
+                  meData={meData}
                 />
               </TabPanel>
             </TabPanels>

@@ -96,3 +96,6 @@ Foreign key constraint violated due to many to one relationship in typeorm table
 
 6-08-22
 Think very hard about what goes into the url I guess lol
+
+6-09-22
+Need to think of entire project when thinking of initial components

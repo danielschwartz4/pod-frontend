@@ -56,15 +56,12 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
               isChangingName={isChangingName}
               wrapperRef={wrapperRef}
               project={projectsDataDict[pid]}
-              toId={m}
             />
           );
         }
         if (m[0] == "t") {
           const tid = parseInt(m.slice(1));
-          return (
-            <RecurringTaskEntry toId={m} key={m} task={tasksDataDict[tid]} />
-          );
+          return <RecurringTaskEntry key={m} task={tasksDataDict[tid]} />;
         }
       })}
     </Grid>

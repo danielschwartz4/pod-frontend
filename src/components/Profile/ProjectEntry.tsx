@@ -20,7 +20,6 @@ interface ProjectEntryProps {
   isChangingName: boolean;
   setIsChangingName: React.Dispatch<React.SetStateAction<boolean>>;
   wrapperRef: React.MutableRefObject<HTMLDivElement>;
-  toId: string;
 }
 
 const ProjectEntry: React.FC<ProjectEntryProps> = ({
@@ -28,7 +27,6 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({
   isChangingName,
   setIsChangingName,
   wrapperRef,
-  toId,
 }) => {
   const [deleteProject] = useDeleteProjectMutation();
   const [newName, setNewName] = useState<string>(project?.projectName);
@@ -62,13 +60,13 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({
   return (
     <ProfileGridItem type={"project"}>
       <Box textAlign={"center"} margin={"auto"}>
-        <ProjectEntryHeading toId={toId} project={project} />
+        <ProjectEntryHeading project={project} />
       </Box>
       <Box>
         <NextProjectDueDate project={project} />
       </Box>
       <Box>
-        <ProjectVis toId={toId} project={project} />
+        <ProjectVis project={project} />
       </Box>
       <Box>
         <Flex alignItems={"center"} mb={6}>
