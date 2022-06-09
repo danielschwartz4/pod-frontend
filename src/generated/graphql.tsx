@@ -33,6 +33,7 @@ export type Mutation = {
   createPod: Pod;
   createRecurringTask: RecurringTaskResponse;
   deleteProject: Scalars['Boolean'];
+  deleteRecurringTask: Scalars['Boolean'];
   deleteUser: UserResponse;
   forgotPassword: Scalars['Boolean'];
   login: UserResponse;
@@ -79,6 +80,11 @@ export type MutationCreateRecurringTaskArgs = {
 
 
 export type MutationDeleteProjectArgs = {
+  id: Scalars['Float'];
+};
+
+
+export type MutationDeleteRecurringTaskArgs = {
   id: Scalars['Float'];
 };
 
@@ -411,6 +417,13 @@ export type CreateRecurringTaskMutationVariables = Exact<{
 
 
 export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
+
+export type DeleteRecurringTaskMutationVariables = Exact<{
+  deleteRecurringTaskId: Scalars['Float'];
+}>;
+
+
+export type DeleteRecurringTaskMutation = { __typename?: 'Mutation', deleteRecurringTask: boolean };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -1035,6 +1048,37 @@ export function useCreateRecurringTaskMutation(baseOptions?: Apollo.MutationHook
 export type CreateRecurringTaskMutationHookResult = ReturnType<typeof useCreateRecurringTaskMutation>;
 export type CreateRecurringTaskMutationResult = Apollo.MutationResult<CreateRecurringTaskMutation>;
 export type CreateRecurringTaskMutationOptions = Apollo.BaseMutationOptions<CreateRecurringTaskMutation, CreateRecurringTaskMutationVariables>;
+export const DeleteRecurringTaskDocument = gql`
+    mutation DeleteRecurringTask($deleteRecurringTaskId: Float!) {
+  deleteRecurringTask(id: $deleteRecurringTaskId)
+}
+    `;
+export type DeleteRecurringTaskMutationFn = Apollo.MutationFunction<DeleteRecurringTaskMutation, DeleteRecurringTaskMutationVariables>;
+
+/**
+ * __useDeleteRecurringTaskMutation__
+ *
+ * To run a mutation, you first call `useDeleteRecurringTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteRecurringTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteRecurringTaskMutation, { data, loading, error }] = useDeleteRecurringTaskMutation({
+ *   variables: {
+ *      deleteRecurringTaskId: // value for 'deleteRecurringTaskId'
+ *   },
+ * });
+ */
+export function useDeleteRecurringTaskMutation(baseOptions?: Apollo.MutationHookOptions<DeleteRecurringTaskMutation, DeleteRecurringTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteRecurringTaskMutation, DeleteRecurringTaskMutationVariables>(DeleteRecurringTaskDocument, options);
+      }
+export type DeleteRecurringTaskMutationHookResult = ReturnType<typeof useDeleteRecurringTaskMutation>;
+export type DeleteRecurringTaskMutationResult = Apollo.MutationResult<DeleteRecurringTaskMutation>;
+export type DeleteRecurringTaskMutationOptions = Apollo.BaseMutationOptions<DeleteRecurringTaskMutation, DeleteRecurringTaskMutationVariables>;
 export const UpdatePhoneDocument = gql`
     mutation UpdatePhone($phone: String!, $updatePhoneId: Float!) {
   updatePhone(phone: $phone, id: $updatePhoneId) {
