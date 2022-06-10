@@ -22,6 +22,7 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
           {task?.podId == 0 ? "not in pod yet" : "pod #: " + task?.podId}
         </ToTaskPageId>
       </Heading>
+
       <Box ml={"auto"} mr={"1em"}>
         <DeleteIcon
           cursor={"pointer"}

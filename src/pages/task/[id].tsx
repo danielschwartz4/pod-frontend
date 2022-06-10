@@ -2,6 +2,7 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Text,
   Button,
   Flex,
   TabPanel,
@@ -68,7 +69,11 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             <TabPanel h={"600px"} minH={"600px"} outlineOffset={-16}>
               {TEMP_BOOL ? (
                 <Box>
-                  <RecurringTaskProgress />
+                  {!taskDataLoading ? (
+                    <RecurringTaskProgress taskData={taskData} />
+                  ) : (
+                    <Text>Loading...</Text>
+                  )}
                 </Box>
               ) : (
                 <Box>Loading...</Box>

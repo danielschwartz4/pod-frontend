@@ -18,7 +18,7 @@ interface RecurringTaskProps {
   meData: MeQuery;
 }
 
-const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
+export const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [endOptionsSelector, setEndOptionsSelector] =
     React.useState<EndOptionsSelectorType>("none");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
@@ -148,5 +148,3 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
     </Box>
   );
 };
-
-export default RecurringTask;

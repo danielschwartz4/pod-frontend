@@ -73,7 +73,6 @@ const Circle: React.FC<{
           x="50%"
           y="50%"
           textAnchor="middle"
-          // stroke="gainsboro"
           fontFamily="auto"
           fontSize={12}
           strokeWidth="1px"

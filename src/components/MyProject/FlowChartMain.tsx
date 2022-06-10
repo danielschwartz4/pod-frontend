@@ -214,8 +214,6 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
     event.preventDefault();
   };
 
-  // const onLoad = (instance) => setTimeout(() => instance.fitView(), 0);
-
   const onNodeMouseEnter = (_, node) => {
     if (!isOpen) {
       setCurrNode(node);
