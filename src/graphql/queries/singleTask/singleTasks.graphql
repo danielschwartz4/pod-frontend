@@ -1,0 +1,8 @@
+query SingleTasks($projectId: Int!) {
+  singleTasks(projectId: $projectId) {
+    errors
+    singleTasks {
+      ...RegularSingleTask
+    }
+  }
+}

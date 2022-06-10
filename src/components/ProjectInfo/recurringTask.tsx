@@ -4,9 +4,11 @@ import router from "next/router";
 import React from "react";
 import {
   MeQuery,
+  useAddSingleTaskMutation,
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
 import { DaysType, EndOptionsSelectorType } from "../../types";
+import { convertToSingleTasks } from "../../utils/singleTaskUtils";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
@@ -18,10 +20,11 @@ interface RecurringTaskProps {
   meData: MeQuery;
 }
 
-export const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
+const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [endOptionsSelector, setEndOptionsSelector] =
     React.useState<EndOptionsSelectorType>("none");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
+  const [addSingleTask] = useAddSingleTaskMutation();
 
   return (
     <Box>
@@ -64,6 +67,9 @@ export const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           if (response?.data?.createRecurringTask?.errors) {
             setErrors(toErrorMap(response.data.createRecurringTask.errors));
           } else {
+            const singleTasks = convertToSingleTasks(
+              response?.data?.createRecurringTask?.task
+            );
             router.push("/profile");
           }
         }}
@@ -148,3 +154,5 @@ export const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
     </Box>
   );
 };
+
+export default RecurringTask;

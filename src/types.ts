@@ -72,3 +72,12 @@ export type DaysType = {
     duration: number;
   };
 };
+
+export type SingleTaskOptions = {
+  userId: number;
+  taskId: number;
+  podId: number;
+  notes: string;
+  completed: boolean;
+  actionDate: Date;
+};

@@ -1,0 +1,8 @@
+mutation AddSingleTask($singleTaskOptions: SingleTaskInput!) {
+  addSingleTask(singleTaskOptions: $singleTaskOptions) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}

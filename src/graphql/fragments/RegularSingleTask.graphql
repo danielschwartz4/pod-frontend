@@ -1,0 +1,10 @@
+fragment RegularSingleTask on SingleTask {
+  actionDate
+  completed
+  createdAt
+  id
+  day
+  notes
+  podId
+  userId
+}

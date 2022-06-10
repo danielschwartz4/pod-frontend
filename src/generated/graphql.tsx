@@ -29,6 +29,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addProjectInfo: ProjectInfoResponse;
   addProjectToPod: PodResponse;
+  addSingleTask: SingleTaskResponse;
   changePassword: UserResponse;
   createPod: Pod;
   createRecurringTask: RecurringTaskResponse;
@@ -47,6 +48,7 @@ export type Mutation = {
   updateProjectName: ProjectResponse;
   updateProjectPod: ProjectResponse;
   updateProjectProgress: ProjectResponse;
+  updateSingleTaskStatus: SingleTaskResponse;
   updateUserFriendRequests?: Maybe<UserResponse>;
 };
 
@@ -59,6 +61,11 @@ export type MutationAddProjectInfoArgs = {
 export type MutationAddProjectToPodArgs = {
   id: Scalars['Float'];
   projectId: Scalars['Float'];
+};
+
+
+export type MutationAddSingleTaskArgs = {
+  singleTaskOptions: SingleTaskInput;
 };
 
 
@@ -155,6 +162,11 @@ export type MutationUpdateProjectProgressArgs = {
 };
 
 
+export type MutationUpdateSingleTaskStatusArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type MutationUpdateUserFriendRequestsArgs = {
   isAdding: Scalars['Boolean'];
   podId: Scalars['Int'];
@@ -228,6 +240,7 @@ export type Query = {
   projects?: Maybe<Array<Project>>;
   recurringTask?: Maybe<RecurringTaskResponse>;
   recurringTasks?: Maybe<Array<RecurringTask>>;
+  singleTasks?: Maybe<SingleTasksResponse>;
 };
 
 
@@ -261,6 +274,11 @@ export type QueryRecurringTaskArgs = {
   id: Scalars['Int'];
 };
 
+
+export type QuerySingleTasksArgs = {
+  projectId: Scalars['Int'];
+};
+
 export type RecurringTask = {
   __typename?: 'RecurringTask';
   createdAt: Scalars['DateTime'];
@@ -289,6 +307,41 @@ export type RecurringTaskResponse = {
   __typename?: 'RecurringTaskResponse';
   errors?: Maybe<Array<FieldError>>;
   task?: Maybe<RecurringTask>;
+};
+
+export type SingleTask = {
+  __typename?: 'SingleTask';
+  actionDate?: Maybe<Scalars['DateTime']>;
+  completed: Scalars['Boolean'];
+  createdAt: Scalars['DateTime'];
+  day?: Maybe<Scalars['JSONObject']>;
+  id: Scalars['Int'];
+  notes: Scalars['String'];
+  podId?: Maybe<Scalars['Int']>;
+  updatedAt: Scalars['DateTime'];
+  userId: Scalars['Int'];
+};
+
+export type SingleTaskInput = {
+  actionDate?: InputMaybe<Scalars['DateTime']>;
+  completed: Scalars['Boolean'];
+  day?: InputMaybe<Scalars['JSONObject']>;
+  notes: Scalars['String'];
+  podId?: InputMaybe<Scalars['Int']>;
+  taskId: Scalars['Float'];
+  userId: Scalars['Float'];
+};
+
+export type SingleTaskResponse = {
+  __typename?: 'SingleTaskResponse';
+  errors?: Maybe<Scalars['String']>;
+  singleTask?: Maybe<SingleTask>;
+};
+
+export type SingleTasksResponse = {
+  __typename?: 'SingleTasksResponse';
+  errors?: Maybe<Scalars['String']>;
+  singleTasks?: Maybe<Array<SingleTask>>;
 };
 
 export type User = {
@@ -320,6 +373,8 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
 export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
+
+export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -424,6 +479,20 @@ export type DeleteRecurringTaskMutationVariables = Exact<{
 
 
 export type DeleteRecurringTaskMutation = { __typename?: 'Mutation', deleteRecurringTask: boolean };
+
+export type AddSingleTaskMutationVariables = Exact<{
+  singleTaskOptions: SingleTaskInput;
+}>;
+
+
+export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number } | null } };
+
+export type UpdateSingleTaskStatusMutationVariables = Exact<{
+  updateSingleTaskStatusId: Scalars['Int'];
+}>;
+
+
+export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -541,6 +610,13 @@ export type RecurringTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
 
+export type SingleTasksQueryVariables = Exact<{
+  projectId: Scalars['Int'];
+}>;
+
+
+export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number }> | null } | null };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -586,6 +662,18 @@ export const RegularRecurringTaskFragmentDoc = gql`
   podId
   projectName
   friendProposals
+}
+    `;
+export const RegularSingleTaskFragmentDoc = gql`
+    fragment RegularSingleTask on SingleTask {
+  actionDate
+  completed
+  createdAt
+  id
+  day
+  notes
+  podId
+  userId
 }
     `;
 export const RegularUserFragmentDoc = gql`
@@ -1079,6 +1167,78 @@ export function useDeleteRecurringTaskMutation(baseOptions?: Apollo.MutationHook
 export type DeleteRecurringTaskMutationHookResult = ReturnType<typeof useDeleteRecurringTaskMutation>;
 export type DeleteRecurringTaskMutationResult = Apollo.MutationResult<DeleteRecurringTaskMutation>;
 export type DeleteRecurringTaskMutationOptions = Apollo.BaseMutationOptions<DeleteRecurringTaskMutation, DeleteRecurringTaskMutationVariables>;
+export const AddSingleTaskDocument = gql`
+    mutation AddSingleTask($singleTaskOptions: SingleTaskInput!) {
+  addSingleTask(singleTaskOptions: $singleTaskOptions) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}
+    ${RegularSingleTaskFragmentDoc}`;
+export type AddSingleTaskMutationFn = Apollo.MutationFunction<AddSingleTaskMutation, AddSingleTaskMutationVariables>;
+
+/**
+ * __useAddSingleTaskMutation__
+ *
+ * To run a mutation, you first call `useAddSingleTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSingleTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addSingleTaskMutation, { data, loading, error }] = useAddSingleTaskMutation({
+ *   variables: {
+ *      singleTaskOptions: // value for 'singleTaskOptions'
+ *   },
+ * });
+ */
+export function useAddSingleTaskMutation(baseOptions?: Apollo.MutationHookOptions<AddSingleTaskMutation, AddSingleTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddSingleTaskMutation, AddSingleTaskMutationVariables>(AddSingleTaskDocument, options);
+      }
+export type AddSingleTaskMutationHookResult = ReturnType<typeof useAddSingleTaskMutation>;
+export type AddSingleTaskMutationResult = Apollo.MutationResult<AddSingleTaskMutation>;
+export type AddSingleTaskMutationOptions = Apollo.BaseMutationOptions<AddSingleTaskMutation, AddSingleTaskMutationVariables>;
+export const UpdateSingleTaskStatusDocument = gql`
+    mutation UpdateSingleTaskStatus($updateSingleTaskStatusId: Int!) {
+  updateSingleTaskStatus(id: $updateSingleTaskStatusId) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}
+    ${RegularSingleTaskFragmentDoc}`;
+export type UpdateSingleTaskStatusMutationFn = Apollo.MutationFunction<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>;
+
+/**
+ * __useUpdateSingleTaskStatusMutation__
+ *
+ * To run a mutation, you first call `useUpdateSingleTaskStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSingleTaskStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSingleTaskStatusMutation, { data, loading, error }] = useUpdateSingleTaskStatusMutation({
+ *   variables: {
+ *      updateSingleTaskStatusId: // value for 'updateSingleTaskStatusId'
+ *   },
+ * });
+ */
+export function useUpdateSingleTaskStatusMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>(UpdateSingleTaskStatusDocument, options);
+      }
+export type UpdateSingleTaskStatusMutationHookResult = ReturnType<typeof useUpdateSingleTaskStatusMutation>;
+export type UpdateSingleTaskStatusMutationResult = Apollo.MutationResult<UpdateSingleTaskStatusMutation>;
+export type UpdateSingleTaskStatusMutationOptions = Apollo.BaseMutationOptions<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>;
 export const UpdatePhoneDocument = gql`
     mutation UpdatePhone($phone: String!, $updatePhoneId: Float!) {
   updatePhone(phone: $phone, id: $updatePhoneId) {
@@ -1712,6 +1872,44 @@ export function useRecurringTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type RecurringTasksQueryHookResult = ReturnType<typeof useRecurringTasksQuery>;
 export type RecurringTasksLazyQueryHookResult = ReturnType<typeof useRecurringTasksLazyQuery>;
 export type RecurringTasksQueryResult = Apollo.QueryResult<RecurringTasksQuery, RecurringTasksQueryVariables>;
+export const SingleTasksDocument = gql`
+    query SingleTasks($projectId: Int!) {
+  singleTasks(projectId: $projectId) {
+    errors
+    singleTasks {
+      ...RegularSingleTask
+    }
+  }
+}
+    ${RegularSingleTaskFragmentDoc}`;
+
+/**
+ * __useSingleTasksQuery__
+ *
+ * To run a query within a React component, call `useSingleTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleTasksQuery({
+ *   variables: {
+ *      projectId: // value for 'projectId'
+ *   },
+ * });
+ */
+export function useSingleTasksQuery(baseOptions: Apollo.QueryHookOptions<SingleTasksQuery, SingleTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SingleTasksQuery, SingleTasksQueryVariables>(SingleTasksDocument, options);
+      }
+export function useSingleTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SingleTasksQuery, SingleTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SingleTasksQuery, SingleTasksQueryVariables>(SingleTasksDocument, options);
+        }
+export type SingleTasksQueryHookResult = ReturnType<typeof useSingleTasksQuery>;
+export type SingleTasksLazyQueryHookResult = ReturnType<typeof useSingleTasksLazyQuery>;
+export type SingleTasksQueryResult = Apollo.QueryResult<SingleTasksQuery, SingleTasksQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

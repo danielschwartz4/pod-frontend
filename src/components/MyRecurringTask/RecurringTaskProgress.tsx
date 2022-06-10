@@ -9,7 +9,6 @@ interface RecurringTaskProgressProps {
 export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   taskData,
 }) => {
-  console.log(taskData);
   return (
     <Box>
       <Circle></Circle>

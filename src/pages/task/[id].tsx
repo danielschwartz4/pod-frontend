@@ -32,8 +32,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     refetch: refetchTask,
   } = useGetTaskFromUrl();
 
-  console.log(taskData);
-
   return (
     <Layout>
       <DashWrapper>

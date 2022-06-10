@@ -1,0 +1,8 @@
+mutation UpdateSingleTaskStatus($updateSingleTaskStatusId: Int!) {
+  updateSingleTaskStatus(id: $updateSingleTaskStatusId) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}
