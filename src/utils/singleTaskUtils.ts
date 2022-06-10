@@ -8,29 +8,37 @@ export function convertToSingleTasks(
 
   const singleTasks = [];
   let numTasks: number;
+  let daysCount;
   if (responseTask.endOptions.neverEnds) {
     numTasks = 10;
   } else if (responseTask.endOptions.date) {
-    const daysCount = numOccurrencesBetweenTwoDates(
-      responseTask.startDate,
-      responseTask.endOptions.date
+    daysCount = numOccurrencesBetweenTwoDates(
+      new Date(responseTask.startDate),
+      new Date(responseTask.endOptions.date)
     );
   } else {
     numTasks = responseTask.endOptions.repetitinos;
   }
+  return daysCount;
 }
 
 function numOccurrencesBetweenTwoDates(start: Date, end: Date) {
   var dayCount = {
-    sunday: 0,
-    monday: 0,
-    tuesday: 0,
-    wednesday: 0,
-    thursday: 0,
-    friday: 0,
-    saturday: 0,
-  }; //0 is sunday and 6 is saturday
+    0: [{ idx: 0, date: Date() }],
+    1: [{ idx: 0, date: Date() }],
+    2: [{ idx: 0, date: Date() }],
+    3: [{ idx: 0, date: Date() }],
+    4: [{ idx: 0, date: Date() }],
+    5: [{ idx: 0, date: Date() }],
+    6: [{ idx: 0, date: Date() }],
+  };
   for (var d = start; d <= end; d.setDate(d.getDate() + 1)) {
-    dayCount[d.getDay()]++;
+    const currDay = dayCount[d.getDay()];
+    const prev = dayCount[d.getDay()][currDay.length - 1];
+    const newCount = prev["idx"] + 1;
+    const newDate = d;
+    const entry = { idx: newCount, date: newDate };
+    dayCount[d.getDay()].push(entry);
   }
+  return dayCount;
 }

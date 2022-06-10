@@ -70,6 +70,7 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
             const singleTasks = convertToSingleTasks(
               response?.data?.createRecurringTask?.task
             );
+            console.log(singleTasks);
             router.push("/profile");
           }
         }}
