@@ -11,7 +11,7 @@ import React from "react";
 import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { Layout } from "../components/Layout";
 import EnterProject from "../components/ProjectInfo/EnterProject";
-import RecurrringTask from "../components/ProjectInfo/RecurringTask";
+import RecurrringTask from "../components/ProjectInfo/RecurrringTask";
 import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import { useIsAuth } from "../utils/usIsAuth";
@@ -20,7 +20,7 @@ interface ProjectInfoProps {}
 
 const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
   useIsAuth();
-
+  //
   const { data, loading, error } = useMeQuery({
     // !! Look up wtf this is!!!!!!!!
     skip: isServer(),
