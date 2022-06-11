@@ -23,7 +23,10 @@ export function convertToSingleTasks(
   return daysCount;
 }
 
-type EntryType = { idx: number; date: Date };
+type EntriesType = [{ idx: number; date: Date }?];
+
+// !! We are adding each of these as a row to singleTask data fram so
+// !! add the meta data: "completed", "notes" to the object"
 
 function numOccurrencesBetweenTwoDates(
   start: Date,
@@ -31,13 +34,13 @@ function numOccurrencesBetweenTwoDates(
   dayIdxs: Set<number>
 ) {
   var dayCount = {
-    0: [],
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [],
-    6: [],
+    0: [] as EntriesType,
+    1: [] as EntriesType,
+    2: [] as EntriesType,
+    3: [] as EntriesType,
+    4: [] as EntriesType,
+    5: [] as EntriesType,
+    6: [] as EntriesType,
   };
   for (var d = start; d <= end; d.setDate(d.getDate() + 1)) {
     const dayIdx = d.getDay();
@@ -52,29 +55,4 @@ function numOccurrencesBetweenTwoDates(
   return dayCount;
 }
 
-// function numOccurrencesBetweenTwoDates(start: Date, end: Date) {
-//   var dayCount = {
-//     0: [{ idx: 0, date: Date() }],
-//     1: [{ idx: 0, date: Date() }],
-//     2: [{ idx: 0, date: Date() }],
-//     3: [{ idx: 0, date: Date() }],
-//     4: [{ idx: 0, date: Date() }],
-//     5: [{ idx: 0, date: Date() }],
-//     6: [{ idx: 0, date: Date() }],
-//   };
-//   // !! Don't make it so it only works if day is in the set of chosen
-//   // !! Incase the person changes their mind about the days (or maybe do at first)
-
-//   // !! We are adding each of these as a row to singleTask data fram so
-//   // !! add the meta data: "completed", "notes", "expected completion date to the object"
-//   // !! Get all of this done tomorrow bitchh
-//   for (var d = start; d <= end; d.setDate(d.getDate() + 1)) {
-//     const currDay = dayCount[d.getDay()];
-//     const prev = dayCount[d.getDay()][currDay.length - 1];
-//     const newCount = prev["idx"] + 1;
-//     const newDate = d;
-//     const entry = { idx: newCount, date: newDate };
-//     dayCount[d.getDay()].push(entry);
-//   }
-//   return dayCount;
-// }
+function extractDaysIdxs(days: DaysType) {}
