@@ -19,7 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/MyProject/FlowChartMain.tsx"
+    "src/components/MyProject/FlowChartMain.tsx",
+    "src/utils/test.js"
   ],
   "exclude": ["node_modules"]
 }
