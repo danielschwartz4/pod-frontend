@@ -39,13 +39,13 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
           days: {
-            sunday: { isSelected: false, duration: null },
-            monday: { isSelected: false, duration: null },
-            tuesday: { isSelected: false, duration: null },
-            wednesday: { isSelected: false, duration: null },
-            thursday: { isSelected: false, duration: null },
-            friday: { isSelected: false, duration: null },
-            saturday: { isSelected: false, duration: null },
+            0: { isSelected: false, duration: null },
+            1: { isSelected: false, duration: null },
+            2: { isSelected: false, duration: null },
+            3: { isSelected: false, duration: null },
+            4: { isSelected: false, duration: null },
+            5: { isSelected: false, duration: null },
+            6: { isSelected: false, duration: null },
           } as DaysType,
         }}
         onSubmit={async (

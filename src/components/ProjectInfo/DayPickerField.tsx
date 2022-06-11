@@ -12,13 +12,13 @@ const DayPicker: React.FC<DayPickerProps> = ({ name }) => {
   const { setFieldValue } = useFormikContext();
 
   const daysInit: DaysType = {
-    sunday: { abr: "S", isSelected: false, duration: null },
-    monday: { abr: "M", isSelected: false, duration: null },
-    tuesday: { abr: "T", isSelected: false, duration: null },
-    wednesday: { abr: "W", isSelected: false, duration: null },
-    thursday: { abr: "T", isSelected: false, duration: null },
-    friday: { abr: "F", isSelected: false, duration: null },
-    saturday: { abr: "S", isSelected: false, duration: null },
+    0: { abr: "S", isSelected: false, duration: null },
+    1: { abr: "M", isSelected: false, duration: null },
+    2: { abr: "T", isSelected: false, duration: null },
+    3: { abr: "W", isSelected: false, duration: null },
+    4: { abr: "T", isSelected: false, duration: null },
+    5: { abr: "F", isSelected: false, duration: null },
+    6: { abr: "S", isSelected: false, duration: null },
   };
 
   const [days, setDays] = React.useState<DaysType>(daysInit);

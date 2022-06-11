@@ -35,38 +35,39 @@ export interface EndOptions {
 
 export type EndOptionsSelectorType = "none" | "date" | "repetitions" | "never";
 
+// Starts from sunday
 export type DaysType = {
-  sunday: {
+  0: {
     abr?: string;
     isSelected: boolean;
     duration: number;
   };
-  monday: {
+  1: {
     abr?: string;
     isSelected: boolean;
     duration: number;
   };
-  tuesday: {
+  2: {
     abr?: string;
     isSelected: boolean;
     duration: number;
   };
-  wednesday: {
+  3: {
     abr?: string;
     isSelected: boolean;
     duration: number;
   };
-  thursday: {
+  4: {
     abr?: string;
     isSelected: boolean;
     duration: number;
   };
-  friday: {
+  5: {
     abr?: string;
     isSelected: boolean;
     duration: number;
   };
-  saturday: {
+  6: {
     abr?: string;
     isSelected: boolean;
     duration: number;
