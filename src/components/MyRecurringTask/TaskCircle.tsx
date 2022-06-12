@@ -1,21 +1,30 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { SingleTaskQuery } from "../../generated/graphql";
+import { SingleTask, SingleTaskQuery } from "../../generated/graphql";
 import { dayIdxMapper } from "../../utils/dayIdxMapper";
 
 interface TaskCircleProps {
-  singleTask: SingleTaskQuery;
+  singleTask?: SingleTask;
   isInteractive: boolean;
+  color: string;
+  icon: string;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
   singleTask,
   isInteractive,
+  color,
+  icon,
 }) => {
   return (
-    // <Box width={["36px", "48px"]} height={["36px", "48px"]}>
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="12" fill={"#7e9cd6"} strokeWidth={"3"} />
+    <svg
+      width={"48px"}
+      height={"48px"}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="12" cy="12" r="12" fill={color} strokeWidth={"3"} />
       <text
         x="50%"
         y="50%"
@@ -26,10 +35,9 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
         fill="gainsboro"
         dy=".3em"
       >
-        X
+        {icon}
       </text>
     </svg>
-    // </Box>
   );
 };
 
