@@ -88,6 +88,7 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
                         completed: false,
                         notes: "",
                         actionDate: ele.actionDate,
+                        actionDay: ele.actionDay,
                         taskId: response?.data?.createRecurringTask?.task?.id,
                         userId:
                           response?.data?.createRecurringTask?.task?.userId,
@@ -97,7 +98,6 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
                 });
               }
             });
-            console.log(singleTasks);
             await router.push("/profile");
           }
         }}

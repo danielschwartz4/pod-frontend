@@ -1,5 +1,5 @@
-query SingleTasks($projectId: Int!) {
-  singleTasks(projectId: $projectId) {
+query SingleTasks($taskId: Int!) {
+  singleTasks(taskId: $taskId) {
     errors
     singleTasks {
       ...RegularSingleTask

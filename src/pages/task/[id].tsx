@@ -13,12 +13,15 @@ import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";
 import { Layout } from "../../components/Layout";
 import { RecurringTaskProgress } from "../../components/MyRecurringTask/RecurringTaskProgress";
-import { useMeQuery } from "../../generated/graphql";
+import { useMeQuery, useSingleTasksQuery } from "../../generated/graphql";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
+import { useIsAuth } from "../../utils/usIsAuth";
 
 interface TaskHomeProps {}
 
 const TaskHome: React.FC<TaskHomeProps> = ({}) => {
+  useIsAuth();
+
   const [changeTab, useChangeTab] = useState<string>("task");
   const [keepMounted, setKeepMounted] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
@@ -31,6 +34,13 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     loading: taskDataLoading,
     refetch: refetchTask,
   } = useGetTaskFromUrl();
+
+  const { data: singleTasksData, loading: singleTasksDataLoading } =
+    useSingleTasksQuery({
+      variables: {
+        taskId: taskData?.recurringTask?.task?.id,
+      },
+    });
 
   return (
     <Layout>
@@ -67,8 +77,11 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             <TabPanel h={"600px"} minH={"600px"} outlineOffset={-16}>
               {TEMP_BOOL ? (
                 <Box>
-                  {!taskDataLoading ? (
-                    <RecurringTaskProgress taskData={taskData} />
+                  {!taskDataLoading && !singleTasksDataLoading ? (
+                    <RecurringTaskProgress
+                      singleTasksData={singleTasksData}
+                      taskData={taskData}
+                    />
                   ) : (
                     <Text>Loading...</Text>
                   )}

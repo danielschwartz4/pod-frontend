@@ -13,16 +13,12 @@ export function convertToSingleTasks(
       new Date(responseTask.startDate),
       endDate,
       selectedDaysIdxs
-      // false,
-      // ""
     );
   } else if (responseTask.endOptions.date) {
     singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       new Date(responseTask.endOptions.date),
       selectedDaysIdxs
-      // false,
-      // ""
     );
   } else {
     numTasks = responseTask.endOptions.repetitions;
@@ -31,8 +27,6 @@ export function convertToSingleTasks(
       new Date(responseTask.startDate),
       endDate,
       selectedDaysIdxs
-      // false,
-      // ""
     );
   }
   return singleTasksData;
@@ -41,16 +35,10 @@ export function convertToSingleTasks(
 export type EntriesType = {
   idx: number;
   actionDate: Date;
-  // completed: boolean; notes: string
+  actionDay: number;
 }[];
 
-function dataBetweenTwoDates(
-  start: Date,
-  end: Date,
-  dayIdxs: Set<number>
-  // completed: boolean,
-  // notes: string
-) {
+function dataBetweenTwoDates(start: Date, end: Date, dayIdxs: Set<number>) {
   var dayDict = {
     0: [] as EntriesType,
     1: [] as EntriesType,
@@ -70,8 +58,7 @@ function dataBetweenTwoDates(
       let entry = {
         idx: newCount,
         actionDate: newDate,
-        // completed: completed,
-        // notes: notes,
+        actionDay: dayIdx,
       };
       currDay.push(entry);
       dayDict[dayIdx] = currDay;

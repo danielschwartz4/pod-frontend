@@ -99,3 +99,6 @@ Think very hard about what goes into the url I guess lol
 
 6-09-22
 Need to think of entire project when thinking of initial components
+
+6-12-22
+To need to make sure your creating new object in javascript (see convertToDays function)

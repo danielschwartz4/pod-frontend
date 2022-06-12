@@ -17,7 +17,7 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
 
   return (
     <ProfileGridItem type="recurringTask">
-      <Heading fontSize={"xl"}>
+      <Heading fontSize={"xl"} mx={"auto"}>
         <ToTaskPageId task={task}>
           {task?.podId == 0 ? "not in pod yet" : "pod #: " + task?.podId}
         </ToTaskPageId>

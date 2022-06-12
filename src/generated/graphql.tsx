@@ -276,7 +276,7 @@ export type QueryRecurringTaskArgs = {
 
 
 export type QuerySingleTasksArgs = {
-  projectId: Scalars['Int'];
+  taskId: Scalars['Int'];
 };
 
 export type RecurringTask = {
@@ -312,21 +312,21 @@ export type RecurringTaskResponse = {
 export type SingleTask = {
   __typename?: 'SingleTask';
   actionDate?: Maybe<Scalars['DateTime']>;
+  actionDay?: Maybe<Scalars['Int']>;
   completed: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   notes: Scalars['String'];
-  taskId: Scalars['Int'];
+  taskId?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['DateTime'];
   userId: Scalars['Int'];
 };
 
 export type SingleTaskInput = {
   actionDate?: InputMaybe<Scalars['DateTime']>;
+  actionDay?: InputMaybe<Scalars['Int']>;
   completed: Scalars['Boolean'];
-  day?: InputMaybe<Scalars['JSONObject']>;
   notes: Scalars['String'];
-  podId?: InputMaybe<Scalars['Int']>;
   taskId: Scalars['Float'];
   userId: Scalars['Float'];
 };
@@ -373,7 +373,7 @@ export type RegularProjectFragment = { __typename?: 'Project', userId: number, i
 
 export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, updatedAt: any, createdAt: any, id: number, notes: string, userId: number, taskId: number };
+export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -484,14 +484,14 @@ export type AddSingleTaskMutationVariables = Exact<{
 }>;
 
 
-export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, updatedAt: any, createdAt: any, id: number, notes: string, userId: number, taskId: number } | null } };
+export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any } | null } };
 
 export type UpdateSingleTaskStatusMutationVariables = Exact<{
   updateSingleTaskStatusId: Scalars['Int'];
 }>;
 
 
-export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, updatedAt: any, createdAt: any, id: number, notes: string, userId: number, taskId: number } | null } };
+export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -610,11 +610,11 @@ export type RecurringTasksQueryVariables = Exact<{ [key: string]: never; }>;
 export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
 
 export type SingleTasksQueryVariables = Exact<{
-  projectId: Scalars['Int'];
+  taskId: Scalars['Int'];
 }>;
 
 
-export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, updatedAt: any, createdAt: any, id: number, notes: string, userId: number, taskId: number }> | null } | null };
+export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any }> | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -666,13 +666,14 @@ export const RegularRecurringTaskFragmentDoc = gql`
 export const RegularSingleTaskFragmentDoc = gql`
     fragment RegularSingleTask on SingleTask {
   actionDate
+  actionDay
   completed
-  updatedAt
-  createdAt
   id
   notes
   userId
   taskId
+  updatedAt
+  createdAt
 }
     `;
 export const RegularUserFragmentDoc = gql`
@@ -1872,8 +1873,8 @@ export type RecurringTasksQueryHookResult = ReturnType<typeof useRecurringTasksQ
 export type RecurringTasksLazyQueryHookResult = ReturnType<typeof useRecurringTasksLazyQuery>;
 export type RecurringTasksQueryResult = Apollo.QueryResult<RecurringTasksQuery, RecurringTasksQueryVariables>;
 export const SingleTasksDocument = gql`
-    query SingleTasks($projectId: Int!) {
-  singleTasks(projectId: $projectId) {
+    query SingleTasks($taskId: Int!) {
+  singleTasks(taskId: $taskId) {
     errors
     singleTasks {
       ...RegularSingleTask
@@ -1894,7 +1895,7 @@ export const SingleTasksDocument = gql`
  * @example
  * const { data, loading, error } = useSingleTasksQuery({
  *   variables: {
- *      projectId: // value for 'projectId'
+ *      taskId: // value for 'taskId'
  *   },
  * });
  */
