@@ -31,7 +31,7 @@ const DayPicker: React.FC<DayPickerProps> = ({ name }) => {
     <FormControl isInvalid={!!error}>
       <Flex className="days" {...field}>
         {Object.keys(days).map((key, index) => (
-          <Box mx={2} key={index} day={key}>
+          <Box mx={[1, 2]} key={index} day={key}>
             <Circle day={key} days={days} setDays={setDays} />
           </Box>
         ))}
@@ -48,6 +48,8 @@ const Circle: React.FC<{
 }> = ({ setDays, days, day }) => {
   return (
     <Box
+      width={["36px", "48px"]}
+      height={["36px", "48px"]}
       cursor={"pointer"}
       onClick={() => {
         const newDays = { ...days };
@@ -56,8 +58,8 @@ const Circle: React.FC<{
       }}
     >
       <svg
-        width="48"
-        height="48"
+        // width="48"
+        // height="48"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +85,38 @@ const Circle: React.FC<{
         </text>
       </svg>
     </Box>
+  );
+};
+
+const Mobile: React.FC<{ days: {}; day: string }> = ({ days, day }) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="12"
+        fill={days[day].isSelected ? "#F6793D" : "#7e9cd6"}
+        strokeWidth={"3"}
+      />
+      <text
+        x="50%"
+        y="50%"
+        textAnchor="middle"
+        fontFamily="auto"
+        fontSize={12}
+        strokeWidth="1px"
+        fill="gainsboro"
+        dy=".3em"
+      >
+        {days[day].abr}
+      </text>
+    </svg>
   );
 };
 

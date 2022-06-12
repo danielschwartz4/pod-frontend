@@ -14,6 +14,8 @@ import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import RepetitionStepper from "./RepetitionStepperField";
 
+// !! Don't think I need this file
+
 interface RecurringTaskProps {
   meData: MeQuery;
 }
@@ -25,7 +27,7 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
 
   return (
     <Box>
-      <Heading fontSize={24} color={"gainsboro"}>
+      {/* <Heading fontSize={24} color={"gainsboro"}>
         Tell us what you'd like to stay consistent with!
       </Heading>
 
@@ -36,13 +38,13 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
           days: {
-            sunday: { isSelected: false, duration: null },
-            monday: { isSelected: false, duration: null },
-            tuesday: { isSelected: false, duration: null },
-            wednesday: { isSelected: false, duration: null },
-            thursday: { isSelected: false, duration: null },
-            friday: { isSelected: false, duration: null },
-            saturday: { isSelected: false, duration: null },
+            0: { isSelected: false, duration: null },
+            1: { isSelected: false, duration: null },
+            2: { isSelected: false, duration: null },
+            3: { isSelected: false, duration: null },
+            4: { isSelected: false, duration: null },
+            5: { isSelected: false, duration: null },
+            6: { isSelected: false, duration: null },
           } as DaysType,
         }}
         onSubmit={async (
@@ -144,7 +146,7 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
             </Box>
           </Form>
         )}
-      </Formik>
+      </Formik> */}
     </Box>
   );
 };
