@@ -14,13 +14,17 @@ export function convertToSingleTasks(
     singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       endDate,
-      dayIdxs
+      dayIdxs,
+      false,
+      ""
     );
   } else if (responseTask.endOptions.date) {
     singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       new Date(responseTask.endOptions.date),
-      dayIdxs
+      dayIdxs,
+      false,
+      ""
     );
   } else {
     numTasks = responseTask.endOptions.repetitions;
@@ -28,18 +32,25 @@ export function convertToSingleTasks(
     singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       endDate,
-      dayIdxs
+      dayIdxs,
+      false,
+      ""
     );
   }
   return singleTasksData;
 }
 
-type EntriesType = [{ idx: number; date: Date }?];
+type EntriesType = [
+  { idx: number; actionDate: Date; completed: boolean; notes: string }?
+];
 
-// !! We are adding each of these as a row to singleTask data fram so
-// !! add the meta data: "completed", "notes" to the object"
-
-function dataBetweenTwoDates(start: Date, end: Date, dayIdxs: Set<number>) {
+function dataBetweenTwoDates(
+  start: Date,
+  end: Date,
+  dayIdxs: Set<number>,
+  completed: boolean,
+  notes: string
+) {
   var dayDict = {
     0: [] as EntriesType,
     1: [] as EntriesType,
@@ -55,8 +66,13 @@ function dataBetweenTwoDates(start: Date, end: Date, dayIdxs: Set<number>) {
       let currDay = dayDict[dayIdx];
       let prev = currDay[currDay.length - 1];
       let newCount = prev == undefined ? 1 : prev["idx"] + 1;
-      let j = new Date(d);
-      let entry = { idx: newCount, date: j };
+      let newDate = new Date(d);
+      let entry = {
+        idx: newCount,
+        actionDate: newDate,
+        completed: completed,
+        notes: notes,
+      };
       currDay.push(entry);
       dayDict[dayIdx] = currDay;
     }
