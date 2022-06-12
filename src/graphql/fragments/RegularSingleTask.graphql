@@ -1,9 +1,10 @@
 fragment RegularSingleTask on SingleTask {
   actionDate
   completed
+  updatedAt
   createdAt
   id
   notes
-  podId
   userId
+  taskId
 }

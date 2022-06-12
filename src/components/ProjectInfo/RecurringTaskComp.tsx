@@ -10,7 +10,6 @@ import {
 import { DaysType, EndOptionsSelectorType } from "../../types";
 import {
   convertToSingleTasks,
-  EntriesType,
   extractDaysIdxs,
 } from "../../utils/singleTaskUtils";
 import { toErrorMap } from "../../utils/toErrorMap";

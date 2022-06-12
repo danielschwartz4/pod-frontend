@@ -26,7 +26,7 @@ const RepetitionStepper: React.FC<RepetitionStepperProps> = ({ name }) => {
         mr={4}
         min={1}
         mt={8}
-        defaultValue={1}
+        defaultValue={0}
       >
         <NumberInputField textColor={"gainsboro"} />
         <NumberInputStepper>

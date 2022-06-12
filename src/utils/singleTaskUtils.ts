@@ -5,9 +5,6 @@ export function convertToSingleTasks(
   responseTask: RecurringTaskResponse["task"],
   selectedDaysIdxs: Set<number>
 ) {
-  // const days = responseTask.days as DaysType;
-  // const dayIdxs = extractDaysIdxs(days);
-
   let numTasks: number;
   let singleTasksData;
   if (responseTask.endOptions.neverEnds) {
