@@ -314,7 +314,6 @@ export type SingleTask = {
   actionDate?: Maybe<Scalars['DateTime']>;
   completed: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
-  day?: Maybe<Scalars['JSONObject']>;
   id: Scalars['Int'];
   notes: Scalars['String'];
   podId?: Maybe<Scalars['Int']>;
@@ -374,7 +373,7 @@ export type RegularProjectFragment = { __typename?: 'Project', userId: number, i
 
 export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number };
+export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, notes: string, podId?: number | null, userId: number };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -485,14 +484,14 @@ export type AddSingleTaskMutationVariables = Exact<{
 }>;
 
 
-export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number } | null } };
+export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, notes: string, podId?: number | null, userId: number } | null } };
 
 export type UpdateSingleTaskStatusMutationVariables = Exact<{
   updateSingleTaskStatusId: Scalars['Int'];
 }>;
 
 
-export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number } | null } };
+export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, notes: string, podId?: number | null, userId: number } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -615,7 +614,7 @@ export type SingleTasksQueryVariables = Exact<{
 }>;
 
 
-export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, day?: any | null, notes: string, podId?: number | null, userId: number }> | null } | null };
+export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, completed: boolean, createdAt: any, id: number, notes: string, podId?: number | null, userId: number }> | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -670,7 +669,6 @@ export const RegularSingleTaskFragmentDoc = gql`
   completed
   createdAt
   id
-  day
   notes
   podId
   userId

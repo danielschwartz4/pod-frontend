@@ -2,10 +2,11 @@ import { RecurringTaskResponse } from "../generated/graphql";
 import { DaysType } from "../types";
 
 export function convertToSingleTasks(
-  responseTask: RecurringTaskResponse["task"]
+  responseTask: RecurringTaskResponse["task"],
+  selectedDaysIdxs: Set<number>
 ) {
-  const days = responseTask.days as DaysType;
-  const dayIdxs = extractDaysIdxs(days);
+  // const days = responseTask.days as DaysType;
+  // const dayIdxs = extractDaysIdxs(days);
 
   let numTasks: number;
   let singleTasksData;
@@ -14,17 +15,17 @@ export function convertToSingleTasks(
     singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       endDate,
-      dayIdxs,
-      false,
-      ""
+      selectedDaysIdxs
+      // false,
+      // ""
     );
   } else if (responseTask.endOptions.date) {
     singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       new Date(responseTask.endOptions.date),
-      dayIdxs,
-      false,
-      ""
+      selectedDaysIdxs
+      // false,
+      // ""
     );
   } else {
     numTasks = responseTask.endOptions.repetitions;
@@ -32,24 +33,26 @@ export function convertToSingleTasks(
     singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       endDate,
-      dayIdxs,
-      false,
-      ""
+      selectedDaysIdxs
+      // false,
+      // ""
     );
   }
   return singleTasksData;
 }
 
-type EntriesType = [
-  { idx: number; actionDate: Date; completed: boolean; notes: string }?
-];
+export type EntriesType = {
+  idx: number;
+  actionDate: Date;
+  // completed: boolean; notes: string
+}[];
 
 function dataBetweenTwoDates(
   start: Date,
   end: Date,
-  dayIdxs: Set<number>,
-  completed: boolean,
-  notes: string
+  dayIdxs: Set<number>
+  // completed: boolean,
+  // notes: string
 ) {
   var dayDict = {
     0: [] as EntriesType,
@@ -70,8 +73,8 @@ function dataBetweenTwoDates(
       let entry = {
         idx: newCount,
         actionDate: newDate,
-        completed: completed,
-        notes: notes,
+        // completed: completed,
+        // notes: notes,
       };
       currDay.push(entry);
       dayDict[dayIdx] = currDay;
@@ -80,7 +83,7 @@ function dataBetweenTwoDates(
   return dayDict;
 }
 
-function extractDaysIdxs(days: DaysType) {
+export function extractDaysIdxs(days: DaysType) {
   let idxs = new Set<number>();
   Object.keys(days).forEach((day) => {
     if (days[day].isSelected) {

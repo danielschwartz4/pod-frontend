@@ -3,7 +3,6 @@ fragment RegularSingleTask on SingleTask {
   completed
   createdAt
   id
-  day
   notes
   podId
   userId

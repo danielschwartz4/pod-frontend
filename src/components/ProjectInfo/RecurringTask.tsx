@@ -4,15 +4,9 @@ import router from "next/router";
 import React from "react";
 import {
   MeQuery,
-  useAddSingleTaskMutation,
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
 import { DaysType, EndOptionsSelectorType } from "../../types";
-import {
-  convertToSingleTasks,
-  EntriesType,
-  extractDaysIdxs,
-} from "../../utils/singleTaskUtils";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
@@ -28,7 +22,6 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [endOptionsSelector, setEndOptionsSelector] =
     React.useState<EndOptionsSelectorType>("none");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
-  const [addSingleTask] = useAddSingleTaskMutation();
 
   return (
     <Box>
@@ -43,13 +36,13 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
           days: {
-            0: { isSelected: false, duration: null },
-            1: { isSelected: false, duration: null },
-            2: { isSelected: false, duration: null },
-            3: { isSelected: false, duration: null },
-            4: { isSelected: false, duration: null },
-            5: { isSelected: false, duration: null },
-            6: { isSelected: false, duration: null },
+            sunday: { isSelected: false, duration: null },
+            monday: { isSelected: false, duration: null },
+            tuesday: { isSelected: false, duration: null },
+            wednesday: { isSelected: false, duration: null },
+            thursday: { isSelected: false, duration: null },
+            friday: { isSelected: false, duration: null },
+            saturday: { isSelected: false, duration: null },
           } as DaysType,
         }}
         onSubmit={async (
@@ -71,35 +64,7 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
           if (response?.data?.createRecurringTask?.errors) {
             setErrors(toErrorMap(response.data.createRecurringTask.errors));
           } else {
-            const selectedDays = response?.data?.createRecurringTask?.task
-              .days as DaysType;
-            const selectedDaysIdxs = extractDaysIdxs(selectedDays);
-            const singleTasks = convertToSingleTasks(
-              response?.data?.createRecurringTask?.task,
-              selectedDaysIdxs
-            );
-
-            Object.keys(singleTasks).forEach((key) => {
-              if (selectedDaysIdxs.has(parseInt(key))) {
-                const arr = singleTasks[key];
-                arr.forEach((ele) => {
-                  const response2 = addSingleTask({
-                    variables: {
-                      singleTaskOptions: {
-                        completed: false,
-                        notes: "",
-                        actionDate: ele.actionDate,
-                        taskId: response?.data?.createRecurringTask?.task?.id,
-                        userId:
-                          response?.data?.createRecurringTask?.task?.userId,
-                      },
-                    },
-                  });
-                });
-              }
-            });
-            console.log(singleTasks);
-            await router.push("/profile");
+            router.push("/profile");
           }
         }}
       >
