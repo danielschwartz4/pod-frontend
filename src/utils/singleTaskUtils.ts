@@ -7,22 +7,31 @@ export function convertToSingleTasks(
   const days = responseTask.days as DaysType;
   const dayIdxs = extractDaysIdxs(days);
 
-  const singleTasks = [];
   let numTasks: number;
-  let daysCount;
+  let singleTasksData;
   if (responseTask.endOptions.neverEnds) {
-    numTasks = 10;
+    let endDate = addDays(28, responseTask.startDate);
+    singleTasksData = dataBetweenTwoDates(
+      new Date(responseTask.startDate),
+      endDate,
+      dayIdxs
+    );
   } else if (responseTask.endOptions.date) {
-    daysCount = numOccurrencesBetweenTwoDates(
+    singleTasksData = dataBetweenTwoDates(
       new Date(responseTask.startDate),
       new Date(responseTask.endOptions.date),
-      // new Set([1, 3, 5])
       dayIdxs
     );
   } else {
-    numTasks = responseTask.endOptions.repetitinos;
+    numTasks = responseTask.endOptions.repetitions;
+    let endDate = addDays(numTasks * 7, responseTask.startDate);
+    singleTasksData = dataBetweenTwoDates(
+      new Date(responseTask.startDate),
+      endDate,
+      dayIdxs
+    );
   }
-  return daysCount;
+  return singleTasksData;
 }
 
 type EntriesType = [{ idx: number; date: Date }?];
@@ -30,11 +39,7 @@ type EntriesType = [{ idx: number; date: Date }?];
 // !! We are adding each of these as a row to singleTask data fram so
 // !! add the meta data: "completed", "notes" to the object"
 
-function numOccurrencesBetweenTwoDates(
-  start: Date,
-  end: Date,
-  dayIdxs: Set<number>
-) {
+function dataBetweenTwoDates(start: Date, end: Date, dayIdxs: Set<number>) {
   var dayDict = {
     0: [] as EntriesType,
     1: [] as EntriesType,
@@ -44,15 +49,16 @@ function numOccurrencesBetweenTwoDates(
     5: [] as EntriesType,
     6: [] as EntriesType,
   };
-  console.log("HERE", dayDict);
   for (var d = start; d <= end; d.setDate(d.getDate() + 1)) {
     const dayIdx = d.getDay();
     if (dayIdxs.has(dayIdx)) {
-      const currDay = dayDict[dayIdx];
-      const prev = dayDict[dayIdx][currDay.length - 1];
-      const newCount = prev ? prev["idx"] + 1 : 1;
-      const entry = { idx: newCount, date: d };
-      dayDict = dayDict[dayIdx].push(entry);
+      let currDay = dayDict[dayIdx];
+      let prev = currDay[currDay.length - 1];
+      let newCount = prev == undefined ? 1 : prev["idx"] + 1;
+      let j = new Date(d);
+      let entry = { idx: newCount, date: j };
+      currDay.push(entry);
+      dayDict[dayIdx] = currDay;
     }
   }
   return dayDict;
@@ -66,4 +72,9 @@ function extractDaysIdxs(days: DaysType) {
     }
   });
   return idxs;
+}
+
+function addDays(days: number, startDate: Date) {
+  const newDate = new Date(startDate);
+  return new Date(+newDate + 1000 * 60 * 60 * 24 * days);
 }

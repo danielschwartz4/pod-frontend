@@ -46,7 +46,7 @@ const EndTaskSelection: React.FC<EndTaskSelectionProps> = ({
         >
           <option value="date">After a certain date </option>
           <option value="repetitions">
-            After a number of successful repetitions
+            After a number of successful weeks
           </option>
           <option value="never">Never</option>
         </Select>
