@@ -2,6 +2,8 @@ import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
 import { dayIdxMapper } from "../../utils/dayIdxMapper";
+import { extractDaysIdxs } from "../../utils/singleTaskUtils";
+import { ProgressGridSkeleton } from "./ProgressGridSkeleton";
 
 interface RecurringTaskProgressProps {
   taskData: RecurringTaskQuery;
@@ -15,23 +17,24 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <Box>Loading...</Box>;
   }
+  const daysIdxs = extractDaysIdxs(taskData?.recurringTask?.task?.days);
 
-  console.log(singleTasksData?.singleTasks?.singleTasks);
   return (
     <Box>
-      <Flex className="days">
+      <ProgressGridSkeleton
+        orderedTasks={singleTasksData}
+      ></ProgressGridSkeleton>
+      {/* <Flex className="days">
         {Object.keys(singleTasksData?.singleTasks?.singleTasks).map(
           (key, index) => (
             <Box mx={[1, 2]} key={index} day={key}>
               <Circle
                 day={singleTasksData?.singleTasks?.singleTasks[parseInt(key)]}
-                // days={days}
-                // setDays={setDays}
               />
             </Box>
           )
         )}
-      </Flex>
+      </Flex> */}
     </Box>
   );
 };

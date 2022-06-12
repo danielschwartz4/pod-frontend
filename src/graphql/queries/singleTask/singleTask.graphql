@@ -1,0 +1,8 @@
+query SingleTask($singleTaskId: Int!) {
+  singleTask(id: $singleTaskId) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}

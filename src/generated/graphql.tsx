@@ -240,6 +240,7 @@ export type Query = {
   projects?: Maybe<Array<Project>>;
   recurringTask?: Maybe<RecurringTaskResponse>;
   recurringTasks?: Maybe<Array<RecurringTask>>;
+  singleTask?: Maybe<SingleTaskResponse>;
   singleTasks?: Maybe<SingleTasksResponse>;
 };
 
@@ -271,6 +272,11 @@ export type QueryProjectArgs = {
 
 
 export type QueryRecurringTaskArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QuerySingleTaskArgs = {
   id: Scalars['Int'];
 };
 
@@ -317,14 +323,14 @@ export type SingleTask = {
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   notes: Scalars['String'];
-  taskId?: Maybe<Scalars['Int']>;
+  taskId: Scalars['Int'];
   updatedAt: Scalars['DateTime'];
   userId: Scalars['Int'];
 };
 
 export type SingleTaskInput = {
   actionDate?: InputMaybe<Scalars['DateTime']>;
-  actionDay?: InputMaybe<Scalars['Int']>;
+  actionDay?: InputMaybe<Scalars['Float']>;
   completed: Scalars['Boolean'];
   notes: Scalars['String'];
   taskId: Scalars['Float'];
@@ -373,7 +379,7 @@ export type RegularProjectFragment = { __typename?: 'Project', userId: number, i
 
 export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any };
+export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -484,14 +490,14 @@ export type AddSingleTaskMutationVariables = Exact<{
 }>;
 
 
-export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any } | null } };
+export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
 
 export type UpdateSingleTaskStatusMutationVariables = Exact<{
   updateSingleTaskStatusId: Scalars['Int'];
 }>;
 
 
-export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any } | null } };
+export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -609,12 +615,19 @@ export type RecurringTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
 
+export type SingleTaskQueryVariables = Exact<{
+  singleTaskId: Scalars['Int'];
+}>;
+
+
+export type SingleTaskQuery = { __typename?: 'Query', singleTask?: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } | null };
+
 export type SingleTasksQueryVariables = Exact<{
   taskId: Scalars['Int'];
 }>;
 
 
-export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId?: number | null, updatedAt: any, createdAt: any }> | null } | null };
+export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any }> | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1872,6 +1885,44 @@ export function useRecurringTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type RecurringTasksQueryHookResult = ReturnType<typeof useRecurringTasksQuery>;
 export type RecurringTasksLazyQueryHookResult = ReturnType<typeof useRecurringTasksLazyQuery>;
 export type RecurringTasksQueryResult = Apollo.QueryResult<RecurringTasksQuery, RecurringTasksQueryVariables>;
+export const SingleTaskDocument = gql`
+    query SingleTask($singleTaskId: Int!) {
+  singleTask(id: $singleTaskId) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}
+    ${RegularSingleTaskFragmentDoc}`;
+
+/**
+ * __useSingleTaskQuery__
+ *
+ * To run a query within a React component, call `useSingleTaskQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSingleTaskQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSingleTaskQuery({
+ *   variables: {
+ *      singleTaskId: // value for 'singleTaskId'
+ *   },
+ * });
+ */
+export function useSingleTaskQuery(baseOptions: Apollo.QueryHookOptions<SingleTaskQuery, SingleTaskQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SingleTaskQuery, SingleTaskQueryVariables>(SingleTaskDocument, options);
+      }
+export function useSingleTaskLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SingleTaskQuery, SingleTaskQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SingleTaskQuery, SingleTaskQueryVariables>(SingleTaskDocument, options);
+        }
+export type SingleTaskQueryHookResult = ReturnType<typeof useSingleTaskQuery>;
+export type SingleTaskLazyQueryHookResult = ReturnType<typeof useSingleTaskLazyQuery>;
+export type SingleTaskQueryResult = Apollo.QueryResult<SingleTaskQuery, SingleTaskQueryVariables>;
 export const SingleTasksDocument = gql`
     query SingleTasks($taskId: Int!) {
   singleTasks(taskId: $taskId) {
