@@ -121,7 +121,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
                 taskDataLoading={taskDataLoading}
                 tasksDataLoading={tasksDataLoading}
                 myTaskData={myTaskData}
-              ></MyPod>
+              />
             </TabPanel>
           </TabPanels>
         </DashTabs>

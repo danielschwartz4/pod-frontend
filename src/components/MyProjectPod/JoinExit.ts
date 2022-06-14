@@ -11,9 +11,8 @@ import {
   UpdateProjectPodMutationType,
 } from "../../types/mutationTypes";
 
-// ! Make it so you can't add duplicate project or user ids to same pod
 export const joinPod = async (
-  cap: number,
+  podSize: number,
   availablePodsData: FindPublicPodQuery,
   projectData: ProjectQuery,
   setPodJoined: React.Dispatch<React.SetStateAction<boolean>>,
@@ -26,42 +25,25 @@ export const joinPod = async (
   if (availablePodsData?.findPublicPod?.errors) {
     createdPod = await createPod({
       variables: {
-        cap: cap,
+        cap: podSize,
         isPrivate: false,
         sessionType: "project",
       },
     });
-    // await updateProjectPod({
-    //   variables: {
-    //     podId: pod?.data?.createPod?.id,
-    //     updateProjectPodId: projectData?.project?.project.id,
-    //   },
-    // });
-    await addProjectToPod({
-      variables: {
-        addProjectToPodId: createdPod?.data?.createPod?.id,
-        projectId: projectData?.project?.project.id,
-      },
-    });
   } else {
     foundPod = availablePodsData?.findPublicPod?.pod;
-    await addProjectToPod({
-      variables: {
-        addProjectToPodId: foundPod?.id,
-        projectId: projectData?.project?.project.id,
-      },
-    });
-    // await updateProjectPod({
-    //   variables: {
-    //     podId: pod.id,
-    //     updateProjectPodId: projectData?.project?.project.id,
-    //   },
-    // });
   }
-  // ! New
+  await addProjectToPod({
+    variables: {
+      addProjectToPodId:
+        createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
+      projectId: projectData?.project?.project.id,
+    },
+  });
   await updateProjectPod({
     variables: {
-      podId: createdPod != null ? createdPod?.id : foundPod?.id,
+      podId:
+        createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
       updateProjectPodId: projectData?.project?.project.id,
     },
   });
