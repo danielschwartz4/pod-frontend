@@ -49,6 +49,7 @@ export type Mutation = {
   updateProjectPod: ProjectResponse;
   updateProjectProgress: ProjectResponse;
   updateSingleTaskCompletionStatus: SingleTaskResponse;
+  updateSingleTaskNotes: SingleTaskResponse;
   updateUserFriendRequests?: Maybe<UserResponse>;
 };
 
@@ -165,6 +166,12 @@ export type MutationUpdateProjectProgressArgs = {
 export type MutationUpdateSingleTaskCompletionStatusArgs = {
   id: Scalars['Int'];
   status: Scalars['String'];
+};
+
+
+export type MutationUpdateSingleTaskNotesArgs = {
+  id: Scalars['Int'];
+  notes: Scalars['String'];
 };
 
 
@@ -492,6 +499,14 @@ export type AddSingleTaskMutationVariables = Exact<{
 
 
 export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
+
+export type UpdateSingleTaskNotesMutationVariables = Exact<{
+  updateSingleTaskNotesId: Scalars['Int'];
+  notes: Scalars['String'];
+}>;
+
+
+export type UpdateSingleTaskNotesMutation = { __typename?: 'Mutation', updateSingleTaskNotes: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
 
 export type UpdateSingleTaskCompletionStatusMutationVariables = Exact<{
   updateSingleTaskCompletionStatusId: Scalars['Int'];
@@ -1218,6 +1233,43 @@ export function useAddSingleTaskMutation(baseOptions?: Apollo.MutationHookOption
 export type AddSingleTaskMutationHookResult = ReturnType<typeof useAddSingleTaskMutation>;
 export type AddSingleTaskMutationResult = Apollo.MutationResult<AddSingleTaskMutation>;
 export type AddSingleTaskMutationOptions = Apollo.BaseMutationOptions<AddSingleTaskMutation, AddSingleTaskMutationVariables>;
+export const UpdateSingleTaskNotesDocument = gql`
+    mutation UpdateSingleTaskNotes($updateSingleTaskNotesId: Int!, $notes: String!) {
+  updateSingleTaskNotes(id: $updateSingleTaskNotesId, notes: $notes) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}
+    ${RegularSingleTaskFragmentDoc}`;
+export type UpdateSingleTaskNotesMutationFn = Apollo.MutationFunction<UpdateSingleTaskNotesMutation, UpdateSingleTaskNotesMutationVariables>;
+
+/**
+ * __useUpdateSingleTaskNotesMutation__
+ *
+ * To run a mutation, you first call `useUpdateSingleTaskNotesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSingleTaskNotesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSingleTaskNotesMutation, { data, loading, error }] = useUpdateSingleTaskNotesMutation({
+ *   variables: {
+ *      updateSingleTaskNotesId: // value for 'updateSingleTaskNotesId'
+ *      notes: // value for 'notes'
+ *   },
+ * });
+ */
+export function useUpdateSingleTaskNotesMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSingleTaskNotesMutation, UpdateSingleTaskNotesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSingleTaskNotesMutation, UpdateSingleTaskNotesMutationVariables>(UpdateSingleTaskNotesDocument, options);
+      }
+export type UpdateSingleTaskNotesMutationHookResult = ReturnType<typeof useUpdateSingleTaskNotesMutation>;
+export type UpdateSingleTaskNotesMutationResult = Apollo.MutationResult<UpdateSingleTaskNotesMutation>;
+export type UpdateSingleTaskNotesMutationOptions = Apollo.BaseMutationOptions<UpdateSingleTaskNotesMutation, UpdateSingleTaskNotesMutationVariables>;
 export const UpdateSingleTaskCompletionStatusDocument = gql`
     mutation UpdateSingleTaskCompletionStatus($updateSingleTaskCompletionStatusId: Int!, $status: String!) {
   updateSingleTaskCompletionStatus(

@@ -16,7 +16,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   let i = 0;
   let taskIter = 0;
   let filledArr = [];
-  console.log(orderedTasks?.singleTasks?.singleTasks);
   while (taskIter <= orderedTasks?.singleTasks?.singleTasks?.length - 1) {
     if (i % 7 == orderedTasks?.singleTasks?.singleTasks[taskIter].actionDay) {
       filledArr.push(orderedTasks?.singleTasks?.singleTasks[taskIter]);

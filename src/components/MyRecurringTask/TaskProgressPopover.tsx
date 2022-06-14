@@ -23,6 +23,7 @@ interface TaskProgressPopoverProps {
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   singleTask: SingleTask;
+  setPopupHandler;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
@@ -41,33 +42,12 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
           <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
           <PopoverCloseButton cursor={"pointer"} />
           <PopoverBody>
-            <NotesForm />
+            <NotesForm
+              singleTask={props.singleTask}
+              setShowAlert={props.setShowAlert}
+              setPopupHandler={props.setPopupHandler}
+            />
           </PopoverBody>
-          <PopoverFooter d="flex" justifyContent="center">
-            <ButtonGroup size="sm">
-              <Button
-                onClick={() => {
-                  // props.setIsOpen(!props.isOpen);
-                  console.log("did not complete");
-                }}
-                background="#F26D51"
-                cursor="pointer"
-              >
-                Did not complete
-              </Button>
-              <Button
-                onClick={() => {
-                  // props.setIsOpen(!props.isOpen);
-                  // props.setShowAlert(true);
-                  console.log("did not complete");
-                }}
-                background="#3EE76D"
-                cursor={"pointer"}
-              >
-                Completed!
-              </Button>
-            </ButtonGroup>
-          </PopoverFooter>
           <Divider variant="dashed" orientation="horizontal" />
           <Flex alignItems={"center"}>
             <Box ml={"auto"} mr={"1em"}>

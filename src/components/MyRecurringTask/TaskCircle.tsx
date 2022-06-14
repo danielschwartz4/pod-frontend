@@ -19,17 +19,22 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
-  const onClick = () => {
+  const setPopupHandler = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <TaskProgressPopover singleTask={singleTask} close={close} isOpen={isOpen}>
+    <TaskProgressPopover
+      singleTask={singleTask}
+      setPopupHandler={setPopupHandler}
+      close={close}
+      isOpen={isOpen}
+    >
       <Box
         onClick={() => {
           // !! Something like only clickable if today or before today
           if (isInteractive) {
-            onClick();
+            setPopupHandler();
           }
         }}
         cursor={isInteractive ? "pointer" : null}

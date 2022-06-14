@@ -1,0 +1,11 @@
+mutation UpdateSingleTaskNotes(
+  $updateSingleTaskNotesId: Int!
+  $notes: String!
+) {
+  updateSingleTaskNotes(id: $updateSingleTaskNotesId, notes: $notes) {
+    errors
+    singleTask {
+      ...RegularSingleTask
+    }
+  }
+}
