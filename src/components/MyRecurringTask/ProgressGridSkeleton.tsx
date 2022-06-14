@@ -1,7 +1,6 @@
-import { Grid, Box, GridItem, Text } from "@chakra-ui/react";
+import { Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { SingleTasksQuery } from "../../generated/graphql";
-import { dayIdxMapper } from "../../utils/dayIdxMapper";
 import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
@@ -26,7 +25,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
       i++;
     }
   }
-  console.log(filledArr);
+
   return (
     <Grid templateColumns={"repeat(7, 0fr)"} gap={6}>
       {Object.keys(dayTitles).map((i) => {
@@ -51,7 +50,15 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
           <GridItem key={i}>
             <TaskCircle
               icon="+"
-              color={filledArr[i].status == "completed" ? "#3EE76D" : "#7e9cd6"}
+              color={
+                filledArr[i].status == "completed"
+                  ? "#3EE76D"
+                  : filledArr[i].status == "missed"
+                  ? "#F26D51"
+                  : filledArr[i].status == "overdue"
+                  ? "#f2df51"
+                  : "#6097F8"
+              }
               singleTask={filledArr[i]}
               isInteractive={true}
             />

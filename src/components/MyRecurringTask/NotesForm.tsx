@@ -1,9 +1,9 @@
-import { CheckIcon } from "@chakra-ui/icons";
 import { Box, Button, ButtonGroup, PopoverFooter } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import React from "react";
 import {
   SingleTask,
+  useUpdateSingleTaskCompletionStatusMutation,
   useUpdateSingleTaskNotesMutation,
 } from "../../generated/graphql";
 import { InputField } from "../Inputs/InputField";
@@ -11,18 +11,19 @@ import { InputField } from "../Inputs/InputField";
 interface NotesFormProps {
   singleTask: SingleTask;
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
-  setPopupHandler;
+  setPopupHandler: () => void;
+  setColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const NotesForm: React.FC<NotesFormProps> = ({
   singleTask,
   setShowAlert,
   setPopupHandler,
+  setColor,
 }) => {
   const [updateSingleTaskNotes] = useUpdateSingleTaskNotesMutation();
-  const setAlertHandler = () => {
-    setShowAlert(true);
-  };
+  const [updateSingleTaskCompletionStatus] =
+    useUpdateSingleTaskCompletionStatusMutation();
 
   return (
     <Formik
@@ -53,6 +54,15 @@ const NotesForm: React.FC<NotesFormProps> = ({
               <Button
                 onClick={() => {
                   setPopupHandler();
+                  const response = updateSingleTaskCompletionStatus({
+                    variables: {
+                      status: "missed",
+                      updateSingleTaskCompletionStatusId: singleTask?.id,
+                    },
+                  });
+                  if (response) {
+                    setColor("#F26D51");
+                  }
                 }}
                 type="submit"
                 background="#F26D51"
@@ -63,6 +73,15 @@ const NotesForm: React.FC<NotesFormProps> = ({
               <Button
                 onClick={() => {
                   setPopupHandler();
+                  const response = updateSingleTaskCompletionStatus({
+                    variables: {
+                      status: "completed",
+                      updateSingleTaskCompletionStatusId: singleTask?.id,
+                    },
+                  });
+                  if (response) {
+                    setColor("#3EE76D");
+                  }
                   // props.setShowAlert(true);
                 }}
                 type="submit"

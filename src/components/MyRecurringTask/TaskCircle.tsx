@@ -1,7 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { SingleTask, SingleTaskQuery } from "../../generated/graphql";
-import { dayIdxMapper } from "../../utils/dayIdxMapper";
+import { SingleTask } from "../../generated/graphql";
 import TaskProgressPopover from "./TaskProgressPopover";
 
 interface TaskCircleProps {
@@ -23,12 +22,15 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
     setIsOpen(!isOpen);
   };
 
+  const [_color, setColor] = useState(color);
+
   return (
     <TaskProgressPopover
       singleTask={singleTask}
       setPopupHandler={setPopupHandler}
       close={close}
       isOpen={isOpen}
+      setColor={setColor}
     >
       <Box
         onClick={() => {
@@ -46,7 +48,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="12" cy="12" r="12" fill={color} />
+          <circle cx="12" cy="12" r="12" fill={_color} />
           <text
             x="50%"
             y="50%"

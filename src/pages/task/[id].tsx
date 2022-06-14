@@ -29,18 +29,17 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   const { data: meData } = useMeQuery({});
 
-  const {
-    data: taskData,
-    loading: taskDataLoading,
-    refetch: refetchTask,
-  } = useGetTaskFromUrl();
+  const { data: taskData, loading: taskDataLoading } = useGetTaskFromUrl();
 
-  const { data: singleTasksData, loading: singleTasksDataLoading } =
-    useSingleTasksQuery({
-      variables: {
-        taskId: taskData?.recurringTask?.task?.id,
-      },
-    });
+  const {
+    data: singleTasksData,
+    refetch: refetchSingleTasks,
+    loading: singleTasksDataLoading,
+  } = useSingleTasksQuery({
+    variables: {
+      taskId: taskData?.recurringTask?.task?.id,
+    },
+  });
 
   return (
     <Layout>

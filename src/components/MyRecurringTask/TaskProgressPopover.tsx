@@ -1,14 +1,11 @@
 import {
   Box,
-  Button,
-  ButtonGroup,
   Divider,
   Flex,
   Popover,
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
@@ -23,7 +20,8 @@ interface TaskProgressPopoverProps {
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   singleTask: SingleTask;
-  setPopupHandler;
+  setPopupHandler: () => void;
+  setColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
@@ -46,6 +44,7 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
               singleTask={props.singleTask}
               setShowAlert={props.setShowAlert}
               setPopupHandler={props.setPopupHandler}
+              setColor={props.setColor}
             />
           </PopoverBody>
           <Divider variant="dashed" orientation="horizontal" />
