@@ -32,7 +32,7 @@ import { removeItemByIndex } from "../../utils/removeItem";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
 
-interface ProgressPopoverProps {
+interface ProjectProgressPopoverProps {
   close: () => void;
   isOpen: boolean;
   currNode: FlowNode;
@@ -65,7 +65,9 @@ interface ProgressPopoverProps {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
+const ProjectProgressPopover: React.FC<ProjectProgressPopoverProps> = (
+  props
+) => {
   const [isEditingText, setIsEditingText] = useState(false);
   const [isEditingDate, setIsEditingDate] = useState(false);
 
@@ -336,4 +338,4 @@ const ProgressPopover: React.FC<ProgressPopoverProps> = (props) => {
   );
 };
 
-export default ProgressPopover;
+export default ProjectProgressPopover;

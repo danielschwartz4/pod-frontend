@@ -10,15 +10,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import FocusLock from "react-focus-lock";
-import {
-  MeQuery,
-  ProjectQuery,
-  useUpdatePhoneMutation,
-  MeDocument,
-} from "../../generated/graphql";
+import { MeQuery, useUpdatePhoneMutation } from "../../generated/graphql";
 import { COUNTRIES } from "../Inputs/countries";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
-import PhoneNumber2 from "../Inputs/PhoneNumber2";
 
 interface PopupProps {
   meData: MeQuery;

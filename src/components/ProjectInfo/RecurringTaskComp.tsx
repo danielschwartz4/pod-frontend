@@ -85,7 +85,7 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
                   const response2 = addSingleTask({
                     variables: {
                       singleTaskOptions: {
-                        completed: false,
+                        status: "tbd",
                         notes: "",
                         actionDate: ele.actionDate,
                         actionDay: ele.actionDay,

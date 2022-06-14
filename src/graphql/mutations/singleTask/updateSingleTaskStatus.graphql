@@ -1,5 +1,11 @@
-mutation UpdateSingleTaskStatus($updateSingleTaskStatusId: Int!) {
-  updateSingleTaskStatus(id: $updateSingleTaskStatusId) {
+mutation UpdateSingleTaskCompletionStatus(
+  $updateSingleTaskCompletionStatusId: Int!
+  $status: String!
+) {
+  updateSingleTaskCompletionStatus(
+    id: $updateSingleTaskCompletionStatusId
+    status: $status
+  ) {
     errors
     singleTask {
       ...RegularSingleTask

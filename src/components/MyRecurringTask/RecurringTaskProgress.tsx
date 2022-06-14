@@ -1,7 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
-import { dayIdxMapper } from "../../utils/dayIdxMapper";
 import { extractDaysIdxs } from "../../utils/singleTaskUtils";
 import { ProgressGridSkeleton } from "./ProgressGridSkeleton";
 

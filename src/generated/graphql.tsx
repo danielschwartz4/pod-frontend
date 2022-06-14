@@ -48,7 +48,7 @@ export type Mutation = {
   updateProjectName: ProjectResponse;
   updateProjectPod: ProjectResponse;
   updateProjectProgress: ProjectResponse;
-  updateSingleTaskStatus: SingleTaskResponse;
+  updateSingleTaskCompletionStatus: SingleTaskResponse;
   updateUserFriendRequests?: Maybe<UserResponse>;
 };
 
@@ -162,8 +162,9 @@ export type MutationUpdateProjectProgressArgs = {
 };
 
 
-export type MutationUpdateSingleTaskStatusArgs = {
+export type MutationUpdateSingleTaskCompletionStatusArgs = {
   id: Scalars['Int'];
+  status: Scalars['String'];
 };
 
 
@@ -319,10 +320,10 @@ export type SingleTask = {
   __typename?: 'SingleTask';
   actionDate?: Maybe<Scalars['DateTime']>;
   actionDay?: Maybe<Scalars['Int']>;
-  completed: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   notes: Scalars['String'];
+  status: Scalars['String'];
   taskId: Scalars['Int'];
   updatedAt: Scalars['DateTime'];
   userId: Scalars['Int'];
@@ -331,8 +332,8 @@ export type SingleTask = {
 export type SingleTaskInput = {
   actionDate?: InputMaybe<Scalars['DateTime']>;
   actionDay?: InputMaybe<Scalars['Float']>;
-  completed: Scalars['Boolean'];
   notes: Scalars['String'];
+  status: Scalars['String'];
   taskId: Scalars['Float'];
   userId: Scalars['Float'];
 };
@@ -379,7 +380,7 @@ export type RegularProjectFragment = { __typename?: 'Project', userId: number, i
 
 export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any };
+export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any };
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null };
 
@@ -490,14 +491,15 @@ export type AddSingleTaskMutationVariables = Exact<{
 }>;
 
 
-export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
+export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
 
-export type UpdateSingleTaskStatusMutationVariables = Exact<{
-  updateSingleTaskStatusId: Scalars['Int'];
+export type UpdateSingleTaskCompletionStatusMutationVariables = Exact<{
+  updateSingleTaskCompletionStatusId: Scalars['Int'];
+  status: Scalars['String'];
 }>;
 
 
-export type UpdateSingleTaskStatusMutation = { __typename?: 'Mutation', updateSingleTaskStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
+export type UpdateSingleTaskCompletionStatusMutation = { __typename?: 'Mutation', updateSingleTaskCompletionStatus: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
 
 export type UpdatePhoneMutationVariables = Exact<{
   phone: Scalars['String'];
@@ -620,14 +622,14 @@ export type SingleTaskQueryVariables = Exact<{
 }>;
 
 
-export type SingleTaskQuery = { __typename?: 'Query', singleTask?: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } | null };
+export type SingleTaskQuery = { __typename?: 'Query', singleTask?: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } | null };
 
 export type SingleTasksQueryVariables = Exact<{
   taskId: Scalars['Int'];
 }>;
 
 
-export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, completed: boolean, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any }> | null } | null };
+export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any }> | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -680,7 +682,7 @@ export const RegularSingleTaskFragmentDoc = gql`
     fragment RegularSingleTask on SingleTask {
   actionDate
   actionDay
-  completed
+  status
   id
   notes
   userId
@@ -1216,9 +1218,12 @@ export function useAddSingleTaskMutation(baseOptions?: Apollo.MutationHookOption
 export type AddSingleTaskMutationHookResult = ReturnType<typeof useAddSingleTaskMutation>;
 export type AddSingleTaskMutationResult = Apollo.MutationResult<AddSingleTaskMutation>;
 export type AddSingleTaskMutationOptions = Apollo.BaseMutationOptions<AddSingleTaskMutation, AddSingleTaskMutationVariables>;
-export const UpdateSingleTaskStatusDocument = gql`
-    mutation UpdateSingleTaskStatus($updateSingleTaskStatusId: Int!) {
-  updateSingleTaskStatus(id: $updateSingleTaskStatusId) {
+export const UpdateSingleTaskCompletionStatusDocument = gql`
+    mutation UpdateSingleTaskCompletionStatus($updateSingleTaskCompletionStatusId: Int!, $status: String!) {
+  updateSingleTaskCompletionStatus(
+    id: $updateSingleTaskCompletionStatusId
+    status: $status
+  ) {
     errors
     singleTask {
       ...RegularSingleTask
@@ -1226,32 +1231,33 @@ export const UpdateSingleTaskStatusDocument = gql`
   }
 }
     ${RegularSingleTaskFragmentDoc}`;
-export type UpdateSingleTaskStatusMutationFn = Apollo.MutationFunction<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>;
+export type UpdateSingleTaskCompletionStatusMutationFn = Apollo.MutationFunction<UpdateSingleTaskCompletionStatusMutation, UpdateSingleTaskCompletionStatusMutationVariables>;
 
 /**
- * __useUpdateSingleTaskStatusMutation__
+ * __useUpdateSingleTaskCompletionStatusMutation__
  *
- * To run a mutation, you first call `useUpdateSingleTaskStatusMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateSingleTaskStatusMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateSingleTaskCompletionStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSingleTaskCompletionStatusMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateSingleTaskStatusMutation, { data, loading, error }] = useUpdateSingleTaskStatusMutation({
+ * const [updateSingleTaskCompletionStatusMutation, { data, loading, error }] = useUpdateSingleTaskCompletionStatusMutation({
  *   variables: {
- *      updateSingleTaskStatusId: // value for 'updateSingleTaskStatusId'
+ *      updateSingleTaskCompletionStatusId: // value for 'updateSingleTaskCompletionStatusId'
+ *      status: // value for 'status'
  *   },
  * });
  */
-export function useUpdateSingleTaskStatusMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>) {
+export function useUpdateSingleTaskCompletionStatusMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSingleTaskCompletionStatusMutation, UpdateSingleTaskCompletionStatusMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>(UpdateSingleTaskStatusDocument, options);
+        return Apollo.useMutation<UpdateSingleTaskCompletionStatusMutation, UpdateSingleTaskCompletionStatusMutationVariables>(UpdateSingleTaskCompletionStatusDocument, options);
       }
-export type UpdateSingleTaskStatusMutationHookResult = ReturnType<typeof useUpdateSingleTaskStatusMutation>;
-export type UpdateSingleTaskStatusMutationResult = Apollo.MutationResult<UpdateSingleTaskStatusMutation>;
-export type UpdateSingleTaskStatusMutationOptions = Apollo.BaseMutationOptions<UpdateSingleTaskStatusMutation, UpdateSingleTaskStatusMutationVariables>;
+export type UpdateSingleTaskCompletionStatusMutationHookResult = ReturnType<typeof useUpdateSingleTaskCompletionStatusMutation>;
+export type UpdateSingleTaskCompletionStatusMutationResult = Apollo.MutationResult<UpdateSingleTaskCompletionStatusMutation>;
+export type UpdateSingleTaskCompletionStatusMutationOptions = Apollo.BaseMutationOptions<UpdateSingleTaskCompletionStatusMutation, UpdateSingleTaskCompletionStatusMutationVariables>;
 export const UpdatePhoneDocument = gql`
     mutation UpdatePhone($phone: String!, $updatePhoneId: Float!) {
   updatePhone(phone: $phone, id: $updatePhoneId) {

@@ -74,11 +74,13 @@ export type DaysType = {
   };
 };
 
+export type TaskStatus = "completed" | "missed" | "overdue" | "tbd";
+
 export type SingleTaskOptions = {
   userId: number;
   taskId: number;
   notes: string;
-  completed: boolean;
+  status: TaskStatus;
   actionDate: Date;
   actionDay: number;
 };

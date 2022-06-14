@@ -10,3 +10,5 @@ function sortByDate(dates) {
   });
   console.log(dates);
 }
+
+console.log(new Date(new Date().setDate(new Date().getDate() - 1)));

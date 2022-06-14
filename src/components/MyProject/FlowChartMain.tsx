@@ -13,7 +13,7 @@ import init_elements, { sortMilestones } from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
 import { sendMessages } from "../Sms/sendMessage";
-import ProgressPopover from "./ProgressPopover";
+import ProjectProgressPopover from "./ProjectProgressPopover";
 
 interface horizontalFlowProps {
   milestones: string[];
@@ -268,7 +268,7 @@ const FlowChartMain: React.FC<horizontalFlowProps> = (props) => {
           >
             <Background gap={50} size={2} color="firebrick" />
             <Box>
-              <ProgressPopover
+              <ProjectProgressPopover
                 projectId={projectId}
                 close={close}
                 isOpen={isOpen}

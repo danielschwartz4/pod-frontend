@@ -1,7 +1,7 @@
 fragment RegularSingleTask on SingleTask {
   actionDate
   actionDay
-  completed
+  status
   id
   notes
   userId

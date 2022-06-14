@@ -16,9 +16,10 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   let i = 0;
   let taskIter = 0;
   let filledArr = [];
-  while (i <= orderedTasks?.singleTasks?.singleTasks?.length - 1) {
+  console.log(orderedTasks?.singleTasks?.singleTasks);
+  while (taskIter <= orderedTasks?.singleTasks?.singleTasks?.length - 1) {
     if (i % 7 == orderedTasks?.singleTasks?.singleTasks[taskIter].actionDay) {
-      filledArr.push(orderedTasks?.singleTasks?.singleTasks[i]);
+      filledArr.push(orderedTasks?.singleTasks?.singleTasks[taskIter]);
       i++;
       taskIter++;
     } else {
@@ -26,7 +27,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
       i++;
     }
   }
-
+  console.log(filledArr);
   return (
     <Grid templateColumns={"repeat(7, 0fr)"} gap={6}>
       {Object.keys(dayTitles).map((i) => {
@@ -50,8 +51,8 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
         return (
           <GridItem key={i}>
             <TaskCircle
-              icon=""
-              color="#7e9cd6"
+              icon="+"
+              color={filledArr[i].status == "completed" ? "#3EE76D" : "#7e9cd6"}
               singleTask={filledArr[i]}
               isInteractive={true}
             />
