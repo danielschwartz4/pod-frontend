@@ -37,14 +37,14 @@ export const joinPod = async (
     variables: {
       addProjectToPodId:
         createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
-      projectId: projectData?.project?.project.id,
+      projectId: projectData?.project?.project?.id,
     },
   });
   await updateProjectPod({
     variables: {
       podId:
         createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
-      updateProjectPodId: projectData?.project?.project.id,
+      updateProjectPodId: projectData?.project?.project?.id,
     },
   });
   setPodJoined(true);
@@ -60,13 +60,13 @@ export const exitPod = async (
   await updateProjectPod({
     variables: {
       podId: 0,
-      updateProjectPodId: projectData?.project?.project.id,
+      updateProjectPodId: projectData?.project?.project?.id,
     },
   });
   await removeProjectFromPod({
     variables: {
-      removeProjectFromPodId: podData?.pod.pod.id,
-      projectId: projectData?.project?.project.id,
+      removeProjectFromPodId: podData?.pod?.pod?.id,
+      projectId: projectData?.project?.project?.id,
     },
   });
   setPodJoined(false);

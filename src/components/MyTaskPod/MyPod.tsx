@@ -118,13 +118,13 @@ export const MyPod: React.FC<MyPodProps> = ({
                     });
                   }
                   await joinPod(
+                    podSize,
+                    availablePodsData,
                     myTaskData,
                     setPodJoined,
-                    updateTaskPod,
                     createPod,
-                    addProjectToPod,
-                    availablePodsData,
-                    podSize
+                    updateTaskPod,
+                    addProjectToPod
                   );
                 }}
               >

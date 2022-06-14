@@ -31,13 +31,13 @@ interface JoinArgs extends joinExitArgs {
 }
 
 export const joinPod = async (
+  podSize: number,
+  availablePodsData: FindPublicPodQuery,
   myTaskData: RecurringTaskQuery,
   setPodJoined: React.Dispatch<React.SetStateAction<boolean>>,
-  updateTaskPod: UpdateTaskPodMutationType,
   createPod: CreatePodMutationType,
-  addProjectToPod: AddProjectToPodMutationType,
-  availablePodsData: FindPublicPodQuery,
-  podSize: number
+  updateTaskPod: UpdateTaskPodMutationType,
+  addProjectToPod: AddProjectToPodMutationType
 ) => {
   let createdPod = null;
   let foundPod = null;
@@ -52,12 +52,6 @@ export const joinPod = async (
   } else {
     foundPod = availablePodsData?.findPublicPod?.pod;
   }
-  await updateTaskPod({
-    variables: {
-      podId: 0,
-      updateRecurringTaskPodId: myTaskData?.recurringTask?.task?.id,
-    },
-  });
   await addProjectToPod({
     variables: {
       addProjectToPodId:
@@ -65,6 +59,14 @@ export const joinPod = async (
       projectId: myTaskData?.recurringTask?.task?.id,
     },
   });
+  await updateTaskPod({
+    variables: {
+      podId:
+        createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
+      updateRecurringTaskPodId: myTaskData?.recurringTask?.task?.id,
+    },
+  });
+
   setPodJoined(true);
 };
 
@@ -83,7 +85,7 @@ export const exitPod = async (
   });
   await removeProjectFromPod({
     variables: {
-      removeProjectFromPodId: podData?.pod.pod.id,
+      removeProjectFromPodId: podData?.pod?.pod?.id,
       projectId: myTaskData?.recurringTask?.task?.id,
     },
   });
