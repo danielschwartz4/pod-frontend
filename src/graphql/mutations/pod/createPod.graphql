@@ -1,5 +1,5 @@
-mutation CreatePod($isPrivate: Boolean!, $cap: Float!) {
-  createPod(isPrivate: $isPrivate, cap: $cap) {
+mutation CreatePod($isPrivate: Boolean!, $cap: Float!, $sessionType: String!) {
+  createPod(isPrivate: $isPrivate, cap: $cap, sessionType: $sessionType) {
     ...RegularPod
   }
 }

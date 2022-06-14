@@ -1,7 +1,7 @@
 import { Box, FormControl, FormErrorMessage, Select } from "@chakra-ui/react";
 import { useField, useFormikContext } from "formik";
 import React, { useEffect } from "react";
-import { EndOptionsSelectorType } from "../../types";
+import { EndOptionsSelectorType } from "../../types/types";
 
 interface EndTaskSelectionProps {
   setEndOptionsSelector: React.Dispatch<

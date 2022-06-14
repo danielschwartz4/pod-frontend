@@ -5,5 +5,6 @@ fragment RegularPod on Pod {
   updatedAt
   createdAt
   isPrivate
+  sessionType
   userIds
 }

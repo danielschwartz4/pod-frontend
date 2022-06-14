@@ -3,21 +3,17 @@ import {
   AlertIcon,
   Box,
   Flex,
-  Tab,
-  TabList,
   TabPanel,
-  Text,
   TabPanels,
-  Tabs,
-  VStack,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";
 import { Layout } from "../../components/Layout";
-import { MyPod } from "../../components/MyPod/MyPod";
 import EnterNewMilestone from "../../components/MyProject/EnterNewMilestone";
 import FlowChartMain from "../../components/MyProject/FlowChartMain";
+import { MyPod } from "../../components/MyProjectPod/MyPod";
 import { Warning } from "../../components/Warning";
 import {
   useMeQuery,

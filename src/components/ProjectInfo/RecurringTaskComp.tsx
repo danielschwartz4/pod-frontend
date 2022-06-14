@@ -7,7 +7,7 @@ import {
   useAddSingleTaskMutation,
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
-import { DaysType, EndOptionsSelectorType } from "../../types";
+import { DaysType, EndOptionsSelectorType } from "../../types/types";
 import {
   convertToSingleTasks,
   extractDaysIdxs,

@@ -13,7 +13,14 @@ import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";
 import { Layout } from "../../components/Layout";
 import { RecurringTaskProgress } from "../../components/MyRecurringTask/RecurringTaskProgress";
-import { useMeQuery, useSingleTasksQuery } from "../../generated/graphql";
+import { MyPod } from "../../components/MyTaskPod/MyPod";
+import {
+  useMeQuery,
+  usePodProjectsQuery,
+  usePodQuery,
+  usePodTasksQuery,
+  useSingleTasksQuery,
+} from "../../generated/graphql";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 
@@ -29,7 +36,23 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   const { data: meData } = useMeQuery({});
 
-  const { data: taskData, loading: taskDataLoading } = useGetTaskFromUrl();
+  const {
+    data: myTaskData,
+    loading: taskDataLoading,
+    refetch: refetchTask,
+  } = useGetTaskFromUrl();
+
+  const { data: podData } = usePodQuery({
+    variables: { podId: myTaskData?.recurringTask?.task?.podId },
+  });
+
+  const {
+    data: tasksData,
+    loading: tasksDataLoading,
+    refetch: refetchTasks,
+  } = usePodTasksQuery({
+    variables: { podId: podData?.pod?.pod?.id },
+  });
 
   const {
     data: singleTasksData,
@@ -37,7 +60,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     loading: singleTasksDataLoading,
   } = useSingleTasksQuery({
     variables: {
-      taskId: taskData?.recurringTask?.task?.id,
+      taskId: myTaskData?.recurringTask?.task?.id,
     },
   });
 
@@ -79,7 +102,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
                   {!taskDataLoading && !singleTasksDataLoading ? (
                     <RecurringTaskProgress
                       singleTasksData={singleTasksData}
-                      taskData={taskData}
+                      myTaskData={myTaskData}
                     />
                   ) : (
                     <Text>Loading...</Text>
@@ -91,8 +114,14 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             </TabPanel>
 
             <TabPanel minH={"600px"}>
-              // TODO Pod (refactor)
-              <Box>TODO pod</Box>v
+              <MyPod
+                podData={podData}
+                meData={meData}
+                tasksData={tasksData}
+                taskDataLoading={taskDataLoading}
+                tasksDataLoading={tasksDataLoading}
+                myTaskData={myTaskData}
+              ></MyPod>
             </TabPanel>
           </TabPanels>
         </DashTabs>

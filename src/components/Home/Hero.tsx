@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
-import { PodCreated } from "../MyPod/PodCreated";
+import { PodCreated } from "../MyProjectPod/PodCreated";
 import SeedData from "./SeedHomeData";
 
 interface HeroProps {}

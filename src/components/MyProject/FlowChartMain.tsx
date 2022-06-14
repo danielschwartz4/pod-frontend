@@ -8,7 +8,12 @@ import {
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
-import { FlowNode, NodeDate, NodeMilestone, NodeProgress } from "../../types";
+import {
+  FlowNode,
+  NodeDate,
+  NodeMilestone,
+  NodeProgress,
+} from "../../types/types";
 import init_elements, { sortMilestones } from "../../utils/initElements";
 import { generateSms } from "../../utils/smsBody";
 import { useGetIntId } from "../../utils/useGetIntId";

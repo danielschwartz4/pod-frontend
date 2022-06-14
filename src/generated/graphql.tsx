@@ -50,6 +50,7 @@ export type Mutation = {
   updateProjectProgress: ProjectResponse;
   updateSingleTaskCompletionStatus: SingleTaskResponse;
   updateSingleTaskNotes: SingleTaskResponse;
+  updateTaskPod: RecurringTaskResponse;
   updateUserFriendRequests?: Maybe<UserResponse>;
 };
 
@@ -79,6 +80,7 @@ export type MutationChangePasswordArgs = {
 export type MutationCreatePodArgs = {
   cap: Scalars['Float'];
   isPrivate: Scalars['Boolean'];
+  sessionType: Scalars['String'];
 };
 
 
@@ -175,6 +177,12 @@ export type MutationUpdateSingleTaskNotesArgs = {
 };
 
 
+export type MutationUpdateTaskPodArgs = {
+  id: Scalars['Float'];
+  podId: Scalars['Float'];
+};
+
+
 export type MutationUpdateUserFriendRequestsArgs = {
   isAdding: Scalars['Boolean'];
   podId: Scalars['Int'];
@@ -189,6 +197,7 @@ export type Pod = {
   id: Scalars['Int'];
   isPrivate: Scalars['Boolean'];
   projectIds: Array<Scalars['Int']>;
+  sessionType: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   userIds: Array<Scalars['Int']>;
 };
@@ -242,6 +251,7 @@ export type Query = {
   me?: Maybe<User>;
   pod?: Maybe<PodResponse>;
   podProjects?: Maybe<Array<Project>>;
+  podTasks?: Maybe<Array<RecurringTask>>;
   podUsers?: Maybe<Array<User>>;
   pods: Array<Pod>;
   project?: Maybe<ProjectResponse>;
@@ -265,6 +275,11 @@ export type QueryPodArgs = {
 
 
 export type QueryPodProjectsArgs = {
+  podId: Scalars['Int'];
+};
+
+
+export type QueryPodTasksArgs = {
   podId: Scalars['Int'];
 };
 
@@ -381,7 +396,7 @@ export type UsernamePasswordInput = {
   username: Scalars['String'];
 };
 
-export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, userIds: Array<number> };
+export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> };
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
@@ -397,15 +412,16 @@ export type AddProjectToPodMutationVariables = Exact<{
 }>;
 
 
-export type AddProjectToPodMutation = { __typename?: 'Mutation', addProjectToPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, userIds: Array<number> } | null } };
+export type AddProjectToPodMutation = { __typename?: 'Mutation', addProjectToPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
 
 export type CreatePodMutationVariables = Exact<{
   isPrivate: Scalars['Boolean'];
   cap: Scalars['Float'];
+  sessionType: Scalars['String'];
 }>;
 
 
-export type CreatePodMutation = { __typename?: 'Mutation', createPod: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, userIds: Array<number> } };
+export type CreatePodMutation = { __typename?: 'Mutation', createPod: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } };
 
 export type RemoveProjectFromPodMutationVariables = Exact<{
   projectId: Scalars['Float'];
@@ -413,7 +429,7 @@ export type RemoveProjectFromPodMutationVariables = Exact<{
 }>;
 
 
-export type RemoveProjectFromPodMutation = { __typename?: 'Mutation', removeProjectFromPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, userIds: Array<number> } | null } };
+export type RemoveProjectFromPodMutation = { __typename?: 'Mutation', removeProjectFromPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
 
 export type AddProjectInfoMutationVariables = Exact<{
   projectOptions: ProjectInput;
@@ -492,6 +508,14 @@ export type DeleteRecurringTaskMutationVariables = Exact<{
 
 
 export type DeleteRecurringTaskMutation = { __typename?: 'Mutation', deleteRecurringTask: boolean };
+
+export type UpdateTaskPodMutationVariables = Exact<{
+  podId: Scalars['Float'];
+  updateRecurringTaskPodId: Scalars['Float'];
+}>;
+
+
+export type UpdateTaskPodMutation = { __typename?: 'Mutation', updateTaskPod: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
 
 export type AddSingleTaskMutationVariables = Exact<{
   singleTaskOptions: SingleTaskInput;
@@ -580,14 +604,14 @@ export type FindPublicPodQueryVariables = Exact<{
 }>;
 
 
-export type FindPublicPodQuery = { __typename?: 'Query', findPublicPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, userIds: Array<number> } | null } };
+export type FindPublicPodQuery = { __typename?: 'Query', findPublicPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
 
 export type PodQueryVariables = Exact<{
   podId: Scalars['Float'];
 }>;
 
 
-export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, userIds: Array<number> } | null } | null };
+export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } | null };
 
 export type PodProjectsQueryVariables = Exact<{
   podId: Scalars['Int'];
@@ -606,7 +630,7 @@ export type PodUsersQuery = { __typename?: 'Query', podUsers?: Array<{ __typenam
 export type PodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PodsQuery = { __typename?: 'Query', pods: Array<{ __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, userIds: Array<number> }> };
+export type PodsQuery = { __typename?: 'Query', pods: Array<{ __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> }> };
 
 export type ProjectQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -619,6 +643,13 @@ export type ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ProjectsQuery = { __typename?: 'Query', projects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
+
+export type PodTasksQueryVariables = Exact<{
+  podId: Scalars['Int'];
+}>;
+
+
+export type PodTasksQuery = { __typename?: 'Query', podTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
 
 export type RecurringTaskQueryVariables = Exact<{
   recurringTaskId: Scalars['Int'];
@@ -659,6 +690,7 @@ export const RegularPodFragmentDoc = gql`
   updatedAt
   createdAt
   isPrivate
+  sessionType
   userIds
 }
     `;
@@ -756,8 +788,8 @@ export type AddProjectToPodMutationHookResult = ReturnType<typeof useAddProjectT
 export type AddProjectToPodMutationResult = Apollo.MutationResult<AddProjectToPodMutation>;
 export type AddProjectToPodMutationOptions = Apollo.BaseMutationOptions<AddProjectToPodMutation, AddProjectToPodMutationVariables>;
 export const CreatePodDocument = gql`
-    mutation CreatePod($isPrivate: Boolean!, $cap: Float!) {
-  createPod(isPrivate: $isPrivate, cap: $cap) {
+    mutation CreatePod($isPrivate: Boolean!, $cap: Float!, $sessionType: String!) {
+  createPod(isPrivate: $isPrivate, cap: $cap, sessionType: $sessionType) {
     ...RegularPod
   }
 }
@@ -779,6 +811,7 @@ export type CreatePodMutationFn = Apollo.MutationFunction<CreatePodMutation, Cre
  *   variables: {
  *      isPrivate: // value for 'isPrivate'
  *      cap: // value for 'cap'
+ *      sessionType: // value for 'sessionType'
  *   },
  * });
  */
@@ -1197,6 +1230,46 @@ export function useDeleteRecurringTaskMutation(baseOptions?: Apollo.MutationHook
 export type DeleteRecurringTaskMutationHookResult = ReturnType<typeof useDeleteRecurringTaskMutation>;
 export type DeleteRecurringTaskMutationResult = Apollo.MutationResult<DeleteRecurringTaskMutation>;
 export type DeleteRecurringTaskMutationOptions = Apollo.BaseMutationOptions<DeleteRecurringTaskMutation, DeleteRecurringTaskMutationVariables>;
+export const UpdateTaskPodDocument = gql`
+    mutation UpdateTaskPod($podId: Float!, $updateRecurringTaskPodId: Float!) {
+  updateTaskPod(podId: $podId, id: $updateRecurringTaskPodId) {
+    errors {
+      field
+      message
+    }
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}
+    ${RegularRecurringTaskFragmentDoc}`;
+export type UpdateTaskPodMutationFn = Apollo.MutationFunction<UpdateTaskPodMutation, UpdateTaskPodMutationVariables>;
+
+/**
+ * __useUpdateTaskPodMutation__
+ *
+ * To run a mutation, you first call `useUpdateTaskPodMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTaskPodMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTaskPodMutation, { data, loading, error }] = useUpdateTaskPodMutation({
+ *   variables: {
+ *      podId: // value for 'podId'
+ *      updateRecurringTaskPodId: // value for 'updateRecurringTaskPodId'
+ *   },
+ * });
+ */
+export function useUpdateTaskPodMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTaskPodMutation, UpdateTaskPodMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTaskPodMutation, UpdateTaskPodMutationVariables>(UpdateTaskPodDocument, options);
+      }
+export type UpdateTaskPodMutationHookResult = ReturnType<typeof useUpdateTaskPodMutation>;
+export type UpdateTaskPodMutationResult = Apollo.MutationResult<UpdateTaskPodMutation>;
+export type UpdateTaskPodMutationOptions = Apollo.BaseMutationOptions<UpdateTaskPodMutation, UpdateTaskPodMutationVariables>;
 export const AddSingleTaskDocument = gql`
     mutation AddSingleTask($singleTaskOptions: SingleTaskInput!) {
   addSingleTask(singleTaskOptions: $singleTaskOptions) {
@@ -1868,6 +1941,41 @@ export function useProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProjectsQueryHookResult = ReturnType<typeof useProjectsQuery>;
 export type ProjectsLazyQueryHookResult = ReturnType<typeof useProjectsLazyQuery>;
 export type ProjectsQueryResult = Apollo.QueryResult<ProjectsQuery, ProjectsQueryVariables>;
+export const PodTasksDocument = gql`
+    query PodTasks($podId: Int!) {
+  podTasks(podId: $podId) {
+    ...RegularRecurringTask
+  }
+}
+    ${RegularRecurringTaskFragmentDoc}`;
+
+/**
+ * __usePodTasksQuery__
+ *
+ * To run a query within a React component, call `usePodTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePodTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePodTasksQuery({
+ *   variables: {
+ *      podId: // value for 'podId'
+ *   },
+ * });
+ */
+export function usePodTasksQuery(baseOptions: Apollo.QueryHookOptions<PodTasksQuery, PodTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PodTasksQuery, PodTasksQueryVariables>(PodTasksDocument, options);
+      }
+export function usePodTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PodTasksQuery, PodTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PodTasksQuery, PodTasksQueryVariables>(PodTasksDocument, options);
+        }
+export type PodTasksQueryHookResult = ReturnType<typeof usePodTasksQuery>;
+export type PodTasksLazyQueryHookResult = ReturnType<typeof usePodTasksLazyQuery>;
+export type PodTasksQueryResult = Apollo.QueryResult<PodTasksQuery, PodTasksQueryVariables>;
 export const RecurringTaskDocument = gql`
     query RecurringTask($recurringTaskId: Int!) {
   recurringTask(id: $recurringTaskId) {

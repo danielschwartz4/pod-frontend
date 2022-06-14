@@ -26,7 +26,7 @@ import {
   useUpdateProjectMilestonesMutation,
   useUpdateProjectProgressMutation,
 } from "../../generated/graphql";
-import { FlowNode } from "../../types";
+import { FlowNode } from "../../types/types";
 import formatDate from "../../utils/formatDate";
 import { removeItemByIndex } from "../../utils/removeItem";
 import DatePickerInput from "../Inputs/DatePickerInput";

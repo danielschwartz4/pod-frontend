@@ -84,3 +84,5 @@ export type SingleTaskOptions = {
   actionDate: Date;
   actionDay: number;
 };
+
+export type SessionType = "project" | "task";

@@ -1,16 +1,9 @@
-import {
-  ApolloCache,
-  DefaultContext,
-  FetchResult,
-  MutationFunctionOptions,
-} from "@apollo/client";
 import { CheckIcon, ChevronDownIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Divider,
   Flex,
-  HStack,
   Menu,
   MenuButton,
   MenuItem,
@@ -22,19 +15,20 @@ import {
 import { Form, Formik } from "formik";
 import React from "react";
 import {
-  AddProjectToPodMutation,
-  CreatePodMutation,
-  Exact,
   FindPublicPodQuery,
   MeDocument,
   MeQuery,
   ProjectQuery,
-  UpdateProjectFriendProposalsMutation,
-  UpdateProjectPodMutation,
-  UpdateUserFriendRequestsMutation,
   useUpdateProjectFriendProposalsMutation,
   useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
+import {
+  AddProjectToPodMutationType,
+  CreatePodMutationType,
+  UpdateProjectFriendProposalsMutationType,
+  UpdateProjectPodMutationType,
+  UpdateUserFriendRequestsMutationType,
+} from "../../types/mutationTypes";
 import { InputField } from "../Inputs/InputField";
 import PodRadio from "./Radio";
 
@@ -44,93 +38,11 @@ interface PodNotCreatedProps {
   projectData?: ProjectQuery;
   availablePodsData?: FindPublicPodQuery;
   setPodJoined?: React.Dispatch<React.SetStateAction<boolean>>;
-  createPod?: (
-    options?: MutationFunctionOptions<
-      CreatePodMutation,
-      Exact<{
-        isPrivate: boolean;
-        cap: number;
-      }>,
-      DefaultContext,
-      ApolloCache<any>
-    >
-  ) => Promise<
-    FetchResult<CreatePodMutation, Record<string, any>, Record<string, any>>
-  >;
-  updateProjectPod?: (
-    options?: MutationFunctionOptions<
-      UpdateProjectPodMutation,
-      Exact<{
-        podId: number;
-        updateProjectPodId: number;
-      }>,
-      DefaultContext,
-      ApolloCache<any>
-    >
-  ) => Promise<
-    FetchResult<
-      UpdateProjectPodMutation,
-      Record<string, any>,
-      Record<string, any>
-    >
-  >;
-  addProjectToPod?: (
-    options?: MutationFunctionOptions<
-      AddProjectToPodMutation,
-      Exact<{
-        addProjectToPodId: number;
-        projectId: number;
-      }>,
-      DefaultContext,
-      ApolloCache<any>
-    >
-  ) => Promise<
-    FetchResult<
-      AddProjectToPodMutation,
-      Record<string, any>,
-      Record<string, any>
-    >
-  >;
-
-  updateProjectFriendProposals?: (
-    options?: MutationFunctionOptions<
-      UpdateProjectFriendProposalsMutation,
-      Exact<{
-        updateProjectFriendProposalsId: number;
-        isAdding: boolean;
-        addedFriends: string[];
-        deletedFriend: string;
-      }>,
-      DefaultContext,
-      ApolloCache<any>
-    >
-  ) => Promise<
-    FetchResult<
-      UpdateProjectFriendProposalsMutation,
-      Record<string, any>,
-      Record<string, any>
-    >
-  >;
-
-  updateUserFriendRequests?: (
-    options?: MutationFunctionOptions<
-      UpdateUserFriendRequestsMutation,
-      Exact<{
-        username: string;
-        projectId: number;
-        podId: number;
-        isAdding: boolean;
-      }>,
-      DefaultContext,
-      ApolloCache<any>
-    >
-  ) => Promise<
-    FetchResult<
-      UpdateUserFriendRequestsMutation,
-      Record<string, any>,
-      Record<string, any>
-    >
-  >;
+  createPod?: CreatePodMutationType;
+  updateProjectPod?: UpdateProjectPodMutationType;
+  addProjectToPod?: AddProjectToPodMutationType;
+  updateProjectFriendProposals?: UpdateProjectFriendProposalsMutationType;
+  updateUserFriendRequests?: UpdateUserFriendRequestsMutationType;
   meData?: MeQuery;
 }
 
@@ -473,6 +385,7 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
                   variables: {
                     isPrivate: true,
                     cap: 4,
+                    sessionType: "project",
                   },
                 });
                 await props.updateProjectPod({

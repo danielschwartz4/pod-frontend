@@ -5,18 +5,18 @@ import { extractDaysIdxs } from "../../utils/singleTaskUtils";
 import { ProgressGridSkeleton } from "./ProgressGridSkeleton";
 
 interface RecurringTaskProgressProps {
-  taskData: RecurringTaskQuery;
+  myTaskData: RecurringTaskQuery;
   singleTasksData: SingleTasksQuery;
 }
 
 export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
-  taskData,
+  myTaskData,
   singleTasksData,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <Box>Loading...</Box>;
   }
-  const daysIdxs = extractDaysIdxs(taskData?.recurringTask?.task?.days);
+  const daysIdxs = extractDaysIdxs(myTaskData?.recurringTask?.task?.days);
 
   return (
     <Flex>

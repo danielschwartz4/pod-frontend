@@ -1,0 +1,11 @@
+mutation UpdateTaskPod($podId: Float!, $updateRecurringTaskPodId: Float!) {
+  updateTaskPod(podId: $podId, id: $updateRecurringTaskPodId) {
+    errors {
+      field
+      message
+    }
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}

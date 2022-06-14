@@ -1,7 +1,7 @@
 import { Box, Flex, FormControl, FormErrorMessage } from "@chakra-ui/react";
 import { useField, useFormikContext } from "formik";
 import React, { useEffect } from "react";
-import { DaysType } from "../../types";
+import { DaysType } from "../../types/types";
 
 interface DayPickerProps {
   name: string;

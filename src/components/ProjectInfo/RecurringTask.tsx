@@ -6,7 +6,7 @@ import {
   MeQuery,
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
-import { DaysType, EndOptionsSelectorType } from "../../types";
+import { DaysType, EndOptionsSelectorType } from "../../types/types";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
