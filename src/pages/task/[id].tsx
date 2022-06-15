@@ -121,6 +121,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
                 taskDataLoading={taskDataLoading}
                 tasksDataLoading={tasksDataLoading}
                 myTaskData={myTaskData}
+                refetchTask={refetchTask}
+                refetchTasks={refetchTasks}
               />
             </TabPanel>
           </TabPanels>

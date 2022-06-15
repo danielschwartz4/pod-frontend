@@ -266,6 +266,7 @@ export type Query = {
 export type QueryFindPublicPodArgs = {
   cap: Scalars['Float'];
   projectId: Scalars['Float'];
+  sessionType: Scalars['String'];
 };
 
 
@@ -601,6 +602,7 @@ export type UpdateUserFriendRequestsMutation = { __typename?: 'Mutation', update
 export type FindPublicPodQueryVariables = Exact<{
   projectId: Scalars['Float'];
   cap: Scalars['Float'];
+  sessionType: Scalars['String'];
 }>;
 
 
@@ -1689,8 +1691,8 @@ export type UpdateUserFriendRequestsMutationHookResult = ReturnType<typeof useUp
 export type UpdateUserFriendRequestsMutationResult = Apollo.MutationResult<UpdateUserFriendRequestsMutation>;
 export type UpdateUserFriendRequestsMutationOptions = Apollo.BaseMutationOptions<UpdateUserFriendRequestsMutation, UpdateUserFriendRequestsMutationVariables>;
 export const FindPublicPodDocument = gql`
-    query FindPublicPod($projectId: Float!, $cap: Float!) {
-  findPublicPod(projectId: $projectId, cap: $cap) {
+    query FindPublicPod($projectId: Float!, $cap: Float!, $sessionType: String!) {
+  findPublicPod(projectId: $projectId, cap: $cap, sessionType: $sessionType) {
     errors
     pod {
       ...RegularPod
@@ -1713,6 +1715,7 @@ export const FindPublicPodDocument = gql`
  *   variables: {
  *      projectId: // value for 'projectId'
  *      cap: // value for 'cap'
+ *      sessionType: // value for 'sessionType'
  *   },
  * });
  */

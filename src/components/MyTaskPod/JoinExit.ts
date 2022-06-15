@@ -1,8 +1,8 @@
+import React from "react";
 import {
   FindPublicPodQuery,
   PodQuery,
   RecurringTaskQuery,
-  UpdateTaskPodMutation,
 } from "../../generated/graphql";
 import {
   AddProjectToPodMutationType,
@@ -10,25 +10,6 @@ import {
   RemoveProjectFromPodMutationType,
   UpdateTaskPodMutationType,
 } from "../../types/mutationTypes";
-
-interface joinExitArgs {
-  myTaskData: RecurringTaskQuery;
-  podData: PodQuery;
-  setPodJoined: React.Dispatch<React.SetStateAction<boolean>>;
-  updateTaskPod: UpdateTaskPodMutationType;
-}
-
-interface ExitArgs extends joinExitArgs {
-  removeProjectFromPod: RemoveProjectFromPodMutationType;
-}
-
-interface JoinArgs extends joinExitArgs {
-  createPod: CreatePodMutationType;
-  addProjectToPod: AddProjectToPodMutationType;
-  // TODO make the find pods query only work if session types are the same
-  availablePodsData: FindPublicPodQuery;
-  cap: number;
-}
 
 export const joinPod = async (
   podSize: number,
@@ -41,7 +22,9 @@ export const joinPod = async (
 ) => {
   let createdPod = null;
   let foundPod = null;
+
   if (availablePodsData?.findPublicPod?.errors) {
+    console.log("creating");
     createdPod = await createPod({
       variables: {
         cap: podSize,
@@ -52,6 +35,8 @@ export const joinPod = async (
   } else {
     foundPod = availablePodsData?.findPublicPod?.pod;
   }
+
+  console.log("before project added to pod");
   await addProjectToPod({
     variables: {
       addProjectToPodId:
@@ -59,6 +44,7 @@ export const joinPod = async (
       projectId: myTaskData?.recurringTask?.task?.id,
     },
   });
+  console.log("before task pod updated");
   await updateTaskPod({
     variables: {
       podId:
@@ -66,7 +52,6 @@ export const joinPod = async (
       updateRecurringTaskPodId: myTaskData?.recurringTask?.task?.id,
     },
   });
-
   setPodJoined(true);
 };
 

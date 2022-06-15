@@ -1,13 +1,9 @@
+import { ApolloQueryResult } from "@apollo/client";
 import { Box, Button } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { exitPod, joinPod } from "./JoinExit";
-import { PodCreated } from "./PodCreated";
-import { PodNotCreated } from "./PodNotCreated";
-import { PhoneNumber } from "../Inputs/PhoneNumber";
-
+import React, { useEffect, useState } from "react";
 import {
+  Exact,
   MeQuery,
-  PodProjectsQuery,
   PodQuery,
   PodTasksQuery,
   RecurringTaskQuery,
@@ -20,6 +16,10 @@ import {
 } from "../../generated/graphql";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { COUNTRIES } from "../Inputs/countries";
+import { PhoneNumber } from "../Inputs/PhoneNumber";
+import { exitPod, joinPod } from "./JoinExit";
+import { PodCreated } from "./PodCreated";
+import { PodNotCreated } from "./PodNotCreated";
 
 interface MyPodProps {
   tasksDataLoading: boolean;
@@ -28,6 +28,20 @@ interface MyPodProps {
   tasksData: PodTasksQuery;
   myTaskData: RecurringTaskQuery;
   podData: PodQuery;
+  refetchTask: (
+    variables?: Partial<
+      Exact<{
+        recurringTaskId: number;
+      }>
+    >
+  ) => Promise<ApolloQueryResult<RecurringTaskQuery>>;
+  refetchTasks: (
+    variables?: Partial<
+      Exact<{
+        podId: number;
+      }>
+    >
+  ) => Promise<ApolloQueryResult<PodTasksQuery>>;
 }
 
 export const MyPod: React.FC<MyPodProps> = ({
@@ -37,6 +51,8 @@ export const MyPod: React.FC<MyPodProps> = ({
   tasksData,
   myTaskData,
   podData,
+  refetchTask,
+  refetchTasks,
 }) => {
   useIsAuth();
   const countryOptions = COUNTRIES.map(({ name, iso }) => ({
@@ -44,26 +60,41 @@ export const MyPod: React.FC<MyPodProps> = ({
     value: iso,
   }));
 
-  const [podJoined, setPodJoined] = useState(
-    myTaskData?.recurringTask?.task?.podId != 0
-  );
-
   const [updateTaskPod] = useUpdateTaskPodMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updatePhone] = useUpdatePhoneMutation();
   const [createPod] = useCreatePodMutation();
   const [addProjectToPod] = useAddProjectToPodMutation();
 
-  const [_podTasks, setPodTasks] = useState(tasksData?.podTasks);
   const [podSize, setPodSize] = useState(null);
+  const [podJoined, setPodJoined] = useState(
+    myTaskData?.recurringTask?.task?.podId != 0
+  );
+
   const [phone, setPhone] = useState(null);
 
   const { data: availablePodsData } = useFindPublicPodQuery({
     variables: {
       cap: podSize,
       projectId: myTaskData?.recurringTask?.task?.id,
+      sessionType: "task",
     },
   });
+
+  const [_podTasks, setPodTasks] = useState(tasksData?.podTasks);
+
+  useEffect(() => {
+    setPodJoined(myTaskData?.recurringTask?.task?.podId != 0);
+  }, [myTaskData]);
+
+  useEffect(() => {
+    refetchTask();
+  }, [podJoined]);
+
+  useEffect(() => {
+    refetchTasks();
+    setPodTasks(tasksData?.podTasks);
+  }, [tasksData]);
 
   return (
     <Box h={"100%"} w={"100%"}>

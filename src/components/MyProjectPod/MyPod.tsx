@@ -77,8 +77,10 @@ export const MyPod: React.FC<MyPodProps> = ({
     variables: {
       cap: podSize,
       projectId: projectData?.project?.project.id,
+      sessionType: "project",
     },
   });
+  console.log(availablePodsData);
 
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
 
@@ -94,6 +96,8 @@ export const MyPod: React.FC<MyPodProps> = ({
     refetchProjects();
     setPodProjects(projectsData?.podProjects);
   }, [projectsData]);
+
+  console.log(availablePodsData);
 
   return (
     <Box h={"100%"} w={"100%"}>
