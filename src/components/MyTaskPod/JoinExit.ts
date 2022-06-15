@@ -36,7 +36,6 @@ export const joinPod = async (
     foundPod = availablePodsData?.findPublicPod?.pod;
   }
 
-  console.log("before project added to pod");
   await addProjectToPod({
     variables: {
       addProjectToPodId:
@@ -44,7 +43,6 @@ export const joinPod = async (
       projectId: myTaskData?.recurringTask?.task?.id,
     },
   });
-  console.log("before task pod updated");
   await updateTaskPod({
     variables: {
       podId:

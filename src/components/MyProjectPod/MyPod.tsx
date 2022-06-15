@@ -85,19 +85,12 @@ export const MyPod: React.FC<MyPodProps> = ({
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
 
   useEffect(() => {
-    setPodJoined(projectData?.project?.project?.podId != 0);
-  }, [projectData]);
-
-  useEffect(() => {
+    // Refetch project to update podJoined state
     refetchProject();
-  }, [podJoined]);
-
-  useEffect(() => {
+    // Refetch projects to update _podProjects state
     refetchProjects();
     setPodProjects(projectsData?.podProjects);
-  }, [projectsData]);
-
-  console.log(availablePodsData);
+  }, [projectsData, podJoined]);
 
   return (
     <Box h={"100%"} w={"100%"}>

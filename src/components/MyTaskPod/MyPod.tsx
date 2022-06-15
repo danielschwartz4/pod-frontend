@@ -83,18 +83,14 @@ export const MyPod: React.FC<MyPodProps> = ({
 
   const [_podTasks, setPodTasks] = useState(tasksData?.podTasks);
 
+  // We refetch all tasks since the podTasks are changed and we update the state
   useEffect(() => {
-    setPodJoined(myTaskData?.recurringTask?.task?.podId != 0);
-  }, [myTaskData]);
-
-  useEffect(() => {
+    // Refetch task to update podJoined state
     refetchTask();
-  }, [podJoined]);
-
-  useEffect(() => {
+    // Refetch tasks to update _podTasks state
     refetchTasks();
     setPodTasks(tasksData?.podTasks);
-  }, [tasksData]);
+  }, [tasksData, podJoined]);
 
   return (
     <Box h={"100%"} w={"100%"}>
