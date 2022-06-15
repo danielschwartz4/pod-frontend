@@ -54,7 +54,9 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
               fontSize={"2xl"}
               fontFamily={"body"}
             >
-              {project.projectName}
+              {project?.projectName == "Click here to name project"
+                ? `Task ${project?.id}`
+                : project?.projectName}
             </Heading>
             <Text color={"gray.500"}>{project.overview}</Text>
           </Stack>
