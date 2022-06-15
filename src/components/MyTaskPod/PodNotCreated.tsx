@@ -34,6 +34,7 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
           children={props.children}
         />
       ) : (
+        // TODO FriendPodOptions
         // <FriendPodOptions
         //   addTaskToPod={props.addProjectToPod}
         //   availablePodsData={props.availablePodsData}

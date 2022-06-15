@@ -7,26 +7,24 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import React from "react";
 import { ReactFlowProvider } from "react-flow-renderer";
-import { Project, useMeQuery } from "../../generated/graphql";
+import { RecurringTask, useMeQuery } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
-import compPercentage, {
-  getColorForPercentage,
-} from "../../utils/compPercentage";
 import { convertFromMilitaryTime } from "../../utils/formatDate";
-import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {
-  project: Project;
+  task: RecurringTask;
 }
 
-const PodCard: React.FC<PodCardProps> = ({ project }) => {
+const PodCard: React.FC<PodCardProps> = ({ task }) => {
   const { data, loading } = useMeQuery({});
-  const date = project.updatedAt.split(".")[0].split("T");
+  const date = task.updatedAt.split(".")[0].split("T");
+
   return (
     <Center>
       <Box
-        border={project?.userId === data?.me?.id ? "4px" : ""}
+        border={task?.userId === data?.me?.id ? "4px" : ""}
         borderColor="#3EE76D"
         maxH={"350px"}
         width={"100%"}
@@ -39,13 +37,7 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
         overflow={"hidden"}
       >
         <Box h={"200px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
-          <ReactFlowProvider>
-            <FlowChartMini
-              milestoneProgress={project.milestoneProgress}
-              milestones={project.milestones}
-              milestoneDates={project.milestoneDates}
-            />
-          </ReactFlowProvider>
+          <ReactFlowProvider>VISUALIZATION</ReactFlowProvider>
         </Box>
         <Box>
           <Stack maxH={"120px"}>
@@ -54,9 +46,9 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
               fontSize={"2xl"}
               fontFamily={"body"}
             >
-              {project.projectName}
+              {task?.projectName}
             </Heading>
-            <Text color={"gray.500"}>{project.overview}</Text>
+            <Text color={"gray.500"}>{task?.overview}</Text>
           </Stack>
           <Stack
             textColor={"gray.500"}
@@ -69,13 +61,7 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
             <Text fontSize={14}>
               Last update: {date[0]} {convertFromMilitaryTime(date[1])}
             </Text>
-            <Text
-              textColor={getColorForPercentage(
-                compPercentage(project?.milestoneProgress) / 100
-              )}
-            >
-              Comp: {compPercentage(project?.milestoneProgress) + "%"}
-            </Text>
+            <Text textColor={"gainsboro"}>Comp: X%</Text>
           </Stack>
         </Box>
       </Box>
