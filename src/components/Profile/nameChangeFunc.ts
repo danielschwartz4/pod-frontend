@@ -6,7 +6,7 @@ export default function useOutsideAlerter(
   isChangingName: boolean,
   setIsChangingName: React.Dispatch<React.SetStateAction<boolean>>,
   newName: string,
-  handleUpdateProjectName: () => Promise<void>
+  handleUpdateName: () => Promise<void>
 ) {
   useEffect(() => {
     function handleClickOutside(event) {
@@ -15,7 +15,7 @@ export default function useOutsideAlerter(
         !ref.current.contains(event.target) &&
         isChangingName
       ) {
-        handleUpdateProjectName();
+        handleUpdateName();
         setIsChangingName(false);
       }
     }

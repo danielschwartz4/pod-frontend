@@ -23,9 +23,6 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
     (acc, task) => ({ ...acc, [task.id]: task }),
     {}
   );
-  const [isChangingName, setIsChangingName] = useState<boolean>(false);
-
-  const wrapperRef = useRef(null);
 
   return (
     // !! Use space in between for formatting profile projects so theat they stay the same size just have different spacing
@@ -49,15 +46,7 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
       {Object.keys(merged).map((m) => {
         if (m[0] == "p") {
           const pid = parseInt(m.slice(1));
-          return (
-            <ProjectEntry
-              key={m}
-              setIsChangingName={setIsChangingName}
-              isChangingName={isChangingName}
-              wrapperRef={wrapperRef}
-              project={projectsDataDict[pid]}
-            />
-          );
+          return <ProjectEntry key={m} project={projectsDataDict[pid]} />;
         }
         if (m[0] == "t") {
           const tid = parseInt(m.slice(1));

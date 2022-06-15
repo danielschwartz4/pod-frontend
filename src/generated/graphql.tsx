@@ -50,6 +50,7 @@ export type Mutation = {
   updateProjectProgress: ProjectResponse;
   updateSingleTaskCompletionStatus: SingleTaskResponse;
   updateSingleTaskNotes: SingleTaskResponse;
+  updateTaskName: RecurringTaskResponse;
   updateTaskPod: RecurringTaskResponse;
   updateUserFriendRequests?: Maybe<UserResponse>;
 };
@@ -174,6 +175,12 @@ export type MutationUpdateSingleTaskCompletionStatusArgs = {
 export type MutationUpdateSingleTaskNotesArgs = {
   id: Scalars['Int'];
   notes: Scalars['String'];
+};
+
+
+export type MutationUpdateTaskNameArgs = {
+  id: Scalars['Float'];
+  taskName: Scalars['String'];
 };
 
 
@@ -318,8 +325,8 @@ export type RecurringTask = {
   id: Scalars['Int'];
   overview: Scalars['String'];
   podId?: Maybe<Scalars['Int']>;
-  projectName: Scalars['String'];
   startDate?: Maybe<Scalars['DateTime']>;
+  taskName: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   userId: Scalars['Int'];
 };
@@ -401,7 +408,7 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
 
-export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null };
+export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, friendProposals?: Array<string> | null };
 
 export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any };
 
@@ -501,7 +508,7 @@ export type CreateRecurringTaskMutationVariables = Exact<{
 }>;
 
 
-export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
+export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, friendProposals?: Array<string> | null } | null } };
 
 export type DeleteRecurringTaskMutationVariables = Exact<{
   deleteRecurringTaskId: Scalars['Float'];
@@ -510,13 +517,21 @@ export type DeleteRecurringTaskMutationVariables = Exact<{
 
 export type DeleteRecurringTaskMutation = { __typename?: 'Mutation', deleteRecurringTask: boolean };
 
+export type UpdateTaskNameMutationVariables = Exact<{
+  taskName: Scalars['String'];
+  updateTaskNameId: Scalars['Float'];
+}>;
+
+
+export type UpdateTaskNameMutation = { __typename?: 'Mutation', updateTaskName: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, friendProposals?: Array<string> | null } | null } };
+
 export type UpdateTaskPodMutationVariables = Exact<{
   podId: Scalars['Float'];
   updateRecurringTaskPodId: Scalars['Float'];
 }>;
 
 
-export type UpdateTaskPodMutation = { __typename?: 'Mutation', updateTaskPod: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } };
+export type UpdateTaskPodMutation = { __typename?: 'Mutation', updateTaskPod: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, friendProposals?: Array<string> | null } | null } };
 
 export type AddSingleTaskMutationVariables = Exact<{
   singleTaskOptions: SingleTaskInput;
@@ -651,19 +666,19 @@ export type PodTasksQueryVariables = Exact<{
 }>;
 
 
-export type PodTasksQuery = { __typename?: 'Query', podTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
+export type PodTasksQuery = { __typename?: 'Query', podTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, friendProposals?: Array<string> | null }> | null };
 
 export type RecurringTaskQueryVariables = Exact<{
   recurringTaskId: Scalars['Int'];
 }>;
 
 
-export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null } | null } | null };
+export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, friendProposals?: Array<string> | null } | null } | null };
 
 export type RecurringTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
+export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days?: any | null, endOptions?: any | null, startDate?: any | null, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, friendProposals?: Array<string> | null }> | null };
 
 export type SingleTaskQueryVariables = Exact<{
   singleTaskId: Scalars['Int'];
@@ -723,7 +738,7 @@ export const RegularRecurringTaskFragmentDoc = gql`
   updatedAt
   overview
   podId
-  projectName
+  taskName
   friendProposals
 }
     `;
@@ -1232,6 +1247,46 @@ export function useDeleteRecurringTaskMutation(baseOptions?: Apollo.MutationHook
 export type DeleteRecurringTaskMutationHookResult = ReturnType<typeof useDeleteRecurringTaskMutation>;
 export type DeleteRecurringTaskMutationResult = Apollo.MutationResult<DeleteRecurringTaskMutation>;
 export type DeleteRecurringTaskMutationOptions = Apollo.BaseMutationOptions<DeleteRecurringTaskMutation, DeleteRecurringTaskMutationVariables>;
+export const UpdateTaskNameDocument = gql`
+    mutation UpdateTaskName($taskName: String!, $updateTaskNameId: Float!) {
+  updateTaskName(taskName: $taskName, id: $updateTaskNameId) {
+    errors {
+      field
+      message
+    }
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}
+    ${RegularRecurringTaskFragmentDoc}`;
+export type UpdateTaskNameMutationFn = Apollo.MutationFunction<UpdateTaskNameMutation, UpdateTaskNameMutationVariables>;
+
+/**
+ * __useUpdateTaskNameMutation__
+ *
+ * To run a mutation, you first call `useUpdateTaskNameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTaskNameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTaskNameMutation, { data, loading, error }] = useUpdateTaskNameMutation({
+ *   variables: {
+ *      taskName: // value for 'taskName'
+ *      updateTaskNameId: // value for 'updateTaskNameId'
+ *   },
+ * });
+ */
+export function useUpdateTaskNameMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTaskNameMutation, UpdateTaskNameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTaskNameMutation, UpdateTaskNameMutationVariables>(UpdateTaskNameDocument, options);
+      }
+export type UpdateTaskNameMutationHookResult = ReturnType<typeof useUpdateTaskNameMutation>;
+export type UpdateTaskNameMutationResult = Apollo.MutationResult<UpdateTaskNameMutation>;
+export type UpdateTaskNameMutationOptions = Apollo.BaseMutationOptions<UpdateTaskNameMutation, UpdateTaskNameMutationVariables>;
 export const UpdateTaskPodDocument = gql`
     mutation UpdateTaskPod($podId: Float!, $updateRecurringTaskPodId: Float!) {
   updateTaskPod(podId: $podId, id: $updateRecurringTaskPodId) {

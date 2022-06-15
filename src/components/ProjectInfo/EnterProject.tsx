@@ -31,7 +31,10 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
           overview: "",
           projectName: "",
         }}
-        onSubmit={async ({ milestone, overview }, { setErrors }) => {
+        onSubmit={async (
+          { milestone, overview, projectName },
+          { setErrors }
+        ) => {
           const descriptionArray = objectToArray(milestone, "description");
           const completionDateArray = objectToArray(
             milestone,
@@ -45,7 +48,7 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
                 overview: overview,
                 milestoneDates: completionDateArray,
                 milestoneProgress: Array(descriptionArray.length).fill(1),
-                projectName: "Click here to name project",
+                projectName: projectName,
               },
             },
           });

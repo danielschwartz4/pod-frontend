@@ -1,0 +1,11 @@
+mutation UpdateTaskName($taskName: String!, $updateTaskNameId: Float!) {
+  updateTaskName(taskName: $taskName, id: $updateTaskNameId) {
+    errors {
+      field
+      message
+    }
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}

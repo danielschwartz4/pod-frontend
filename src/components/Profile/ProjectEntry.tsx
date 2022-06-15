@@ -1,6 +1,6 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   ProjectQuery,
   useDeleteProjectMutation,
@@ -17,23 +17,18 @@ import { ProfileGridItem } from "./ProfileGridItem";
 
 interface ProjectEntryProps {
   project: ProjectQuery["project"]["project"];
-  isChangingName: boolean;
-  setIsChangingName: React.Dispatch<React.SetStateAction<boolean>>;
-  wrapperRef: React.MutableRefObject<HTMLDivElement>;
 }
 
-const ProjectEntry: React.FC<ProjectEntryProps> = ({
-  project,
-  isChangingName,
-  setIsChangingName,
-  wrapperRef,
-}) => {
+const ProjectEntry: React.FC<ProjectEntryProps> = ({ project }) => {
   const [deleteProject] = useDeleteProjectMutation();
-  const [newName, setNewName] = useState<string>(project?.projectName);
-  const [updateProjectName] = useUpdateProjectNameMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
+  const [updateProjectName] = useUpdateProjectNameMutation();
+  const [newName, setNewName] = useState<string>(project?.projectName);
 
-  const handleUpdateProjectName = async () => {
+  const [isChangingName, setIsChangingName] = useState<boolean>(false);
+  const wrapperRef = useRef(null);
+
+  const handleUpdateName = async () => {
     updateProjectName({
       variables: {
         updateProjectNameId: project?.id,
@@ -45,7 +40,7 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setIsChangingName(false);
-      handleUpdateProjectName();
+      handleUpdateName();
     }
   };
 
@@ -54,7 +49,7 @@ const ProjectEntry: React.FC<ProjectEntryProps> = ({
     isChangingName,
     setIsChangingName,
     newName,
-    handleUpdateProjectName
+    handleUpdateName
   );
 
   return (
