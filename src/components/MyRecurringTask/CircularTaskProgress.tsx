@@ -11,12 +11,14 @@ interface CircularTaskProgressProps {
   title?: string;
   completedCount: number;
   taskLength: number;
+  today: Date;
 }
 
 export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
   title,
   completedCount,
   taskLength,
+  today,
 }) => {
   const percentage = Math.round((completedCount / taskLength) * 100) / 100;
   const value = percentage * 100;
@@ -30,7 +32,7 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
         color={getColorForPercentage(percentage)}
       >
         <CircularProgressLabel textColor={getColorForPercentage(percentage)}>
-          <Text transform={"translate(3px, -18px)"}>{value}%</Text>
+          <Text transform={"translate(3px, -18px)"}>{Math.round(value)}%</Text>
         </CircularProgressLabel>
       </CircularProgress>
     </Box>

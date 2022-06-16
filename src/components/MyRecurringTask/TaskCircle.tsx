@@ -10,6 +10,7 @@ interface TaskCircleProps {
   icon: string;
   completedCount?: number;
   setCompletedCount?: React.Dispatch<React.SetStateAction<number>>;
+  today: Date;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
@@ -19,6 +20,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   icon,
   completedCount,
   setCompletedCount,
+  today,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -40,12 +42,19 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
     >
       <Box
         onClick={() => {
+          const actionDate = new Date(singleTask?.actionDate);
           // !! Something like only clickable if today or before today
-          if (isInteractive) {
+          if (isInteractive && actionDate < today) {
             setPopupHandler();
           }
         }}
-        cursor={isInteractive ? "pointer" : null}
+        cursor={
+          new Date(singleTask?.actionDate) < today && isInteractive
+            ? "pointer"
+            : isInteractive
+            ? "not-allowed"
+            : null
+        }
       >
         <svg
           width={"48px"}

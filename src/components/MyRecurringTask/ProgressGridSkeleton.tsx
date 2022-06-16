@@ -7,12 +7,14 @@ interface ProgressGridSkeletonProps {
   orderedTasks: SingleTasksQuery;
   completedCount: number;
   setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
+  today: Date;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   orderedTasks,
   completedCount,
   setCompletedCount,
+  today,
 }) => {
   const dayTitles = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -46,16 +48,22 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
         if (filledArr[i] == null) {
           return (
             <GridItem key={i} opacity={"70%"}>
-              <TaskCircle icon="•" color="grey" isInteractive={false} />
+              <TaskCircle
+                today={today}
+                icon="•"
+                color="grey"
+                isInteractive={false}
+              />
             </GridItem>
           );
         }
         return (
           <GridItem key={i}>
             <TaskCircle
+              today={today}
               setCompletedCount={setCompletedCount}
               completedCount={completedCount}
-              icon="+"
+              icon={new Date(filledArr[i].actionDate) < today ? "+" : "•"}
               color={
                 filledArr[i].status == "completed"
                   ? "#3EE76D"

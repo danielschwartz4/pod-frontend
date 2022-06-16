@@ -20,6 +20,7 @@ import {
   usePodTasksQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
+import { addDays } from "../../utils/singleTaskUtils";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 
@@ -32,6 +33,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   const [keepMounted, setKeepMounted] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
   const TEMP_BOOL = true;
+  const today = addDays(14, new Date());
 
   const { data: meData } = useMeQuery({});
 
@@ -102,6 +104,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
                     <RecurringTaskProgress
                       singleTasksData={singleTasksData}
                       myTaskData={myTaskData}
+                      today={today}
                     />
                   ) : (
                     <Text>Loading...</Text>
