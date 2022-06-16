@@ -37,10 +37,23 @@ export const getDaysBetween = (startDate: Date, endDate: Date) => {
 };
 
 export const daysEqual = (date1: Date, date2) => {
-  let isMatch = false;
-  isMatch =
+  let isEqual = false;
+  isEqual =
     date1.getDate() == date2.getDate() &&
     date1.getMonth() == date2.getMonth() &&
     date1.getFullYear() == date2.getFullYear();
-  return isMatch;
+  return isEqual;
+};
+
+export const beforeToday = (otherDate: Date, today: Date) => {
+  let isBefore = false;
+  isBefore = otherDate.getFullYear() <= today.getFullYear();
+  if (isBefore) {
+    isBefore = otherDate.getMonth() <= today.getMonth();
+  }
+  if (isBefore) {
+    isBefore = otherDate.getDate() < today.getDate();
+  }
+
+  return isBefore;
 };

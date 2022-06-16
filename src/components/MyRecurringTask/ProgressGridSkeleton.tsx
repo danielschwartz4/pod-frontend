@@ -4,6 +4,7 @@ import {
   SingleTasksQuery,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
+import { beforeToday, daysEqual } from "../../utils/getConsistencyPercentage";
 import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
@@ -62,8 +63,18 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             </GridItem>
           );
         } else {
-          const beforeToday = new Date(filledArr[i].actionDate) < today;
-          if (!beforeToday && filledArr[i].status != "tbd") {
+          // const beforeToday = new Date(filledArr[i].actionDate) < today;
+          const tmpDate = new Date(filledArr[i].actionDate);
+          const isBeforeToday = beforeToday(tmpDate, today);
+          if (isBeforeToday && filledArr[i] == "tbd") {
+            updateSingleTaskCompletionStatus({
+              variables: {
+                status: "overdue",
+                updateSingleTaskCompletionStatusId: filledArr[i].id,
+              },
+            });
+          }
+          if (daysEqual(today, tmpDate) && filledArr[i].status == "overdue") {
             updateSingleTaskCompletionStatus({
               variables: {
                 status: "tbd",
@@ -78,7 +89,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                 today={today}
                 setCompletedCount={setCompletedCount}
                 completedCount={completedCount}
-                icon={beforeToday ? "+" : "•"}
+                icon={isBeforeToday || daysEqual(today, tmpDate) ? "+" : "•"}
                 color={
                   filledArr[i].status == "completed"
                     ? "#3EE76D"

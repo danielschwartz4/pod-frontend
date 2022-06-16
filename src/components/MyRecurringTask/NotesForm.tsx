@@ -33,7 +33,11 @@ const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
               maxLength={200}
               textColor={"black"}
               isField
-              placeholder="wow this sucked today... but I did it"
+              placeholder={
+                singleTask?.notes
+                  ? singleTask?.notes
+                  : "wow this sucked today... but I did it"
+              }
               label=""
               name="notes"
             />
