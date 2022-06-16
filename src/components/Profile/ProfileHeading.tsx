@@ -20,6 +20,7 @@ const ProfileHeading: React.FC<ProfileHeadingProps> = ({ meData }) => {
       </Button>
       {meData?.me?.friendRequests?.length != 0 &&
       meData?.me?.friendRequests != null ? (
+        // !! Maybe do Chakra Toast here instead
         <Box ml={"auto"} mt={8} color={"#71ec44"}>
           You've got <b>{meData?.me?.friendRequests?.length}</b> pod request(s).
           Go into the project of your choice to accept of decline.
