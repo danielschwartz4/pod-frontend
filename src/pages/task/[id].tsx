@@ -34,6 +34,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   const [showAlert, setShowAlert] = useState(false);
   const TEMP_BOOL = true;
   const today = addDays(14, new Date());
+  // const today = new Date();
 
   const { data: meData } = useMeQuery({});
 

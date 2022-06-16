@@ -1,6 +1,9 @@
 import { Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
-import { SingleTasksQuery } from "../../generated/graphql";
+import {
+  SingleTasksQuery,
+  useUpdateSingleTaskCompletionStatusMutation,
+} from "../../generated/graphql";
 import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
@@ -16,8 +19,10 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   setCompletedCount,
   today,
 }) => {
-  const dayTitles = ["S", "M", "T", "W", "T", "F", "S"];
+  const [updateSingleTaskCompletionStatus] =
+    useUpdateSingleTaskCompletionStatusMutation();
 
+  const dayTitles = ["S", "M", "T", "W", "T", "F", "S"];
   let i = 0;
   let taskIter = 0;
   let filledArr = [];
@@ -56,28 +61,39 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
               />
             </GridItem>
           );
+        } else {
+          const beforeToday = new Date(filledArr[i].actionDate) < today;
+          if (!beforeToday && filledArr[i].status != "tbd") {
+            updateSingleTaskCompletionStatus({
+              variables: {
+                status: "tbd",
+                updateSingleTaskCompletionStatusId: filledArr[i].id,
+              },
+            });
+          }
+
+          return (
+            <GridItem key={i}>
+              <TaskCircle
+                today={today}
+                setCompletedCount={setCompletedCount}
+                completedCount={completedCount}
+                icon={beforeToday ? "+" : "•"}
+                color={
+                  filledArr[i].status == "completed"
+                    ? "#3EE76D"
+                    : filledArr[i].status == "missed"
+                    ? "#F26D51"
+                    : filledArr[i].status == "overdue"
+                    ? "#f2df51"
+                    : "#6097F8"
+                }
+                singleTask={filledArr[i]}
+                isInteractive={true}
+              />
+            </GridItem>
+          );
         }
-        return (
-          <GridItem key={i}>
-            <TaskCircle
-              today={today}
-              setCompletedCount={setCompletedCount}
-              completedCount={completedCount}
-              icon={new Date(filledArr[i].actionDate) < today ? "+" : "•"}
-              color={
-                filledArr[i].status == "completed"
-                  ? "#3EE76D"
-                  : filledArr[i].status == "missed"
-                  ? "#F26D51"
-                  : filledArr[i].status == "overdue"
-                  ? "#f2df51"
-                  : "#6097F8"
-              }
-              singleTask={filledArr[i]}
-              isInteractive={true}
-            />
-          </GridItem>
-        );
       })}
     </Grid>
   );
