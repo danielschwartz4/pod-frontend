@@ -1,4 +1,13 @@
-import { Grid, GridItem, Text } from "@chakra-ui/react";
+import {
+  AddIcon,
+  LockIcon,
+  MinusIcon,
+  SmallAddIcon,
+  SmallCloseIcon,
+  TimeIcon,
+  ViewIcon,
+} from "@chakra-ui/icons";
+import { Grid, GridItem, Icon, Text } from "@chakra-ui/react";
 import React from "react";
 import {
   SingleTasksQuery,
@@ -58,7 +67,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             <GridItem key={i} opacity={"70%"}>
               <TaskCircle
                 today={today}
-                icon="•"
+                icon={SmallCloseIcon}
                 color="grey"
                 isInteractive={false}
                 rangeStart={rangeStart}
@@ -69,6 +78,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
           // const beforeToday = new Date(filledArr[i].actionDate) < today;
           const tmpDate = new Date(filledArr[i].actionDate);
           const isBeforeToday = beforeToday(tmpDate, today);
+          const isDaysEqual = daysEqual(today, tmpDate);
           if (isBeforeToday && filledArr[i] == "tbd") {
             updateSingleTaskCompletionStatus({
               variables: {
@@ -77,7 +87,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
               },
             });
           }
-          if (daysEqual(today, tmpDate) && filledArr[i].status == "overdue") {
+          if (isDaysEqual && filledArr[i].status == "overdue") {
             updateSingleTaskCompletionStatus({
               variables: {
                 status: "tbd",
@@ -85,14 +95,27 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
               },
             });
           }
-
+          if (!isDaysEqual && !isBeforeToday && filledArr[i].status != "tbd") {
+            updateSingleTaskCompletionStatus({
+              variables: {
+                status: "tbd",
+                updateSingleTaskCompletionStatusId: filledArr[i].id,
+              },
+            });
+          }
           return (
             <GridItem key={i}>
               <TaskCircle
                 today={today}
                 setCompletedCount={setCompletedCount}
                 completedCount={completedCount}
-                icon={isBeforeToday || daysEqual(today, tmpDate) ? "+" : "•"}
+                icon={
+                  daysEqual(today, tmpDate)
+                    ? AddIcon
+                    : isBeforeToday
+                    ? SmallAddIcon
+                    : LockIcon
+                }
                 color={
                   filledArr[i].status == "completed"
                     ? "#3EE76D"

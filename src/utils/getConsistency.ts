@@ -40,18 +40,21 @@ export const daysEqual = (date1: Date, date2) => {
     date1.getDate() == date2.getDate() &&
     date1.getMonth() == date2.getMonth() &&
     date1.getFullYear() == date2.getFullYear();
+  // console.log(isEqual);
+  // return date1.toDateString() == date2.toDateString();
   return isEqual;
 };
 
 export const beforeToday = (otherDate: Date, today: Date) => {
-  let isBefore = false;
-  isBefore = otherDate.getFullYear() <= today.getFullYear();
-  if (isBefore) {
-    isBefore = otherDate.getMonth() <= today.getMonth();
-  }
-  if (isBefore) {
-    isBefore = otherDate.getDate() < today.getDate();
-  }
+  // let isBefore = false;
+  // isBefore = otherDate.getFullYear() <= today.getFullYear();
+  // if (isBefore) {
+  //   isBefore = otherDate.getMonth() <= today.getMonth();
+  // }
+  // if (isBefore) {
+  //   isBefore = otherDate.getDate() < today.getDate();
+  // }
 
-  return isBefore;
+  // return isBefore;
+  return otherDate.setHours(0, 0, 0, 0) < today.setHours(0, 0, 0, 0);
 };
