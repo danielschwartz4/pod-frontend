@@ -79,7 +79,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
           const tmpDate = new Date(filledArr[i].actionDate);
           const isBeforeToday = beforeToday(tmpDate, today);
           const isDaysEqual = daysEqual(today, tmpDate);
-          if (isBeforeToday && filledArr[i] == "tbd") {
+          if (isBeforeToday && filledArr[i].status == "tbd") {
             updateSingleTaskCompletionStatus({
               variables: {
                 status: "overdue",

@@ -73,7 +73,9 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
               });
               if (response) {
                 setColor("#F26D51");
-                setCompletedCountHandler(false);
+                if (singleTask?.status != "overdue") {
+                  setCompletedCountHandler(false);
+                }
               }
             }}
             type="submit"

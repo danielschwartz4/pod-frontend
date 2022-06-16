@@ -12,7 +12,7 @@ import {
 import moment from "moment";
 import React from "react";
 import { SingleTask } from "../../generated/graphql";
-import { daysEqual } from "../../utils/getConsistency";
+import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import LateDayUpdateForm from "./LateDayUpdateForm";
 import TodayUpdateForm from "./TodayUpdateForm";
 
@@ -32,7 +32,8 @@ interface TaskProgressPopoverProps {
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
   const tmpDate = new Date(props.singleTask?.actionDate);
-  const daysAreEqual = daysEqual(props.today, tmpDate);
+  const daysAreEqual = daysEqual(tmpDate, props.today);
+  const isBefore = beforeToday(tmpDate, props.today);
 
   return (
     <>
@@ -45,10 +46,19 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
       >
         <PopoverTrigger>{props.children}</PopoverTrigger>
         <PopoverContent p={2} backgroundColor={"white"}>
-          <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
+          {daysAreEqual ? (
+            <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
+          ) : isBefore && props.singleTask?.status == "overdue" ? (
+            <PopoverHeader fontWeight="semibold">
+              Looks like you forgot to fill this out!
+            </PopoverHeader>
+          ) : (
+            <PopoverHeader fontWeight="semibold">Your notes</PopoverHeader>
+          )}
           <PopoverCloseButton cursor={"pointer"} />
           <PopoverBody>
-            {daysAreEqual ? (
+            {daysAreEqual ||
+            (isBefore && props.singleTask?.status == "overdue") ? (
               <TodayUpdateForm
                 setCompletedCount={props.setCompletedCount}
                 completedCount={props.completedCount}
