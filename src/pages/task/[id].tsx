@@ -71,7 +71,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
       <DashWrapper>
         <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
           <Box mt={"28px"} ml={4} mr={0}>
-            <Button>ExitTaskComponent</Button>
+            <Button>EditTaskComponent</Button>
           </Box>
 
           {showAlert ? (

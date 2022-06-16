@@ -12,7 +12,9 @@ import {
 import moment from "moment";
 import React from "react";
 import { SingleTask } from "../../generated/graphql";
-import NotesForm from "./NotesForm";
+import { daysEqual } from "../../utils/getConsistencyPercentage";
+import LateDayUpdateForm from "./LateDayUpdateForm";
+import TodayUpdateForm from "./TodayUpdateForm";
 
 interface TaskProgressPopoverProps {
   close: () => void;
@@ -24,9 +26,13 @@ interface TaskProgressPopoverProps {
   setColor: React.Dispatch<React.SetStateAction<string>>;
   completedCount: number;
   setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
+  today: Date;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
+  const tmpDate = new Date(props.singleTask?.actionDate);
+  const daysAreEqual = daysEqual(props.today, tmpDate);
+
   return (
     <>
       <Popover
@@ -41,14 +47,21 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
           <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
           <PopoverCloseButton cursor={"pointer"} />
           <PopoverBody>
-            <NotesForm
-              setCompletedCount={props.setCompletedCount}
-              completedCount={props.completedCount}
-              singleTask={props.singleTask}
-              setShowAlert={props.setShowAlert}
-              setPopupHandler={props.setPopupHandler}
-              setColor={props.setColor}
-            />
+            {daysAreEqual ? (
+              <TodayUpdateForm
+                setCompletedCount={props.setCompletedCount}
+                completedCount={props.completedCount}
+                singleTask={props.singleTask}
+                setShowAlert={props.setShowAlert}
+                setPopupHandler={props.setPopupHandler}
+                setColor={props.setColor}
+              />
+            ) : (
+              <LateDayUpdateForm
+                singleTask={props.singleTask}
+                setPopupHandler={props.setPopupHandler}
+              />
+            )}
           </PopoverBody>
           <Divider variant="dashed" orientation="horizontal" />
           <Flex alignItems={"center"}>

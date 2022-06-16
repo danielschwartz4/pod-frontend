@@ -39,6 +39,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
       setColor={setColor}
       setCompletedCount={setCompletedCount}
       completedCount={completedCount}
+      today={today}
     >
       <Box
         onClick={() => {
