@@ -1,12 +1,30 @@
-import { RecurringTaskResponse } from "../generated/graphql";
+import { RecurringTaskResponse, SingleTasksQuery } from "../generated/graphql";
 import { DaysType } from "../types/types";
+
+export type EntryType = {
+  idx: number;
+  actionDate: Date;
+  actionDay: number;
+};
+
+export type EntriesType = EntryType[];
+
+type DayDictType = {
+  0: EntriesType;
+  1: EntriesType;
+  2: EntriesType;
+  3: EntriesType;
+  4: EntriesType;
+  5: EntriesType;
+  6: EntriesType;
+};
 
 export function convertToSingleTasks(
   responseTask: RecurringTaskResponse["task"],
   selectedDaysIdxs: Set<number>
 ) {
   let numTasks: number;
-  let singleTasksData;
+  let singleTasksData: DayDictType;
   if (responseTask.endOptions.neverEnds) {
     let endDate = addDays(28, responseTask.startDate);
     singleTasksData = dataBetweenTwoDates(
@@ -32,12 +50,6 @@ export function convertToSingleTasks(
   return singleTasksData;
 }
 
-export type EntriesType = {
-  idx: number;
-  actionDate: Date;
-  actionDay: number;
-}[];
-
 function dataBetweenTwoDates(start: Date, end: Date, dayIdxs: Set<number>) {
   var dayDict = {
     0: [] as EntriesType,
@@ -47,7 +59,7 @@ function dataBetweenTwoDates(start: Date, end: Date, dayIdxs: Set<number>) {
     4: [] as EntriesType,
     5: [] as EntriesType,
     6: [] as EntriesType,
-  };
+  } as DayDictType;
   for (var d = start; d <= end; d.setDate(d.getDate() + 1)) {
     const dayIdx = d.getDay();
     if (dayIdxs.has(dayIdx)) {

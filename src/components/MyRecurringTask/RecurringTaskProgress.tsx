@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, HStack, Stack } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
 import { extractDaysIdxs } from "../../utils/singleTaskUtils";
 import { CircularTaskProgress } from "./CircularTaskProgress";
@@ -18,6 +18,13 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
     return <Box>Loading...</Box>;
   }
   const daysIdxs = extractDaysIdxs(myTaskData?.recurringTask?.task?.days);
+  const [allTimePercentage, setAllTimePercentage] = useState();
+
+  console.log("helo");
+  console.log(singleTasksData?.singleTasks?.singleTasks[0].actionDate);
+  console.log(new Date().getDate());
+  console.log(new Date().getMonth());
+  console.log(new Date().getFullYear());
 
   return (
     <Flex>

@@ -3,8 +3,9 @@ import {
   CircularProgress,
   Box,
   Text,
+  Button,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { getColorForPercentage } from "../../utils/compPercentage";
 
 interface CircularTaskProgressProps {

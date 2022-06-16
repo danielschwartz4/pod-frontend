@@ -2,11 +2,11 @@ import {
   Alert,
   AlertIcon,
   Box,
-  Text,
   Button,
   Flex,
   TabPanel,
   TabPanels,
+  Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import DashTabs from "../../components/Dash/DashTabs";
@@ -16,7 +16,6 @@ import { RecurringTaskProgress } from "../../components/MyRecurringTask/Recurrin
 import { MyPod } from "../../components/MyTaskPod/MyPod";
 import {
   useMeQuery,
-  usePodProjectsQuery,
   usePodQuery,
   usePodTasksQuery,
   useSingleTasksQuery,

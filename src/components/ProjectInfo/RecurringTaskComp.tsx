@@ -10,6 +10,8 @@ import {
 import { DaysType, EndOptionsSelectorType } from "../../types/types";
 import {
   convertToSingleTasks,
+  EntriesType,
+  EntryType,
   extractDaysIdxs,
 } from "../../utils/singleTaskUtils";
 import { toErrorMap } from "../../utils/toErrorMap";
@@ -77,11 +79,10 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
               response?.data?.createRecurringTask?.task,
               selectedDaysIdxs
             );
-
             Object.keys(singleTasks).forEach((key) => {
               if (selectedDaysIdxs.has(parseInt(key))) {
                 const arr = singleTasks[key];
-                arr.forEach((ele) => {
+                arr.forEach((ele: EntryType) => {
                   const response2 = addSingleTask({
                     variables: {
                       singleTaskOptions: {
