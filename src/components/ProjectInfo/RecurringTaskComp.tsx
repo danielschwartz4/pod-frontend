@@ -10,7 +10,6 @@ import {
 import { DaysType, EndOptionsSelectorType } from "../../types/types";
 import {
   convertToSingleTasks,
-  EntriesType,
   EntryType,
   extractDaysIdxs,
 } from "../../utils/singleTaskUtils";
@@ -36,7 +35,6 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
       <Heading fontSize={24} color={"gainsboro"}>
         Tell us what you'd like to stay consistent with!
       </Heading>
-
       <Formik
         initialValues={{
           overview: "",

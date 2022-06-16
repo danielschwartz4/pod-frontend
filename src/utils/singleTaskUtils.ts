@@ -89,7 +89,7 @@ export function extractDaysIdxs(days: DaysType) {
   return idxs;
 }
 
-function addDays(days: number, startDate: Date) {
+export function addDays(days: number, startDate: Date) {
   const newDate = new Date(startDate);
   return new Date(+newDate + 1000 * 60 * 60 * 24 * days);
 }

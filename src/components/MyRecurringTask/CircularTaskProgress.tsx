@@ -1,11 +1,10 @@
 import {
-  CircularProgressLabel,
-  CircularProgress,
   Box,
+  CircularProgress,
+  CircularProgressLabel,
   Text,
-  Button,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { getColorForPercentage } from "../../utils/compPercentage";
 
 interface CircularTaskProgressProps {
@@ -21,7 +20,7 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
     <Box textColor={"gainsboro"}>
       <Text fontSize={20}>{title}</Text>
       <CircularProgress
-        size={"200px"}
+        size={"180px"}
         value={value}
         color={getColorForPercentage(value / 100)}
       >
