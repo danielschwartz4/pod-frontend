@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
-import { getConsistencyCount } from "../../utils/getConsistencyPercentage";
+import { getConsistencyCount } from "../../utils/getConsistency";
 import { extractDaysIdxs } from "../../utils/singleTaskUtils";
 import { CircularTaskProgress } from "./CircularTaskProgress";
 import { ProgressGridSkeleton } from "./ProgressGridSkeleton";

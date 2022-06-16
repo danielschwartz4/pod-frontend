@@ -12,7 +12,7 @@ import {
 import moment from "moment";
 import React from "react";
 import { SingleTask } from "../../generated/graphql";
-import { daysEqual } from "../../utils/getConsistencyPercentage";
+import { daysEqual } from "../../utils/getConsistency";
 import LateDayUpdateForm from "./LateDayUpdateForm";
 import TodayUpdateForm from "./TodayUpdateForm";
 

@@ -4,7 +4,7 @@ import {
   SingleTasksQuery,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
-import { beforeToday, daysEqual } from "../../utils/getConsistencyPercentage";
+import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {

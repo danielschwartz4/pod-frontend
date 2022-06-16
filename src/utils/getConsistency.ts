@@ -1,5 +1,4 @@
 import { SingleTasksQuery } from "../generated/graphql";
-import { addDays } from "./singleTaskUtils";
 
 const BreakException = {};
 
@@ -17,12 +16,11 @@ export const getConsistencyCount = (
   let compCount = 0;
   try {
     singleTaskData?.singleTasks?.singleTasks.forEach((task) => {
+      if (task?.status == "completed") compCount++;
       const tmpDate = new Date(task?.actionDate);
       const daysAreEqual = daysEqual(today, tmpDate);
       if (daysAreEqual) {
         throw BreakException;
-      } else {
-        if (task?.status == "completed") compCount++;
       }
     });
   } catch (e) {
