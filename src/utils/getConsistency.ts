@@ -10,22 +10,22 @@ const statusMap = {
 };
 
 export const getConsistencyCount = (
-  singleTaskData: SingleTasksQuery,
-  today: Date
+  singleTasks: SingleTasksQuery["singleTasks"]["singleTasks"]
 ) => {
   let compCount = 0;
-  try {
-    singleTaskData?.singleTasks?.singleTasks.forEach((task) => {
-      if (task?.status == "completed") compCount++;
-      const tmpDate = new Date(task?.actionDate);
-      const daysAreEqual = daysEqual(today, tmpDate);
-      if (daysAreEqual) {
-        throw BreakException;
-      }
-    });
-  } catch (e) {
-    if (e !== BreakException) throw e;
-  }
+  // try {
+  singleTasks.forEach((task) => {
+    if (task?.status == "completed") compCount++;
+  });
+  //     const tmpDate = new Date(task?.actionDate);
+  //     const daysAreEqual = daysEqual(today, tmpDate);
+  //     if (daysAreEqual) {
+  //       throw BreakException;
+  //     }
+  //   });
+  // } catch (e) {
+  //   if (e !== BreakException) throw e;
+  // }
   return compCount;
 };
 

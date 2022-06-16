@@ -24,9 +24,10 @@ interface TaskProgressPopoverProps {
   singleTask: SingleTask;
   setPopupHandler: () => void;
   setColor: React.Dispatch<React.SetStateAction<string>>;
-  completedCount: number;
-  setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
+  completedCount: {};
+  setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
   today: Date;
+  rangeStart: Date;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
@@ -55,6 +56,7 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
                 setShowAlert={props.setShowAlert}
                 setPopupHandler={props.setPopupHandler}
                 setColor={props.setColor}
+                rangeStart={props.rangeStart}
               />
             ) : (
               <LateDayUpdateForm

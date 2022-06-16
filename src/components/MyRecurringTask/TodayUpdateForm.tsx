@@ -1,12 +1,10 @@
-import { Box, Button, ButtonGroup, PopoverFooter } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import { Button, ButtonGroup, PopoverFooter } from "@chakra-ui/react";
 import React from "react";
 import {
   SingleTask,
   useUpdateSingleTaskCompletionStatusMutation,
-  useUpdateSingleTaskNotesMutation,
 } from "../../generated/graphql";
-import { InputField } from "../Inputs/InputField";
+import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import NotesForm from "./NotesForm";
 
 interface TodayUpdateFormProps {
@@ -14,8 +12,9 @@ interface TodayUpdateFormProps {
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   setPopupHandler: () => void;
   setColor: React.Dispatch<React.SetStateAction<string>>;
-  completedCount: number;
-  setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
+  completedCount: {};
+  setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
+  rangeStart: Date;
 }
 
 const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
@@ -25,15 +24,37 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   setColor,
   completedCount,
   setCompletedCount,
+  rangeStart,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
-  // !! Edit this next
+
   const setCompletedCountHandler = (isAdding: boolean) => {
+    const tmpDate = new Date(singleTask?.actionDate);
     if (isAdding) {
-      setCompletedCount(completedCount + 1);
+      if (!beforeToday(tmpDate, rangeStart)) {
+        setCompletedCount({
+          0: completedCount[0] + 1,
+          3: completedCount[3] + 1,
+        });
+      } else {
+        setCompletedCount({
+          0: completedCount[0] + 1,
+          3: completedCount[3],
+        });
+      }
     } else {
-      setCompletedCount(completedCount - 1);
+      if (!beforeToday(tmpDate, rangeStart)) {
+        setCompletedCount({
+          0: completedCount[0] - 1,
+          3: completedCount[3] - 1,
+        });
+      } else {
+        setCompletedCount({
+          0: completedCount[0] - 1,
+          3: completedCount[3],
+        });
+      }
     }
   };
 

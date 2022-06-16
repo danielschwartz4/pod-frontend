@@ -9,7 +9,8 @@ import { getColorForPercentage } from "../../utils/compPercentage";
 
 interface CircularTaskProgressProps {
   title?: string;
-  completedCount: number;
+  completedCount: {};
+  variant: number;
   taskLength: number;
   today: Date;
 }
@@ -19,8 +20,10 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
   completedCount,
   taskLength,
   today,
+  variant,
 }) => {
-  const percentage = Math.round((completedCount / taskLength) * 100) / 100;
+  const percentage =
+    Math.round((completedCount[variant] / taskLength) * 100) / 100;
   const value = percentage * 100;
 
   return (

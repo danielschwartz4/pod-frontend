@@ -8,9 +8,10 @@ interface TaskCircleProps {
   isInteractive: boolean;
   color: string;
   icon: string;
-  completedCount?: number;
-  setCompletedCount?: React.Dispatch<React.SetStateAction<number>>;
+  completedCount?: {};
+  setCompletedCount?: React.Dispatch<React.SetStateAction<{}>>;
   today: Date;
+  rangeStart: Date;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
@@ -21,6 +22,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   completedCount,
   setCompletedCount,
   today,
+  rangeStart,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -40,6 +42,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
       setCompletedCount={setCompletedCount}
       completedCount={completedCount}
       today={today}
+      rangeStart={rangeStart}
     >
       <Box
         onClick={() => {

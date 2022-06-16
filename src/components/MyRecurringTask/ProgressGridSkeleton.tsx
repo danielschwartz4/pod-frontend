@@ -9,9 +9,10 @@ import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
   orderedTasks: SingleTasksQuery;
-  completedCount: number;
-  setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
+  completedCount: {};
+  setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
   today: Date;
+  rangeStart: Date;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
@@ -19,6 +20,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   completedCount,
   setCompletedCount,
   today,
+  rangeStart,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -59,6 +61,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                 icon="•"
                 color="grey"
                 isInteractive={false}
+                rangeStart={rangeStart}
               />
             </GridItem>
           );
@@ -101,6 +104,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                 }
                 singleTask={filledArr[i]}
                 isInteractive={true}
+                rangeStart={rangeStart}
               />
             </GridItem>
           );
