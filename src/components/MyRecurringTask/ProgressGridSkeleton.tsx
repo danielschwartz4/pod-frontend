@@ -5,10 +5,14 @@ import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
   orderedTasks: SingleTasksQuery;
+  completedCount: number;
+  setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   orderedTasks,
+  completedCount,
+  setCompletedCount,
 }) => {
   const dayTitles = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -49,6 +53,8 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
         return (
           <GridItem key={i}>
             <TaskCircle
+              setCompletedCount={setCompletedCount}
+              completedCount={completedCount}
               icon="+"
               color={
                 filledArr[i].status == "completed"

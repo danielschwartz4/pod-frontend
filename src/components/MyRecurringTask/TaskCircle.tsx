@@ -8,6 +8,8 @@ interface TaskCircleProps {
   isInteractive: boolean;
   color: string;
   icon: string;
+  completedCount?: number;
+  setCompletedCount?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
@@ -15,6 +17,8 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   isInteractive,
   color,
   icon,
+  completedCount,
+  setCompletedCount,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -31,6 +35,8 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
       close={close}
       isOpen={isOpen}
       setColor={setColor}
+      setCompletedCount={setCompletedCount}
+      completedCount={completedCount}
     >
       <Box
         onClick={() => {

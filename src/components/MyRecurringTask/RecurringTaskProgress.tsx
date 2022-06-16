@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, Stack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
 import { getConsistencyPercentage } from "../../utils/getConsistencyPercentage";
 import { extractDaysIdxs } from "../../utils/singleTaskUtils";
@@ -19,9 +19,14 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
     return <Box>Loading...</Box>;
   }
   const daysIdxs = extractDaysIdxs(myTaskData?.recurringTask?.task?.days);
-  const [allTimePercentage, setAllTimePercentage] = useState();
-
-  console.log(getConsistencyPercentage(singleTasksData));
+  const [completedCount, setCompletedCount] = useState(
+    getConsistencyPercentage(singleTasksData)
+  );
+  console.log(
+    Math.round(
+      (completedCount / singleTasksData?.singleTasks?.singleTasks?.length) * 100
+    ) / 100
+  );
 
   return (
     <Flex>
@@ -31,7 +36,11 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
         mx={"auto"}
       >
         <Box mt={16}>
-          <ProgressGridSkeleton orderedTasks={singleTasksData} />
+          <ProgressGridSkeleton
+            setCompletedCount={setCompletedCount}
+            completedCount={completedCount}
+            orderedTasks={singleTasksData}
+          />
         </Box>
         <Box display={{ base: "none", md: "block" }}>
           <Divider
@@ -49,8 +58,16 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
           justify={"space-between"}
           direction={{ base: "row", md: "column" }}
         >
-          <CircularTaskProgress value={80} title={"All time"} />
-          <CircularTaskProgress value={60} title={"Last two weeks"} />
+          <CircularTaskProgress
+            taskLength={singleTasksData?.singleTasks?.singleTasks?.length}
+            completedCount={completedCount}
+            title={"All time"}
+          />
+          <CircularTaskProgress
+            taskLength={singleTasksData?.singleTasks?.singleTasks?.length}
+            completedCount={completedCount}
+            title={"Last two weeks"}
+          />
         </Flex>
       </Stack>
     </Flex>

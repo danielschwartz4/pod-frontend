@@ -22,6 +22,8 @@ interface TaskProgressPopoverProps {
   singleTask: SingleTask;
   setPopupHandler: () => void;
   setColor: React.Dispatch<React.SetStateAction<string>>;
+  completedCount: number;
+  setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
@@ -35,12 +37,13 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
         closeOnBlur={false}
       >
         <PopoverTrigger>{props.children}</PopoverTrigger>
-
         <PopoverContent p={2} backgroundColor={"white"}>
           <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
           <PopoverCloseButton cursor={"pointer"} />
           <PopoverBody>
             <NotesForm
+              setCompletedCount={props.setCompletedCount}
+              completedCount={props.completedCount}
               singleTask={props.singleTask}
               setShowAlert={props.setShowAlert}
               setPopupHandler={props.setPopupHandler}

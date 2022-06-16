@@ -13,6 +13,8 @@ interface NotesFormProps {
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   setPopupHandler: () => void;
   setColor: React.Dispatch<React.SetStateAction<string>>;
+  completedCount: number;
+  setCompletedCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const NotesForm: React.FC<NotesFormProps> = ({
@@ -20,10 +22,19 @@ const NotesForm: React.FC<NotesFormProps> = ({
   setShowAlert,
   setPopupHandler,
   setColor,
+  completedCount,
+  setCompletedCount,
 }) => {
   const [updateSingleTaskNotes] = useUpdateSingleTaskNotesMutation();
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
+  const setCompletedCountHandler = (isAdding: boolean) => {
+    if (isAdding) {
+      setCompletedCount(completedCount + 1);
+    } else {
+      setCompletedCount(completedCount - 1);
+    }
+  };
 
   return (
     <Formik
@@ -62,6 +73,7 @@ const NotesForm: React.FC<NotesFormProps> = ({
                   });
                   if (response) {
                     setColor("#F26D51");
+                    setCompletedCountHandler(false);
                   }
                 }}
                 type="submit"
@@ -81,6 +93,7 @@ const NotesForm: React.FC<NotesFormProps> = ({
                   });
                   if (response) {
                     setColor("#3EE76D");
+                    setCompletedCountHandler(true);
                   }
                   // props.setShowAlert(true);
                 }}

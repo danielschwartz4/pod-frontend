@@ -12,7 +12,7 @@ const statusMap = {
 
 export const getConsistencyPercentage = (singleTaskData: SingleTasksQuery) => {
   // const today = new Date();
-  const today = addDays(15, new Date());
+  const today = addDays(7, new Date());
   const todayDate = today.getDate();
   const todayMonth = today.getMonth();
   const todayYear = today.getFullYear();
@@ -34,8 +34,10 @@ export const getConsistencyPercentage = (singleTaskData: SingleTasksQuery) => {
   } catch (e) {
     if (e !== BreakException) throw e;
   }
-  console.log(compCount);
 
+  return compCount;
+
+  // !! if we want percentage
   return (
     Math.round(
       (compCount / singleTaskData?.singleTasks?.singleTasks?.length) * 100
