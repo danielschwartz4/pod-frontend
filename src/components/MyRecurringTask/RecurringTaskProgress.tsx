@@ -72,14 +72,14 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
           <CircularTaskProgress
             taskLength={singleTasksToToday.length}
             completedCount={completedCount}
-            title={"All time"}
+            title={"All time consistency"}
             today={today}
             variant={0}
           />
           <CircularTaskProgress
             taskLength={singleTasks3Day.length}
             completedCount={completedCount}
-            title={"Last 7 tasks"}
+            title={"Last 7 tasks' consistency"}
             today={today}
             variant={3}
           />

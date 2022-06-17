@@ -67,6 +67,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
               },
             },
           });
+          // response?.data?.createRecurringTask?.task
           if (response?.data?.createRecurringTask?.errors) {
             setErrors(toErrorMap(response.data.createRecurringTask.errors));
           } else {

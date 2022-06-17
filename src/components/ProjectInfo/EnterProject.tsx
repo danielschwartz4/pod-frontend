@@ -48,6 +48,7 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
                 overview: overview,
                 milestoneDates: completionDateArray,
                 milestoneProgress: Array(descriptionArray.length).fill(1),
+                // !! Make this default to the project ID
                 projectName: projectName,
               },
             },

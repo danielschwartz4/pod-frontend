@@ -34,7 +34,7 @@ export const getDaysBetween = (startDate: Date, endDate: Date) => {
   return mili / (1000 * 60 * 60 * 24);
 };
 
-export const daysEqual = (date1: Date, date2) => {
+export const daysEqual = (date1: Date, date2: Date) => {
   let isEqual = false;
   isEqual =
     date1.getDate() == date2.getDate() &&

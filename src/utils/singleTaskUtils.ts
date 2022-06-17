@@ -20,29 +20,29 @@ type DayDictType = {
 };
 
 export function convertToSingleTasks(
-  responseTask: RecurringTaskResponse["task"],
+  recurringTask: RecurringTaskResponse["task"],
   selectedDaysIdxs: Set<number>
 ) {
   let numTasks: number;
   let singleTasksData: DayDictType;
-  if (responseTask.endOptions.neverEnds) {
-    let endDate = addDays(28, responseTask.startDate);
+  if (recurringTask.endOptions.neverEnds) {
+    let endDate = addDays(28, recurringTask.startDate);
     singleTasksData = dataBetweenTwoDates(
-      new Date(responseTask.startDate),
+      new Date(recurringTask.startDate),
       endDate,
       selectedDaysIdxs
     );
-  } else if (responseTask.endOptions.date) {
+  } else if (recurringTask.endOptions.date) {
     singleTasksData = dataBetweenTwoDates(
-      new Date(responseTask.startDate),
-      new Date(responseTask.endOptions.date),
+      new Date(recurringTask.startDate),
+      new Date(recurringTask.endOptions.date),
       selectedDaysIdxs
     );
   } else {
-    numTasks = responseTask.endOptions.repetitions;
-    let endDate = addDays(numTasks * 7, responseTask.startDate);
+    numTasks = recurringTask.endOptions.repetitions;
+    let endDate = addDays(numTasks * 7, recurringTask.startDate);
     singleTasksData = dataBetweenTwoDates(
-      new Date(responseTask.startDate),
+      new Date(recurringTask.startDate),
       endDate,
       selectedDaysIdxs
     );

@@ -12,21 +12,14 @@ const Hero: React.FC<HeroProps> = ({}) => {
   console.log(meData);
 
   return (
-    <Box
-      // display={{ base: "block", lg: "flex" }}
-      width={"100%"}
-      alignItems={"center"}
-      minHeight={"65vh"}
-    >
+    <Box width={"100%"} alignItems={"center"} minHeight={"65vh"}>
       <Box
         mx={"auto"}
-        // mt={"auto"}
         p={2}
         textAlign={"center"}
         maxW={700}
         textColor={"gainsboro"}
         fontSize={{ base: 36, md: 48 }}
-        // transform={{ base: "translateY(-20px)", lg: "translateY(-100px)" }}
       >
         <Text>
           Stay <b>motivated</b> and <b>accountable</b> while pursing a solo goal

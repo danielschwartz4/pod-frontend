@@ -37,6 +37,7 @@ const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
                 singleTask?.notes
                   ? singleTask?.notes
                   : // !! Get random quote from randomQuotes.tsx
+                    // !! https://forum.freecodecamp.org/t/free-api-inspirational-quotes-json-with-code-examples/311373
                     "wow this sucked today... but I did it..."
               }
               label=""
