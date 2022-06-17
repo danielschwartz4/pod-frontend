@@ -11,7 +11,7 @@ import React from "react";
 import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { Layout } from "../components/Layout";
 import EnterProject from "../components/ProjectInfo/EnterProject";
-import RecurringTaskComp from "../components/ProjectInfo/RecurringTaskComp";
+import RecurringTaskForm from "../components/ProjectInfo/RecurringTaskForm";
 import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import { useIsAuth } from "../utils/usIsAuth";
@@ -57,7 +57,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                 </TabPanel>
 
                 <TabPanel minH={"600px"}>
-                  <RecurringTaskComp meData={data} />
+                  <RecurringTaskForm meData={data} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

@@ -36,7 +36,8 @@ const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
               placeholder={
                 singleTask?.notes
                   ? singleTask?.notes
-                  : "wow this sucked today... but I did it"
+                  : // !! Get random quote from randomQuotes.tsx
+                    "wow this sucked today... but I did it..."
               }
               label=""
               name="notes"

@@ -1,4 +1,4 @@
-import { RecurringTaskResponse, SingleTasksQuery } from "../generated/graphql";
+import { RecurringTaskResponse } from "../generated/graphql";
 import { DaysType } from "../types/types";
 
 export type EntryType = {

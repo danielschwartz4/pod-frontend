@@ -1,12 +1,16 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
+import { useMeQuery } from "../../generated/graphql";
 import { PodCreated } from "../MyProjectPod/PodCreated";
 import SeedData from "./SeedHomeData";
 
 interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
+  const { data: meData } = useMeQuery();
+  console.log(meData);
+
   return (
     <Box
       // display={{ base: "block", lg: "flex" }}
@@ -29,16 +33,20 @@ const Hero: React.FC<HeroProps> = ({}) => {
         </Text>
 
         <Box ml={4} mb={16}>
-          <Button
-            textColor={"gainsboro"}
-            fontSize={".5em"}
-            height={"75px"}
-            color={"gainsboro"}
-            cursor={"pointer"}
-            onClick={() => router.push("/register")}
-          >
-            Join a pod and get started! 😆
-          </Button>
+          {meData?.me == null ? (
+            <Button
+              textColor={"gainsboro"}
+              fontSize={".5em"}
+              height={"75px"}
+              color={"gainsboro"}
+              cursor={"pointer"}
+              onClick={() => router.push("/register")}
+            >
+              Join a pod and get started! 😆
+            </Button>
+          ) : (
+            <></>
+          )}
           <Text fontSize={24}>
             Whether you want to finish a book, a project, or anything else that
             has a finite number of milestones, join others and make it happen

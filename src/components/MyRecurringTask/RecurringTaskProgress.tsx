@@ -44,13 +44,14 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
         gap={{ base: 0, md: 20 }}
         mx={"auto"}
       >
-        <Box mt={16}>
+        <Box mt={0}>
           <ProgressGridSkeleton
             setCompletedCount={setCompletedCount}
             completedCount={completedCount}
             orderedTasks={singleTasksData}
             rangeStart={new Date(singleTasks3Day[0].actionDate)}
             today={today}
+            myTaskData={myTaskData}
           />
         </Box>
         <Box display={{ base: "none", md: "block" }}>

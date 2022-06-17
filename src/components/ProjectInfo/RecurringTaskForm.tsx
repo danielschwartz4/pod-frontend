@@ -24,7 +24,7 @@ interface RecurringTaskProps {
   meData: MeQuery;
 }
 
-const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
+const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [endOptionsSelector, setEndOptionsSelector] =
     React.useState<EndOptionsSelectorType>("none");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
@@ -73,13 +73,13 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
             const selectedDays = response?.data?.createRecurringTask?.task
               .days as DaysType;
             const selectedDaysIdxs = extractDaysIdxs(selectedDays);
-            const singleTasks = convertToSingleTasks(
+            const singleTasksByDay = convertToSingleTasks(
               response?.data?.createRecurringTask?.task,
               selectedDaysIdxs
             );
-            Object.keys(singleTasks).forEach((key) => {
+            Object.keys(singleTasksByDay).forEach((key) => {
               if (selectedDaysIdxs.has(parseInt(key))) {
-                const arr = singleTasks[key];
+                const arr = singleTasksByDay[key];
                 arr.forEach((ele: EntryType) => {
                   const response2 = addSingleTask({
                     variables: {
@@ -182,4 +182,4 @@ const RecurringTask: React.FC<RecurringTaskProps> = ({ meData }) => {
   );
 };
 
-export default RecurringTask;
+export default RecurringTaskForm;
