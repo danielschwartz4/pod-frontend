@@ -12,7 +12,6 @@ const statusMap = {
 export const getConsistencyCount = (
   singleTasks: SingleTasksQuery["singleTasks"]["singleTasks"]
 ) => {
-  console.log(singleTasks);
   let compCount = 0;
   singleTasks.forEach((task) => {
     if (task?.status == "completed") compCount++;

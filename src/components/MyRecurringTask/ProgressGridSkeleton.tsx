@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/icons";
 import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
-import { TODAY } from "../../constants";
+import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import {
   RecurringTask,
   RecurringTaskQuery,
@@ -16,11 +16,11 @@ import {
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
-import { extractDaysIdxs } from "../../utils/singleTaskUtils";
+import { addDays, extractDaysIdxs } from "../../utils/singleTaskUtils";
 import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
-  orderedTasks: SingleTasksQuery;
+  singleTasksData: SingleTasksQuery;
   completedCount: {};
   setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
   rangeStart: Date;
@@ -28,7 +28,7 @@ interface ProgressGridSkeletonProps {
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
-  orderedTasks,
+  singleTasksData,
   completedCount,
   setCompletedCount,
   rangeStart,
@@ -39,12 +39,26 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
 
   const dayTitles = ["S", "M", "T", "W", "T", "F", "S"];
   const daysIdxs = extractDaysIdxs(myTaskData?.recurringTask?.task?.days);
+
+  const filterdBelow = singleTasksData?.singleTasks?.singleTasks?.filter(
+    (task) => beforeToday(new Date(task?.actionDate), TODAY)
+  );
+
+  const filteredData = singleTasksData?.singleTasks?.singleTasks?.filter(
+    (task) =>
+      !beforeToday(new Date(task?.actionDate), addDays(-14, TODAY)) &&
+      beforeToday(
+        new Date(task?.actionDate),
+        addDays(Math.max(14, 14 + (14 - filterdBelow.length)), TODAY)
+      )
+  );
+
   let i = 0;
   let taskIter = 0;
   let filledArr = [];
-  while (taskIter <= orderedTasks?.singleTasks?.singleTasks?.length - 1) {
-    if (i % 7 == orderedTasks?.singleTasks?.singleTasks[taskIter].actionDay) {
-      filledArr.push(orderedTasks?.singleTasks?.singleTasks[taskIter]);
+  while (taskIter <= filteredData.length - 1) {
+    if (i % SKELETON_UNIT_SIZE == filteredData[taskIter].actionDay) {
+      filledArr.push(filteredData[taskIter]);
       i++;
       taskIter++;
     } else {
