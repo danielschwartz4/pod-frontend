@@ -5,6 +5,7 @@ import React from "react";
 import {
   MeQuery,
   useAddSingleTaskMutation,
+  useAddSingleTasksChunkMutation,
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
 import { DaysType, EndOptionsSelectorType } from "../../types/types";
@@ -29,6 +30,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
     React.useState<EndOptionsSelectorType>("none");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
   const [addSingleTask] = useAddSingleTaskMutation();
+  const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
 
   return (
     <Box>
@@ -67,10 +69,18 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
               },
             },
           });
-          // response?.data?.createRecurringTask?.task
           if (response?.data?.createRecurringTask?.errors) {
             setErrors(toErrorMap(response.data.createRecurringTask.errors));
           } else {
+            const singleTasksResponse = await addSingleTasksChunk({
+              variables: {
+                limit: 14,
+                recTaskId: response?.data?.createRecurringTask?.task?.id,
+              },
+            });
+            if (singleTasksResponse) {
+              console.log("success");
+            }
             // const selectedDays = response?.data?.createRecurringTask?.task
             //   .days as DaysType;
             // const selectedDaysIdxs = extractDaysIdxs(selectedDays);

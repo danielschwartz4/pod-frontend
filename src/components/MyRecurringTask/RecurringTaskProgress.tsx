@@ -30,11 +30,11 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
       daysEqual(new Date(task?.actionDate), today)
   );
 
-  const singleTasks3Day = singleTasksToToday.slice(-7);
+  const singleTasksRangeDays = singleTasksToToday.slice(-7);
 
   const [completedCount, setCompletedCount] = useState({
     0: getConsistencyCount(singleTasksToToday),
-    3: getConsistencyCount(singleTasks3Day),
+    3: getConsistencyCount(singleTasksRangeDays),
   });
 
   return (
@@ -49,7 +49,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
             setCompletedCount={setCompletedCount}
             completedCount={completedCount}
             orderedTasks={singleTasksData}
-            rangeStart={new Date(singleTasks3Day[0].actionDate)}
+            rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
             today={today}
             myTaskData={myTaskData}
           />
@@ -77,7 +77,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
             variant={0}
           />
           <CircularTaskProgress
-            taskLength={singleTasks3Day.length}
+            taskLength={singleTasksRangeDays.length}
             completedCount={completedCount}
             title={"Last 7 tasks' consistency"}
             today={today}

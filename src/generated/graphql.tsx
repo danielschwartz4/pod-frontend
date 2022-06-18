@@ -30,6 +30,7 @@ export type Mutation = {
   addProjectInfo: ProjectInfoResponse;
   addProjectToPod: PodResponse;
   addSingleTask: SingleTaskResponse;
+  addSingleTasksChunk: SingleTasksResponse;
   changePassword: UserResponse;
   createPod: Pod;
   createRecurringTask: RecurringTaskResponse;
@@ -69,6 +70,12 @@ export type MutationAddProjectToPodArgs = {
 
 export type MutationAddSingleTaskArgs = {
   singleTaskOptions: SingleTaskInput;
+};
+
+
+export type MutationAddSingleTasksChunkArgs = {
+  limit: Scalars['Float'];
+  recTaskId: Scalars['Float'];
 };
 
 
@@ -540,6 +547,14 @@ export type AddSingleTaskMutationVariables = Exact<{
 
 
 export type AddSingleTaskMutation = { __typename?: 'Mutation', addSingleTask: { __typename?: 'SingleTaskResponse', errors?: string | null, singleTask?: { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any } | null } };
+
+export type AddSingleTasksChunkMutationVariables = Exact<{
+  limit: Scalars['Float'];
+  recTaskId: Scalars['Float'];
+}>;
+
+
+export type AddSingleTasksChunkMutation = { __typename?: 'Mutation', addSingleTasksChunk: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any }> | null } };
 
 export type UpdateSingleTaskNotesMutationVariables = Exact<{
   updateSingleTaskNotesId: Scalars['Int'];
@@ -1365,6 +1380,43 @@ export function useAddSingleTaskMutation(baseOptions?: Apollo.MutationHookOption
 export type AddSingleTaskMutationHookResult = ReturnType<typeof useAddSingleTaskMutation>;
 export type AddSingleTaskMutationResult = Apollo.MutationResult<AddSingleTaskMutation>;
 export type AddSingleTaskMutationOptions = Apollo.BaseMutationOptions<AddSingleTaskMutation, AddSingleTaskMutationVariables>;
+export const AddSingleTasksChunkDocument = gql`
+    mutation AddSingleTasksChunk($limit: Float!, $recTaskId: Float!) {
+  addSingleTasksChunk(limit: $limit, recTaskId: $recTaskId) {
+    errors
+    singleTasks {
+      ...RegularSingleTask
+    }
+  }
+}
+    ${RegularSingleTaskFragmentDoc}`;
+export type AddSingleTasksChunkMutationFn = Apollo.MutationFunction<AddSingleTasksChunkMutation, AddSingleTasksChunkMutationVariables>;
+
+/**
+ * __useAddSingleTasksChunkMutation__
+ *
+ * To run a mutation, you first call `useAddSingleTasksChunkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddSingleTasksChunkMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addSingleTasksChunkMutation, { data, loading, error }] = useAddSingleTasksChunkMutation({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      recTaskId: // value for 'recTaskId'
+ *   },
+ * });
+ */
+export function useAddSingleTasksChunkMutation(baseOptions?: Apollo.MutationHookOptions<AddSingleTasksChunkMutation, AddSingleTasksChunkMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddSingleTasksChunkMutation, AddSingleTasksChunkMutationVariables>(AddSingleTasksChunkDocument, options);
+      }
+export type AddSingleTasksChunkMutationHookResult = ReturnType<typeof useAddSingleTasksChunkMutation>;
+export type AddSingleTasksChunkMutationResult = Apollo.MutationResult<AddSingleTasksChunkMutation>;
+export type AddSingleTasksChunkMutationOptions = Apollo.BaseMutationOptions<AddSingleTasksChunkMutation, AddSingleTasksChunkMutationVariables>;
 export const UpdateSingleTaskNotesDocument = gql`
     mutation UpdateSingleTaskNotes($updateSingleTaskNotesId: Int!, $notes: String!) {
   updateSingleTaskNotes(id: $updateSingleTaskNotesId, notes: $notes) {

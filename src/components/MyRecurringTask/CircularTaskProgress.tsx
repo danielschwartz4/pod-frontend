@@ -22,8 +22,12 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
   today,
   variant,
 }) => {
+  console.log(completedCount);
   const percentage =
-    Math.round((completedCount[variant] / taskLength) * 100) / 100;
+    completedCount[variant] == 0
+      ? 1
+      : Math.round((completedCount[variant] / taskLength) * 100) / 100;
+
   const value = percentage * 100;
 
   return (

@@ -9,7 +9,6 @@ interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
   const { data: meData } = useMeQuery();
-  console.log(meData);
 
   return (
     <Box width={"100%"} alignItems={"center"} minHeight={"65vh"}>

@@ -1,0 +1,8 @@
+mutation AddSingleTasksChunk($limit: Float!, $recTaskId: Float!) {
+  addSingleTasksChunk(limit: $limit, recTaskId: $recTaskId) {
+    errors
+    singleTasks {
+      ...RegularSingleTask
+    }
+  }
+}
