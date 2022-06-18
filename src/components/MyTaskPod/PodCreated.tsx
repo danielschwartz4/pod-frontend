@@ -10,7 +10,6 @@ interface PodCreatedProps {
 export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
   const podLength = props.tasksData?.length;
 
-  // TODO PodCard for tasks!!
   const gridProjects = (
     <Box w={"100%"}>
       <Grid

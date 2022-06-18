@@ -72,27 +72,6 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
           color={"gray.700"}
           as={icon}
         />
-        {/* <svg
-          width={"48px"}
-          height={"48px"}
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="12" cy="12" r="12" fill={_color} />
-          <text
-            x="50%"
-            y="50%"
-            textAnchor="middle"
-            fontFamily="auto"
-            fontSize={12}
-            strokeWidth="1px"
-            fill="gainsboro"
-            dy=".3em"
-          >
-            {icon}
-          </text>
-        </svg> */}
       </Box>
     </TaskProgressPopover>
   );

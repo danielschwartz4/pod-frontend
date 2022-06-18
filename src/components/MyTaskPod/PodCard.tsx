@@ -9,9 +9,15 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { ReactFlowProvider } from "react-flow-renderer";
-import { RecurringTask, useMeQuery } from "../../generated/graphql";
+import {
+  RecurringTask,
+  useMeQuery,
+  useSingleTasksQuery,
+} from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
 import { convertFromMilitaryTime } from "../../utils/formatDate";
+import { MiniProgressGridSkeleton } from "../MyRecurringTask/MiniProgressGridSkeleton";
+import { ProgressGridSkeleton } from "../MyRecurringTask/ProgressGridSkeleton";
 
 interface PodCardProps {
   task: RecurringTask;
@@ -20,6 +26,13 @@ interface PodCardProps {
 const PodCard: React.FC<PodCardProps> = ({ task }) => {
   const { data, loading } = useMeQuery({});
   const date = task.updatedAt.split(".")[0].split("T");
+
+  const { data: singleTasksData, loading: singleTasksDataLoading } =
+    useSingleTasksQuery({
+      variables: {
+        taskId: task?.id,
+      },
+    });
 
   return (
     <Center>
@@ -37,7 +50,10 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
         overflow={"hidden"}
       >
         <Box h={"200px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
-          <ReactFlowProvider>VISUALIZATION</ReactFlowProvider>
+          <MiniProgressGridSkeleton
+            singleTasksData={singleTasksData}
+            task={task}
+          />
         </Box>
         <Box>
           <Stack maxH={"120px"}>
