@@ -71,33 +71,33 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           if (response?.data?.createRecurringTask?.errors) {
             setErrors(toErrorMap(response.data.createRecurringTask.errors));
           } else {
-            const selectedDays = response?.data?.createRecurringTask?.task
-              .days as DaysType;
-            const selectedDaysIdxs = extractDaysIdxs(selectedDays);
-            const singleTasksByDay = convertToSingleTasks(
-              response?.data?.createRecurringTask?.task,
-              selectedDaysIdxs
-            );
-            Object.keys(singleTasksByDay).forEach((key) => {
-              if (selectedDaysIdxs.has(parseInt(key))) {
-                const arr = singleTasksByDay[key];
-                arr.forEach((ele: EntryType) => {
-                  const response2 = addSingleTask({
-                    variables: {
-                      singleTaskOptions: {
-                        status: "tbd",
-                        notes: "",
-                        actionDate: ele.actionDate,
-                        actionDay: ele.actionDay,
-                        taskId: response?.data?.createRecurringTask?.task?.id,
-                        userId:
-                          response?.data?.createRecurringTask?.task?.userId,
-                      },
-                    },
-                  });
-                });
-              }
-            });
+            // const selectedDays = response?.data?.createRecurringTask?.task
+            //   .days as DaysType;
+            // const selectedDaysIdxs = extractDaysIdxs(selectedDays);
+            // const singleTasksByDay = convertToSingleTasks(
+            //   response?.data?.createRecurringTask?.task,
+            //   selectedDaysIdxs
+            // );
+            // Object.keys(singleTasksByDay).forEach((key) => {
+            //   if (selectedDaysIdxs.has(parseInt(key))) {
+            //     const arr = singleTasksByDay[key];
+            //     arr.forEach((ele: EntryType) => {
+            //       const response2 = addSingleTask({
+            //         variables: {
+            //           singleTaskOptions: {
+            //             status: "tbd",
+            //             notes: "",
+            //             actionDate: ele.actionDate,
+            //             actionDay: ele.actionDay,
+            //             taskId: response?.data?.createRecurringTask?.task?.id,
+            //             userId:
+            //               response?.data?.createRecurringTask?.task?.userId,
+            //           },
+            //         },
+            //       });
+            //     });
+            //   }
+            // });
             await router.push("/profile");
           }
         }}
