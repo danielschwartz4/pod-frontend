@@ -1,6 +1,7 @@
 import { IconProps, ViewIcon } from "@chakra-ui/icons";
 import { Box, ComponentWithAs, Icon } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { TODAY } from "../../constants";
 import { SingleTask } from "../../generated/graphql";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import TaskProgressPopover from "./TaskProgressPopover";
@@ -12,7 +13,6 @@ interface TaskCircleProps {
   icon;
   completedCount?: {};
   setCompletedCount?: React.Dispatch<React.SetStateAction<{}>>;
-  today: Date;
   rangeStart: Date;
 }
 
@@ -23,7 +23,6 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   icon,
   completedCount,
   setCompletedCount,
-  today,
   rangeStart,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,8 +32,8 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   };
 
   const [_color, setColor] = useState(color);
-  const isEqual = daysEqual(new Date(singleTask?.actionDate), today);
-  const isBefore = beforeToday(new Date(singleTask?.actionDate), today);
+  const isEqual = daysEqual(new Date(singleTask?.actionDate), TODAY);
+  const isBefore = beforeToday(new Date(singleTask?.actionDate), TODAY);
 
   return (
     <TaskProgressPopover
@@ -45,7 +44,6 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
       setColor={setColor}
       setCompletedCount={setCompletedCount}
       completedCount={completedCount}
-      today={today}
       rangeStart={rangeStart}
     >
       <Box

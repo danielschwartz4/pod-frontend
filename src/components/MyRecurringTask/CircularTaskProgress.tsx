@@ -12,14 +12,12 @@ interface CircularTaskProgressProps {
   completedCount: {};
   variant: number;
   taskLength: number;
-  today: Date;
 }
 
 export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
   title,
   completedCount,
   taskLength,
-  today,
   variant,
 }) => {
   console.log(completedCount);

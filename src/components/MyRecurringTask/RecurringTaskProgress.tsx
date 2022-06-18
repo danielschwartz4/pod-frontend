@@ -1,6 +1,11 @@
-import { Box, Divider, Flex, Stack } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
+import { ADD_TASKS_LIMIT, TODAY } from "../../constants";
+import {
+  RecurringTaskQuery,
+  SingleTasksQuery,
+  useAddSingleTasksChunkMutation,
+} from "../../generated/graphql";
 import {
   beforeToday,
   daysEqual,
@@ -12,22 +17,22 @@ import { ProgressGridSkeleton } from "./ProgressGridSkeleton";
 interface RecurringTaskProgressProps {
   myTaskData: RecurringTaskQuery;
   singleTasksData: SingleTasksQuery;
-  today: Date;
 }
 
 export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   myTaskData,
   singleTasksData,
-  today,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <Box>Loading...</Box>;
   }
 
+  const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
+
   const singleTasksToToday = singleTasksData?.singleTasks?.singleTasks?.filter(
     (task) =>
-      beforeToday(new Date(task?.actionDate), today) ||
-      daysEqual(new Date(task?.actionDate), today)
+      beforeToday(new Date(task?.actionDate), TODAY) ||
+      daysEqual(new Date(task?.actionDate), TODAY)
   );
 
   const singleTasksRangeDays = singleTasksToToday.slice(-7);
@@ -39,6 +44,18 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
 
   return (
     <Flex>
+      <Button
+        onClick={() => {
+          addSingleTasksChunk({
+            variables: {
+              limit: ADD_TASKS_LIMIT,
+              recTaskId: myTaskData?.recurringTask?.task?.id,
+            },
+          });
+        }}
+      >
+        Add tasks
+      </Button>
       <Stack
         direction={{ base: "column", md: "row" }}
         gap={{ base: 0, md: 20 }}
@@ -50,7 +67,6 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
             completedCount={completedCount}
             orderedTasks={singleTasksData}
             rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
-            today={today}
             myTaskData={myTaskData}
           />
         </Box>
@@ -73,14 +89,12 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
             taskLength={singleTasksToToday.length}
             completedCount={completedCount}
             title={"All time consistency"}
-            today={today}
             variant={0}
           />
           <CircularTaskProgress
             taskLength={singleTasksRangeDays.length}
             completedCount={completedCount}
             title={"Last 7 tasks' consistency"}
-            today={today}
             variant={3}
           />
         </Flex>

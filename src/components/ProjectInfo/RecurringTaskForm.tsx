@@ -2,6 +2,7 @@ import { Box, Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import router from "next/router";
 import React from "react";
+import { ADD_TASKS_LIMIT } from "../../constants";
 import {
   MeQuery,
   useAddSingleTaskMutation,
@@ -74,40 +75,13 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           } else {
             const singleTasksResponse = await addSingleTasksChunk({
               variables: {
-                limit: 14,
+                limit: ADD_TASKS_LIMIT,
                 recTaskId: response?.data?.createRecurringTask?.task?.id,
               },
             });
             if (singleTasksResponse) {
               console.log("success");
             }
-            // const selectedDays = response?.data?.createRecurringTask?.task
-            //   .days as DaysType;
-            // const selectedDaysIdxs = extractDaysIdxs(selectedDays);
-            // const singleTasksByDay = convertToSingleTasks(
-            //   response?.data?.createRecurringTask?.task,
-            //   selectedDaysIdxs
-            // );
-            // Object.keys(singleTasksByDay).forEach((key) => {
-            //   if (selectedDaysIdxs.has(parseInt(key))) {
-            //     const arr = singleTasksByDay[key];
-            //     arr.forEach((ele: EntryType) => {
-            //       const response2 = addSingleTask({
-            //         variables: {
-            //           singleTaskOptions: {
-            //             status: "tbd",
-            //             notes: "",
-            //             actionDate: ele.actionDate,
-            //             actionDay: ele.actionDay,
-            //             taskId: response?.data?.createRecurringTask?.task?.id,
-            //             userId:
-            //               response?.data?.createRecurringTask?.task?.userId,
-            //           },
-            //         },
-            //       });
-            //     });
-            //   }
-            // });
             await router.push("/profile");
           }
         }}

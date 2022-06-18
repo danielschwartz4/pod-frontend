@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/icons";
 import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
+import { TODAY } from "../../constants";
 import {
   RecurringTask,
   RecurringTaskQuery,
@@ -22,7 +23,6 @@ interface ProgressGridSkeletonProps {
   orderedTasks: SingleTasksQuery;
   completedCount: {};
   setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
-  today: Date;
   rangeStart: Date;
   myTaskData: RecurringTaskQuery;
 }
@@ -31,7 +31,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   orderedTasks,
   completedCount,
   setCompletedCount,
-  today,
   rangeStart,
   myTaskData,
 }) => {
@@ -58,7 +57,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   return (
     <Box>
       <Flex mb={-8} ml={6} fontSize={24} textColor={"gainsboro"}>
-        {!daysIdxs?.has(today.getDay()) ? (
+        {!daysIdxs?.has(TODAY.getDay()) ? (
           <Text>Off day today!</Text>
         ) : (
           <Text></Text>
@@ -80,7 +79,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             return (
               <GridItem key={i} opacity={"70%"}>
                 <TaskCircle
-                  today={today}
                   icon={SmallCloseIcon}
                   color="grey"
                   isInteractive={false}
@@ -90,8 +88,8 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             );
           } else {
             const tmpDate = new Date(filledArr[i].actionDate);
-            const isBeforeToday = beforeToday(tmpDate, today);
-            const isDaysEqual = daysEqual(today, tmpDate);
+            const isBeforeToday = beforeToday(tmpDate, TODAY);
+            const isDaysEqual = daysEqual(TODAY, tmpDate);
             if (isBeforeToday && filledArr[i].status == "tbd") {
               updateSingleTaskCompletionStatus({
                 variables: {
@@ -124,7 +122,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             return (
               <GridItem key={i}>
                 <TaskCircle
-                  today={today}
                   setCompletedCount={setCompletedCount}
                   completedCount={completedCount}
                   icon={

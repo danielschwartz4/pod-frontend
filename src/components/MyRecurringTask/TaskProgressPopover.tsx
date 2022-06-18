@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import React from "react";
+import { TODAY } from "../../constants";
 import { SingleTask } from "../../generated/graphql";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import LateDayUpdateForm from "./LateDayUpdateForm";
@@ -26,14 +27,13 @@ interface TaskProgressPopoverProps {
   setColor: React.Dispatch<React.SetStateAction<string>>;
   completedCount: {};
   setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
-  today: Date;
   rangeStart: Date;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
   const tmpDate = new Date(props.singleTask?.actionDate);
-  const daysAreEqual = daysEqual(tmpDate, props.today);
-  const isBefore = beforeToday(tmpDate, props.today);
+  const daysAreEqual = daysEqual(tmpDate, TODAY);
+  const isBefore = beforeToday(tmpDate, TODAY);
 
   return (
     <>
