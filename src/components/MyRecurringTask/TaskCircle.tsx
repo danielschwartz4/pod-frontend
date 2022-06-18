@@ -55,7 +55,6 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
           }
         }}
         cursor={
-          // new Date(singleTask?.actionDate) < today
           (isBefore || isEqual) && isInteractive
             ? "pointer"
             : isInteractive

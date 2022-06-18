@@ -1,7 +1,5 @@
 import {
   AddIcon,
-  LockIcon,
-  SmallAddIcon,
   SmallCloseIcon,
   ViewIcon,
   ViewOffIcon,
@@ -10,7 +8,6 @@ import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import {
-  RecurringTask,
   RecurringTaskQuery,
   SingleTasksQuery,
   useUpdateSingleTaskCompletionStatusMutation,

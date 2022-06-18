@@ -1,17 +1,10 @@
-import {
-  SmallCloseIcon,
-  AddIcon,
-  ViewIcon,
-  ViewOffIcon,
-} from "@chakra-ui/icons";
 import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import { RecurringTask, SingleTasksQuery } from "../../generated/graphql";
-import { beforeToday, daysEqual } from "../../utils/getConsistency";
+import { beforeToday } from "../../utils/getConsistency";
 import { addDays, extractDaysIdxs } from "../../utils/singleTaskUtils";
 import { MiniTaskCircle } from "./MiniTaskCircle";
-import TaskCircle from "./TaskCircle";
 
 interface MiniProgressGridSkeletonProps {
   task: RecurringTask;
@@ -61,7 +54,7 @@ export const MiniProgressGridSkeleton: React.FC<
           <Text></Text>
         )}
       </Flex>
-      <Grid templateColumns={"repeat(7, .3fr)"} gap={2}>
+      <Grid templateColumns={"repeat(7, .3fr)"} gap={3}>
         {Object.keys(filledArr).map((i) => {
           if (filledArr[i] == null) {
             return (
