@@ -80,7 +80,6 @@ export const MyPod: React.FC<MyPodProps> = ({
       sessionType: "project",
     },
   });
-  console.log(availablePodsData);
 
   const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
 

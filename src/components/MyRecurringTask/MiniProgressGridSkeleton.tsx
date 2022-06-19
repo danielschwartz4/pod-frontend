@@ -33,7 +33,7 @@ export const MiniProgressGridSkeleton: React.FC<
   let i = 0;
   let taskIter = 0;
   let filledArr = [];
-  while (taskIter <= filteredData.length - 1) {
+  while (taskIter <= filteredData?.length - 1) {
     if (i % SKELETON_UNIT_SIZE == filteredData[taskIter].actionDay) {
       filledArr.push(filteredData[taskIter]);
       i++;
@@ -47,13 +47,6 @@ export const MiniProgressGridSkeleton: React.FC<
 
   return (
     <Box>
-      <Flex mb={-8} ml={6} fontSize={24} textColor={"gainsboro"}>
-        {!daysIdxs?.has(TODAY.getDay()) ? (
-          <Text>Off day today!</Text>
-        ) : (
-          <Text></Text>
-        )}
-      </Flex>
       <Grid templateColumns={"repeat(7, .3fr)"} gap={3}>
         {Object.keys(filledArr).map((i) => {
           if (filledArr[i] == null) {

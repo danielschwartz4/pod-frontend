@@ -70,7 +70,7 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
             <Box mt={4}>
               <MiniCircleTaskProgress
                 variant={"allTime"}
-                taskLength={singleTasksToToday.length}
+                taskLength={singleTasksToToday?.length}
                 title={"All time"}
                 completedCount={task?.completedCount}
               />
@@ -90,7 +90,7 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
             <Box mt={4}>
               <MiniCircleTaskProgress
                 variant={"week"}
-                taskLength={singleTasksRangeDays.length}
+                taskLength={singleTasksRangeDays?.length}
                 title={"Last 7 tasks"}
                 completedCount={task?.completedCount}
               />

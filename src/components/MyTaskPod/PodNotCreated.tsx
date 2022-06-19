@@ -10,13 +10,36 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import React from "react";
-import { useUpdateUserFriendRequestsMutation } from "../../generated/graphql";
+import {
+  AddProjectToPodMutation,
+  FindPublicPodQuery,
+  MeQuery,
+  RecurringTaskQuery,
+  useUpdateUserFriendRequestsMutation,
+} from "../../generated/graphql";
+import {
+  AddProjectToPodMutationType,
+  CreatePodMutationType,
+  UpdateProjectFriendProposalsMutationType,
+  UpdateTaskFriendProposalsMutationType,
+  UpdateTaskPodMutationType,
+  UpdateUserFriendRequestsMutationType,
+} from "../../types/mutationTypes";
 import PodRadio from "../MyProjectPod/Radio";
+import FriendPodOptions from "./friendPodOptions";
 import FriendRequests from "./FriendRequests";
 
 interface PodNotCreatedProps {
   podSize: number;
   setPodSize: React.Dispatch<React.SetStateAction<number>>;
+  addProjectToPod: AddProjectToPodMutationType;
+  myTaskData: RecurringTaskQuery;
+  availablePodsData: FindPublicPodQuery;
+  createPod: CreatePodMutationType;
+  updateTaskPod: UpdateTaskPodMutationType;
+  setPodJoined: React.Dispatch<React.SetStateAction<boolean>>;
+  meData: MeQuery;
+  updateUserFriendRequests: UpdateUserFriendRequestsMutationType;
 }
 
 export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
@@ -34,17 +57,18 @@ export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
           children={props.children}
         />
       ) : (
-        // TODO FriendPodOptions
-        // <FriendPodOptions
-        //   addTaskToPod={props.addProjectToPod}
-        //   availablePodsData={props.availablePodsData}
-        //   projectData={props.projectData}
-        //   createPod={props.createPod}
-        //   updateProjectPod={props.updateProjectPod}
-        //   setPodJoined={props.setPodJoined}
-        //   meData={props.meData}
-        // />
-        <Box>friends pod</Box>
+        <FriendPodOptions
+          addProjectToPod={props.addProjectToPod}
+          availablePodsData={props.availablePodsData}
+          myTaskData={props.myTaskData}
+          createPod={props.createPod}
+          updateTaskPod={props.updateTaskPod}
+          setPodJoined={props.setPodJoined}
+          meData={props.meData}
+          updateUserFriendRequests={props.updateUserFriendRequests}
+          podSize={props.podSize}
+          setPodSize={props.setPodSize}
+        />
       )}
     </Box>
   );
@@ -101,46 +125,3 @@ const RandomPodOptions: React.FC<{
     </Flex>
   );
 };
-
-// const FriendPodOptions: React.FC<PodNotCreatedProps> = (props) => {
-//   const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
-//   // TODO updateTaskFriendProposals mutation
-
-//   return (
-//     <Stack
-//       direction={{ base: "column", md: "row" }}
-//       spacing={8}
-//       mt={8}
-//       justifyContent={"center"}
-//     >
-//       <Box mb={"auto"}>
-//         <FriendRequests
-//           updateTaskPod={props.updateTaskPod}
-//           addTaskToPod={props.addTaskToPod}
-//           setPodJoined={props.setPodJoined}
-//           updateUserFriendRequests={updateUserFriendRequests}
-//           updateProjectFriendProposals={updateProjectFriendProposals}
-//           myTaskData={props.myTaskData}
-//           meData={props.meData}
-//         />
-//       </Box>
-//       {/* <Box display={{ base: "none", md: "block" }}>
-//         <Divider h={"400px"} color={"white"} orientation={"vertical"} />
-//       </Box>
-//       <Box display={{ base: "block", md: "none" }}>
-//         <Divider color={"white"} orientation={"horizontal"} />
-//       </Box>
-//       <Box>
-//         <FriendForm
-//           addProjectToPod={props.addProjectToPod}
-//           projectData={props.projectData}
-//           createPod={props.createPod}
-//           updateProjectPod={props.updateProjectPod}
-//           setPodJoined={props.setPodJoined}
-//           updateUserFriendRequests={updateUserFriendRequests}
-//           updateProjectFriendProposals={updateProjectFriendProposals}
-//         />
-//       </Box> */}
-//     </Stack>
-//   );
-// };

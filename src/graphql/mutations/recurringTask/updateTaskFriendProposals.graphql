@@ -1,0 +1,18 @@
+mutation UpdateTaskFriendProposals(
+  $updateTaskFriendProposalsId: Float!
+  $isAdding: Boolean!
+  $addedFriends: [String!]!
+  $deletedFriend: String!
+) {
+  updateTaskFriendProposals(
+    id: $updateTaskFriendProposalsId
+    isAdding: $isAdding
+    deletedFriend: $deletedFriend
+    addedFriends: $addedFriends
+  ) {
+    errors
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}

@@ -1,17 +1,31 @@
 import { CloseIcon, CheckIcon } from "@chakra-ui/icons";
 import { Box, Flex, VStack, Text } from "@chakra-ui/react";
-import { MeDocument, MeQuery } from "../../generated/graphql";
-import { UpdateUserFriendRequestsMutationType } from "../../types/mutationTypes";
+import {
+  MeDocument,
+  MeQuery,
+  RecurringTaskQuery,
+} from "../../generated/graphql";
+import {
+  AddProjectToPodMutationType,
+  UpdateTaskFriendProposalsMutationType,
+  UpdateTaskPodMutationType,
+  UpdateUserFriendRequestsMutationType,
+} from "../../types/mutationTypes";
 
 interface FriendRequestsProps {
   meData: MeQuery;
   updateUserFriendRequests: UpdateUserFriendRequestsMutationType;
+  updateTaskFriendProposals: UpdateTaskFriendProposalsMutationType;
+  updateTaskPod: UpdateTaskPodMutationType;
+  addProjectToPod: AddProjectToPodMutationType;
+  setPodJoined: React.Dispatch<React.SetStateAction<boolean>>;
+  myTaskData: RecurringTaskQuery;
 }
 
 const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
   return (
     <Box>
-      {/* <Flex>
+      <Flex>
         <Text fontSize={20} color={"gainsboro"}>
           Pod Invites
         </Text>
@@ -43,7 +57,7 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
             >
               <Box>
                 <Text ml={2} fontSize={20}>
-                  Project id {props.meData?.me?.friendRequests[index].projectId}{" "}
+                  Task id {props.meData?.me?.friendRequests[index].projectId}{" "}
                 </Text>
               </Box>
 
@@ -75,9 +89,9 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
                       },
                     });
                     if (user) {
-                      await props.updateProjectFriendProposals({
+                      await props.updateTaskFriendProposals({
                         variables: {
-                          updateProjectFriendProposalsId: values.projectId,
+                          updateTaskFriendProposalsId: values.projectId,
                           isAdding: false,
                           addedFriends: [],
                           deletedFriend: props.meData?.me?.username,
@@ -115,26 +129,26 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
                         });
                       },
                     });
-                    const project = await props.updateProjectFriendProposals({
+                    const project = await props.updateTaskFriendProposals({
                       variables: {
-                        updateProjectFriendProposalsId: values.projectId,
+                        updateTaskFriendProposalsId: values.projectId,
                         isAdding: false,
                         addedFriends: [],
                         deletedFriend: props.meData?.me?.username,
                       },
                     });
 
-                    await props.updateProjectPod({
+                    await props.updateTaskPod({
                       variables: {
                         podId: values.podId,
-                        updateProjectPodId:
-                          props.projectData?.project?.project.id,
+                        updateRecurringTaskPodId:
+                          props.myTaskData?.recurringTask?.task?.id,
                       },
                     });
                     await props.addProjectToPod({
                       variables: {
                         addProjectToPodId: values.podId,
-                        projectId: props.projectData?.project?.project.id,
+                        projectId: props.myTaskData?.recurringTask?.task?.id,
                       },
                     });
 
@@ -147,7 +161,7 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
             </Flex>
           ))}
         </VStack>
-      )} */}
+      )}
     </Box>
   );
 };

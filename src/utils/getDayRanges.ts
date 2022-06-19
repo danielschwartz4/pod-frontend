@@ -14,6 +14,6 @@ export const singleTasksToTodayHelper = (singleTasks: SingleTask[]) => {
 export const singleTasksRangeDaysHelper = (
   singleTasksToToday: SingleTask[]
 ) => {
-  const res = singleTasksToToday.slice(-RANGE_DAYS.week);
+  const res = singleTasksToToday?.slice(-RANGE_DAYS.week);
   return res;
 };

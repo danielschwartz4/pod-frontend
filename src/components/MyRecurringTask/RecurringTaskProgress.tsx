@@ -34,13 +34,6 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
 
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
 
-  // const singleTasksToToday = singleTasksData?.singleTasks?.singleTasks?.filter(
-  //   (task) =>
-  //     beforeToday(new Date(task?.actionDate), TODAY) ||
-  //     daysEqual(new Date(task?.actionDate), TODAY)
-  // );
-
-  // const singleTasksRangeDays = singleTasksToToday.slice(-RANGE_DAYS.week);
   const singleTasksToToday = singleTasksToTodayHelper(
     singleTasksData?.singleTasks?.singleTasks
   );
@@ -54,7 +47,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
 
   return (
     <Flex>
-      {/* <Button
+      <Button
         onClick={() => {
           addSingleTasksChunk({
             variables: {
@@ -65,7 +58,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
         }}
       >
         Add tasks
-      </Button> */}
+      </Button>
       <Stack
         direction={{ base: "column", md: "row" }}
         gap={{ base: 0, md: 20 }}

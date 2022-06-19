@@ -57,6 +57,7 @@ export type Mutation = {
   updateProjectProgress: ProjectResponse;
   updateSingleTaskCompletionStatus: SingleTaskResponse;
   updateSingleTaskNotes: SingleTaskResponse;
+  updateTaskFriendProposals?: Maybe<RecurringTaskResponse>;
   updateTaskName: RecurringTaskFieldResponse;
   updateTaskPod: RecurringTaskFieldResponse;
   updateUserFriendRequests?: Maybe<UserResponse>;
@@ -194,6 +195,14 @@ export type MutationUpdateSingleTaskCompletionStatusArgs = {
 export type MutationUpdateSingleTaskNotesArgs = {
   id: Scalars['Int'];
   notes: Scalars['String'];
+};
+
+
+export type MutationUpdateTaskFriendProposalsArgs = {
+  addedFriends: Array<Scalars['String']>;
+  deletedFriend: Scalars['String'];
+  id: Scalars['Float'];
+  isAdding: Scalars['Boolean'];
 };
 
 
@@ -551,6 +560,16 @@ export type UpdateCompletedCountMutationVariables = Exact<{
 
 
 export type UpdateCompletedCountMutation = { __typename?: 'Mutation', updateCompletedCount: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any } | null } };
+
+export type UpdateTaskFriendProposalsMutationVariables = Exact<{
+  updateTaskFriendProposalsId: Scalars['Float'];
+  isAdding: Scalars['Boolean'];
+  addedFriends: Array<Scalars['String']> | Scalars['String'];
+  deletedFriend: Scalars['String'];
+}>;
+
+
+export type UpdateTaskFriendProposalsMutation = { __typename?: 'Mutation', updateTaskFriendProposals?: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any } | null } | null };
 
 export type UpdateTaskNameMutationVariables = Exact<{
   taskName: Scalars['String'];
@@ -1332,6 +1351,50 @@ export function useUpdateCompletedCountMutation(baseOptions?: Apollo.MutationHoo
 export type UpdateCompletedCountMutationHookResult = ReturnType<typeof useUpdateCompletedCountMutation>;
 export type UpdateCompletedCountMutationResult = Apollo.MutationResult<UpdateCompletedCountMutation>;
 export type UpdateCompletedCountMutationOptions = Apollo.BaseMutationOptions<UpdateCompletedCountMutation, UpdateCompletedCountMutationVariables>;
+export const UpdateTaskFriendProposalsDocument = gql`
+    mutation UpdateTaskFriendProposals($updateTaskFriendProposalsId: Float!, $isAdding: Boolean!, $addedFriends: [String!]!, $deletedFriend: String!) {
+  updateTaskFriendProposals(
+    id: $updateTaskFriendProposalsId
+    isAdding: $isAdding
+    deletedFriend: $deletedFriend
+    addedFriends: $addedFriends
+  ) {
+    errors
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}
+    ${RegularRecurringTaskFragmentDoc}`;
+export type UpdateTaskFriendProposalsMutationFn = Apollo.MutationFunction<UpdateTaskFriendProposalsMutation, UpdateTaskFriendProposalsMutationVariables>;
+
+/**
+ * __useUpdateTaskFriendProposalsMutation__
+ *
+ * To run a mutation, you first call `useUpdateTaskFriendProposalsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTaskFriendProposalsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTaskFriendProposalsMutation, { data, loading, error }] = useUpdateTaskFriendProposalsMutation({
+ *   variables: {
+ *      updateTaskFriendProposalsId: // value for 'updateTaskFriendProposalsId'
+ *      isAdding: // value for 'isAdding'
+ *      addedFriends: // value for 'addedFriends'
+ *      deletedFriend: // value for 'deletedFriend'
+ *   },
+ * });
+ */
+export function useUpdateTaskFriendProposalsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTaskFriendProposalsMutation, UpdateTaskFriendProposalsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTaskFriendProposalsMutation, UpdateTaskFriendProposalsMutationVariables>(UpdateTaskFriendProposalsDocument, options);
+      }
+export type UpdateTaskFriendProposalsMutationHookResult = ReturnType<typeof useUpdateTaskFriendProposalsMutation>;
+export type UpdateTaskFriendProposalsMutationResult = Apollo.MutationResult<UpdateTaskFriendProposalsMutation>;
+export type UpdateTaskFriendProposalsMutationOptions = Apollo.BaseMutationOptions<UpdateTaskFriendProposalsMutation, UpdateTaskFriendProposalsMutationVariables>;
 export const UpdateTaskNameDocument = gql`
     mutation UpdateTaskName($taskName: String!, $updateTaskNameId: Float!) {
   updateTaskName(taskName: $taskName, id: $updateTaskNameId) {

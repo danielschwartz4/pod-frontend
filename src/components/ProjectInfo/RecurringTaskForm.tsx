@@ -10,11 +10,6 @@ import {
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
 import { DaysType, EndOptionsSelectorType } from "../../types/types";
-import {
-  convertToSingleTasks,
-  EntryType,
-  extractDaysIdxs,
-} from "../../utils/singleTaskUtils";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";

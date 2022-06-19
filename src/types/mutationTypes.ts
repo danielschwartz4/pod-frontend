@@ -11,6 +11,7 @@ import {
   RemoveProjectFromPodMutation,
   UpdateProjectFriendProposalsMutation,
   UpdateProjectPodMutation,
+  UpdateTaskFriendProposalsMutation,
   UpdateTaskPodMutation,
   UpdateUserFriendRequestsMutation,
 } from "../generated/graphql";
@@ -92,6 +93,26 @@ export type UpdateProjectFriendProposalsMutationType = (
 ) => Promise<
   FetchResult<
     UpdateProjectFriendProposalsMutation,
+    Record<string, any>,
+    Record<string, any>
+  >
+>;
+
+export type UpdateTaskFriendProposalsMutationType = (
+  options?: MutationFunctionOptions<
+    UpdateTaskFriendProposalsMutation,
+    Exact<{
+      updateTaskFriendProposalsId: number;
+      isAdding: boolean;
+      addedFriends: string[];
+      deletedFriend: string;
+    }>,
+    DefaultContext,
+    ApolloCache<any>
+  >
+) => Promise<
+  FetchResult<
+    UpdateTaskFriendProposalsMutation,
     Record<string, any>,
     Record<string, any>
   >

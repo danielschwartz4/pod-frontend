@@ -13,6 +13,7 @@ import {
   useRemoveProjectFromPodMutation,
   useUpdatePhoneMutation,
   useUpdateTaskPodMutation,
+  useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { COUNTRIES } from "../Inputs/countries";
@@ -65,6 +66,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   const [updatePhone] = useUpdatePhoneMutation();
   const [createPod] = useCreatePodMutation();
   const [addProjectToPod] = useAddProjectToPodMutation();
+  const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
 
   const [podSize, setPodSize] = useState(null);
   const [podJoined, setPodJoined] = useState(
@@ -118,7 +120,18 @@ export const MyPod: React.FC<MyPodProps> = ({
           </Box>
         </div>
       ) : (
-        <PodNotCreated setPodSize={setPodSize} podSize={podSize}>
+        <PodNotCreated
+          updateTaskPod={updateTaskPod}
+          createPod={createPod}
+          myTaskData={myTaskData}
+          availablePodsData={availablePodsData}
+          addProjectToPod={addProjectToPod}
+          setPodSize={setPodSize}
+          podSize={podSize}
+          setPodJoined={setPodJoined}
+          meData={meData}
+          updateUserFriendRequests={updateUserFriendRequests}
+        >
           {podSize != null ? (
             <>
               {meData?.me?.phone == null ? (

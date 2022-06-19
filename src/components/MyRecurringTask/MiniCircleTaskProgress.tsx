@@ -20,7 +20,6 @@ export const MiniCircleTaskProgress: React.FC<MiniCircleTaskProgressProps> = ({
   taskLength,
   variant,
 }) => {
-  console.log(taskLength, completedCount);
   const percentage =
     completedCount[variant] == 0
       ? 0
