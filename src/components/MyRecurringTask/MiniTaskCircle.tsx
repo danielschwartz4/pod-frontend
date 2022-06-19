@@ -14,7 +14,7 @@ export const MiniTaskCircle: React.FC<MiniTaskCircleProps> = ({
 }) => {
   return (
     <Box>
-      <CircleIcon color={color} boxSize={7}>
+      <CircleIcon color={color} boxSize={7} mx={1.5}>
         <ViewIcon />
       </CircleIcon>
     </Box>

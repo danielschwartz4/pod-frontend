@@ -49,25 +49,29 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
       <Box
         border={task?.userId === data?.me?.id ? "4px" : ""}
         borderColor="#3EE76D"
-        maxH={"380px"}
+        maxH={"420px"}
         width={"100%"}
-        maxW={"350px"}
+        maxW={"380px"}
         mx={[2, 4]}
         bg={useColorModeValue("gainsboro", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}
-        p={6}
+        // p={6}
         overflow={"hidden"}
       >
-        <Box h={"220px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
-          <MiniProgressGridSkeleton
-            singleTasksData={singleTasksData}
-            task={task}
-          />
-        </Box>
-        <Box>
+        {/* <Box h={"220px"} bg={"gray.100"} mt={-6} mx={-6}> */}
+        <Flex dir="vertical" h={"220px"} bg={"gray.100"}>
+          <Box m={"auto"}>
+            <MiniProgressGridSkeleton
+              singleTasksData={singleTasksData}
+              task={task}
+            />
+          </Box>
+        </Flex>
+        {/* </Box> */}
+        <Box px={6} pb={6}>
           <Flex>
-            <Box mt={4}>
+            <Box>
               <MiniCircleTaskProgress
                 variant={"allTime"}
                 taskLength={singleTasksToToday?.length}
@@ -87,7 +91,7 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
               </Heading>
               <Text color={"gray.500"}>{task?.overview}</Text>
             </Stack>
-            <Box mt={4}>
+            <Box>
               <MiniCircleTaskProgress
                 variant={"week"}
                 taskLength={singleTasksRangeDays?.length}

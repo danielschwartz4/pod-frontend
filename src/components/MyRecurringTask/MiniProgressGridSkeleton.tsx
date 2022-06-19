@@ -14,9 +14,6 @@ interface MiniProgressGridSkeletonProps {
 export const MiniProgressGridSkeleton: React.FC<
   MiniProgressGridSkeletonProps
 > = ({ task, singleTasksData }) => {
-  const dayTitles = ["S", "M", "T", "W", "T", "F", "S"];
-  const daysIdxs = extractDaysIdxs(task?.days);
-
   const filterdBelow = singleTasksData?.singleTasks?.singleTasks?.filter(
     (task) => beforeToday(new Date(task?.actionDate), TODAY)
   );
@@ -47,7 +44,7 @@ export const MiniProgressGridSkeleton: React.FC<
 
   return (
     <Box>
-      <Grid templateColumns={"repeat(7, .3fr)"} gap={3}>
+      <Grid templateColumns={"repeat(7, 1fr)"} gap={3}>
         {Object.keys(filledArr).map((i) => {
           if (filledArr[i] == null) {
             return (

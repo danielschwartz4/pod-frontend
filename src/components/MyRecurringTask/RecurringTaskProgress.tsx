@@ -47,7 +47,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
 
   return (
     <Flex>
-      <Button
+      {/* <Button
         onClick={() => {
           addSingleTasksChunk({
             variables: {
@@ -58,7 +58,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
         }}
       >
         Add tasks
-      </Button>
+      </Button> */}
       <Stack
         direction={{ base: "column", md: "row" }}
         gap={{ base: 0, md: 20 }}
