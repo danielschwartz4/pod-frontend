@@ -16,6 +16,10 @@ import {
 } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
 import { convertFromMilitaryTime } from "../../utils/formatDate";
+import {
+  singleTasksToTodayHelper,
+  singleTasksRangeDaysHelper,
+} from "../../utils/getDayRanges";
 import { MiniCircleTaskProgress } from "../MyRecurringTask/MiniCircleTaskProgress";
 import { MiniProgressGridSkeleton } from "../MyRecurringTask/MiniProgressGridSkeleton";
 
@@ -33,7 +37,12 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
         taskId: task?.id,
       },
     });
-  console.log(singleTasksData?.singleTasks?.singleTasks?.length);
+
+  const singleTasksToToday = singleTasksToTodayHelper(
+    singleTasksData?.singleTasks?.singleTasks
+  );
+
+  const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);
 
   return (
     <Center>
@@ -60,10 +69,10 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
           <Flex>
             <Box mt={4}>
               <MiniCircleTaskProgress
-                variant={0}
-                taskLength={singleTasksData?.singleTasks?.singleTasks?.length}
+                variant={"allTime"}
+                taskLength={singleTasksToToday.length}
                 title={"All time"}
-                completedCount={{ 0: 10, 3: 15 }}
+                completedCount={task?.completedCount}
               />
             </Box>
             <Stack m={"auto"} maxH={"120px"}>
@@ -80,10 +89,10 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
             </Stack>
             <Box mt={4}>
               <MiniCircleTaskProgress
-                variant={3}
-                taskLength={singleTasksData?.singleTasks?.singleTasks?.length}
+                variant={"week"}
+                taskLength={singleTasksRangeDays.length}
                 title={"Last 7 tasks"}
-                completedCount={{ 0: 10, 3: 20 }}
+                completedCount={task?.completedCount}
               />
             </Box>
           </Flex>

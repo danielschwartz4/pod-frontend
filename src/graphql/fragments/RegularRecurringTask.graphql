@@ -12,4 +12,5 @@ fragment RegularRecurringTask on RecurringTask {
   taskName
   cursorDate
   friendProposals
+  completedCount
 }

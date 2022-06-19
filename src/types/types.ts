@@ -86,3 +86,8 @@ export type SingleTaskOptions = {
 };
 
 export type SessionType = "project" | "task";
+
+export type CompletedCount = {
+  allTime?: number;
+  week?: number;
+};

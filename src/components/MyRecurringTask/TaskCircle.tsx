@@ -2,28 +2,32 @@ import { IconProps, ViewIcon } from "@chakra-ui/icons";
 import { Box, ComponentWithAs, Icon } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { TODAY } from "../../constants";
-import { SingleTask } from "../../generated/graphql";
+import { RecurringTaskQuery, SingleTask } from "../../generated/graphql";
+import { CompletedCount } from "../../types/types";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
+import { statusColorMap } from "../../utils/statusColorMap";
 import TaskProgressPopover from "./TaskProgressPopover";
 
 interface TaskCircleProps {
   singleTask?: SingleTask;
   isInteractive: boolean;
-  color: string;
+  status: string;
   icon;
-  completedCount?: {};
-  setCompletedCount?: React.Dispatch<React.SetStateAction<{}>>;
+  completedCount?: CompletedCount;
+  setCompletedCount?: React.Dispatch<React.SetStateAction<CompletedCount>>;
   rangeStart: Date;
+  task: RecurringTaskQuery;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
   singleTask,
   isInteractive,
-  color,
+  status,
   icon,
   completedCount,
   setCompletedCount,
   rangeStart,
+  task,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -31,20 +35,22 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
     setIsOpen(!isOpen);
   };
 
-  const [_color, setColor] = useState(color);
+  const [_status, setStatus] = useState(status);
   const isEqual = daysEqual(new Date(singleTask?.actionDate), TODAY);
   const isBefore = beforeToday(new Date(singleTask?.actionDate), TODAY);
 
   return (
     <TaskProgressPopover
+      task={task}
       singleTask={singleTask}
       setPopupHandler={setPopupHandler}
       close={close}
       isOpen={isOpen}
-      setColor={setColor}
+      setStatus={setStatus}
       setCompletedCount={setCompletedCount}
       completedCount={completedCount}
       rangeStart={rangeStart}
+      _status={_status}
     >
       <Box
         onClick={() => {
@@ -62,7 +68,10 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
             : null
         }
       >
-        <CircleIcon color={_color} boxSize={14}>
+        <CircleIcon
+          color={_status ? statusColorMap[_status] : "gray"}
+          boxSize={14}
+        >
           <ViewIcon />
         </CircleIcon>
         <Icon

@@ -1,0 +1,14 @@
+mutation UpdateCompletedCount(
+  $completedCount: CompletedCountInput!
+  $updateCompletedCountId: Float!
+) {
+  updateCompletedCount(
+    completedCount: $completedCount
+    id: $updateCompletedCountId
+  ) {
+    errors
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}

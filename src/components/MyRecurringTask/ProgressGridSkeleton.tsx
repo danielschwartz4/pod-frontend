@@ -12,14 +12,16 @@ import {
   SingleTasksQuery,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
+import { CompletedCount } from "../../types/types";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import { addDays, extractDaysIdxs } from "../../utils/singleTaskUtils";
+import { statusColorMap } from "../../utils/statusColorMap";
 import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
   singleTasksData: SingleTasksQuery;
   completedCount: {};
-  setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
+  setCompletedCount: React.Dispatch<React.SetStateAction<CompletedCount>>;
   rangeStart: Date;
   myTaskData: RecurringTaskQuery;
 }
@@ -90,8 +92,10 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             return (
               <GridItem key={i} opacity={"70%"}>
                 <TaskCircle
+                  task={myTaskData}
                   icon={SmallCloseIcon}
-                  color="grey"
+                  // color="grey"
+                  status={filledArr[i]?.status}
                   isInteractive={false}
                   rangeStart={rangeStart}
                 />
@@ -133,6 +137,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             return (
               <GridItem key={i}>
                 <TaskCircle
+                  task={myTaskData}
                   setCompletedCount={setCompletedCount}
                   completedCount={completedCount}
                   icon={
@@ -142,15 +147,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                       ? ViewIcon // SmallAddIcon
                       : ViewOffIcon // LockIcon
                   }
-                  color={
-                    filledArr[i].status == "completed"
-                      ? "#3EE76D"
-                      : filledArr[i].status == "missed"
-                      ? "#F26D51"
-                      : filledArr[i].status == "overdue"
-                      ? "#f2df51"
-                      : "#6097F8"
-                  }
+                  status={filledArr[i].status}
                   singleTask={filledArr[i]}
                   isInteractive={true}
                   rangeStart={rangeStart}

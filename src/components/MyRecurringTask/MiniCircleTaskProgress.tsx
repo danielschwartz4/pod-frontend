@@ -5,40 +5,37 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { CompletedCount } from "../../types/types";
 import { getColorForPercentage } from "../../utils/compPercentage";
 
-interface CircularTaskProgressProps {
+interface MiniCircleTaskProgressProps {
   title?: string;
-  completedCount: CompletedCount;
+  completedCount: {};
   variant: string;
   taskLength: number;
 }
 
-export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
+export const MiniCircleTaskProgress: React.FC<MiniCircleTaskProgressProps> = ({
   title,
   completedCount,
   taskLength,
   variant,
 }) => {
+  console.log(taskLength, completedCount);
   const percentage =
     completedCount[variant] == 0
       ? 0
       : Math.round((completedCount[variant] / taskLength) * 100) / 100;
+
   const value = percentage * 100;
 
   return (
     <Box textColor={"gainsboro"}>
-      <Text fontSize={20}>{title}</Text>
+      <Text fontSize={10}>{title}</Text>
       <CircularProgress
-        size={"180px"}
+        size={"55px"}
         value={value}
         color={getColorForPercentage(percentage)}
-      >
-        <CircularProgressLabel textColor={getColorForPercentage(percentage)}>
-          <Text transform={"translate(3px, -18px)"}>{Math.round(value)}%</Text>
-        </CircularProgressLabel>
-      </CircularProgress>
+      />
     </Box>
   );
 };

@@ -12,7 +12,8 @@ import {
 import moment from "moment";
 import React from "react";
 import { TODAY } from "../../constants";
-import { SingleTask } from "../../generated/graphql";
+import { RecurringTaskQuery, SingleTask } from "../../generated/graphql";
+import { CompletedCount } from "../../types/types";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import LateDayUpdateForm from "./LateDayUpdateForm";
 import TodayUpdateForm from "./TodayUpdateForm";
@@ -24,10 +25,12 @@ interface TaskProgressPopoverProps {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   singleTask: SingleTask;
   setPopupHandler: () => void;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  completedCount: {};
-  setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  _status: string;
+  completedCount: CompletedCount;
+  setCompletedCount: React.Dispatch<React.SetStateAction<CompletedCount>>;
   rangeStart: Date;
+  task: RecurringTaskQuery;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
@@ -60,12 +63,14 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
             {daysAreEqual ||
             (isBefore && props.singleTask?.status == "overdue") ? (
               <TodayUpdateForm
+                task={props.task}
                 setCompletedCount={props.setCompletedCount}
                 completedCount={props.completedCount}
                 singleTask={props.singleTask}
                 setShowAlert={props.setShowAlert}
                 setPopupHandler={props.setPopupHandler}
-                setColor={props.setColor}
+                setStatus={props.setStatus}
+                _status={props._status}
                 rangeStart={props.rangeStart}
               />
             ) : (

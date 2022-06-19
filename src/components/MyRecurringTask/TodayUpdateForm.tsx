@@ -1,9 +1,12 @@
 import { Button, ButtonGroup, PopoverFooter } from "@chakra-ui/react";
 import React from "react";
 import {
+  RecurringTaskQuery,
   SingleTask,
+  useUpdateCompletedCountMutation,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
+import { CompletedCount } from "../../types/types";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import NotesForm from "./NotesForm";
 
@@ -11,51 +14,68 @@ interface TodayUpdateFormProps {
   singleTask: SingleTask;
   setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   setPopupHandler: () => void;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  completedCount: {};
-  setCompletedCount: React.Dispatch<React.SetStateAction<{}>>;
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  completedCount: CompletedCount;
+  setCompletedCount: React.Dispatch<React.SetStateAction<CompletedCount>>;
   rangeStart: Date;
+  task: RecurringTaskQuery;
+  _status: string;
 }
 
 const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   singleTask,
   setShowAlert,
   setPopupHandler,
-  setColor,
+  setStatus,
+  _status,
   completedCount,
   setCompletedCount,
   rangeStart,
+  task,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
+  const [updateCompletedCount] = useUpdateCompletedCountMutation();
 
   const setCompletedCountHandler = (isAdding: boolean) => {
+    console.log("in");
     const tmpDate = new Date(singleTask?.actionDate);
+    let c: CompletedCount;
     if (isAdding) {
       if (!beforeToday(tmpDate, rangeStart)) {
-        setCompletedCount({
-          0: completedCount[0] + 1,
-          3: completedCount[3] + 1,
-        });
+        c = {
+          allTime: completedCount["allTime"] + 1,
+          week: completedCount["week"] + 1,
+        };
       } else {
-        setCompletedCount({
-          0: completedCount[0] + 1,
-          3: completedCount[3],
-        });
+        c = {
+          allTime: completedCount["allTime"] + 1,
+          week: completedCount["week"],
+        };
       }
     } else {
       if (!beforeToday(tmpDate, rangeStart)) {
-        setCompletedCount({
-          0: completedCount[0] - 1,
-          3: completedCount[3] - 1,
-        });
+        c = {
+          allTime: completedCount["allTime"] - 1,
+          week: completedCount["week"] - 1,
+        };
       } else {
-        setCompletedCount({
-          0: completedCount[0] - 1,
-          3: completedCount[3],
-        });
+        c = {
+          allTime: completedCount["allTime"] - 1,
+          week: completedCount["week"],
+        };
       }
     }
+    setCompletedCount(c);
+    updateCompletedCount({
+      variables: {
+        completedCount: {
+          allTime: c["allTime"],
+          week: c["week"],
+        },
+        updateCompletedCountId: task?.recurringTask?.task?.id,
+      },
+    });
   };
 
   return (
@@ -72,8 +92,13 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 },
               });
               if (response) {
-                setColor("#F26D51");
-                if (singleTask?.status != "overdue") {
+                // setColor("#F26D51");
+                setStatus("missed");
+                console.log(completedCount);
+                if (
+                  // singleTask?.status != "overdue" &&
+                  _status != "missed"
+                ) {
                   setCompletedCountHandler(false);
                 }
               }
@@ -94,8 +119,14 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 },
               });
               if (response) {
-                setColor("#3EE76D");
-                setCompletedCountHandler(true);
+                // setColor("#3EE76D");
+                setStatus("completed");
+                if (
+                  // singleTask?.status != "overdue" &&
+                  _status != "completed"
+                ) {
+                  setCompletedCountHandler(true);
+                }
               }
               // props.setShowAlert(true);
             }}
