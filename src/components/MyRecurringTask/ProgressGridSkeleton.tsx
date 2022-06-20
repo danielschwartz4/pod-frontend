@@ -73,7 +73,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
       } else {
         filledArr.push(null);
       }
-
       i++;
     }
   }

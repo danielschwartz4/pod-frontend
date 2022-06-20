@@ -6,15 +6,23 @@ import { SingleTask } from "../../generated/graphql";
 interface MiniTaskCircleProps {
   singleTask?: SingleTask;
   color: string;
+  isToday: boolean;
 }
 
 export const MiniTaskCircle: React.FC<MiniTaskCircleProps> = ({
   singleTask,
   color,
+  isToday,
 }) => {
   return (
     <Box>
-      <CircleIcon color={color} boxSize={7} mx={1.5}>
+      <CircleIcon
+        strokeWidth={isToday ? "14" : null}
+        stroke="gray.700"
+        color={color}
+        boxSize={7}
+        mx={1.5}
+      >
         <ViewIcon />
       </CircleIcon>
     </Box>

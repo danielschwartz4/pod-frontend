@@ -24,7 +24,6 @@ export const joinPod = async (
   let foundPod = null;
 
   if (availablePodsData?.findPublicPod?.errors) {
-    console.log("creating");
     createdPod = await createPod({
       variables: {
         cap: podSize,

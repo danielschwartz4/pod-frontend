@@ -2,7 +2,7 @@ import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import { RecurringTask, SingleTasksQuery } from "../../generated/graphql";
-import { beforeToday } from "../../utils/getConsistency";
+import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import { addDays, extractDaysIdxs } from "../../utils/singleTaskUtils";
 import { MiniTaskCircle } from "./MiniTaskCircle";
 
@@ -29,15 +29,26 @@ export const MiniProgressGridSkeleton: React.FC<
 
   let i = 0;
   let taskIter = 0;
-  let filledArr = [];
-  while (taskIter <= filteredData?.length - 1) {
+  let filledArr = [] as {}[];
+  let tmpActionDay: Date;
+  let daysAfterTmp: 0;
+  while (taskIter <= filteredData.length - 1) {
     if (i % SKELETON_UNIT_SIZE == filteredData[taskIter].actionDay) {
       filledArr.push(filteredData[taskIter]);
+      tmpActionDay = filteredData[taskIter].actionDate;
+
       i++;
       taskIter++;
+      daysAfterTmp = 0;
     } else {
+      daysAfterTmp++;
       // !! Push the date instead of null
-      filledArr.push(null);
+
+      if (daysEqual(addDays(daysAfterTmp, tmpActionDay), TODAY)) {
+        filledArr.push(undefined);
+      } else {
+        filledArr.push(null);
+      }
       i++;
     }
   }
@@ -49,13 +60,19 @@ export const MiniProgressGridSkeleton: React.FC<
           if (filledArr[i] == null) {
             return (
               <GridItem key={i} opacity={"70%"}>
-                <MiniTaskCircle color="grey" />
+                <MiniTaskCircle
+                  isToday={filledArr[i] === undefined}
+                  color="grey"
+                />
               </GridItem>
             );
           } else {
+            const tmpDate = new Date(filledArr[i].actionDate);
+            const isDaysEqual = daysEqual(TODAY, tmpDate);
             return (
               <GridItem key={i}>
                 <MiniTaskCircle
+                  isToday={isDaysEqual}
                   color={
                     filledArr[i].status == "completed"
                       ? "#3EE76D"
