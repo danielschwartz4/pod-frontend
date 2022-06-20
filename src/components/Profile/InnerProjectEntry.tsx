@@ -1,7 +1,7 @@
 import { Box, Heading } from "@chakra-ui/react";
 import { ProjectQuery } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
-import { generateProgress } from "../../utils/smsBody";
+import { generateProgress } from "../../utils/projectSmsBody";
 import { ToProjectPageId } from "./ToPageId";
 
 interface Props {

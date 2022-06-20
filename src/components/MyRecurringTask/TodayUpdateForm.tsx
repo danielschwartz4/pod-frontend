@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, PopoverFooter } from "@chakra-ui/react";
+import { Button, ButtonGroup, PopoverFooter, useToast } from "@chakra-ui/react";
 import React from "react";
 import {
   RecurringTaskQuery,
@@ -36,6 +36,8 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
   const [updateCompletedCount] = useUpdateCompletedCountMutation();
+
+  const toast = useToast();
 
   const setCompletedCountHandler = (isAdding: boolean) => {
     console.log("in");
@@ -119,16 +121,20 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 },
               });
               if (response) {
-                // setColor("#3EE76D");
                 setStatus("completed");
-                if (
-                  // singleTask?.status != "overdue" &&
-                  _status != "completed"
-                ) {
+                if (_status != "completed") {
                   setCompletedCountHandler(true);
                 }
               }
-              // props.setShowAlert(true);
+              if (_status != "completed") {
+                toast({
+                  title: "Congrats!",
+                  description: "Your pod has been alerted!.",
+                  status: "success",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }
             }}
             type="submit"
             background="#3EE76D"

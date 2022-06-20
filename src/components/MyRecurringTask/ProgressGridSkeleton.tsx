@@ -5,7 +5,7 @@ import {
   ViewOffIcon,
 } from "@chakra-ui/icons";
 import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
@@ -15,7 +15,6 @@ import {
 import { CompletedCount } from "../../types/types";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import { addDays, extractDaysIdxs } from "../../utils/singleTaskUtils";
-import { statusColorMap } from "../../utils/statusColorMap";
 import TaskCircle from "./TaskCircle";
 
 interface ProgressGridSkeletonProps {
@@ -54,15 +53,27 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
 
   let i = 0;
   let taskIter = 0;
-  let filledArr = [];
+  let filledArr = [] as {}[];
+  let tmpActionDay: Date;
+  let daysAfterTmp: 0;
   while (taskIter <= filteredData.length - 1) {
     if (i % SKELETON_UNIT_SIZE == filteredData[taskIter].actionDay) {
       filledArr.push(filteredData[taskIter]);
+      tmpActionDay = filteredData[taskIter].actionDate;
+
       i++;
       taskIter++;
+      daysAfterTmp = 0;
     } else {
+      daysAfterTmp++;
       // !! Push the date instead of null
-      filledArr.push(null);
+
+      if (daysEqual(addDays(daysAfterTmp, tmpActionDay), TODAY)) {
+        filledArr.push(undefined);
+      } else {
+        filledArr.push(null);
+      }
+
       i++;
     }
   }
@@ -88,16 +99,16 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
         })}
 
         {Object.keys(filledArr).map((i) => {
-          if (filledArr[i] == null) {
+          if (filledArr[i] == null || filledArr[i] == undefined) {
             return (
               <GridItem key={i} opacity={"70%"}>
                 <TaskCircle
                   task={myTaskData}
                   icon={SmallCloseIcon}
-                  // color="grey"
                   status={filledArr[i]?.status}
                   isInteractive={false}
                   rangeStart={rangeStart}
+                  isToday={filledArr[i] === undefined}
                 />
               </GridItem>
             );
@@ -140,6 +151,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                   task={myTaskData}
                   setCompletedCount={setCompletedCount}
                   completedCount={completedCount}
+                  isToday={isDaysEqual}
                   icon={
                     isDaysEqual
                       ? AddIcon
@@ -147,7 +159,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                       ? ViewIcon // SmallAddIcon
                       : ViewOffIcon // LockIcon
                   }
-                  status={filledArr[i].status}
+                  status={filledArr[i]?.status}
                   singleTask={filledArr[i]}
                   isInteractive={true}
                   rangeStart={rangeStart}

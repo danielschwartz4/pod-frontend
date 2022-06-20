@@ -72,7 +72,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             <Button>EditTaskComponent</Button>
           </Box>
 
-          {showAlert ? (
+          {/* {showAlert ? (
             <Alert
               w={{ base: "55%", md: "75%", lg: "80%" }}
               ml={"auto"}
@@ -87,7 +87,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             </Alert>
           ) : (
             <></>
-          )}
+          )} */}
         </Flex>
         <DashTabs
           type="task"

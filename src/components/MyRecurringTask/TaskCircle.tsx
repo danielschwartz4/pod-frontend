@@ -17,6 +17,7 @@ interface TaskCircleProps {
   setCompletedCount?: React.Dispatch<React.SetStateAction<CompletedCount>>;
   rangeStart: Date;
   task: RecurringTaskQuery;
+  isToday: boolean;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
@@ -28,6 +29,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   setCompletedCount,
   rangeStart,
   task,
+  isToday,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -69,6 +71,8 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
         }
       >
         <CircleIcon
+          stroke-width={isToday ? "6" : null}
+          stroke="gainsboro"
           color={_status ? statusColorMap[_status] : "gray"}
           boxSize={14}
         >

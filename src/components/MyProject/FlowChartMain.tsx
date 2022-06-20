@@ -15,7 +15,7 @@ import {
   NodeProgress,
 } from "../../types/types";
 import init_elements, { sortMilestones } from "../../utils/initElements";
-import { generateSms } from "../../utils/smsBody";
+import { generateSms } from "../../utils/projectSmsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
 import { sendMessages } from "../Sms/sendMessage";
 import ProjectProgressPopover from "./ProjectProgressPopover";

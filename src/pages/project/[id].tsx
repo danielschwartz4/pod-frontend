@@ -122,7 +122,7 @@ const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
               setMilestoneProgress={setMilestoneProgress}
               podData={podData}
             />
-            {showAlert ? (
+            {/* {showAlert ? (
               <Alert
                 w={{ base: "55%", md: "75%", lg: "80%" }}
                 ml={"auto"}
@@ -137,7 +137,7 @@ const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
               </Alert>
             ) : (
               <></>
-            )}
+            )} */}
           </Flex>
           <DashTabs
             type="project"

@@ -18,6 +18,7 @@ import {
   PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
+  useToast,
 } from "@chakra-ui/react";
 import { ErrorMessage, Form, Formik } from "formik";
 import React, { useState } from "react";
@@ -75,6 +76,8 @@ const ProjectProgressPopover: React.FC<ProjectProgressPopoverProps> = (
     useUpdateProjectMilestoneDatesMutation();
   const [updateProjectMilestones] = useUpdateProjectMilestonesMutation();
   const [updateProjectProgress] = useUpdateProjectProgressMutation();
+
+  const toast = useToast();
 
   return (
     <>
@@ -140,6 +143,13 @@ const ProjectProgressPopover: React.FC<ProjectProgressPopoverProps> = (
                       progress: 3,
                     });
                     props.setShowAlert(true);
+                    toast({
+                      title: "Congrats!",
+                      description: "Your pod has been alerted!.",
+                      status: "success",
+                      duration: 9000,
+                      isClosable: true,
+                    });
                   }}
                   background="#3EE76D"
                   cursor={"pointer"}

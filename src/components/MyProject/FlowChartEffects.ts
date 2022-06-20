@@ -5,7 +5,7 @@ import {
   NodeProgress,
 } from "../../types/types";
 import init_elements from "../../utils/initElements";
-import { generateSms } from "../../utils/smsBody";
+import { generateSms } from "../../utils/projectSmsBody";
 import { sendMessage } from "../Sms/sendMessage";
 
 export function onNewProgress(
