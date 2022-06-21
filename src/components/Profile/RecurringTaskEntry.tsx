@@ -1,13 +1,21 @@
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
+import { TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
   useDeleteRecurringTaskMutation,
   useRemoveProjectFromPodMutation,
+  useSingleTasksQuery,
   useUpdateTaskNameMutation,
 } from "../../generated/graphql";
-import { TaskEntryHeading } from "./InnerRecurringTaskEntry";
+import { beforeToday } from "../../utils/getConsistency";
+import { addDays } from "../../utils/singleTaskUtils";
+import {
+  NextTaskDueDate,
+  TaskEntryHeading,
+  TaskVis,
+} from "./InnerRecurringTaskEntry";
 import useOutsideAlerter from "./nameChangeFunc";
 import { ProfileGridItem } from "./ProfileGridItem";
 import { ToProjectPageId, ToTaskPageId } from "./ToPageId";
@@ -16,6 +24,25 @@ interface RecurringTaskEntryProps {
   task: RecurringTaskQuery["recurringTask"]["task"];
 }
 const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
+  const { data: singleTasksData } = useSingleTasksQuery({
+    variables: {
+      taskId: task?.id,
+    },
+  });
+
+  const filterdBelow = singleTasksData?.singleTasks?.singleTasks?.filter(
+    (task) => beforeToday(new Date(task?.actionDate), TODAY)
+  );
+
+  const filteredData = singleTasksData?.singleTasks?.singleTasks?.filter(
+    (task) =>
+      !beforeToday(new Date(task?.actionDate), addDays(-14, TODAY)) &&
+      beforeToday(
+        new Date(task?.actionDate),
+        addDays(Math.max(14, 14 + (14 - filterdBelow.length)), TODAY)
+      )
+  );
+
   const [deleteRecurringTask] = useDeleteRecurringTaskMutation();
   const [removeProjectFromPod] = useRemoveProjectFromPodMutation();
   const [updateTaskName] = useUpdateTaskNameMutation();
@@ -50,11 +77,13 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
 
   return (
     <ProfileGridItem type="recurringTask">
-      <Heading fontSize={"xl"} mx={"auto"}>
-        <ToTaskPageId task={task}>
-          {task?.podId == 0 ? "not in pod yet" : "pod #: " + task?.podId}
-        </ToTaskPageId>
-      </Heading>
+      <TaskEntryHeading task={task}></TaskEntryHeading>
+      <Box ml={4}>
+        <NextTaskDueDate singleTasksData={singleTasksData}></NextTaskDueDate>
+      </Box>
+      <Box mx={4}>
+        <TaskVis singleTasksData={singleTasksData} task={task}></TaskVis>
+      </Box>
       <Flex alignItems={"center"} mb={6}>
         <Box ml={"1em"}>
           <Box

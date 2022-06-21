@@ -54,13 +54,12 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   let i = 0;
   let taskIter = 0;
   let filledArr = [] as {}[];
-  let tmpActionDay: Date;
+  let tmpActionDay = new Date(filteredData[0]?.actionDate);
   let daysAfterTmp: 0;
   while (taskIter <= filteredData.length - 1) {
     if (i % SKELETON_UNIT_SIZE == filteredData[taskIter].actionDay) {
       filledArr.push(filteredData[taskIter]);
       tmpActionDay = filteredData[taskIter].actionDate;
-
       i++;
       taskIter++;
       daysAfterTmp = 0;
@@ -69,6 +68,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
       // !! Push the date instead of null
 
       if (daysEqual(addDays(daysAfterTmp, tmpActionDay), TODAY)) {
+        console.log("yuh");
         filledArr.push(undefined);
       } else {
         filledArr.push(null);

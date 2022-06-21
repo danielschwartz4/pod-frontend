@@ -23,7 +23,7 @@ export const MiniProgressGridSkeleton: React.FC<
       !beforeToday(new Date(task?.actionDate), addDays(-14, TODAY)) &&
       beforeToday(
         new Date(task?.actionDate),
-        addDays(Math.max(14, 14 + (14 - filterdBelow.length)), TODAY)
+        addDays(Math.max(14, 14 + (14 - filterdBelow?.length)), TODAY)
       )
   );
 
@@ -32,7 +32,7 @@ export const MiniProgressGridSkeleton: React.FC<
   let filledArr = [] as {}[];
   let tmpActionDay: Date;
   let daysAfterTmp: 0;
-  while (taskIter <= filteredData.length - 1) {
+  while (taskIter <= filteredData?.length - 1) {
     if (i % SKELETON_UNIT_SIZE == filteredData[taskIter].actionDay) {
       filledArr.push(filteredData[taskIter]);
       tmpActionDay = filteredData[taskIter].actionDate;

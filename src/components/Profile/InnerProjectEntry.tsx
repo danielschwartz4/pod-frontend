@@ -1,4 +1,5 @@
 import { Box, Heading } from "@chakra-ui/react";
+import { TODAY } from "../../constants";
 import { ProjectQuery } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 import { generateProgress } from "../../utils/projectSmsBody";
@@ -41,10 +42,9 @@ export const ProjectVis: React.FC<Props> = ({ project }) => {
 };
 
 const _NextProjectDueDate: React.FC<Props> = ({ project }) => {
-  const today = new Date();
   let nextDueDate = project?.milestoneDates?.find((date) => {
     let d = new Date(date);
-    return d > today;
+    return d > TODAY;
   });
   if (!nextDueDate) {
     nextDueDate = project?.milestoneDates?.find((date) => {
