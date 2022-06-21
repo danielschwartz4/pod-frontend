@@ -1,8 +1,8 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import moment from "moment";
 import React from "react";
 import { TODAY } from "../../constants";
 import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
+import formatDate from "../../utils/formatDate";
 import { generateProgress } from "../../utils/taskSmsBody";
 import { ToTaskPageId } from "./ToPageId";
 
@@ -37,10 +37,5 @@ export const NextTaskDueDate: React.FC<Props> = ({ singleTasksData }) => {
     return d > TODAY;
   });
 
-  return (
-    <Box>
-      Next target date:{" "}
-      {moment(nextDueDate?.actionDate).utc().format("MM/DD/YYYY")}
-    </Box>
-  );
+  return <Box>Next target date: {formatDate(nextDueDate?.actionDate)}</Box>;
 };

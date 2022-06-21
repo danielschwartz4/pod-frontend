@@ -52,6 +52,7 @@ export const MiniProgressGridSkeleton: React.FC<
       i++;
     }
   }
+  filledArr = filledArr.slice(0, 35);
 
   return (
     <Box>

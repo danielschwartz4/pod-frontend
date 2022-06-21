@@ -21,7 +21,6 @@ import TodayUpdateForm from "./TodayUpdateForm";
 interface TaskProgressPopoverProps {
   close: () => void;
   isOpen: boolean;
-  setShowAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   singleTask: SingleTask;
   setPopupHandler: () => void;
@@ -67,7 +66,6 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
                 setCompletedCount={props.setCompletedCount}
                 completedCount={props.completedCount}
                 singleTask={props.singleTask}
-                setShowAlert={props.setShowAlert}
                 setPopupHandler={props.setPopupHandler}
                 setStatus={props.setStatus}
                 _status={props._status}

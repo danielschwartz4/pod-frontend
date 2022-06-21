@@ -1,13 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  Flex,
-  TabPanel,
-  TabPanels,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, TabPanel, TabPanels, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";
@@ -20,7 +11,6 @@ import {
   usePodTasksQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
-import { addDays } from "../../utils/singleTaskUtils";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 
@@ -31,7 +21,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   const [changeTab, useChangeTab] = useState<string>("task");
   const [keepMounted, setKeepMounted] = useState(true);
-  const [showAlert, setShowAlert] = useState(false);
   const TEMP_BOOL = true;
 
   const { data: meData } = useMeQuery({});

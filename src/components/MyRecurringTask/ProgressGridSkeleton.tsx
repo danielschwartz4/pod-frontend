@@ -42,7 +42,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
     (task) => beforeToday(new Date(task?.actionDate), TODAY)
   );
 
-  const filteredData = singleTasksData?.singleTasks?.singleTasks?.filter(
+  let filteredData = singleTasksData?.singleTasks?.singleTasks?.filter(
     (task) =>
       !beforeToday(new Date(task?.actionDate), addDays(-14, TODAY)) &&
       beforeToday(

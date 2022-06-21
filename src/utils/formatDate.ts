@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const convertFromMilitaryTime = (date: string): string => {
   if (!date) {
     return date;
@@ -14,18 +16,19 @@ export const convertFromMilitaryTime = (date: string): string => {
 };
 
 const formatDate = (date: string): string => {
-  if (!date) {
-    return date;
-  }
-  let day = date.split(" ")[0];
-  let month = date.split(" ").slice(1, 3).join(" ");
-  let year = date.split(" ")[3];
+  return moment(date).utc().format("MM/DD/YYYY");
+  // if (!date) {
+  //   return date;
+  // }
+  // let day = date.split(" ")[0];
+  // let month = date.split(" ").slice(1, 3).join(" ");
+  // let year = date.split(" ")[3];
 
-  if (date.includes("00:00:00")) {
-    return day + ", " + month;
-  }
-  let t = convertFromMilitaryTime(date.split(" ")[4]);
-  return day + ", " + month + ", " + " " + t;
+  // if (date.includes("00:00:00")) {
+  //   return day + ", " + month;
+  // }
+  // let t = convertFromMilitaryTime(date.split(" ")[4]);
+  // return day + ", " + month + ", " + " " + t;
 };
 
 export default formatDate;
