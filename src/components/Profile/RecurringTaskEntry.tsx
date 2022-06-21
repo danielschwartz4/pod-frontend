@@ -79,11 +79,13 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
     <ProfileGridItem type="recurringTask">
       <TaskEntryHeading task={task}></TaskEntryHeading>
       <Box ml={4}>
-        <NextTaskDueDate singleTasksData={singleTasksData}></NextTaskDueDate>
+        <NextTaskDueDate singleTasksData={filteredData}></NextTaskDueDate>
       </Box>
-      <Box mx={4}>
-        <TaskVis singleTasksData={singleTasksData} task={task}></TaskVis>
-      </Box>
+      <ToTaskPageId task={task}>
+        <Box mx={4}>
+          <TaskVis singleTasksData={filteredData} task={task}></TaskVis>
+        </Box>
+      </ToTaskPageId>
       <Flex alignItems={"center"} mb={6}>
         <Box ml={"1em"}>
           <Box

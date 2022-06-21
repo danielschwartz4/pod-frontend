@@ -94,13 +94,9 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 },
               });
               if (response) {
-                // setColor("#F26D51");
                 setStatus("missed");
                 console.log(completedCount);
-                if (
-                  // singleTask?.status != "overdue" &&
-                  _status != "missed"
-                ) {
+                if (_status != "missed") {
                   setCompletedCountHandler(false);
                 }
               }

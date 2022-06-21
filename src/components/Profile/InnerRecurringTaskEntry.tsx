@@ -8,7 +8,7 @@ import { ToTaskPageId } from "./ToPageId";
 
 interface Props {
   task?: RecurringTaskQuery["recurringTask"]["task"];
-  singleTasksData?: SingleTasksQuery;
+  singleTasksData?: SingleTasksQuery["singleTasks"]["singleTasks"];
 }
 
 export const TaskEntryHeading: React.FC<Props> = ({ task }) => {
@@ -22,7 +22,7 @@ export const TaskEntryHeading: React.FC<Props> = ({ task }) => {
 };
 
 export const TaskVis: React.FC<Props> = ({ singleTasksData }) => {
-  let vis = generateProgress(singleTasksData?.singleTasks?.singleTasks);
+  let vis = generateProgress(singleTasksData);
   vis = vis.slice(0, 54);
   return (
     <Box my={-4}>
@@ -32,7 +32,7 @@ export const TaskVis: React.FC<Props> = ({ singleTasksData }) => {
 };
 
 export const NextTaskDueDate: React.FC<Props> = ({ singleTasksData }) => {
-  let nextDueDate = singleTasksData?.singleTasks?.singleTasks?.find((task) => {
+  let nextDueDate = singleTasksData?.find((task) => {
     let d = new Date(task?.actionDate);
     return d > TODAY;
   });

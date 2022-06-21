@@ -68,7 +68,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
       // !! Push the date instead of null
 
       if (daysEqual(addDays(daysAfterTmp, tmpActionDay), TODAY)) {
-        console.log("yuh");
         filledArr.push(undefined);
       } else {
         filledArr.push(null);
