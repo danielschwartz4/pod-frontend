@@ -2,21 +2,18 @@ import { Button, ButtonGroup, PopoverFooter, useToast } from "@chakra-ui/react";
 import React from "react";
 import { TODAY } from "../../constants";
 import {
-  PodUsersQuery,
   RecurringTaskQuery,
   SingleTask,
   useMeLazyQuery,
   usePodLazyQuery,
-  usePodQuery,
   usePodUsersLazyQuery,
-  usePodUsersQuery,
   useSingleTasksLazyQuery,
-  useSingleTasksQuery,
   useUpdateCompletedCountMutation,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
 import { CompletedCount } from "../../types/types";
-import { beforeToday, daysEqual } from "../../utils/getConsistency";
+import { beforeToday } from "../../utils/getConsistency";
+import { generateSms } from "../../utils/taskSmsBody";
 import { addDays } from "../../utils/singleTaskUtils";
 import { sendMessages } from "../Sms/sendMessage";
 import NotesForm from "./NotesForm";
@@ -69,7 +66,6 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
         addDays(Math.max(14, 14 + (14 - filterdBelow.length)), TODAY)
       )
   );
-  console.log(usersData);
 
   const sendMessageHandler = async () =>
     // usersData: PodUsersQuery,
@@ -88,11 +84,8 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
         });
         const me = await meQuery();
         if (usersData?.podUsers && me?.data?.me) {
-          sendMessages(
-            me?.data?.me?.username,
-            usersData,
-            task?.recurringTask?.task?.taskName
-          );
+          const body = generateSms(singleTasksData?.singleTasks?.singleTasks);
+          sendMessages(me?.data?.me?.username, usersData, body);
         }
       }
     };
@@ -142,10 +135,9 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
       <PopoverFooter d="flex" justifyContent="center">
         <ButtonGroup size="sm">
           <Button
-            onClick={() => {
-              console.log(usersData);
+            onClick={async () => {
               setPopupHandler();
-              const response = updateSingleTaskCompletionStatus({
+              const response = await updateSingleTaskCompletionStatus({
                 variables: {
                   status: "missed",
                   updateSingleTaskCompletionStatusId: singleTask?.id,
