@@ -56,7 +56,6 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
         bg={useColorModeValue("gainsboro", "gray.900")}
         boxShadow={"2xl"}
         rounded={"md"}
-        // p={6}
         overflow={"hidden"}
       >
         {/* <Box h={"220px"} bg={"gray.100"} mt={-6} mx={-6}> */}

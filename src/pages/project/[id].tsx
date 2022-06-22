@@ -122,22 +122,6 @@ const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
               setMilestoneProgress={setMilestoneProgress}
               podData={podData}
             />
-            {/* {showAlert ? (
-              <Alert
-                w={{ base: "55%", md: "75%", lg: "80%" }}
-                ml={"auto"}
-                mt={"auto"}
-                h={"24px"}
-                borderRadius={6}
-                status="success"
-                variant={"solid"}
-              >
-                <AlertIcon />
-                Congrats! Your pod has been alerted!
-              </Alert>
-            ) : (
-              <></>
-            )} */}
           </Flex>
           <DashTabs
             type="project"

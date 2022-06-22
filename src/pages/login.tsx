@@ -101,7 +101,7 @@ const Login: React.FC<{}> = ({}) => {
               {({ isSubmitting }) => (
                 <Form>
                   <Box>
-                    <Box mr={8}>
+                    <Box mr={8} textColor={"gainsboro"}>
                       <Box>
                         <InputField
                           name="usernameOrEmail"

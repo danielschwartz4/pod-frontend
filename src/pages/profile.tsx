@@ -18,6 +18,7 @@ const Profile: React.FC<profileProps> = ({}) => {
   const { data: meData, loading } = useMeQuery({});
   const { data: projectsData, refetch: refetchProjects } = useProjectsQuery();
   const { data: tasksData, refetch: refetchTasks } = useRecurringTasksQuery();
+  console.log(projectsData);
 
   useEffect(() => {
     refetchProjects();
@@ -27,7 +28,7 @@ const Profile: React.FC<profileProps> = ({}) => {
     refetchTasks();
   }, [loading, tasksData]);
 
-  if (!projectsData?.projects) {
+  if (!projectsData?.projects && !tasksData?.recurringTasks) {
     return (
       <Layout isProjectsPage isProfile>
         <NextLink href="/project-info">

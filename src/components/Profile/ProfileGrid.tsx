@@ -15,11 +15,11 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
   tasksData,
 }) => {
   const merged = mergeData(tasksData, projectsData, "createdAt");
-  const projectsDataDict = projectsData?.projects.reduce(
+  const projectsDataDict = projectsData?.projects?.reduce(
     (acc, project) => ({ ...acc, [project.id]: project }),
     {}
   );
-  const tasksDataDict = tasksData?.recurringTasks.reduce(
+  const tasksDataDict = tasksData?.recurringTasks?.reduce(
     (acc, task) => ({ ...acc, [task.id]: task }),
     {}
   );

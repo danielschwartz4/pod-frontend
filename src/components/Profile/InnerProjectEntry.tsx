@@ -51,7 +51,7 @@ const _NextProjectDueDate: React.FC<Props> = ({ project }) => {
       return date != "";
     });
     if (nextDueDate == undefined) {
-      return <Box>Next target date: NA</Box>;
+      return <Box>Next target date: N/A</Box>;
     }
     return <Box>Next target date: {formatDate(nextDueDate)}*</Box>;
   }

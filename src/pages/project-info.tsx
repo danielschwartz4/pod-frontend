@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { Layout } from "../components/Layout";
-import EnterProject from "../components/ProjectInfo/EnterProject";
+import ProjectForm from "../components/ProjectInfo/ProjectForm";
 import RecurringTaskForm from "../components/ProjectInfo/RecurringTaskForm";
 import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
@@ -53,7 +53,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
               </TabList>
               <TabPanels>
                 <TabPanel minH={"600px"}>
-                  <EnterProject meData={data} />
+                  <ProjectForm meData={data} />
                 </TabPanel>
 
                 <TabPanel minH={"600px"}>

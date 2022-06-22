@@ -90,11 +90,11 @@ const Register: React.FC<registerProps> = ({}) => {
                 {({ isSubmitting }) => (
                   <Form>
                     <Box>
-                      <Box mr={8}>
+                      <Box mr={8} textColor={"gainsboro"}>
                         <InputField
                           name="username"
                           placeholder="username"
-                          label="Username"
+                          label="Username (feel free to use an alias)"
                         />
                         <Box mt={4}>
                           <InputField

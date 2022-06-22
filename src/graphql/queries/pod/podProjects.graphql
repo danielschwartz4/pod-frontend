@@ -1,5 +1,8 @@
 query PodProjects($podId: Int!) {
   podProjects(podId: $podId) {
     ...RegularProject
+    user {
+      ...RegularUser
+    }
   }
 }

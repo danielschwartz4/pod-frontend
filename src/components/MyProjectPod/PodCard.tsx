@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Center,
+  Flex,
   Heading,
   Stack,
   Text,
@@ -23,6 +24,7 @@ interface PodCardProps {
 const PodCard: React.FC<PodCardProps> = ({ project }) => {
   const { data, loading } = useMeQuery({});
   const date = project.updatedAt.split(".")[0].split("T");
+
   return (
     <Center>
       <Box
@@ -67,10 +69,17 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
             spacing={4}
             align={"center"}
           >
-            <Avatar src={avatarMap(data?.me?.avatar)} alt={"Author"} />
-            <Text fontSize={14}>
-              Last update: {date[0]} {convertFromMilitaryTime(date[1])}
-            </Text>
+            <Avatar src={avatarMap(project?.user?.avatar)} alt={"Author"} />
+            <Box>
+              <Flex>
+                <Text mr={"auto"} fontSize={14} mb={0}>
+                  {project?.user?.username}
+                </Text>
+              </Flex>
+              <Text fontSize={14}>
+                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
+              </Text>
+            </Box>
             <Text
               textColor={getColorForPercentage(
                 compPercentage(project?.milestoneProgress) / 100

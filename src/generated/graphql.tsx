@@ -255,6 +255,7 @@ export type Project = {
   podId?: Maybe<Scalars['Int']>;
   projectName: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+  user: User;
   userId: Scalars['Int'];
 };
 
@@ -697,7 +698,7 @@ export type PodProjectsQueryVariables = Exact<{
 }>;
 
 
-export type PodProjectsQuery = { __typename?: 'Query', podProjects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null }> | null };
+export type PodProjectsQuery = { __typename?: 'Query', podProjects?: Array<{ __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null, user: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } }> | null };
 
 export type PodUsersQueryVariables = Exact<{
   ids: Array<Scalars['Int']> | Scalars['Int'];
@@ -2012,9 +2013,13 @@ export const PodProjectsDocument = gql`
     query PodProjects($podId: Int!) {
   podProjects(podId: $podId) {
     ...RegularProject
+    user {
+      ...RegularUser
+    }
   }
 }
-    ${RegularProjectFragmentDoc}`;
+    ${RegularProjectFragmentDoc}
+${RegularUserFragmentDoc}`;
 
 /**
  * __usePodProjectsQuery__
