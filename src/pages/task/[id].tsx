@@ -56,28 +56,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   return (
     <Layout>
       <DashWrapper>
-        <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
-          <Box mt={"28px"} ml={4} mr={0}>
-            <Button>EditTaskComponent</Button>
-          </Box>
-
-          {/* {showAlert ? (
-            <Alert
-              w={{ base: "55%", md: "75%", lg: "80%" }}
-              ml={"auto"}
-              mt={"auto"}
-              h={"24px"}
-              borderRadius={6}
-              status="success"
-              variant={"solid"}
-            >
-              <AlertIcon />
-              Congrats! Your pod has been alerted!
-            </Alert>
-          ) : (
-            <></>
-          )} */}
-        </Flex>
+        <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}></Flex>
         <DashTabs
           type="task"
           keepMounted={keepMounted}

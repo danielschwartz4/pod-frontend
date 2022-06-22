@@ -74,12 +74,15 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
           strokeWidth={isToday ? "14" : null}
           stroke="gainsboro"
           color={_status ? statusColorMap[_status] : "gray"}
-          boxSize={14}
+          boxSize={{ base: 8, sm: 14 }}
         >
           <ViewIcon />
         </CircleIcon>
         <Icon
-          transform={"translate(-8px, -36px)"}
+          transform={{
+            base: "translate(-8.5px, -24px)",
+            sm: "translate(-8px, -36px)",
+          }}
           position={"absolute"}
           color={"gray.700"}
           as={icon}

@@ -29,7 +29,7 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
 
   return (
     <Box textColor={"gainsboro"}>
-      <Text fontSize={20}>{title}</Text>
+      <Text fontSize={{ base: 18, sm: 20 }}>{title}</Text>
       <CircularProgress
         size={"180px"}
         value={value}
