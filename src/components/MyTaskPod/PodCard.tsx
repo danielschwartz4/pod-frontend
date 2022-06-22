@@ -11,6 +11,7 @@ import {
 import React from "react";
 import {
   RecurringTask,
+  SingleTask,
   useMeQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
@@ -39,7 +40,7 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
     });
 
   const singleTasksToToday = singleTasksToTodayHelper(
-    singleTasksData?.singleTasks?.singleTasks
+    singleTasksData?.singleTasks?.singleTasks as SingleTask[]
   );
 
   const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);

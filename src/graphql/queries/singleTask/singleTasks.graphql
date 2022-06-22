@@ -3,6 +3,9 @@ query SingleTasks($taskId: Int!) {
     errors
     singleTasks {
       ...RegularSingleTask
+      user {
+        ...RegularUser
+      }
     }
   }
 }

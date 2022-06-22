@@ -6,6 +6,7 @@ import {
   MeQuery,
   PodQuery,
   PodTasksQuery,
+  RecurringTask,
   RecurringTaskQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
@@ -83,7 +84,10 @@ export const MyPod: React.FC<MyPodProps> = ({
     },
   });
 
-  const [_podTasks, setPodTasks] = useState(tasksData?.podTasks);
+  const [_podTasks, setPodTasks] = useState<PodTasksQuery>(
+    // tasksData?.podTasks
+    tasksData
+  );
 
   // We refetch all tasks since the podTasks are changed and we update the state
   useEffect(() => {
@@ -91,7 +95,7 @@ export const MyPod: React.FC<MyPodProps> = ({
     refetchTask();
     // Refetch tasks to update _podTasks state
     refetchTasks();
-    setPodTasks(tasksData?.podTasks);
+    setPodTasks(tasksData);
   }, [tasksData, podJoined]);
 
   return (

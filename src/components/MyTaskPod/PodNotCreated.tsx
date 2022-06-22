@@ -7,27 +7,21 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Stack,
 } from "@chakra-ui/react";
 import React from "react";
 import {
-  AddProjectToPodMutation,
   FindPublicPodQuery,
   MeQuery,
   RecurringTaskQuery,
-  useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
 import {
   AddProjectToPodMutationType,
   CreatePodMutationType,
-  UpdateProjectFriendProposalsMutationType,
-  UpdateTaskFriendProposalsMutationType,
   UpdateTaskPodMutationType,
   UpdateUserFriendRequestsMutationType,
 } from "../../types/mutationTypes";
 import PodRadio from "../MyProjectPod/Radio";
-import FriendPodOptions from "./friendPodOptions";
-import FriendRequests from "./FriendRequests";
+import FriendPodOptions from "./FriendPodOptions";
 
 interface PodNotCreatedProps {
   podSize: number;

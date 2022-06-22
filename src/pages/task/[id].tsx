@@ -53,6 +53,9 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     },
   });
 
+  if (tasksData?.podTasks && tasksData?.podTasks.length > 0) {
+  }
+
   return (
     <Layout>
       <DashWrapper>

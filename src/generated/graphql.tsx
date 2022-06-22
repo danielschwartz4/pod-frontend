@@ -356,6 +356,7 @@ export type RecurringTask = {
   id: Scalars['Int'];
   overview: Scalars['String'];
   podId?: Maybe<Scalars['Int']>;
+  singleTasks?: Maybe<Array<SingleTask>>;
   startDate: Scalars['DateTime'];
   taskName: Scalars['String'];
   updatedAt: Scalars['DateTime'];
@@ -391,9 +392,11 @@ export type SingleTask = {
   createdAt: Scalars['DateTime'];
   id: Scalars['Int'];
   notes: Scalars['String'];
+  recurringTask: RecurringTask;
   status: Scalars['String'];
   taskId: Scalars['Int'];
   updatedAt: Scalars['DateTime'];
+  user: User;
   userId: Scalars['Int'];
 };
 
@@ -426,6 +429,8 @@ export type User = {
   friendRequests?: Maybe<Array<Scalars['JSONObject']>>;
   id: Scalars['Int'];
   phone?: Maybe<Scalars['String']>;
+  recurringTasks: Array<RecurringTask>;
+  singleTasks: Array<SingleTask>;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
 };
@@ -756,7 +761,7 @@ export type SingleTasksQueryVariables = Exact<{
 }>;
 
 
-export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any }> | null } | null };
+export type SingleTasksQuery = { __typename?: 'Query', singleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes: string, userId: number, taskId: number, updatedAt: any, createdAt: any, user: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } }> | null } | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -2348,10 +2353,14 @@ export const SingleTasksDocument = gql`
     errors
     singleTasks {
       ...RegularSingleTask
+      user {
+        ...RegularUser
+      }
     }
   }
 }
-    ${RegularSingleTaskFragmentDoc}`;
+    ${RegularSingleTaskFragmentDoc}
+${RegularUserFragmentDoc}`;
 
 /**
  * __useSingleTasksQuery__

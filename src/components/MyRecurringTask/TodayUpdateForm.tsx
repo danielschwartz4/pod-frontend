@@ -84,6 +84,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
         });
         const me = await meQuery();
         if (usersData?.podUsers && me?.data?.me) {
+          // !! Fix this
           const body = generateSms(singleTasksData?.singleTasks?.singleTasks);
           sendMessages(me?.data?.me?.username, usersData, body);
         }
@@ -145,7 +146,11 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
               });
               if (response) {
                 setStatus("missed");
-                if (_status != "missed") {
+                if (
+                  _status != "missed" &&
+                  _status != "tbd" &&
+                  _status != "overdue"
+                ) {
                   setCompletedCountHandler(false);
                 }
               }
@@ -169,17 +174,15 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 setStatus("completed");
                 if (_status != "completed") {
                   setCompletedCountHandler(true);
+                  toast({
+                    title: "Congrats!",
+                    description: "Your pod has been alerted!.",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                  });
+                  await sendMessageHandler();
                 }
-              }
-              if (_status != "completed") {
-                toast({
-                  title: "Congrats!",
-                  description: "Your pod has been alerted!.",
-                  status: "success",
-                  duration: 9000,
-                  isClosable: true,
-                });
-                await sendMessageHandler();
               }
             }}
             type="submit"
