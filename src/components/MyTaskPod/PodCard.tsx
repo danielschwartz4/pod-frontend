@@ -106,10 +106,20 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
             spacing={4}
             align={"center"}
           >
-            <Avatar src={avatarMap(data?.me?.avatar)} alt={"Author"} />
-            <Text fontSize={14}>
-              Last update: {date[0]} {convertFromMilitaryTime(date[1])}
-            </Text>
+            <Avatar src={avatarMap(task?.user?.avatar)} alt={"Author"} />
+            <Box>
+              <Flex>
+                <Text mr={"auto"} fontSize={14} mb={0}>
+                  {task?.user?.username}
+                </Text>
+              </Flex>
+              <Text fontSize={14}>
+                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
+              </Text>
+              <Text fontSize={14}>
+                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
+              </Text>
+            </Box>
           </Stack>
         </Box>
       </Box>

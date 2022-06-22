@@ -359,6 +359,7 @@ export type RecurringTask = {
   startDate: Scalars['DateTime'];
   taskName: Scalars['String'];
   updatedAt: Scalars['DateTime'];
+  user: User;
   userId: Scalars['Int'];
 };
 
@@ -729,7 +730,7 @@ export type PodTasksQueryVariables = Exact<{
 }>;
 
 
-export type PodTasksQuery = { __typename?: 'Query', podTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any }> | null };
+export type PodTasksQuery = { __typename?: 'Query', podTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } }> | null };
 
 export type RecurringTaskQueryVariables = Exact<{
   recurringTaskId: Scalars['Int'];
@@ -2193,9 +2194,13 @@ export const PodTasksDocument = gql`
     query PodTasks($podId: Int!) {
   podTasks(podId: $podId) {
     ...RegularRecurringTask
+    user {
+      ...RegularUser
+    }
   }
 }
-    ${RegularRecurringTaskFragmentDoc}`;
+    ${RegularRecurringTaskFragmentDoc}
+${RegularUserFragmentDoc}`;
 
 /**
  * __usePodTasksQuery__

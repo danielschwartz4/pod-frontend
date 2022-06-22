@@ -1,5 +1,8 @@
 query PodTasks($podId: Int!) {
   podTasks(podId: $podId) {
     ...RegularRecurringTask
+    user {
+      ...RegularUser
+    }
   }
 }
