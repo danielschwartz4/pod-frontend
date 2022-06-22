@@ -1,18 +1,32 @@
-import { Box, Button, Flex, TabPanel, TabPanels, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import {
+  Box,
+  Flex,
+  Heading,
+  TabPanel,
+  TabPanels,
+  Text,
+  ToastPositionWithLogical,
+  useToast,
+  VStack,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";
 import { Layout } from "../../components/Layout";
 import { RecurringTaskProgress } from "../../components/MyRecurringTask/RecurringTaskProgress";
 import { MyPod } from "../../components/MyTaskPod/MyPod";
 import {
+  SingleTask,
   useMeQuery,
   usePodQuery,
   usePodTasksQuery,
+  useRecentPodSingleTasksQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
+import { NotePopup, randNotesSplurge } from "../../utils/randNotesSplurge";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import { timer } from "../../utils/delay";
 
 interface TaskHomeProps {}
 
@@ -24,6 +38,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   const TEMP_BOOL = true;
 
   const { data: meData } = useMeQuery({});
+
+  const toast = useToast();
 
   const {
     data: myTaskData,
@@ -53,8 +69,55 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     },
   });
 
-  if (tasksData?.podTasks && tasksData?.podTasks.length > 0) {
+  const { data: recentPodSingleTasksData } = useRecentPodSingleTasksQuery({
+    variables: {
+      taskIds: singleTasksData?.singleTasks?.singleTasks.map((task) => task.id),
+    },
+  });
+
+  async function notesToastHandler(popup: NotePopup) {
+    toast({
+      title: popup.title,
+      description: popup.description,
+      position: popup.position as ToastPositionWithLogical,
+      duration: null,
+      isClosable: true,
+      // render: () => (
+      //   <VStack height={20} bg={popup.color} borderRadius={8}>
+      //     <Box>
+      //       <Flex>
+      //         <Box>
+      //           <Heading mx={"auto"} size={"sm"}>
+      //             {popup.title}
+      //           </Heading>
+      //           <Text mx={"auto"} pb={2}>
+      //             {popup.description}
+      //           </Text>
+      //         </Box>
+      //       </Flex>
+      //     </Box>
+      //   </VStack>
+      // ),
+    });
+    await timer(3000);
   }
+
+  useEffect(() => {
+    if (
+      tasksData?.podTasks &&
+      tasksData?.podTasks?.length > 1 &&
+      !tasksDataLoading
+    ) {
+      const popups = randNotesSplurge(
+        recentPodSingleTasksData?.recentPodSingleTasks
+          ?.singleTasks as SingleTask[],
+        tasksData?.podTasks?.length
+      );
+      popups?.forEach(async (popup) => {
+        notesToastHandler(popup);
+      });
+    }
+  });
 
   return (
     <Layout>

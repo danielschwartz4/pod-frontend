@@ -1,0 +1,11 @@
+query RecentPodSingleTasks($taskIds: [Int!]!) {
+  recentPodSingleTasks(taskIds: $taskIds) {
+    errors
+    singleTasks {
+      user {
+        ...RegularUser
+      }
+      ...RegularSingleTask
+    }
+  }
+}

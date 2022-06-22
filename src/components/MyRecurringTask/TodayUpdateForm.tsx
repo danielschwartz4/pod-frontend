@@ -84,8 +84,10 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
         });
         const me = await meQuery();
         if (usersData?.podUsers && me?.data?.me) {
-          // !! Fix this
-          const body = generateSms(singleTasksData?.singleTasks?.singleTasks);
+          // !! Fix this?
+          const body = generateSms(
+            singleTasksData?.singleTasks?.singleTasks as SingleTask[]
+          );
           sendMessages(me?.data?.me?.username, usersData, body);
         }
       }

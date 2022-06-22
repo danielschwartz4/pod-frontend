@@ -8,4 +8,5 @@ export const RANGE_DAYS = {
   month: 30,
   year: 365,
 };
+
 // export const TODAY = addDays(1, new Date());

@@ -15,8 +15,10 @@ export const convertFromMilitaryTime = (date: string): string => {
   return `${hour12Str}:${minute12Str} ${isPM ? "PM" : "AM"}`;
 };
 
-const formatDate = (date: string): string => {
-  return moment(date).utc().format("MM/DD/YYYY");
+const formatDate = (date: string, withTime = false): string => {
+  return withTime
+    ? moment(date).utc().format("dddd, MMMM YYYY h:mma")
+    : moment(date).utc().format("MM/DD/YYYY");
   // if (!date) {
   //   return date;
   // }

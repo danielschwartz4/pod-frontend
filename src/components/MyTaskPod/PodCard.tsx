@@ -16,7 +16,7 @@ import {
   useSingleTasksQuery,
 } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
-import { convertFromMilitaryTime } from "../../utils/formatDate";
+import formatDate, { convertFromMilitaryTime } from "../../utils/formatDate";
 import {
   singleTasksToTodayHelper,
   singleTasksRangeDaysHelper,
@@ -108,17 +108,14 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
             align={"center"}
           >
             <Avatar src={avatarMap(task?.user?.avatar)} alt={"Author"} />
-            <Box>
+            <Box alignItems={"center"}>
               <Flex>
                 <Text mr={"auto"} fontSize={14} mb={0}>
                   {task?.user?.username}
                 </Text>
               </Flex>
               <Text fontSize={14}>
-                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
-              </Text>
-              <Text fontSize={14}>
-                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
+                Last update: {formatDate(task?.updatedAt, true)}
               </Text>
             </Box>
           </Stack>
@@ -128,4 +125,5 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
   );
 };
 
+//  {date[0]} {convertFromMilitaryTime(date[1])}
 export default PodCard;
