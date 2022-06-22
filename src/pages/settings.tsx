@@ -22,6 +22,7 @@ const Settings: React.FC = ({}) => {
         <VStack
           divider={<Divider color={"gray.600"} />}
           bgColor={"gray.700"}
+          w={{ base: "100%", md: "auto" }}
           mx={"auto"}
         >
           <Box>

@@ -23,7 +23,7 @@ const Entry: React.FC<entryProps> = ({
   const [updatePhone] = useUpdatePhoneMutation();
 
   return (
-    <Flex display={["block", "flex"]} alignItems={"center"}>
+    <Flex display={["flex"]} alignItems={"center"}>
       <Box>
         <Text>
           <b> {title} </b>

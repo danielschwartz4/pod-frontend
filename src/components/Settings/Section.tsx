@@ -10,10 +10,9 @@ const Section: React.FC = ({ children }) => {
       m={4}
       p={4}
       bg={"gray.800"}
-      w={["240px", "500px"]}
+      w={["340px", "500px"]}
       minW={"200px"}
       rounded={"lg"}
-      // display={["block", "flex"]}
     >
       {children}
     </Flex>
