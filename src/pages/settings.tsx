@@ -18,7 +18,7 @@ const Settings: React.FC = ({}) => {
 
   return (
     <Layout isProfile={false}>
-      <Flex minH={"75vh"} h={"100%"}>
+      <Flex mt={12} minH={"75vh"} h={"100%"}>
         <VStack
           divider={<Divider color={"gray.600"} />}
           bgColor={"gray.700"}

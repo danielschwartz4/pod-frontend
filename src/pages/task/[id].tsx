@@ -84,7 +84,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
       duration: null,
       isClosable: true,
     });
-    await timer(3000);
+
+    // await timer(3000);
   }
 
   useMemo(() => {

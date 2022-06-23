@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ADD_TASKS_LIMIT, RANGE_DAYS, TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
+  SingleTask,
   SingleTasksQuery,
   useAddSingleTasksChunkMutation,
 } from "../../generated/graphql";
@@ -32,10 +33,8 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
     return <Box>Loading...</Box>;
   }
 
-  const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
-
   const singleTasksToToday = singleTasksToTodayHelper(
-    singleTasksData?.singleTasks?.singleTasks
+    singleTasksData?.singleTasks?.singleTasks as SingleTask[]
   );
 
   const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);
@@ -47,18 +46,6 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
 
   return (
     <Flex>
-      {/* <Button
-        onClick={() => {
-          addSingleTasksChunk({
-            variables: {
-              limit: ADD_TASKS_LIMIT,
-              recTaskId: myTaskData?.recurringTask?.task?.id,
-            },
-          });
-        }}
-      >
-        Add tasks
-      </Button> */}
       <Stack
         direction={{ base: "column", md: "row" }}
         gap={{ base: 0, md: 20 }}

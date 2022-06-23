@@ -1,9 +1,10 @@
 import { Button, ButtonGroup, PopoverFooter, useToast } from "@chakra-ui/react";
 import React from "react";
-import { TODAY } from "../../constants";
+import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
   SingleTask,
+  useAddSingleTasksChunkMutation,
   useMeLazyQuery,
   usePodLazyQuery,
   usePodUsersLazyQuery,
@@ -42,6 +43,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
   const [updateCompletedCount] = useUpdateCompletedCountMutation();
+  const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
 
   const toast = useToast();
 
@@ -185,6 +187,13 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                   });
                   await sendMessageHandler();
                 }
+                // !!MMke this execute on the last day
+                // await addSingleTasksChunk({
+                //   variables: {
+                //     limit: SKELETON_UNIT_SIZE,
+                //     recTaskId: task?.recurringTask?.task?.id,
+                //   },
+                // });
               }
             }}
             type="submit"
