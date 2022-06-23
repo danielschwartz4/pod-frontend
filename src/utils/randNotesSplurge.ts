@@ -2,7 +2,7 @@ import { ToastPositionWithLogical } from "@chakra-ui/react";
 import { uniqueId } from "lodash";
 import { RecurringTask, SingleTask } from "../generated/graphql";
 
-type NotePopup = {
+export type NotePopup = {
   title: string;
   description: string;
   position: string;
@@ -25,15 +25,17 @@ export const randNotesSplurge = (
     return;
   }
 
-  const randomUsed = new Set<number>();
+  const usersUsed = new Set<number>();
   let popups = [] as NotePopup[];
   for (let i = 0; i < podSize; i++) {
     const randomIndex = Math.floor(Math.random() * podTasks?.length);
-    if (randomUsed.has(randomIndex)) {
+
+    const randTask = podTasks[randomIndex];
+    if (usersUsed.has(randTask?.userId)) {
       i--;
       continue;
     }
-    const randTask = podTasks[randomIndex];
+    usersUsed.add(randTask?.userId);
     popups.push({
       title: randTask.user.username,
       description: randTask.notes,
