@@ -1,7 +1,11 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { TODAY } from "../../constants";
-import { RecurringTaskQuery, SingleTasksQuery } from "../../generated/graphql";
+import {
+  RecurringTaskQuery,
+  SingleTask,
+  SingleTasksQuery,
+} from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 import { generateProgress } from "../../utils/taskSmsBody";
 import { ToTaskPageId } from "./ToPageId";
@@ -22,7 +26,7 @@ export const TaskEntryHeading: React.FC<Props> = ({ task }) => {
 };
 
 export const TaskVis: React.FC<Props> = ({ singleTasksData }) => {
-  let vis = generateProgress(singleTasksData);
+  let vis = generateProgress(singleTasksData as SingleTask[]);
   vis = vis.slice(0, 54);
   return (
     <Box my={-4}>
