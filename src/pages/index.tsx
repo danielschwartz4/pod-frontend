@@ -1,9 +1,8 @@
-import { Box, Divider, Text } from "@chakra-ui/react";
+import { Box, Divider } from "@chakra-ui/react";
 import React from "react";
 import { Features } from "../components/Home/Features/Features";
 import Hero from "../components/Home/Hero";
 import { Samples } from "../components/Home/Samples";
-import Selector from "../components/Home/Selector";
 import { Layout } from "../components/Layout";
 
 interface IndexProps {}

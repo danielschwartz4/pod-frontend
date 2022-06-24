@@ -1,7 +1,9 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Text, Image, Flex } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
-import { useMeQuery } from "../../generated/graphql";
+import { Project, useMeQuery } from "../../generated/graphql";
+import heroProject from "../../images/heroProject.png";
+import heroTask from "../../images/heroTask.png";
 import { PodCreated } from "../MyProjectPod/PodCreated";
 import SeedData from "./SeedHomeData";
 
@@ -45,34 +47,45 @@ const Hero: React.FC<HeroProps> = ({}) => {
           </Text>
         </Box>
       </Box>
-      <Box
-        minW={{ base: "0px", sm: "800px" }}
-        maxW={"850px"}
-        borderRadius={20}
-        border={"4px"}
-        borderColor={"#F6793D"}
-        py={4}
-        mb={4}
-        mx={"auto"}
-      >
-        <Box display={{ base: "none", lg: "block" }}>
-          <PodCreated
+      <Flex mb={4}>
+        <Box
+          p={2}
+          borderRadius={20}
+          border={"4px"}
+          maxW={"850px"}
+          borderColor={"#F6793D"}
+          gap={4}
+          mx={"auto"}
+          display={{ base: "block", sm: "flex" }}
+        >
+          <Flex>
+            <Image
+              mx={"auto"}
+              w={"380px"}
+              h={"430px"}
+              src={heroProject.src}
+              alt=""
+              draggable={false}
+            />
+          </Flex>
+          <Flex>
+            <Image
+              mx={"auto"}
+              w={"380px"}
+              h={"430px"}
+              src={heroTask.src}
+              alt=""
+              draggable={false}
+            />
+          </Flex>
+          {/* <PodCreated
             projectsData={[
-              SeedData.ExampleProject1.project,
-              SeedData.ExampleProject2.project,
-              // SeedData.ExampleProject3.project,
+              SeedData.ExampleProject1.project as Project,
+              SeedData.ExampleProject2.project as Project,
             ]}
-          />
+          /> */}
         </Box>
-        <Box display={{ base: "block", lg: "none" }}>
-          <PodCreated
-            projectsData={[
-              SeedData.ExampleProject1.project,
-              SeedData.ExampleProject2.project,
-            ]}
-          />
-        </Box>
-      </Box>
+      </Flex>
     </Box>
   );
 };

@@ -77,8 +77,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   async function notesToastHandler(popup: NotePopup) {
     toast({
-      title: popup.title,
-      description: popup.description,
+      title: "pianoplayer44",
+      description: "lets go 4th straight day of successful practice!!",
       position: popup.position as ToastPositionWithLogical,
       status: "info",
       duration: null,

@@ -108,16 +108,14 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
             align={"center"}
           >
             <Avatar src={avatarMap(task?.user?.avatar)} alt={"Author"} />
-            <Box alignItems={"center"}>
-              <Flex>
-                <Text mr={"auto"} fontSize={14} mb={0}>
-                  {task?.user?.username}
-                </Text>
-              </Flex>
-              <Text fontSize={14}>
-                Last update: {formatDate(task?.updatedAt, true)}
+            <Flex>
+              <Text mr={"auto"} fontSize={14} mb={0}>
+                {task?.user?.username}
               </Text>
-            </Box>
+            </Flex>
+            <Text fontSize={14}>
+              Last update: {formatDate(task?.updatedAt, true)}
+            </Text>
           </Stack>
         </Box>
       </Box>
@@ -125,5 +123,4 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
   );
 };
 
-//  {date[0]} {convertFromMilitaryTime(date[1])}
 export default PodCard;

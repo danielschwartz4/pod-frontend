@@ -14,7 +14,7 @@ import avatarMap from "../../utils/avatarMap";
 import compPercentage, {
   getColorForPercentage,
 } from "../../utils/compPercentage";
-import { convertFromMilitaryTime } from "../../utils/formatDate";
+import formatDate, { convertFromMilitaryTime } from "../../utils/formatDate";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {
@@ -30,9 +30,9 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
       <Box
         border={project?.userId === data?.me?.id ? "4px" : ""}
         borderColor="#3EE76D"
-        maxH={"350px"}
+        maxH={"420px"}
         width={"100%"}
-        maxW={"350px"}
+        maxW={"380px"}
         mx={[2, 4]}
         bg={useColorModeValue("gainsboro", "gray.900")}
         boxShadow={"2xl"}
@@ -40,7 +40,7 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
         p={6}
         overflow={"hidden"}
       >
-        <Box h={"200px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
+        <Box h={"240px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
           <ReactFlowProvider>
             <FlowChartMini
               milestoneProgress={project.milestoneProgress}
@@ -64,7 +64,7 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
           </Stack>
           <Stack
             textColor={"gray.500"}
-            mt={6}
+            mt={10}
             direction={"row"}
             spacing={4}
             align={"center"}
@@ -77,16 +77,16 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
                 </Text>
               </Flex>
               <Text fontSize={14}>
-                Last update: {date[0]} {convertFromMilitaryTime(date[1])}
+                Last update: {formatDate(project.updatedAt, true)}
               </Text>
             </Box>
-            <Text
+            {/* <Text
               textColor={getColorForPercentage(
                 compPercentage(project?.milestoneProgress) / 100
               )}
             >
               Comp: {compPercentage(project?.milestoneProgress) + "%"}
-            </Text>
+            </Text> */}
           </Stack>
         </Box>
       </Box>

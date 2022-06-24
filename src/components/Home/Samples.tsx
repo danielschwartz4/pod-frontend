@@ -45,13 +45,12 @@ export default function CaptionCarousel() {
 
   const cards = [
     {
-      title:
-        "Enter your project milestones and dates for an auto-generated flow",
+      title: "Enter project milestones or task dates for plan",
       // text: "Enter your milestone dates and estimated completion dates to build a flow",
       image: flowImage.src,
     },
     {
-      title: "Join a 2, 3, or 4 person pod with your friends or at random!",
+      title: "Join a 2-4 person pod with your friends or at random!",
       // text: "Pods can hold up to 4 members (I can increase the limit if people want)",
       image: invitesImage.src,
     },
@@ -61,14 +60,12 @@ export default function CaptionCarousel() {
       image: joinPodImage.src,
     },
     {
-      title:
-        "Update your project progress and motivate your pod members with alerts",
+      title: "Update your project progress to motivate yourself + others",
       // text: "Alert your pod members when you reach a milestone",
       image: progressImage.src,
     },
     {
-      title:
-        "Receive sms when your pod members are close to their goals for some extra motivation",
+      title: "Receive sms when pod members are close to goals",
       // text: "Receive text notifications when your pod members are close to their goals for some extra motivation",
       image: smsImage.src,
     },
@@ -112,7 +109,6 @@ const DesktopDisplay: React.FC<SamplesProps> = (props) => {
       m={4}
       borderColor={"#F6793D"}
       position={"relative"}
-      height={"600px"}
       overflow={"hidden"}
     >
       {/* CSS files for react-slick */}
@@ -163,8 +159,8 @@ const DesktopDisplay: React.FC<SamplesProps> = (props) => {
             height={"100%"}
             overflow={"hidden"}
           >
-            <Flex spacing={6}>
-              <VStack ml={120} mr={4} my={"auto"} textAlign={"center"}>
+            <Box spacing={6}>
+              <VStack mr={4} my={"auto"} textAlign={"center"}>
                 <Heading
                   color={"#4c5e81"}
                   fontFamily={"serif"}
@@ -176,10 +172,10 @@ const DesktopDisplay: React.FC<SamplesProps> = (props) => {
                   {card.text}
                 </Text>
               </VStack>
-              <Box mr={24}>
-                <Image width={"750px"} src={card.image}></Image>
-              </Box>
-            </Flex>
+              <Flex>
+                <Image mx={"auto"} width={"750px"} src={card.image}></Image>
+              </Flex>
+            </Box>
           </Flex>
         ))}
       </Slider>
@@ -193,7 +189,7 @@ const MobileDisplay: React.FC<SamplesProps> = (props) => {
       // ml={4}
       borderColor={"#F6793D"}
       position={"relative"}
-      height={"640px"}
+      // height={"640px"}
       // overflow={"hidden"}
     >
       {/* CSS files for react-slick */}
@@ -238,13 +234,7 @@ const MobileDisplay: React.FC<SamplesProps> = (props) => {
       </Box>
       <Slider {...settings} ref={(slider) => props.setSlider(slider)}>
         {props.cards.map((card, index) => (
-          <Box
-            key={index}
-            mt={8}
-            width={"100%"}
-            height={"100%"}
-            // overflow={"hidden"}
-          >
+          <Box key={index} mt={12} width={"100%"} height={"100%"}>
             <Flex flexDirection={"column"}>
               <Box p={4} mx={"auto"} my={"auto"} textAlign={"center"}>
                 <Heading
