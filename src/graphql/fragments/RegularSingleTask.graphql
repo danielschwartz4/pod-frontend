@@ -8,4 +8,7 @@ fragment RegularSingleTask on SingleTask {
   taskId
   updatedAt
   createdAt
+  user {
+    ...RegularUser
+  }
 }

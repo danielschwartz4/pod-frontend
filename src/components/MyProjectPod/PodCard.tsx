@@ -11,10 +11,7 @@ import {
 import { ReactFlowProvider } from "react-flow-renderer";
 import { Project, useMeQuery } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
-import compPercentage, {
-  getColorForPercentage,
-} from "../../utils/compPercentage";
-import formatDate, { convertFromMilitaryTime } from "../../utils/formatDate";
+import formatDate from "../../utils/formatDate";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {

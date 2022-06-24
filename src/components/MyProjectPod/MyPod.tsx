@@ -6,6 +6,7 @@ import {
   MeQuery,
   PodProjectsQuery,
   PodQuery,
+  Project,
   ProjectQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
@@ -81,14 +82,16 @@ export const MyPod: React.FC<MyPodProps> = ({
     },
   });
 
-  const [_podProjects, setPodProjects] = useState(projectsData?.podProjects);
+  const [_podProjects, setPodProjects] = useState<Project[]>(
+    projectsData?.podProjects as Project[]
+  );
 
   useEffect(() => {
     // Refetch project to update podJoined state
     refetchProject();
     // Refetch projects to update _podProjects state
     refetchProjects();
-    setPodProjects(projectsData?.podProjects);
+    setPodProjects(projectsData?.podProjects as Project[]);
   }, [projectsData, podJoined]);
 
   return (

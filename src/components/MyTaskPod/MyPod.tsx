@@ -6,7 +6,6 @@ import {
   MeQuery,
   PodQuery,
   PodTasksQuery,
-  RecurringTask,
   RecurringTaskQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,

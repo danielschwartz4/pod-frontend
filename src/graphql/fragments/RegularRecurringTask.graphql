@@ -13,4 +13,7 @@ fragment RegularRecurringTask on RecurringTask {
   cursorDate
   friendProposals
   completedCount
+  user {
+    ...RegularUser
+  }
 }
