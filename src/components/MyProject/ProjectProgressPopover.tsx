@@ -82,6 +82,7 @@ const ProjectProgressPopover: React.FC<ProjectProgressPopoverProps> = (
   return (
     <>
       <Popover
+        isLazy
         returnFocusOnClose={false}
         isOpen={props.isOpen}
         onClose={props.close}

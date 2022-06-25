@@ -27,7 +27,7 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
     <Box>
       <Flex>
         <Text fontSize={20} color={"gainsboro"}>
-          Pod Invites
+          Current Pod Invites
         </Text>
       </Flex>
       {props.meData?.me?.friendRequests?.length == 0 ||

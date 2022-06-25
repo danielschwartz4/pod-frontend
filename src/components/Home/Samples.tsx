@@ -253,7 +253,7 @@ const MobileDisplay: React.FC<SamplesProps> = (props) => {
                   m={"auto"}
                   width={{ base: "100%", sm: "500px", md: "700px" }}
                   src={card.image}
-                ></Image>
+                />
               </Box>
             </Flex>
           </Box>

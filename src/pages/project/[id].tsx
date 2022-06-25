@@ -1,12 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Flex,
-  TabPanel,
-  TabPanels,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, TabPanel, TabPanels, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";

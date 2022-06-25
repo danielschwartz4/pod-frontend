@@ -7,7 +7,7 @@ import {
   ToastPositionWithLogical,
   useToast,
 } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";
 import { Layout } from "../../components/Layout";
@@ -21,7 +21,6 @@ import {
   useRecentPodSingleTasksQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
-import { timer } from "../../utils/delay";
 import { NotePopup, randNotesSplurge } from "../../utils/randNotesSplurge";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
@@ -34,8 +33,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   const [changeTab, useChangeTab] = useState<string>("task");
   const [keepMounted, setKeepMounted] = useState(true);
   const TEMP_BOOL = true;
-
-  // const firstRender = useMemo(() => console.log("first Render"), []);
 
   const { data: meData } = useMeQuery({});
 
@@ -79,7 +76,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     toast({
       title: "pianoplayer44",
       description: "lets go 4th straight day of successful practice!!",
-      position: popup.position as ToastPositionWithLogical,
+      // position: popup.position as ToastPositionWithLogical,
+      position: "bottom",
       status: "info",
       duration: null,
       isClosable: true,
@@ -106,7 +104,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   }, [recentPodSingleTasksData]);
 
   return (
-    <Layout>
+    <Layout withHelpPopover={true}>
       <DashWrapper>
         <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}></Flex>
         <DashTabs
@@ -133,7 +131,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               )}
             </TabPanel>
 
-            <TabPanel minH={"600px"}>
+            <TabPanel minH={"300px"}>
               <MyPod
                 podData={podData}
                 meData={meData}

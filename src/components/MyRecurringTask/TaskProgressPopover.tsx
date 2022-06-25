@@ -40,6 +40,7 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
   return (
     <>
       <Popover
+        isLazy
         returnFocusOnClose={false}
         isOpen={props.isOpen}
         onClose={props.close}

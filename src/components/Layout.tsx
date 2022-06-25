@@ -1,14 +1,15 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import Footer from "./Footer/Footer";
-import { HomeNavBar } from "./Home/HomeNavBar";
-import { ProfileNavBar } from "./ProfileNavBar";
+import { HomeNavBar } from "./Nav/HomeNavBar";
+import { ProfileNavBar } from "./Nav/ProfileNavBar";
 import { Wrapper, WrapperVariant } from "./Wrapper";
 
 interface LayoutProps {
   variant?: WrapperVariant;
   isProfile?: boolean;
   isProjectsPage?: boolean;
+  withHelpPopover?: boolean;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -16,11 +17,12 @@ export const Layout: React.FC<LayoutProps> = ({
   variant,
   isProfile = false,
   isProjectsPage = false,
+  withHelpPopover = false,
 }) => {
   return (
     <Box margin={"auto"} bg={"gray.800"} m={-2}>
       {!isProfile ? (
-        <HomeNavBar />
+        <HomeNavBar withHelpPopover={withHelpPopover} />
       ) : (
         <ProfileNavBar isProjectsPage={isProjectsPage} />
       )}

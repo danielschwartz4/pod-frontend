@@ -32,7 +32,6 @@ const MilestoneInputs: React.FC<milestoneInputsProps> = ({ values }) => {
                   <DatePickerInput
                     name={`milestone.${index}.completionDate`}
                     label="Completion date"
-                    showTimeSelect
                     placeholder="date"
                   />
                   <ErrorMessage

@@ -1,10 +1,16 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  CloseIcon,
+  HamburgerIcon,
+  QuestionIcon,
+  QuestionOutlineIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Collapse,
   Divider,
   Flex,
+  Icon,
   IconButton,
   Image,
   Text,
@@ -15,16 +21,20 @@ import {
 import NextLink from "next/link";
 import router, { useRouter } from "next/router";
 import React from "react";
-import { useLogoutMutation, useMeQuery } from "../generated/graphql";
-import firstLogo from "../images/Logos/firstLogo.png";
-import { isServer } from "../utils/isServer";
+import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
+import firstLogo from "../../images/Logos/firstLogo.png";
+import { isServer } from "../../utils/isServer";
+import { BsQuestionSquare } from "react-icons/bs";
+import { HelpPopover } from "./HelpPopover";
 
 interface ProfileNavBarProps {
   isProjectsPage?: boolean;
+  withHelpPopover?: boolean;
 }
 
-export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
-  isProjectsPage = false,
+export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
+  isProjectsPage,
+  withHelpPopover,
 }) => {
   const { isOpen, onToggle } = useDisclosure();
 
@@ -38,7 +48,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
   return (
     <Box>
       <Flex
-        bg={"#3c4349"}
+        bg={"gray.700"}
         minH={"100px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -72,6 +82,13 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                 justifyContent={"end"}
                 alignItems={"center"}
               >
+                {!isProjectsPage && withHelpPopover ? (
+                  <HelpPopover>
+                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
+                      <BsQuestionSquare size={24} />
+                    </Button>
+                  </HelpPopover>
+                ) : null}
                 <Button
                   mr={4}
                   colorScheme={"tan"}
@@ -80,16 +97,14 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                 >
                   {data?.me?.username}
                 </Button>
-                {!isProjectsPage ? (
-                  <Button
-                    mr={4}
-                    colorScheme={"tan"}
-                    cursor={"pointer"}
-                    onClick={() => router.push("/profile")}
-                  >
-                    My projects
-                  </Button>
-                ) : null}
+                <Button
+                  mr={4}
+                  colorScheme={"tan"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/profile")}
+                >
+                  My projects
+                </Button>
                 <Button
                   onClick={() => {
                     logout({
@@ -108,7 +123,35 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
               </Flex>
             </Flex>
           ) : (
-            <></>
+            <Flex
+              display={{ base: "none", md: "flex" }}
+              flex={1}
+              ml={10}
+              alignItems={"center"}
+            >
+              <Flex
+                w={"100%"}
+                position={"relative"}
+                justifyContent={"end"}
+                alignItems={"center"}
+              >
+                <Button
+                  textColor={"gainsboro"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/register")}
+                  mr={"1em"}
+                >
+                  Join the community!
+                </Button>
+                <Button
+                  textColor={"gainsboro"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/login")}
+                >
+                  Login
+                </Button>
+              </Flex>
+            </Flex>
           )}
         </Flex>
 
@@ -152,20 +195,18 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                   {data?.me?.username}
                 </Text>
               </Flex>
-              {!isProjectsPage ? <Divider /> : null}
-              <Flex justifyContent={"end"}>
-                {!isProjectsPage ? (
-                  <Text
-                    mr={6}
-                    colorScheme={"tan"}
-                    cursor={"pointer"}
-                    onClick={() => router.push("/profile")}
-                    color={"gainsboro"}
-                    fontSize={18}
-                  >
-                    <b>My projects</b>
-                  </Text>
-                ) : null}
+              <Divider />
+              <Flex justify={"end"}>
+                <Text
+                  mr={6}
+                  colorScheme={"tan"}
+                  cursor={"pointer"}
+                  onClick={() => router.push("/profile")}
+                  color={"gainsboro"}
+                  fontSize={18}
+                >
+                  <b>My projects</b>
+                </Text>
               </Flex>
               <Divider />
               <Flex justifyContent={"end"}>
@@ -190,7 +231,32 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
               <Divider />
             </>
           ) : (
-            <></>
+            <>
+              <Box fontSize={18} color={"gainsboro"}>
+                <Flex mr={6} justifyContent={"end"}>
+                  <Text
+                    textColor={"gainsboro"}
+                    color={"gainsboro"}
+                    cursor={"pointer"}
+                    onClick={() => router.push("/register")}
+                  >
+                    Join the community!
+                  </Text>
+                </Flex>
+
+                <Divider />
+                <Flex mr={6} justifyContent={"end"}>
+                  <Text
+                    textColor={"gainsboro"}
+                    colorScheme={"tan"}
+                    cursor={"pointer"}
+                    onClick={() => router.push("/login")}
+                  >
+                    Login
+                  </Text>
+                </Flex>
+              </Box>
+            </>
           )}
         </VStack>
       </Collapse>

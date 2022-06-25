@@ -178,7 +178,7 @@ const FriendRequests: React.FC<FriendRequestsProps> = (props) => {
     <Box>
       <Flex>
         <Text fontSize={20} color={"gainsboro"}>
-          Pod Invites
+          Current Pod Invites
         </Text>
       </Flex>
       {props.meData?.me?.friendRequests?.length == 0 ||
@@ -329,7 +329,7 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
     <Box>
       <Flex>
         <Text fontSize={20} color={"gainsboro"}>
-          Pod Invites
+          Add Friends To Pod
         </Text>
       </Flex>
       <Formik

@@ -5,7 +5,7 @@ interface DashWrapperProps {}
 
 const DashWrapper: React.FC<DashWrapperProps> = ({ children }) => {
   return (
-    <VStack minH={"100vh"} h={"100%"} w={"100%"} mt={{ base: 0, md: 16 }}>
+    <VStack minH={"70vh"} h={"100%"} w={"100%"} mt={{ base: 0, md: 16 }}>
       {children}
     </VStack>
   );

@@ -33,7 +33,7 @@ const FriendForm: React.FC<FriendFormProps> = (props) => {
     <Box>
       <Flex>
         <Text fontSize={20} color={"gainsboro"}>
-          Pod Invites
+          Add Friends To Pod
         </Text>
       </Flex>
       <Formik

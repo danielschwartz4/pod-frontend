@@ -30,9 +30,11 @@ const Profile: React.FC<profileProps> = ({}) => {
   if (!projectsData?.projects && !tasksData?.recurringTasks) {
     return (
       <Layout isProjectsPage isProfile>
-        <NextLink href="/project-info">
-          <Link mr={2}>Create your first project!</Link>
-        </NextLink>
+        <Box minH={"100vh"} h={"100%"}>
+          <NextLink href="/project-info">
+            <Link mr={2}>Create your first project!</Link>
+          </NextLink>
+        </Box>
       </Layout>
     );
   }

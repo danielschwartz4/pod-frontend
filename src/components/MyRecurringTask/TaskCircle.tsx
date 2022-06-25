@@ -92,7 +92,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   );
 };
 
-const CircleIcon = (props) => (
+export const CircleIcon = (props) => (
   <Box>
     <Icon viewBox="0 0 200 200" {...props}>
       <path

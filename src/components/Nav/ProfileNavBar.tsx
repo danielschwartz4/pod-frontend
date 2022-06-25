@@ -23,7 +23,9 @@ interface ProfileNavBarProps {
   isProjectsPage?: boolean;
 }
 
-export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
+export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
+  isProjectsPage = false,
+}) => {
   const { isOpen, onToggle } = useDisclosure();
 
   const [logout, { loading: logoutLoading }] = useLogoutMutation();
@@ -31,12 +33,14 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
     // !! Look up wtf this is!!!!!!!!
     skip: isServer(),
   });
+
   const { isReady } = useRouter();
+  console.log("nknkj ");
 
   return (
     <Box>
       <Flex
-        bg={"gray.700"}
+        bg={"#3c4349"}
         minH={"100px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -70,6 +74,19 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
                 justifyContent={"end"}
                 alignItems={"center"}
               >
+                {!isProjectsPage ? (
+                  <Button
+                    mr={4}
+                    colorScheme={"tan"}
+                    cursor={"pointer"}
+                    onClick={() => router.push("/profile")}
+                  >
+                    {/* <Icon>
+                      <QuestionIcon />
+                    </Icon> */}
+                    sdffsdb
+                  </Button>
+                ) : null}
                 <Button
                   mr={4}
                   colorScheme={"tan"}
@@ -78,14 +95,16 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
                 >
                   {data?.me?.username}
                 </Button>
-                <Button
-                  mr={4}
-                  colorScheme={"tan"}
-                  cursor={"pointer"}
-                  onClick={() => router.push("/profile")}
-                >
-                  My projects
-                </Button>
+                {!isProjectsPage ? (
+                  <Button
+                    mr={4}
+                    colorScheme={"tan"}
+                    cursor={"pointer"}
+                    onClick={() => router.push("/profile")}
+                  >
+                    My klj
+                  </Button>
+                ) : null}
                 <Button
                   onClick={() => {
                     logout({
@@ -104,35 +123,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
               </Flex>
             </Flex>
           ) : (
-            <Flex
-              display={{ base: "none", md: "flex" }}
-              flex={1}
-              ml={10}
-              alignItems={"center"}
-            >
-              <Flex
-                w={"100%"}
-                position={"relative"}
-                justifyContent={"end"}
-                alignItems={"center"}
-              >
-                <Button
-                  textColor={"gainsboro"}
-                  cursor={"pointer"}
-                  onClick={() => router.push("/register")}
-                  mr={"1em"}
-                >
-                  Join the community!
-                </Button>
-                <Button
-                  textColor={"gainsboro"}
-                  cursor={"pointer"}
-                  onClick={() => router.push("/login")}
-                >
-                  Login
-                </Button>
-              </Flex>
-            </Flex>
+            <></>
           )}
         </Flex>
 
@@ -176,18 +167,20 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
                   {data?.me?.username}
                 </Text>
               </Flex>
-              <Divider />
-              <Flex justify={"end"}>
-                <Text
-                  mr={6}
-                  colorScheme={"tan"}
-                  cursor={"pointer"}
-                  onClick={() => router.push("/profile")}
-                  color={"gainsboro"}
-                  fontSize={18}
-                >
-                  <b>My projects</b>
-                </Text>
+              {!isProjectsPage ? <Divider /> : null}
+              <Flex justifyContent={"end"}>
+                {!isProjectsPage ? (
+                  <Text
+                    mr={6}
+                    colorScheme={"tan"}
+                    cursor={"pointer"}
+                    onClick={() => router.push("/profile")}
+                    color={"gainsboro"}
+                    fontSize={18}
+                  >
+                    <b>My projects</b>
+                  </Text>
+                ) : null}
               </Flex>
               <Divider />
               <Flex justifyContent={"end"}>
@@ -212,32 +205,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({}) => {
               <Divider />
             </>
           ) : (
-            <>
-              <Box fontSize={18} color={"gainsboro"}>
-                <Flex mr={6} justifyContent={"end"}>
-                  <Text
-                    textColor={"gainsboro"}
-                    color={"gainsboro"}
-                    cursor={"pointer"}
-                    onClick={() => router.push("/register")}
-                  >
-                    Join the community!
-                  </Text>
-                </Flex>
-
-                <Divider />
-                <Flex mr={6} justifyContent={"end"}>
-                  <Text
-                    textColor={"gainsboro"}
-                    colorScheme={"tan"}
-                    cursor={"pointer"}
-                    onClick={() => router.push("/login")}
-                  >
-                    Login
-                  </Text>
-                </Flex>
-              </Box>
-            </>
+            <></>
           )}
         </VStack>
       </Collapse>

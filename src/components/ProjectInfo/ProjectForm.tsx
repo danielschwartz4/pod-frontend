@@ -17,7 +17,7 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
   return (
     <>
       <Heading fontSize={24} color={"gainsboro"}>
-        Tell us what you're working on so we can build a flow for you!
+        Tell us what you're working on so we can build a flow!
       </Heading>
 
       <Formik
