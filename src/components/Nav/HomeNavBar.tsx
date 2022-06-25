@@ -229,6 +229,16 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                 </Text>
               </Flex>
               <Divider />
+              <Flex justifyContent={"end"}>
+                {!isProjectsPage && withHelpPopover ? (
+                  <HelpPopover>
+                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
+                      <BsQuestionSquare size={24} />
+                    </Button>
+                  </HelpPopover>
+                ) : null}
+              </Flex>
+              <Divider />
             </>
           ) : (
             <>
