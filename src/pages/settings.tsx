@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
 import Account from "../components/Settings/Account";
 import Auth from "../components/Settings/Auth";
+import Messaging from "../components/Settings/Messaging";
 import Removal from "../components/Settings/Removal";
 import { useMeQuery } from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
@@ -27,6 +28,9 @@ const Settings: React.FC = ({}) => {
         >
           <Box>
             <Account refetch={refetch} meData={meData} />
+          </Box>
+          <Box>
+            <Messaging></Messaging>
           </Box>
           <Box>
             <Auth meData={meData} />
