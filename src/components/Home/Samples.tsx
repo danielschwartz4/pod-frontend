@@ -59,7 +59,7 @@ const CaptionCarousel: React.FC = () => {
   // This can be static or loaded from a server
   const cards = [
     {
-      title: "Enter project milestones or task dates for plan",
+      title: "Enter project milestones or task dates to generate a plan",
       // text: "Enter your milestone dates and estimated completion dates to build a flow",
       image: flowImage.src,
     },
@@ -74,7 +74,7 @@ const CaptionCarousel: React.FC = () => {
       image: joinPodImage.src,
     },
     {
-      title: "Update your project progress to motivate yourself + others",
+      title: "Update your progress to motivate yourself + others",
       // text: "Alert your pod members when you reach a milestone",
       image: progressImage.src,
     },
@@ -145,15 +145,12 @@ const CaptionCarousel: React.FC = () => {
             <Box spacing={6}>
               <VStack mr={4} my={"auto"} textAlign={"center"}>
                 <Heading
-                  color={"#4c5e81"}
+                  color={"gray.500"}
                   fontFamily={"serif"}
                   fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
                 >
                   {card.title}
                 </Heading>
-                {/* <Text fontSize={{ base: "md", lg: "lg" }} color="GrayText">
-                  {card.text}
-                </Text> */}
               </VStack>
               <Flex>
                 <Image

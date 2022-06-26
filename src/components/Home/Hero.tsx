@@ -21,7 +21,8 @@ const Hero: React.FC<HeroProps> = ({}) => {
         fontSize={{ base: 36, md: 48 }}
       >
         <Text>
-          Stay <b>motivated</b> and <b>accountable</b> while pursing a solo goal
+          Join groups of others to stay <b>motivated</b> and <b>accountable</b>{" "}
+          while pursing a solo goal
         </Text>
 
         <Box ml={4} mb={16}>
@@ -39,10 +40,6 @@ const Hero: React.FC<HeroProps> = ({}) => {
           ) : (
             <></>
           )}
-          <Text fontSize={24}>
-            Whether you want to finish a book, a project, or anything else that
-            has a finite number of milestones, join others and make it happen
-          </Text>
         </Box>
       </Box>
       <Flex mb={4}>
