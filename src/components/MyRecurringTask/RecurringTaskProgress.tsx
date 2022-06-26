@@ -23,11 +23,13 @@ import { ProgressGridSkeleton } from "./ProgressGridSkeleton";
 interface RecurringTaskProgressProps {
   myTaskData: RecurringTaskQuery;
   singleTasksData: SingleTasksQuery;
+  refetchSingleTasks: () => void;
 }
 
 export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   myTaskData,
   singleTasksData,
+  refetchSingleTasks,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <Box>Loading...</Box>;
@@ -58,6 +60,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
             singleTasksData={singleTasksData}
             rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
             myTaskData={myTaskData}
+            refetchSingleTasks={refetchSingleTasks}
           />
         </Box>
         <Box display={{ base: "none", lg: "block" }}>

@@ -136,6 +136,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
                     <RecurringTaskProgress
                       singleTasksData={singleTasksData}
                       myTaskData={myTaskData}
+                      refetchSingleTasks={refetchSingleTasks}
                     />
                   ) : (
                     <Text>Loading...</Text>

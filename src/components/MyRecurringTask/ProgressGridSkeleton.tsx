@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
+  SingleTaskDocument,
   SingleTasksQuery,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
@@ -23,6 +24,7 @@ interface ProgressGridSkeletonProps {
   setCompletedCount: React.Dispatch<React.SetStateAction<CompletedCount>>;
   rangeStart: Date;
   myTaskData: RecurringTaskQuery;
+  refetchSingleTasks: () => void;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
@@ -31,6 +33,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   setCompletedCount,
   rangeStart,
   myTaskData,
+  refetchSingleTasks,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -65,8 +68,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
       daysAfterTmp = 0;
     } else {
       daysAfterTmp++;
-      // !! Push the date instead of null
-
       if (daysEqual(addDays(daysAfterTmp, tmpActionDay), TODAY)) {
         filledArr.push(undefined);
       } else {
@@ -82,7 +83,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
         {!daysIdxs?.has(TODAY.getDay()) ? (
           <Text>Off day today!</Text>
         ) : (
-          <Text></Text>
+          <Text />
         )}
       </Flex>
       <Grid templateColumns={"repeat(7, 0fr)"} gap={6}>
@@ -115,32 +116,29 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
             const isBeforeToday = beforeToday(tmpDate, TODAY);
             const isDaysEqual = daysEqual(TODAY, tmpDate);
             if (isBeforeToday && filledArr[i].status == "tbd") {
-              updateSingleTaskCompletionStatus({
+              const updated = updateSingleTaskCompletionStatus({
                 variables: {
                   status: "overdue",
                   updateSingleTaskCompletionStatusId: filledArr[i].id,
                 },
               });
-            }
-            if (isDaysEqual && filledArr[i].status == "overdue") {
-              updateSingleTaskCompletionStatus({
-                variables: {
-                  status: "tbd",
-                  updateSingleTaskCompletionStatusId: filledArr[i].id,
-                },
-              });
+              if (updated) {
+                refetchSingleTasks();
+              }
             }
             if (
-              !isDaysEqual &&
-              !isBeforeToday &&
-              filledArr[i].status != "tbd"
+              (isDaysEqual && filledArr[i].status == "overdue") ||
+              (!isDaysEqual && !isBeforeToday && filledArr[i].status != "tbd")
             ) {
-              updateSingleTaskCompletionStatus({
+              const updated = updateSingleTaskCompletionStatus({
                 variables: {
                   status: "tbd",
                   updateSingleTaskCompletionStatusId: filledArr[i].id,
                 },
               });
+              if (updated) {
+                refetchSingleTasks();
+              }
             }
 
             return (
