@@ -47,8 +47,8 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   return (
     <Flex>
       <Stack
-        direction={{ base: "column", md: "row" }}
-        gap={{ base: 0, md: 20 }}
+        direction={{ base: "column", lg: "row" }}
+        gap={{ md: 0, lg: 20 }}
         mx={"auto"}
       >
         <Box mt={0}>
@@ -60,7 +60,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
             myTaskData={myTaskData}
           />
         </Box>
-        <Box display={{ base: "none", md: "block" }}>
+        <Box display={{ base: "none", lg: "block" }}>
           <Divider
             color={"gray.400"}
             orientation={"vertical"}
@@ -68,13 +68,10 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
             height={"80%"}
           />
         </Box>
-        <Box display={{ base: "block", md: "none" }}>
+        <Box display={{ base: "block", lg: "none" }}>
           <Divider color={"gray.400"} mt={2} orientation={"horizontal"} />
         </Box>
-        <Flex
-          justify={"space-between"}
-          direction={{ base: "row", md: "column" }}
-        >
+        <Flex justify={"space-between"} direction={{ md: "row", lg: "column" }}>
           <CircularTaskProgress
             taskLength={singleTasksToToday.length}
             completedCount={completedCount}

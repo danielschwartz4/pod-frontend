@@ -1,9 +1,8 @@
-import { Box, Flex, Heading, Text, Link, Button } from "@chakra-ui/react";
+import { LockIcon } from "@chakra-ui/icons";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import router from "next/router";
 import React from "react";
 import { accountProps } from "./Account";
-import NextLink from "next/link";
-import { LockIcon } from "@chakra-ui/icons";
-import router from "next/router";
 import Section from "./Section";
 
 interface authProps extends accountProps {}

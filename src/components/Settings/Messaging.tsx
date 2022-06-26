@@ -42,7 +42,7 @@ const CheckBoxes: React.FC<CheckBoxesProps> = ({ parent }) => {
       >
         {parent}
       </Checkbox>
-      <Stack pl={6} mt={4} spacing={2}>
+      <Stack pl={6} mt={4} spacing={4}>
         <Checkbox
           isChecked={checkedItems[0]}
           onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}

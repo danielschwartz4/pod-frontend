@@ -4,7 +4,6 @@ import {
   TabPanel,
   TabPanels,
   Text,
-  ToastPositionWithLogical,
   useToast,
 } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
@@ -130,7 +129,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
           setKeepMounted={setKeepMounted}
         >
           <TabPanels>
-            <TabPanel h={"600px"} minH={"600px"} outlineOffset={-16}>
+            <TabPanel outlineOffset={-16}>
               {TEMP_BOOL ? (
                 <Box>
                   {!taskDataLoading && !singleTasksDataLoading ? (
@@ -147,7 +146,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               )}
             </TabPanel>
 
-            <TabPanel minH={"300px"}>
+            <TabPanel>
               <MyPod
                 podData={podData}
                 meData={meData}
