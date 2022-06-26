@@ -1,17 +1,23 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
-import { PodQuery, Project } from "../../generated/graphql";
+import { MeQuery, PodQuery, Project } from "../../generated/graphql";
 import PodCard from "./PodCard";
 
 interface PodCreatedProps {
   projectsData: Project[];
   podData: PodQuery;
+  meData: MeQuery;
 }
 // !! If length of users is 1 then say waiting for more users
-export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
-  const podLength = props.projectsData?.length;
+export const PodCreated: React.FC<PodCreatedProps> = ({
+  children,
+  projectsData,
+  podData,
+  meData,
+}) => {
+  const podLength = projectsData?.length;
   const podLengthText =
-    podLength === props.podData?.pod?.pod?.cap ? "waiting for more users" : "";
+    podLength === podData?.pod?.pod?.cap ? "waiting for more users" : "";
 
   const gridProjects = (
     <Box w={"100%"}>
@@ -23,7 +29,7 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
         gap={4}
         textAlign={"center"}
       >
-        {props.projectsData?.map((p, i) =>
+        {projectsData?.map((p, i) =>
           (i == 2 && podLength == 3) || podLength == 1 ? (
             <GridItem
               colStart={{ md: null, lg: 2 }}
@@ -31,11 +37,11 @@ export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
               colSpan={{ base: 2, sm: 2, md: null }}
               key={i}
             >
-              <PodCard project={p} />
+              <PodCard meData={meData} project={p} />
             </GridItem>
           ) : (
             <GridItem colSpan={2} key={i}>
-              <PodCard project={p} />
+              <PodCard meData={meData} project={p} />
             </GridItem>
           )
         )}

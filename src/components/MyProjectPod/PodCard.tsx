@@ -9,16 +9,17 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactFlowProvider } from "react-flow-renderer";
-import { Project, useMeQuery } from "../../generated/graphql";
+import { MeQuery, Project, useMeQuery } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
 import formatDate from "../../utils/formatDate";
 import FlowChartMini from "../MyProject/FlowChartMini";
 
 interface PodCardProps {
   project: Project;
+  meData: MeQuery;
 }
 
-const PodCard: React.FC<PodCardProps> = ({ project }) => {
+const PodCard: React.FC<PodCardProps> = ({ project, meData }) => {
   const { data, loading } = useMeQuery({});
 
   return (
@@ -65,11 +66,17 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
             spacing={4}
             align={"center"}
           >
-            <Avatar src={avatarMap(project?.user?.avatar)} alt={"Author"} />
+            {meData?.me?.id == project?.userId ? (
+              <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} />
+            ) : (
+              <Avatar src={avatarMap(project?.user?.avatar)} alt={"Author"} />
+            )}
             <Box>
               <Flex>
                 <Text mr={"auto"} fontSize={14} mb={0}>
-                  {project?.user?.username}
+                  {meData?.me?.id == project?.userId
+                    ? meData?.me?.username
+                    : project?.user?.username}
                 </Text>
               </Flex>
               <Text fontSize={14}>

@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import {
+  MeQuery,
   RecurringTask,
   SingleTask,
   useMeQuery,
@@ -26,9 +27,10 @@ import { MiniProgressGridSkeleton } from "../MyRecurringTask/MiniProgressGridSke
 
 interface PodCardProps {
   task: RecurringTask;
+  meData: MeQuery;
 }
 
-const PodCard: React.FC<PodCardProps> = ({ task }) => {
+const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
   const { data, loading } = useMeQuery({});
   const date = task.updatedAt.split(".")[0].split("T");
 
@@ -107,10 +109,16 @@ const PodCard: React.FC<PodCardProps> = ({ task }) => {
             spacing={4}
             align={"center"}
           >
-            <Avatar src={avatarMap(task?.user?.avatar)} alt={"Author"} />
+            {meData?.me?.id == task?.userId ? (
+              <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} />
+            ) : (
+              <Avatar src={avatarMap(task?.user?.avatar)} alt={"Author"} />
+            )}
             <Flex>
               <Text mr={"auto"} fontSize={14} mb={0}>
-                {task?.user?.username}
+                {meData?.me?.id == task?.userId
+                  ? meData?.me?.username
+                  : task?.user?.username}
               </Text>
             </Flex>
             <Text fontSize={14}>

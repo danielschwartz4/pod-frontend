@@ -55,7 +55,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   } = usePodTasksQuery({
     variables: { podId: podData?.pod?.pod?.id },
   });
-  console.log(tasksData);
 
   const {
     data: singleTasksData,
