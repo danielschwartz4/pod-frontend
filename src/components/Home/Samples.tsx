@@ -8,7 +8,7 @@ import {
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 import flowImage from "../../images/Samples/flow.png";
@@ -17,14 +17,7 @@ import joinPodImage from "../../images/Samples/pod.png";
 import progressImage from "../../images/Samples/progress.png";
 import smsImage from "../../images/Samples/sms.png";
 
-export const Samples: React.FC = ({}) => {
-  return (
-    <Box mx={"auto"}>
-      <CaptionCarousel />
-    </Box>
-  );
-};
-
+// Settings for the slider
 const settings = {
   dots: true,
   arrows: false,
@@ -36,13 +29,34 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
+export const Samples: React.FC = ({}) => {
+  return (
+    <Box mx={"auto"}>
+      <CaptionCarousel />
+    </Box>
+  );
+};
 
-export default function CaptionCarousel() {
+interface SamplesProps {
+  // slider: Slider | null;
+  // setSlider: React.Dispatch<React.SetStateAction<Slider | null>>;
+  // top: string;
+  // side: string;
+  cards: { title: string; text?: string; image: string }[];
+}
+
+const CaptionCarousel: React.FC = () => {
+  // As we have used custom buttons, we need a reference variable to
+  // change the state
   const [slider, setSlider] = React.useState<Slider | null>(null);
 
+  // These are the breakpoints which changes the position of the
+  // buttons as the screen size changes
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "40px" });
 
+  // This list contains all the data for carousels
+  // This can be static or loaded from a server
   const cards = [
     {
       title: "Enter project milestones or task dates for plan",
@@ -72,43 +86,10 @@ export default function CaptionCarousel() {
   ];
 
   return (
-    <>
-      <Box display={{ base: "none", lg: "block" }}>
-        <DesktopDisplay
-          slider={slider}
-          setSlider={setSlider}
-          top={top}
-          side={side}
-          cards={cards}
-        />
-      </Box>
-      <Box display={{ base: "block", lg: "none" }}>
-        <MobileDisplay
-          slider={slider}
-          setSlider={setSlider}
-          top={top}
-          side={side}
-          cards={cards}
-        />
-      </Box>
-    </>
-  );
-}
-
-interface SamplesProps {
-  slider: Slider | null;
-  setSlider: React.Dispatch<React.SetStateAction<Slider | null>>;
-  top: string;
-  side: string;
-  cards: { title: string; text?: string; image: string }[];
-}
-
-const DesktopDisplay: React.FC<SamplesProps> = (props) => {
-  return (
     <Box
-      m={4}
-      borderColor={"#F6793D"}
       position={"relative"}
+      height={["550px", "750px"]}
+      width={"full"}
       overflow={"hidden"}
     >
       {/* CSS files for react-slick */}
@@ -128,11 +109,12 @@ const DesktopDisplay: React.FC<SamplesProps> = (props) => {
         aria-label="left-arrow"
         variant="ghost"
         position="absolute"
-        left={props.side}
-        top={props.top}
+        left={side}
+        top={top}
         transform={"translate(0%, -50%)"}
         zIndex={2}
-        onClick={() => props.slider?.slickPrev()}
+        onClick={() => slider?.slickPrev()}
+        cursor={"pointer"}
       >
         <BiLeftArrowAlt size="40px" />
       </IconButton>
@@ -141,16 +123,17 @@ const DesktopDisplay: React.FC<SamplesProps> = (props) => {
         aria-label="right-arrow"
         variant="ghost"
         position="absolute"
-        right={props.side}
-        top={props.top}
+        right={side}
+        top={top}
         transform={"translate(0%, -50%)"}
         zIndex={2}
-        onClick={() => props.slider?.slickNext()}
+        onClick={() => slider?.slickNext()}
+        cursor={"pointer"}
       >
         <BiRightArrowAlt size="40px" />
       </IconButton>
-      <Slider {...settings} ref={(slider) => props.setSlider(slider)}>
-        {props.cards.map((card, index) => (
+      <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        {cards.map((card, index) => (
           <Flex
             alignItems={"center"}
             key={index}
@@ -168,95 +151,19 @@ const DesktopDisplay: React.FC<SamplesProps> = (props) => {
                 >
                   {card.title}
                 </Heading>
-                <Text fontSize={{ base: "md", lg: "lg" }} color="GrayText">
+                {/* <Text fontSize={{ base: "md", lg: "lg" }} color="GrayText">
                   {card.text}
-                </Text>
+                </Text> */}
               </VStack>
               <Flex>
-                <Image mx={"auto"} width={"750px"} src={card.image}></Image>
+                <Image
+                  mx={"auto"}
+                  width={{ base: "100%", sm: "500px", md: "750px" }}
+                  src={card.image}
+                ></Image>
               </Flex>
             </Box>
           </Flex>
-        ))}
-      </Slider>
-    </Box>
-  );
-};
-
-const MobileDisplay: React.FC<SamplesProps> = (props) => {
-  return (
-    <Box
-      // ml={4}
-      borderColor={"#F6793D"}
-      position={"relative"}
-      // height={"640px"}
-      // overflow={"hidden"}
-    >
-      {/* CSS files for react-slick */}
-      <link
-        rel="stylesheet"
-        type="text/css"
-        charSet="UTF-8"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-      />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-      />
-      {/* Left Icon */}
-      <Box mt={8}>
-        <IconButton
-          aria-label="left-arrow"
-          variant="ghost"
-          position="absolute"
-          left={props.side}
-          top={props.top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => props.slider?.slickPrev()}
-        >
-          <BiLeftArrowAlt size="40px" />
-        </IconButton>
-        {/* Right Icon */}
-        <IconButton
-          aria-label="right-arrow"
-          variant="ghost"
-          position="absolute"
-          right={props.side}
-          top={props.top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => props.slider?.slickNext()}
-        >
-          <BiRightArrowAlt size="40px" />
-        </IconButton>
-      </Box>
-      <Slider {...settings} ref={(slider) => props.setSlider(slider)}>
-        {props.cards.map((card, index) => (
-          <Box key={index} mt={12} width={"100%"} height={"100%"}>
-            <Flex flexDirection={"column"}>
-              <Box p={4} mx={"auto"} my={"auto"} textAlign={"center"}>
-                <Heading
-                  color={"gray.500"}
-                  fontFamily={"serif"}
-                  fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-                >
-                  {card.title}
-                </Heading>
-                <Text fontSize={{ base: "md", lg: "lg" }} color="GrayText">
-                  {card.text}
-                </Text>
-              </Box>
-              <Box>
-                <Image
-                  m={"auto"}
-                  width={{ base: "100%", sm: "500px", md: "700px" }}
-                  src={card.image}
-                />
-              </Box>
-            </Flex>
-          </Box>
         ))}
       </Slider>
     </Box>

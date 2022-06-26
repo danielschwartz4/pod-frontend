@@ -1,11 +1,9 @@
-import { Box, Button, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
-import { Project, useMeQuery } from "../../generated/graphql";
+import { useMeQuery } from "../../generated/graphql";
 import heroProject from "../../images/heroProject.png";
 import heroTask from "../../images/heroTask.png";
-import { PodCreated } from "../MyProjectPod/PodCreated";
-import SeedData from "./SeedHomeData";
 
 interface HeroProps {}
 
