@@ -1,16 +1,10 @@
-import {
-  CloseIcon,
-  HamburgerIcon,
-  QuestionIcon,
-  QuestionOutlineIcon,
-} from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Collapse,
   Divider,
   Flex,
-  Icon,
   IconButton,
   Image,
   Text,
@@ -21,11 +15,11 @@ import {
 import NextLink from "next/link";
 import router, { useRouter } from "next/router";
 import React from "react";
+import { BsQuestionSquare } from "react-icons/bs";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import firstLogo from "../../images/Logos/firstLogo.png";
 import { isServer } from "../../utils/isServer";
-import { BsQuestionSquare } from "react-icons/bs";
-import { HelpPopover } from "./HelpPopover";
+import { HelpTaskPopover } from "./HelpTaskPopover";
 
 interface ProfileNavBarProps {
   isProjectsPage?: boolean;
@@ -83,11 +77,11 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                 alignItems={"center"}
               >
                 {!isProjectsPage && withHelpPopover ? (
-                  <HelpPopover>
+                  <HelpTaskPopover>
                     <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
                       <BsQuestionSquare size={24} />
                     </Button>
-                  </HelpPopover>
+                  </HelpTaskPopover>
                 ) : null}
                 <Button
                   mr={4}
@@ -231,11 +225,11 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
               <Divider />
               <Flex justifyContent={"end"}>
                 {!isProjectsPage && withHelpPopover ? (
-                  <HelpPopover>
+                  <HelpTaskPopover>
                     <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
                       <BsQuestionSquare size={24} />
                     </Button>
-                  </HelpPopover>
+                  </HelpTaskPopover>
                 ) : null}
               </Flex>
               <Divider />

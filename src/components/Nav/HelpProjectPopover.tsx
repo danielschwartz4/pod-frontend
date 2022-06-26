@@ -1,25 +1,25 @@
 import {
-  Box,
-  Divider,
-  Flex,
   Popover,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
   Text,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+  Box,
+  Flex,
+  Divider,
   Image,
 } from "@chakra-ui/react";
 import React from "react";
 import { statusColorMap } from "../../utils/statusColorMap";
 import { CircleIcon } from "../MyRecurringTask/TaskCircle";
-import notesImage from "../../images/notesImage.png";
 
-interface HelpPopoverProps {}
+interface HelpProjectPopoverProps {}
 
-export const HelpPopover: React.FC<HelpPopoverProps> = ({ children }) => {
-  const colors = ["#F26D51", "#f2df51", "#3EE76D", "#6097F8"];
+export const HelpProjectPopover: React.FC<HelpProjectPopoverProps> = ({
+  children,
+}) => {
   return (
     <Popover arrowSize={8} gutter={40}>
       <PopoverTrigger>{children}</PopoverTrigger>
@@ -28,35 +28,29 @@ export const HelpPopover: React.FC<HelpPopoverProps> = ({ children }) => {
         <PopoverHeader>
           <b> How it works</b>
         </PopoverHeader>
-
         <PopoverBody>
           <Box border={"1px"} borderColor={"gray.600"} borderRadius={8} m={0}>
-            <Flex h={"170px"}>
+            <Flex h={"130px"}>
               <Box>
                 <Flex>
                   {Object.keys(statusColorMap).map((status, index) => (
-                    <Flex mx={"auto"} direction="column">
+                    <Flex ml={2} key={index} direction="column">
                       <Text mx={"auto"}>{status}</Text>
                       <CircleIcon
                         mx={1}
-                        key={index}
                         color={statusColorMap[status]}
                         boxSize={14}
                       />
                     </Flex>
                   ))}
                 </Flex>
-                <Text px={2}>
-                  Overdue tasks will be counted as incomplete until you update
-                  them ‼️
-                </Text>
               </Box>
             </Flex>
             <Divider w={"30%"} variant={"dashed"} />
             <Flex h={"180px"} p={2}>
               <Text>
-                Update your tasks each day to alert your pod members of your
-                progress. 📈 <br />
+                Update your projects to alert your pod members of your progress.
+                📈 <br />
                 <br /> This will keep you on track and keep your pod members
                 motivated. 🏃‍♂️
                 <br />
@@ -64,18 +58,15 @@ export const HelpPopover: React.FC<HelpPopoverProps> = ({ children }) => {
                 settings 🤳
               </Text>
             </Flex>
-            <Divider w={"30%"} variant={"dashed"} />
-            <Flex h={"150px"} p={2}>
+            {/* <Divider w={"30%"} variant={"dashed"} />
+            <Flex h={"90px"} p={2}>
               <Box>
                 <Text>
                   Each day, your pod members' notes from the previous day will
                   appear at the bottom of the screen 📝
                 </Text>
-                <Flex>
-                  <Image mr={"auto"} width={"260px"} src={notesImage.src} />
-                </Flex>
               </Box>
-            </Flex>
+            </Flex> */}
           </Box>
         </PopoverBody>
       </PopoverContent>

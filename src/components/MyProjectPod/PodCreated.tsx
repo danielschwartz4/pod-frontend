@@ -1,14 +1,18 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
-import { Project } from "../../generated/graphql";
+import { PodQuery, Project } from "../../generated/graphql";
 import PodCard from "./PodCard";
 
 interface PodCreatedProps {
   projectsData: Project[];
+  podData: PodQuery;
 }
 // !! If length of users is 1 then say waiting for more users
 export const PodCreated: React.FC<PodCreatedProps> = (props, { children }) => {
   const podLength = props.projectsData?.length;
+  const podLengthText =
+    podLength === props.podData?.pod?.pod?.cap ? "waiting for more users" : "";
+
   const gridProjects = (
     <Box w={"100%"}>
       <Grid

@@ -15,9 +15,11 @@ import {
 import NextLink from "next/link";
 import router, { useRouter } from "next/router";
 import React from "react";
+import { BsQuestionSquare } from "react-icons/bs";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import firstLogo from "../../images/Logos/firstLogo.png";
 import { isServer } from "../../utils/isServer";
+import { HelpProjectPopover } from "./HelpProjectPopover";
 
 interface ProfileNavBarProps {
   isProjectsPage?: boolean;
@@ -35,7 +37,6 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
   });
 
   const { isReady } = useRouter();
-  console.log("nknkj ");
 
   return (
     <Box>
@@ -75,17 +76,11 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                 alignItems={"center"}
               >
                 {!isProjectsPage ? (
-                  <Button
-                    mr={4}
-                    colorScheme={"tan"}
-                    cursor={"pointer"}
-                    onClick={() => router.push("/profile")}
-                  >
-                    {/* <Icon>
-                      <QuestionIcon />
-                    </Icon> */}
-                    sdffsdb
-                  </Button>
+                  <HelpProjectPopover>
+                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
+                      <BsQuestionSquare size={24} />
+                    </Button>
+                  </HelpProjectPopover>
                 ) : null}
                 <Button
                   mr={4}
@@ -102,7 +97,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                     cursor={"pointer"}
                     onClick={() => router.push("/profile")}
                   >
-                    My klj
+                    My projects
                   </Button>
                 ) : null}
                 <Button
@@ -203,6 +198,15 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                 </Text>
               </Flex>
               <Divider />
+              <Flex justifyContent={"end"}>
+                {!isProjectsPage ? (
+                  <HelpProjectPopover>
+                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
+                      <BsQuestionSquare size={24} />
+                    </Button>
+                  </HelpProjectPopover>
+                ) : null}
+              </Flex>
             </>
           ) : (
             <></>

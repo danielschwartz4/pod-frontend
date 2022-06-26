@@ -55,6 +55,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   } = usePodTasksQuery({
     variables: { podId: podData?.pod?.pod?.id },
   });
+  console.log(tasksData);
 
   const {
     data: singleTasksData,
@@ -74,16 +75,13 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   async function notesToastHandler(popup: NotePopup) {
     toast({
-      title: "pianoplayer44",
-      description: "lets go 4th straight day of successful practice!!",
-      // position: popup.position as ToastPositionWithLogical,
+      title: popup.title,
+      description: popup.description,
       position: "bottom",
       status: "info",
       duration: null,
       isClosable: true,
     });
-
-    // await timer(3000);
   }
 
   useMemo(() => {
@@ -106,7 +104,26 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   return (
     <Layout withHelpPopover={true}>
       <DashWrapper>
-        <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}></Flex>
+        <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
+          <Box mt={"28px"} ml={4} mr={0}>
+            {changeTab == "project" ? (
+              <></>
+            ) : (
+              <>
+                {tasksData?.podTasks?.length == 0 ||
+                tasksData?.podTasks === undefined ? (
+                  <Text h={2}></Text>
+                ) : (
+                  <Flex>
+                    <Text h={2} textColor={"gainsboro"}>
+                      Pod cap: {podData?.pod?.pod?.cap}
+                    </Text>
+                  </Flex>
+                )}
+              </>
+            )}
+          </Box>
+        </Flex>
         <DashTabs
           type="task"
           keepMounted={keepMounted}

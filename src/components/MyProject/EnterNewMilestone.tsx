@@ -98,16 +98,18 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
                     )}
                   </Button>
                 ) : (
-                  <Button>
-                    {props.projectData?.project?.project?.podId == 0 ? (
-                      <Text>Pod not joined</Text>
+                  <>
+                    {props.projectData?.project?.project?.podId == 0 ||
+                    props.projectData?.project?.project === undefined ? (
+                      <Text h={2}></Text>
                     ) : (
-                      <Text>
-                        This pod has a cap of {props.podData?.pod?.pod?.cap}{" "}
-                        members
-                      </Text>
+                      <Flex>
+                        <Text h={2} textColor={"gainsboro"}>
+                          Pod cap: {props.podData?.pod?.pod?.cap}
+                        </Text>
+                      </Flex>
                     )}
-                  </Button>
+                  </>
                 )}
               </Box>
 

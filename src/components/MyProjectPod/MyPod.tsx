@@ -90,7 +90,7 @@ export const MyPod: React.FC<MyPodProps> = ({
     // Refetch project to update podJoined state
     refetchProject();
     // Refetch projects to update _podProjects state
-    refetchProjects();
+    // refetchProjects();
     setPodProjects(projectsData?.podProjects as Project[]);
   }, [projectsData, podJoined]);
 
@@ -100,7 +100,7 @@ export const MyPod: React.FC<MyPodProps> = ({
         <Box color={"gainsboro"}>loading...</Box>
       ) : podJoined && _podProjects ? (
         <div>
-          <PodCreated projectsData={_podProjects} />
+          <PodCreated podData={podData} projectsData={_podProjects} />
           <Box mt={"2em"}>
             <Button
               cursor={"pointer"}

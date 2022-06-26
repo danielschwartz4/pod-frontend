@@ -20,7 +20,6 @@ interface PodCardProps {
 
 const PodCard: React.FC<PodCardProps> = ({ project }) => {
   const { data, loading } = useMeQuery({});
-  const date = project.updatedAt.split(".")[0].split("T");
 
   return (
     <Center>
@@ -77,13 +76,6 @@ const PodCard: React.FC<PodCardProps> = ({ project }) => {
                 Last update: {formatDate(project.updatedAt, true)}
               </Text>
             </Box>
-            {/* <Text
-              textColor={getColorForPercentage(
-                compPercentage(project?.milestoneProgress) / 100
-              )}
-            >
-              Comp: {compPercentage(project?.milestoneProgress) + "%"}
-            </Text> */}
           </Stack>
         </Box>
       </Box>
