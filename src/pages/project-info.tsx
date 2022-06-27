@@ -44,20 +44,19 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
             <Tabs isFitted={true} variant="enclosed" defaultIndex={0}>
               <TabList>
                 <Tab _selected={{ color: "white", bg: "#1a202c" }}>
-                  Project &#160; <RiFlowChart />
-                </Tab>
-                <Tab _selected={{ color: "white", bg: "#1a202c" }}>
                   Recurring task &#160;
                   <RiRepeatLine />
+                </Tab>
+                <Tab _selected={{ color: "white", bg: "#1a202c" }}>
+                  Project &#160; <RiFlowChart />
                 </Tab>
               </TabList>
               <TabPanels>
                 <TabPanel minH={"600px"}>
-                  <ProjectForm meData={data} />
-                </TabPanel>
-
-                <TabPanel minH={"600px"}>
                   <RecurringTaskForm meData={data} />
+                </TabPanel>
+                <TabPanel minH={"600px"}>
+                  <ProjectForm meData={data} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

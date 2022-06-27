@@ -91,7 +91,9 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
                   ? `Task ${task?.id}`
                   : task?.taskName}
               </Heading>
-              <Text color={"gray.500"}>{task?.overview}</Text>
+              <Text overflow={"hidden"} color={"gray.500"}>
+                {task?.overview}
+              </Text>
             </Stack>
             <Box>
               <MiniCircleTaskProgress
@@ -102,9 +104,10 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
               />
             </Box>
           </Flex>
+
           <Stack
             textColor={"gray.500"}
-            mt={6}
+            mt={4}
             direction={"row"}
             spacing={4}
             align={"center"}
@@ -114,16 +117,18 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
             ) : (
               <Avatar src={avatarMap(task?.user?.avatar)} alt={"Author"} />
             )}
-            <Flex>
-              <Text mr={"auto"} fontSize={14} mb={0}>
-                {meData?.me?.id == task?.userId
-                  ? meData?.me?.username
-                  : task?.user?.username}
+            <Box>
+              <Flex>
+                <Text mr={"auto"} fontSize={14} mb={0}>
+                  {meData?.me?.id == task?.userId
+                    ? meData?.me?.username
+                    : task?.user?.username}
+                </Text>
+              </Flex>
+              <Text fontSize={14}>
+                Last update: {formatDate(task.updatedAt, true)}
               </Text>
-            </Flex>
-            <Text fontSize={14}>
-              Last update: {formatDate(task?.updatedAt, true)}
-            </Text>
+            </Box>
           </Stack>
         </Box>
       </Box>

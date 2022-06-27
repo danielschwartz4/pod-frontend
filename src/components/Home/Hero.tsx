@@ -1,14 +1,35 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
 import { useMeQuery } from "../../generated/graphql";
 import heroProject from "../../images/heroProject.png";
 import heroTask from "../../images/heroTask.png";
+import { timer } from "../../utils/delay";
 
 interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
   const { data: meData } = useMeQuery();
+  const toast = useToast();
+
+  // let i = 0;
+  // function myLoop() {
+  //   setTimeout(function () {
+  //     toast({
+  //       title: "test",
+  //       description: "test",
+  //       position: "bottom-left",
+  //       status: "info",
+  //       duration: 9000,
+  //       isClosable: true,
+  //     });
+  //     i++; //  increment the counter
+  //     if (i < 10) {
+  //       myLoop();
+  //     } //  ..  setTimeout()
+  //   }, 2000);
+  // }
+  // myLoop();
 
   return (
     <Box width={"100%"} alignItems={"center"} minHeight={"65vh"}>
@@ -56,6 +77,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
           <Flex>
             <Image
               mx={"auto"}
+              // mr={4}
               w={"380px"}
               h={"430px"}
               src={heroProject.src}
@@ -65,6 +87,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
           </Flex>
           <Flex>
             <Image
+              // ml={4}
               mx={"auto"}
               w={"380px"}
               h={"430px"}

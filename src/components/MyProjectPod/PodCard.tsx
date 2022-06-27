@@ -57,7 +57,9 @@ const PodCard: React.FC<PodCardProps> = ({ project, meData }) => {
                 ? `Task ${project?.id}`
                 : project?.projectName}
             </Heading>
-            <Text color={"gray.500"}>{project.overview}</Text>
+            <Text overflow={"hidden"} color={"gray.500"}>
+              {project.overview}
+            </Text>
           </Stack>
           <Stack
             textColor={"gray.500"}
