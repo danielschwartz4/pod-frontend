@@ -48,6 +48,7 @@ export type Mutation = {
   register: UserResponse;
   removeProjectFromPod: PodResponse;
   updateCompletedCount: RecurringTaskResponse;
+  updateMessagingSettings: UserResponse;
   updatePhone?: Maybe<UserResponse>;
   updateProjectFriendProposals?: Maybe<ProjectResponse>;
   updateProjectMilestoneDates: ProjectResponse;
@@ -139,6 +140,11 @@ export type MutationRemoveProjectFromPodArgs = {
 export type MutationUpdateCompletedCountArgs = {
   completedCount: CompletedCountInput;
   id: Scalars['Float'];
+};
+
+
+export type MutationUpdateMessagingSettingsArgs = {
+  messagingSettings: Scalars['JSONObject'];
 };
 
 
@@ -434,7 +440,9 @@ export type User = {
   email: Scalars['String'];
   friendRequests?: Maybe<Array<Scalars['JSONObject']>>;
   id: Scalars['Int'];
+  messagingSettings?: Maybe<Scalars['JSONObject']>;
   phone?: Maybe<Scalars['String']>;
+  projects?: Maybe<Array<Project>>;
   recurringTasks: Array<RecurringTask>;
   singleTasks: Array<SingleTask>;
   updatedAt: Scalars['DateTime'];
@@ -678,6 +686,13 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null } };
+
+export type UpdateMessagingSettingsMutationVariables = Exact<{
+  messagingSettings: Scalars['JSONObject'];
+}>;
+
+
+export type UpdateMessagingSettingsMutation = { __typename?: 'Mutation', updateMessagingSettings: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null } | null } };
 
 export type UpdateUserFriendRequestsMutationVariables = Exact<{
   username: Scalars['String'];
@@ -1912,6 +1927,45 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const UpdateMessagingSettingsDocument = gql`
+    mutation UpdateMessagingSettings($messagingSettings: JSONObject!) {
+  updateMessagingSettings(messagingSettings: $messagingSettings) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}
+    ${RegularUserFragmentDoc}`;
+export type UpdateMessagingSettingsMutationFn = Apollo.MutationFunction<UpdateMessagingSettingsMutation, UpdateMessagingSettingsMutationVariables>;
+
+/**
+ * __useUpdateMessagingSettingsMutation__
+ *
+ * To run a mutation, you first call `useUpdateMessagingSettingsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMessagingSettingsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMessagingSettingsMutation, { data, loading, error }] = useUpdateMessagingSettingsMutation({
+ *   variables: {
+ *      messagingSettings: // value for 'messagingSettings'
+ *   },
+ * });
+ */
+export function useUpdateMessagingSettingsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMessagingSettingsMutation, UpdateMessagingSettingsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateMessagingSettingsMutation, UpdateMessagingSettingsMutationVariables>(UpdateMessagingSettingsDocument, options);
+      }
+export type UpdateMessagingSettingsMutationHookResult = ReturnType<typeof useUpdateMessagingSettingsMutation>;
+export type UpdateMessagingSettingsMutationResult = Apollo.MutationResult<UpdateMessagingSettingsMutation>;
+export type UpdateMessagingSettingsMutationOptions = Apollo.BaseMutationOptions<UpdateMessagingSettingsMutation, UpdateMessagingSettingsMutationVariables>;
 export const UpdateUserFriendRequestsDocument = gql`
     mutation UpdateUserFriendRequests($username: String!, $projectId: Int!, $podId: Int!, $isAdding: Boolean!) {
   updateUserFriendRequests(

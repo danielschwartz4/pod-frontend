@@ -16,7 +16,7 @@ import { CompletedCount } from "../../types/types";
 import { beforeToday } from "../../utils/getConsistency";
 import { generateSms } from "../../utils/taskSmsBody";
 import { addDays } from "../../utils/singleTaskUtils";
-import { sendMessages } from "../Sms/sendMessage";
+import { sendMessages } from "../../utils/messaging/sendMessage";
 import NotesForm from "./NotesForm";
 
 interface TodayUpdateFormProps {

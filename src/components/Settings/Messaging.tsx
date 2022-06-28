@@ -1,9 +1,14 @@
-import { Box, Checkbox, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import Section from "./Section";
 
 interface MessagingProps {}
 const Messaging: React.FC<MessagingProps> = ({}) => {
+  const [checkedItems, setCheckedItems] = React.useState({
+    email: [false, false, false],
+    phone: [false, false, false],
+  });
+
   return (
     <Section>
       <Box mt={-4}>
@@ -13,53 +18,122 @@ const Messaging: React.FC<MessagingProps> = ({}) => {
       </Box>
       <Flex p={2} justify={"space-between"}>
         <Box>
-          <CheckBoxes parent="Email" />
+          <CheckBoxes
+            checkedItems={checkedItems}
+            setCheckedItems={setCheckedItems}
+            parent="email"
+          />
         </Box>
         <Box>
-          <CheckBoxes parent="Sms" />
+          <CheckBoxes
+            checkedItems={checkedItems}
+            setCheckedItems={setCheckedItems}
+            parent="phone"
+          />
         </Box>
       </Flex>
+      <Button
+        mt={4}
+        w={"150px"}
+        textColor={"gainsboro"}
+        bg={"gray.600"}
+        cursor={"pointer"}
+      >
+        <Text>save</Text>
+      </Button>
     </Section>
   );
 };
 
 interface CheckBoxesProps {
   parent: string;
+  checkedItems: { [key: string]: boolean[] };
+  setCheckedItems: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean[] }>
+  >;
 }
 
-const CheckBoxes: React.FC<CheckBoxesProps> = ({ parent }) => {
-  const [checkedItems, setCheckedItems] = React.useState([false, false]);
+const CheckBoxes: React.FC<CheckBoxesProps> = ({
+  parent,
+  checkedItems,
+  setCheckedItems,
+}) => {
+  // const [checkedItems, setCheckedItems] = React.useState([false, false, false]);
 
-  const allChecked = checkedItems.every(Boolean);
-  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+  const allChecked = checkedItems[parent].every(Boolean);
+  const isIndeterminate = checkedItems[parent].some(Boolean) && !allChecked;
 
   return (
     <>
       <Checkbox
         isChecked={allChecked}
         isIndeterminate={isIndeterminate}
-        onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
+        onChange={(e) =>
+          setCheckedItems({
+            email: [e.target.checked, e.target.checked, e.target.checked],
+            phone: [e.target.checked, e.target.checked, e.target.checked],
+          })
+        }
       >
         {parent}
       </Checkbox>
       <Stack pl={6} mt={4} spacing={4}>
         <Checkbox
-          isChecked={checkedItems[0]}
-          onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
+          isChecked={checkedItems[parent][0]}
+          onChange={(e) =>
+            setCheckedItems({
+              email: [
+                e.target.checked,
+                checkedItems[parent][1],
+                checkedItems[parent][2],
+              ],
+              phone: [
+                e.target.checked,
+                checkedItems[parent][1],
+                checkedItems[parent][2],
+              ],
+            })
+          }
         >
           Pod members' milestone completion
         </Checkbox>
         <Checkbox
-          isChecked={checkedItems[1]}
-          onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+          isChecked={checkedItems[parent][1]}
+          onChange={(e) =>
+            setCheckedItems({
+              email: [
+                checkedItems[parent][0],
+                e.target.checked,
+                checkedItems[parent][2],
+              ],
+              phone: [
+                checkedItems[parent][0],
+                e.target.checked,
+                checkedItems[parent][2],
+              ],
+            })
+          }
         >
           Milestone approaching
         </Checkbox>
         <Checkbox
-          isChecked={checkedItems[1]}
-          onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+          isChecked={checkedItems[parent][2]}
+          onChange={(e) =>
+            setCheckedItems({
+              email: [
+                checkedItems[parent][0],
+                checkedItems[parent][1],
+                e.target.checked,
+              ],
+              phone: [
+                checkedItems[parent][0],
+                checkedItems[parent][1],
+                e.target.checked,
+              ],
+            })
+          }
         >
-          Website progress updates
+          Website updates
         </Checkbox>
       </Stack>
     </>

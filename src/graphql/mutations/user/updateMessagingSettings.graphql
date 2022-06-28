@@ -1,0 +1,11 @@
+mutation UpdateMessagingSettings($messagingSettings: JSONObject!) {
+  updateMessagingSettings(messagingSettings: $messagingSettings) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}

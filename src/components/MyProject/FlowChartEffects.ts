@@ -6,7 +6,7 @@ import {
 } from "../../types/types";
 import init_elements from "../../utils/initElements";
 import { generateSms } from "../../utils/projectSmsBody";
-import { sendMessage } from "../Sms/sendMessage";
+import { sendMessage } from "../../utils/messaging/sendMessage";
 
 export function onNewProgress(
   _milestoneProgress: number[],

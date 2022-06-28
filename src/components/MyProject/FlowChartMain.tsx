@@ -17,7 +17,7 @@ import {
 import init_elements, { sortMilestones } from "../../utils/initElements";
 import { generateSms } from "../../utils/projectSmsBody";
 import { useGetIntId } from "../../utils/useGetIntId";
-import { sendMessages } from "../Sms/sendMessage";
+import { sendMessages } from "../../utils/messaging/sendMessage";
 import ProjectProgressPopover from "./ProjectProgressPopover";
 
 interface horizontalFlowProps {
