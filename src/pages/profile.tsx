@@ -44,7 +44,7 @@ const Profile: React.FC<profileProps> = ({}) => {
         <div>Loading...</div>
       ) : (
         <Flex>
-          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"100vh"} h={"100%"}>
+          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"70vh"} h={"100%"}>
             <ProfileHeading meData={meData} />
             <ProfileGrid tasksData={tasksData} projectsData={projectsData} />
           </Box>
