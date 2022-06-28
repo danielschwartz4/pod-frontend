@@ -1,4 +1,4 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Box, Flex, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
@@ -43,10 +43,12 @@ const Profile: React.FC<profileProps> = ({}) => {
       {loading && !meData ? (
         <div>Loading...</div>
       ) : (
-        <Box m={4} minH={"100vh"} h={"100%"}>
-          <ProfileHeading meData={meData} />
-          <ProfileGrid tasksData={tasksData} projectsData={projectsData} />
-        </Box>
+        <Flex>
+          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"100vh"} h={"100%"}>
+            <ProfileHeading meData={meData} />
+            <ProfileGrid tasksData={tasksData} projectsData={projectsData} />
+          </Box>
+        </Flex>
       )}
     </Layout>
   );
