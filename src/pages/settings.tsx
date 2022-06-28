@@ -30,7 +30,7 @@ const Settings: React.FC = ({}) => {
             <Account refetch={refetch} meData={meData} />
           </Box>
           <Box>
-            <Messaging />
+            <Messaging meData={meData} />
           </Box>
           <Box>
             <Auth meData={meData} />

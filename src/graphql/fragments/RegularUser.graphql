@@ -7,4 +7,5 @@ fragment RegularUser on User {
   username
   friendRequests
   avatar
+  messagingSettings
 }

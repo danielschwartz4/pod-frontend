@@ -1,13 +1,54 @@
-import { Box, Button, Checkbox, Flex, Stack, Text } from "@chakra-ui/react";
-import React from "react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import {
+  MeDocument,
+  MeQuery,
+  useUpdateMessagingSettingsMutation,
+} from "../../generated/graphql";
 import Section from "./Section";
 
-interface MessagingProps {}
-const Messaging: React.FC<MessagingProps> = ({}) => {
-  const [checkedItems, setCheckedItems] = React.useState({
-    email: [false, false, false],
-    phone: [false, false, false],
+interface MessagingProps {
+  meData: MeQuery;
+}
+
+const Messaging: React.FC<MessagingProps> = ({ meData }) => {
+  const currentSettings = meData?.me?.messagingSettings;
+  const toast = useToast();
+
+  const [checkedItems, setCheckedItems] = React.useState<{} | undefined>({
+    email:
+      currentSettings?.email != null
+        ? Object.values(currentSettings?.email)
+        : [],
+    phone:
+      currentSettings?.phone != null
+        ? Object.values(currentSettings?.phone)
+        : [],
   });
+
+  useEffect(() => {
+    setCheckedItems({
+      email:
+        currentSettings?.email != null
+          ? Object.values(currentSettings?.email)
+          : [],
+      phone:
+        currentSettings?.phone != null
+          ? Object.values(currentSettings?.phone)
+          : [],
+    });
+  }, [currentSettings]);
+
+  const [updateMessagingSettings, { loading }] =
+    useUpdateMessagingSettingsMutation();
 
   return (
     <Section>
@@ -38,6 +79,36 @@ const Messaging: React.FC<MessagingProps> = ({}) => {
         textColor={"gainsboro"}
         bg={"gray.600"}
         cursor={"pointer"}
+        isloading={loading.toString()}
+        loadingText="Saving..."
+        onClick={async () => {
+          const updated = await updateMessagingSettings({
+            variables: {
+              messagingSettings: {
+                email: {
+                  podMilestonCompletion: checkedItems["email"][2],
+                  milestoneApproaching: checkedItems["email"][1],
+                  websiteUpdates: checkedItems["email"][0],
+                },
+                phone: {
+                  podMilestonCompletion: checkedItems["phone"][2],
+                  milestoneApproaching: checkedItems["phone"][1],
+                  websiteUpdates: checkedItems["phone"][0],
+                },
+              },
+            },
+          });
+
+          if (updated) {
+            toast({
+              title: "Success",
+              description: "Messaging settings updated",
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            });
+          }
+        }}
       >
         <Text>save</Text>
       </Button>
@@ -58,8 +129,6 @@ const CheckBoxes: React.FC<CheckBoxesProps> = ({
   checkedItems,
   setCheckedItems,
 }) => {
-  // const [checkedItems, setCheckedItems] = React.useState([false, false, false]);
-
   const allChecked = checkedItems[parent].every(Boolean);
   const isIndeterminate = checkedItems[parent].some(Boolean) && !allChecked;
 
@@ -70,8 +139,22 @@ const CheckBoxes: React.FC<CheckBoxesProps> = ({
         isIndeterminate={isIndeterminate}
         onChange={(e) =>
           setCheckedItems({
-            email: [e.target.checked, e.target.checked, e.target.checked],
-            phone: [e.target.checked, e.target.checked, e.target.checked],
+            email:
+              parent == "email"
+                ? [e.target.checked, e.target.checked, e.target.checked]
+                : [
+                    checkedItems["email"][0],
+                    checkedItems["email"][1],
+                    checkedItems["email"][2],
+                  ],
+            phone:
+              parent == "phone"
+                ? [e.target.checked, e.target.checked, e.target.checked]
+                : [
+                    checkedItems["phone"][0],
+                    checkedItems["phone"][1],
+                    checkedItems["phone"][2],
+                  ],
           })
         }
       >
@@ -83,14 +166,14 @@ const CheckBoxes: React.FC<CheckBoxesProps> = ({
           onChange={(e) =>
             setCheckedItems({
               email: [
-                e.target.checked,
-                checkedItems[parent][1],
-                checkedItems[parent][2],
+                parent == "email" ? e.target.checked : checkedItems["email"][0],
+                checkedItems["email"][1],
+                checkedItems["email"][2],
               ],
               phone: [
-                e.target.checked,
-                checkedItems[parent][1],
-                checkedItems[parent][2],
+                parent == "phone" ? e.target.checked : checkedItems["phone"][0],
+                checkedItems["phone"][1],
+                checkedItems["phone"][2],
               ],
             })
           }
@@ -102,14 +185,14 @@ const CheckBoxes: React.FC<CheckBoxesProps> = ({
           onChange={(e) =>
             setCheckedItems({
               email: [
-                checkedItems[parent][0],
-                e.target.checked,
-                checkedItems[parent][2],
+                checkedItems["email"][0],
+                parent == "email" ? e.target.checked : checkedItems["email"][1],
+                checkedItems["email"][2],
               ],
               phone: [
-                checkedItems[parent][0],
-                e.target.checked,
-                checkedItems[parent][2],
+                checkedItems["phone"][0],
+                parent == "phone" ? e.target.checked : checkedItems["phone"][1],
+                checkedItems["phone"][2],
               ],
             })
           }
@@ -121,14 +204,14 @@ const CheckBoxes: React.FC<CheckBoxesProps> = ({
           onChange={(e) =>
             setCheckedItems({
               email: [
-                checkedItems[parent][0],
-                checkedItems[parent][1],
-                e.target.checked,
+                checkedItems["email"][0],
+                checkedItems["email"][1],
+                parent == "email" ? e.target.checked : checkedItems["email"][2],
               ],
               phone: [
-                checkedItems[parent][0],
-                checkedItems[parent][1],
-                e.target.checked,
+                checkedItems["phone"][0],
+                checkedItems["phone"][1],
+                parent == "phone" ? e.target.checked : checkedItems["phone"][2],
               ],
             })
           }
