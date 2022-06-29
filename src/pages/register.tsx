@@ -84,10 +84,10 @@ const Register: React.FC<registerProps> = ({}) => {
                   if (response.data.register.errors) {
                     setErrors(toErrorMap(response.data.register.errors));
                   } else if (response.data.register.user) {
-                    sendMessage({
-                      to: "+12173817277",
-                      body: `${values.username} has joined the community! Their email is ${values.email}`,
-                    });
+                    // sendMessage({
+                    //   to: "+12173817277",
+                    //   body: `${values.username} has joined the community! Their email is ${values.email}`,
+                    // });
                     router.push("/profile");
                   }
                 }}

@@ -26,7 +26,6 @@ const Profile: React.FC<profileProps> = ({}) => {
   useEffect(() => {
     refetchTasks();
   }, [loading, tasksData]);
-  console.log(!projectsData?.projects);
 
   if (
     projectsData?.projects?.length == 0 &&
