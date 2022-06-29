@@ -26,15 +26,24 @@ const Profile: React.FC<profileProps> = ({}) => {
   useEffect(() => {
     refetchTasks();
   }, [loading, tasksData]);
+  console.log(!projectsData?.projects);
 
-  if (!projectsData?.projects && !tasksData?.recurringTasks) {
+  if (
+    projectsData?.projects?.length == 0 &&
+    tasksData?.recurringTasks?.length == 0
+  ) {
     return (
       <Layout isProjectsPage isProfile>
-        <Box minH={"100vh"} h={"100%"}>
-          <NextLink href="/project-info">
-            <Link mr={2}>Create your first project!</Link>
-          </NextLink>
-        </Box>
+        <Flex>
+          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"70vh"} h={"100%"}>
+            <ProfileHeading meData={meData} />
+            <ProfileGrid
+              hasSeed
+              tasksData={tasksData}
+              projectsData={projectsData}
+            />
+          </Box>
+        </Flex>
       </Layout>
     );
   }

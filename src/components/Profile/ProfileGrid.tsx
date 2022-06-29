@@ -1,24 +1,27 @@
-import { Grid } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { Divider, Flex, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import { ProjectsQuery, RecurringTasksQuery } from "../../generated/graphql";
 import mergeData from "../../utils/mergeData";
 import ProjectEntry from "./ProjectEntry";
+import NextLink from "next/link";
 import RecurringTaskEntry from "./RecurringTaskEntry";
 
 interface projectsGridProps {
   projectsData: ProjectsQuery;
   tasksData: RecurringTasksQuery;
+  hasSeed?: boolean;
 }
 
 const ProjectsGrid: React.FC<projectsGridProps> = ({
   projectsData,
   tasksData,
+  hasSeed,
 }) => {
   const merged = mergeData(tasksData, projectsData, "createdAt");
   const projectsDataDict = projectsData?.projects?.reduce(
     (acc, project) => ({ ...acc, [project.id]: project }),
     {}
   );
+  console.log(projectsDataDict);
   const tasksDataDict = tasksData?.recurringTasks?.reduce(
     (acc, task) => ({ ...acc, [task.id]: task }),
     {}
@@ -31,10 +34,10 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
       w="auto"
       h="auto"
       templateColumns={{
-        base: "repeat(1, 1fr)",
-        sm: "repeat(3, 1fr)",
-        lg: "repeat(4, 1fr)",
-        xl: "repeat(5, 1fr)",
+        sm: "repeat(1, 1fr)",
+        md: "repeat(2, 1fr)",
+        lg: "repeat(3, 1fr)",
+        xl: "repeat(4, 1fr)",
       }}
       gap={6}
       outline={4}
@@ -43,6 +46,7 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
       borderColor={"#F6793D"}
       p={4}
     >
+      {hasSeed ? <SeedGridItem /> : null}
       {Object.keys(merged).map((m) => {
         if (m[0] == "p") {
           const pid = parseInt(m.slice(1));
@@ -54,6 +58,38 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
         }
       })}
     </Grid>
+  );
+};
+
+const SeedGridItem = () => {
+  return (
+    <GridItem
+      borderRadius={8}
+      bg={"gray.400"}
+      minW={"300px"}
+      maxW={"300px"}
+      h={"300px"}
+      p={4}
+    >
+      <Heading textAlign={"center"} fontFamily={"body"} textColor={"gray.700"}>
+        Welcome!
+      </Heading>
+      <Divider />
+      <NextLink href={"project-info"}>
+        <Text cursor={"pointer"} textAlign={"center"} fontSize={18}>
+          Start your first project or recurring task by pressing the button
+          above
+        </Text>
+      </NextLink>
+      <Divider />
+      <NextLink href={"settings"}>
+        <Text cursor={"pointer"} mt={4} fontSize={18} textAlign={"center"}>
+          Adjust your messaging settings by clicking your username in the nav
+          bar
+        </Text>
+      </NextLink>
+      <Text>🟥➜🟦➜🟩➜🔴➜🔵➜🟢➜🟥➜🟦➜🟩➜🎇</Text>
+    </GridItem>
   );
 };
 
