@@ -15,6 +15,7 @@ import {
   useUpdateTaskPodMutation,
   useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
+import { sendMessage } from "../../utils/messaging/sendMessage";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { COUNTRIES } from "../Inputs/countries";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
@@ -166,6 +167,12 @@ export const MyPod: React.FC<MyPodProps> = ({
                     updateTaskPod,
                     addProjectToPod
                   );
+                  sendMessage({
+                    to: "+12173817277",
+                    body: `${meData?.me?.username}'s task has joined a pod! text/email them 
+                        Email: ${meData?.me?.email}, 
+                        Phone: ${meData?.me?.phone}`,
+                  });
                 }}
               >
                 Join!

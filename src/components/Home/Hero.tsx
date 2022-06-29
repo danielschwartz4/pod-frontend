@@ -4,7 +4,6 @@ import React from "react";
 import { useMeQuery } from "../../generated/graphql";
 import heroProject from "../../images/heroProject.png";
 import heroTask from "../../images/heroTask.png";
-import { timer } from "../../utils/delay";
 
 interface HeroProps {}
 

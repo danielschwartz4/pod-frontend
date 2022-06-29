@@ -3,10 +3,10 @@ import {
   Button,
   Flex,
   Heading,
+  Image,
   Link,
   Stack,
   Text,
-  Image,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -14,11 +14,10 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { Wrapper } from "../components/Wrapper";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
-import { toErrorMap } from "../utils/toErrorMap";
 import firstLogo from "../images/Logos/firstLogo.png";
 import { sendMessage } from "../utils/messaging/sendMessage";
+import { toErrorMap } from "../utils/toErrorMap";
 
 interface registerProps {}
 
