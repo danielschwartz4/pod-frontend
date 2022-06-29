@@ -1,8 +1,8 @@
-import { Divider, Flex, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
+import { Divider, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { ProjectsQuery, RecurringTasksQuery } from "../../generated/graphql";
 import mergeData from "../../utils/mergeData";
 import ProjectEntry from "./ProjectEntry";
-import NextLink from "next/link";
 import RecurringTaskEntry from "./RecurringTaskEntry";
 
 interface projectsGridProps {
@@ -21,7 +21,6 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
     (acc, project) => ({ ...acc, [project.id]: project }),
     {}
   );
-  console.log(projectsDataDict);
   const tasksDataDict = tasksData?.recurringTasks?.reduce(
     (acc, task) => ({ ...acc, [task.id]: task }),
     {}
@@ -77,8 +76,7 @@ const SeedGridItem = () => {
       <Divider />
       <NextLink href={"project-info"}>
         <Text cursor={"pointer"} textAlign={"center"} fontSize={18}>
-          Start your first project or recurring task by pressing the button
-          above
+          Start a project or recurring task by pressing the button above
         </Text>
       </NextLink>
       <Divider />

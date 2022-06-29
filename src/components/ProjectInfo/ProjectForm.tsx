@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import router from "next/router";
 import React from "react";
 import { MeQuery, useAddProjectInfoMutation } from "../../generated/graphql";
+import { sendMessage } from "../../utils/messaging/sendMessage";
 import { objectToArray } from "../../utils/objectToArray";
 import { InputField } from "../Inputs/InputField";
 import MilestoneInputs from "../Inputs/MilestoneInputs";
@@ -53,6 +54,17 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
               },
             },
           });
+          if (
+            response?.data?.addProjectInfo?.project?.user?.phone !=
+            "+12173817277"
+          ) {
+            sendMessage({
+              to: "+12173817277",
+              body: `${response?.data?.addProjectInfo?.project?.user?.username} has created a project! Invite them to a pod then text/email them to join! 
+                      Email: ${response?.data?.addProjectInfo?.project?.user?.email}, 
+                      Phone: ${response?.data?.addProjectInfo?.project?.user?.phone}`,
+            });
+          }
           router.push("/profile");
         }}
       >

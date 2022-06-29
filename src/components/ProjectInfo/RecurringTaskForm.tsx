@@ -10,6 +10,7 @@ import {
   useCreateRecurringTaskMutation,
 } from "../../generated/graphql";
 import { DaysType, EndOptionsSelectorType } from "../../types/types";
+import { sendMessage } from "../../utils/messaging/sendMessage";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
@@ -76,6 +77,17 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
             });
             if (singleTasksResponse) {
               console.log("success");
+            }
+            if (
+              response?.data?.createRecurringTask?.task?.user?.phone !=
+              "+12173817277"
+            ) {
+              sendMessage({
+                to: "+12173817277",
+                body: `${response?.data?.createRecurringTask?.task?.user?.username} has created a recurring task! Invite them to a pod then text/email them to join! 
+                        Email: ${response?.data?.createRecurringTask?.task?.user?.email}, 
+                        Phone: ${response?.data?.createRecurringTask?.task?.user?.phone}`,
+              });
             }
             await router.push("/profile");
           }
