@@ -84,9 +84,9 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
             ) {
               sendMessage({
                 to: "+12173817277",
-                body: `${response?.data?.createRecurringTask?.task?.user?.username} has created a recurring task! Invite them to a pod then text/email them to join! 
-                        Email: ${response?.data?.createRecurringTask?.task?.user?.email}, 
-                        Phone: ${response?.data?.createRecurringTask?.task?.user?.phone}`,
+                body: `${meData?.me?.username} has created a recurring task! Invite them to a pod then text/email them to join! 
+                        Email: ${meData?.me?.email}, 
+                        Phone: ${meData?.me?.phone}`,
               });
             }
             await router.push("/profile");

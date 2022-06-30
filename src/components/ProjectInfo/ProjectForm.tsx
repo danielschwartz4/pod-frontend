@@ -60,9 +60,9 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
           ) {
             sendMessage({
               to: "+12173817277",
-              body: `${response?.data?.addProjectInfo?.project?.user?.username} has created a project! Invite them to a pod then text/email them to join! 
-                      Email: ${response?.data?.addProjectInfo?.project?.user?.email}, 
-                      Phone: ${response?.data?.addProjectInfo?.project?.user?.phone}`,
+              body: `${meData?.me?.username} has created a project! Invite them to a pod then text/email them to join! 
+                      Email: ${meData?.me?.email}, 
+                      Phone: ${meData?.me?.phone}`,
             });
           }
           router.push("/profile");
