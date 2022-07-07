@@ -145,9 +145,10 @@ const CaptionCarousel: React.FC = () => {
             <Box spacing={6}>
               <VStack mr={4} my={"auto"} textAlign={"center"}>
                 <Heading
-                  color={"gray.500"}
-                  fontFamily={"serif"}
+                  color={"gainsboro"}
+                  fontFamily={"sans-serif"}
                   fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+                  fontWeight={"thin"}
                 >
                   {card.title}
                 </Heading>
@@ -157,7 +158,7 @@ const CaptionCarousel: React.FC = () => {
                   mx={"auto"}
                   width={{ base: "100%", sm: "500px", md: "750px" }}
                   src={card.image}
-                ></Image>
+                />
               </Flex>
             </Box>
           </Flex>

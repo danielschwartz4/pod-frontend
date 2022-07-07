@@ -40,22 +40,28 @@ const Hero: React.FC<HeroProps> = ({}) => {
         textColor={"gainsboro"}
         fontSize={{ base: 36, md: 48 }}
       >
-        <Text>
+        <Text fontFamily={"sans-serif"} fontWeight={"thin"}>
           Join groups of others to stay <b>motivated</b> and <b>accountable</b>{" "}
           while pursing a solo goal
         </Text>
-
         <Box ml={4} mb={16}>
           {meData?.me == null ? (
             <Button
               textColor={"gainsboro"}
               fontSize={".5em"}
-              height={"75px"}
+              height={"100px"}
               color={"gainsboro"}
               cursor={"pointer"}
               onClick={() => router.push("/register")}
             >
-              Join a pod and get started! 😆
+              <Flex direction={"column"}>
+                <Text fontFamily={"sans-serif"} fontWeight={"medium"} mb={"-2"}>
+                  Join a pod and get started! 😆
+                </Text>
+                <Text fontSize={16} fontWeight={"light"}>
+                  (it's free)
+                </Text>
+              </Flex>
             </Button>
           ) : (
             <></>
@@ -69,14 +75,13 @@ const Hero: React.FC<HeroProps> = ({}) => {
           border={"4px"}
           maxW={"850px"}
           borderColor={"#F6793D"}
-          gap={4}
+          gap={[1, 1, 12, 16]}
           mx={"auto"}
           display={{ base: "block", sm: "flex" }}
         >
           <Flex>
             <Image
               mx={"auto"}
-              // mr={4}
               w={"380px"}
               h={"430px"}
               src={heroProject.src}
@@ -86,7 +91,6 @@ const Hero: React.FC<HeroProps> = ({}) => {
           </Flex>
           <Flex>
             <Image
-              // ml={4}
               mx={"auto"}
               w={"380px"}
               h={"430px"}
