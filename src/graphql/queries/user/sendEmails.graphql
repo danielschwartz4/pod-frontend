@@ -1,0 +1,3 @@
+query SendEmails($subject: String!, $message: String!, $userIds: [Int!]!) {
+  sendEmails(subject: $subject, message: $message, userIds: $userIds)
+}

@@ -11,6 +11,7 @@ import {
   useCreatePodMutation,
   useFindPublicPodQuery,
   useRemoveProjectFromPodMutation,
+  useSendEmailsLazyQuery,
   useUpdatePhoneMutation,
   useUpdateTaskPodMutation,
   useUpdateUserFriendRequestsMutation,
@@ -68,6 +69,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   const [createPod] = useCreatePodMutation();
   const [addProjectToPod] = useAddProjectToPodMutation();
   const [updateUserFriendRequests] = useUpdateUserFriendRequestsMutation();
+  const [sendEmails, {}] = useSendEmailsLazyQuery();
 
   const [podSize, setPodSize] = useState(null);
   const [podJoined, setPodJoined] = useState(
@@ -158,7 +160,7 @@ export const MyPod: React.FC<MyPodProps> = ({
                       },
                     });
                   }
-                  await joinPod(
+                  const pod: PodQuery["pod"]["pod"] = await joinPod(
                     podSize,
                     availablePodsData,
                     myTaskData,
@@ -167,6 +169,17 @@ export const MyPod: React.FC<MyPodProps> = ({
                     updateTaskPod,
                     addProjectToPod
                   );
+                  // !! send SMS AND EMAIL message to all users that someone joined their pod
+                  sendEmails({
+                    variables: {
+                      message: "log into link ",
+                      subject:
+                        "someone joined your pod! Check out their progress <a href='url'>here</a>",
+                      userIds: pod?.userIds,
+                    },
+                  });
+
+                  // Just sending myself a message
                   sendMessage({
                     to: "+12173817277",
                     body: `${meData?.me?.username}'s task has joined a pod! text/email them 

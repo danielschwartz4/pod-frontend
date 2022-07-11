@@ -301,6 +301,7 @@ export type Query = {
   recentPodSingleTasks?: Maybe<SingleTasksResponse>;
   recurringTask?: Maybe<RecurringTaskFieldResponse>;
   recurringTasks?: Maybe<Array<RecurringTask>>;
+  sendEmails?: Maybe<Scalars['String']>;
   singleTask?: Maybe<SingleTaskResponse>;
   singleTasks?: Maybe<SingleTasksResponse>;
 };
@@ -345,6 +346,13 @@ export type QueryRecentPodSingleTasksArgs = {
 
 export type QueryRecurringTaskArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QuerySendEmailsArgs = {
+  message: Scalars['String'];
+  subject: Scalars['String'];
+  userIds: Array<Scalars['Int']>;
 };
 
 
@@ -795,6 +803,15 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null } | null };
+
+export type SendEmailsQueryVariables = Exact<{
+  subject: Scalars['String'];
+  message: Scalars['String'];
+  userIds: Array<Scalars['Int']> | Scalars['Int'];
+}>;
+
+
+export type SendEmailsQuery = { __typename?: 'Query', sendEmails?: string | null };
 
 export const RegularPodFragmentDoc = gql`
     fragment RegularPod on Pod {
@@ -2526,3 +2543,38 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const SendEmailsDocument = gql`
+    query SendEmails($subject: String!, $message: String!, $userIds: [Int!]!) {
+  sendEmails(subject: $subject, message: $message, userIds: $userIds)
+}
+    `;
+
+/**
+ * __useSendEmailsQuery__
+ *
+ * To run a query within a React component, call `useSendEmailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSendEmailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSendEmailsQuery({
+ *   variables: {
+ *      subject: // value for 'subject'
+ *      message: // value for 'message'
+ *      userIds: // value for 'userIds'
+ *   },
+ * });
+ */
+export function useSendEmailsQuery(baseOptions: Apollo.QueryHookOptions<SendEmailsQuery, SendEmailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SendEmailsQuery, SendEmailsQueryVariables>(SendEmailsDocument, options);
+      }
+export function useSendEmailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SendEmailsQuery, SendEmailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SendEmailsQuery, SendEmailsQueryVariables>(SendEmailsDocument, options);
+        }
+export type SendEmailsQueryHookResult = ReturnType<typeof useSendEmailsQuery>;
+export type SendEmailsLazyQueryHookResult = ReturnType<typeof useSendEmailsLazyQuery>;
+export type SendEmailsQueryResult = Apollo.QueryResult<SendEmailsQuery, SendEmailsQueryVariables>;

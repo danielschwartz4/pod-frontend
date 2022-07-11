@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, PopoverFooter, useToast } from "@chakra-ui/react";
 import React from "react";
-import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
+import { TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
   SingleTask,
@@ -14,9 +14,9 @@ import {
 } from "../../generated/graphql";
 import { CompletedCount } from "../../types/types";
 import { beforeToday } from "../../utils/getConsistency";
-import { generateSms } from "../../utils/taskSmsBody";
-import { addDays } from "../../utils/singleTaskUtils";
 import { sendMessages } from "../../utils/messaging/sendMessage";
+import { addDays } from "../../utils/singleTaskUtils";
+import { generateSms } from "../../utils/taskSmsBody";
 import NotesForm from "./NotesForm";
 
 interface TodayUpdateFormProps {
@@ -69,31 +69,27 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
       )
   );
 
-  const sendMessageHandler = async () =>
-    // usersData: PodUsersQuery,
-    // message: string
-
-    {
-      if (task?.recurringTask?.task?.podId != 0) {
-        await singleTasksQuery({
-          variables: { taskId: task?.recurringTask?.task?.id },
-        });
-        const pq = await podQuery({
-          variables: { podId: task?.recurringTask?.task?.podId },
-        });
-        const users = await podUsersQuery({
-          variables: { ids: pq?.data?.pod?.pod?.userIds },
-        });
-        const me = await meQuery();
-        if (usersData?.podUsers && me?.data?.me) {
-          // !! Fix this?
-          const body = generateSms(
-            singleTasksData?.singleTasks?.singleTasks as SingleTask[]
-          );
-          sendMessages(me?.data?.me?.username, usersData, body);
-        }
+  const sendMessageHandler = async () => {
+    if (task?.recurringTask?.task?.podId != 0) {
+      await singleTasksQuery({
+        variables: { taskId: task?.recurringTask?.task?.id },
+      });
+      const pq = await podQuery({
+        variables: { podId: task?.recurringTask?.task?.podId },
+      });
+      const users = await podUsersQuery({
+        variables: { ids: pq?.data?.pod?.pod?.userIds },
+      });
+      const me = await meQuery();
+      if (usersData?.podUsers && me?.data?.me) {
+        // !! Fix this?
+        const body = generateSms(
+          singleTasksData?.singleTasks?.singleTasks as SingleTask[]
+        );
+        sendMessages(me?.data?.me?.username, usersData, body);
       }
-    };
+    }
+  };
 
   const setCompletedCountHandler = (isAdding: boolean) => {
     const tmpDate = new Date(singleTask?.actionDate);

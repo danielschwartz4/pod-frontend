@@ -12,6 +12,7 @@ import {
   useCreatePodMutation,
   useFindPublicPodQuery,
   useRemoveProjectFromPodMutation,
+  useSendEmailsLazyQuery,
   useUpdatePhoneMutation,
   useUpdateProjectPodMutation,
 } from "../../generated/graphql";
@@ -68,6 +69,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   const [updateProjectPod] = useUpdateProjectPodMutation();
   const [createPod] = useCreatePodMutation();
   const [updatePhone] = useUpdatePhoneMutation();
+  const [sendEmails, {}] = useSendEmailsLazyQuery();
 
   const [podSize, setPodSize] = useState(null);
   const [podJoined, setPodJoined] = useState(
@@ -161,7 +163,7 @@ export const MyPod: React.FC<MyPodProps> = ({
                       },
                     });
                   }
-                  await joinPod(
+                  const pod: PodQuery["pod"]["pod"] = await joinPod(
                     podSize,
                     availablePodsData,
                     projectData,
@@ -170,6 +172,15 @@ export const MyPod: React.FC<MyPodProps> = ({
                     updateProjectPod,
                     addProjectToPod
                   );
+                  sendEmails({
+                    variables: {
+                      message: "log into link ",
+                      subject:
+                        "someone joined your pod! Check out their progress <a href='url'>here</a>",
+                      userIds: pod?.userIds,
+                    },
+                  });
+
                   sendMessage({
                     to: "+12173817277",
                     body: `${meData?.me?.username}'s project has joined a pod! text/email them
