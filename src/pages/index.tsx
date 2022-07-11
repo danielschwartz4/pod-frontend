@@ -11,17 +11,16 @@ const Index: React.FC<IndexProps> = ({}) => {
   return (
     <Layout>
       <Hero />
-      <Box mt={"8em"}>
-        <Features />
-      </Box>
+      <Flex>
+        <Box mx={"auto"} maxW={"1200px"} mt={"8em"}>
+          <Features />
+        </Box>
+      </Flex>
       <Divider w={"80%"} transform={"translateY(40px)"} />
       <Box mt={"4em"}>
         <Samples />
       </Box>
       <Divider w={"80%"} transform={"translateY(40px)"} />
-      {/* <Box mt={"4em"}>
-        <Features />
-      </Box> */}
     </Layout>
   );
 };
