@@ -3,6 +3,8 @@ import { ColorModeProvider, ThemeProvider } from "@chakra-ui/react";
 import Head from "next/head";
 import "../css/DatePickerInput.css";
 import theme from "../theme";
+import { PageView, initGA } from "../libs/tracking";
+import { useEffect } from 'react';
 
 const client = new ApolloClient({
   uri:
@@ -14,6 +16,11 @@ const client = new ApolloClient({
 });
 
 function MyApp({ Component, pageProps }: any) {
+  useEffect(() => {
+    initGA(process.env.REACT_APP_GOOGLE_ANALYTIC_ID)  // Using Universal Analytics Version from Google Analytics
+    PageView()
+  }, [])
+
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
