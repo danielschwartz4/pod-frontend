@@ -10,10 +10,13 @@ import {
   useRecurringTasksQuery,
 } from "../generated/graphql";
 import { useIsAuth } from "../utils/usIsAuth";
+import { PageView } from "../libs/tracking";
 
 interface profileProps {}
 
 const Profile: React.FC<profileProps> = ({}) => {
+  useEffect(() => PageView(), []);
+
   useIsAuth();
   const { data: meData, loading } = useMeQuery({});
   const { data: projectsData, refetch: refetchProjects } = useProjectsQuery();

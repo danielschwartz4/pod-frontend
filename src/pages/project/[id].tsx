@@ -17,10 +17,12 @@ import { delayAlert } from "../../utils/delay";
 import { sortMilestones } from "../../utils/initElements";
 import { useGetProjectFromUrl } from "../../utils/useGetProjectFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import { PageView } from "../../libs/tracking";
 
 interface ProjectHomeProps {}
 
 const ProjectHome: React.FC<ProjectHomeProps> = ({}) => {
+  useEffect(() => PageView(), []);
   useIsAuth();
 
   const { data: meData } = useMeQuery({});
