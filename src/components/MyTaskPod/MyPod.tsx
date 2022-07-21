@@ -113,7 +113,7 @@ export const MyPod: React.FC<MyPodProps> = ({
             <Button
               cursor={"pointer"}
               bgColor="gainsboro"
-              onClick={async () =>
+              onClick={async () => {
                 Event("Desktop", "MyTaskPod MyPod.tsx Button", "exit pod");
                 await exitPod(
                   removeProjectFromPod,
@@ -121,8 +121,8 @@ export const MyPod: React.FC<MyPodProps> = ({
                   podData,
                   setPodJoined,
                   updateTaskPod
-                )
-              }
+                );
+              }}
             >
               exit pod
             </Button>

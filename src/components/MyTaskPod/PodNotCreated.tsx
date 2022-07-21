@@ -37,7 +37,7 @@ interface PodNotCreatedProps {
 }
 
 export const PodNotCreated: React.FC<PodNotCreatedProps> = (props) => {
-  const [isRandom, setIsRandom] = React.useState(false);
+  const [isRandom, setIsRandom] = React.useState(true);
 
   return (
     <Box>
@@ -86,7 +86,7 @@ const RandomPodOptions: React.FC<{
           {podSize == null ? "Select pod size" : podSize}
         </MenuButton>
         <MenuList>
-          <MenuItem
+          {/* <MenuItem
             value={2}
             onClick={(e) => {
               let size = parseInt((e.target as HTMLTextAreaElement).value);
@@ -103,7 +103,7 @@ const RandomPodOptions: React.FC<{
             }}
           >
             3
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             value={4}
             onClick={(e) => {

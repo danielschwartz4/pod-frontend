@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { MeQuery, PodTasksQuery, RecurringTask } from "../../generated/graphql";
+import PodDummyCard from "../MyProjectPod/PodDummyCard";
 import PodCard from "./PodCard";
 
 interface PodCreatedProps {
@@ -17,7 +18,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
 }) => {
   const podLength = tasksData?.podTasks?.length;
   const leftOver = podCap - podLength;
-  const test = Array(leftOver).fill(0);
+  const fourPersonArr = Array(leftOver).fill(0);
 
   const gridProjects = (
     <Box w={"100%"}>
@@ -29,7 +30,8 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
         gap={4}
         textAlign={"center"}
       >
-        {tasksData?.podTasks?.map((t, i) => {
+        {/* Logic for 2, 3, 4 people */}
+        {/* {tasksData?.podTasks?.map((t, i) => {
           return (i == 2 && podLength == 3) || podLength == 1 ? (
             <GridItem
               colStart={{ md: null, lg: 2 }}
@@ -42,6 +44,20 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
           ) : (
             <GridItem colSpan={2} key={i}>
               <PodCard meData={meData} task={t as RecurringTask} />
+            </GridItem>
+          );
+        })} */}
+        {fourPersonArr.map((t, i) => {
+          return (
+            <GridItem colSpan={2} key={i}>
+              {tasksData?.podTasks[i] ? (
+                <PodCard
+                  meData={meData}
+                  task={tasksData?.podTasks[i] as RecurringTask}
+                />
+              ) : (
+                <PodDummyCard />
+              )}
             </GridItem>
           );
         })}
@@ -65,7 +81,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
                 rounded={"md"}
                 overflow={"hidden"}
                 h={"420px"}
-              ></Box>
+              />
             </GridItem>
           ) : (
             <GridItem colSpan={2} key={i}>
@@ -81,7 +97,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
                 rounded={"md"}
                 overflow={"hidden"}
                 h={"420px"}
-              ></Box>
+              />
             </GridItem>
           );
         })} */}
