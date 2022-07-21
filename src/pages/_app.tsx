@@ -4,7 +4,7 @@ import Head from "next/head";
 import "../css/DatePickerInput.css";
 import theme from "../theme";
 import { PageView, initGA } from "../libs/tracking";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const client = new ApolloClient({
   uri:
@@ -17,10 +17,9 @@ const client = new ApolloClient({
 
 function MyApp({ Component, pageProps }: any) {
   useEffect(() => {
-    // initGA(process.env.REACT_APP_GOOGLE_ANALYTIC_ID)  // Using Universal Analytics Version from Google Analytics
-    initGA("UA-199218131-4")
-    PageView()
-  }, [])
+    initGA(process.env.REACT_APP_GOOGLE_ANALYTIC_ID); // Using Universal Analytics Version from Google Analytics
+    PageView();
+  }, []);
 
   return (
     <ApolloProvider client={client}>

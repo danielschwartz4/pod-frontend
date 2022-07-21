@@ -103,7 +103,11 @@ export const MyPod: React.FC<MyPodProps> = ({
         <Box color={"gainsboro"}>loading...</Box>
       ) : podJoined && _podTasks ? (
         <div>
-          <PodCreated meData={meData} tasksData={_podTasks} />
+          <PodCreated
+            podCap={podData?.pod?.pod?.cap}
+            meData={meData}
+            tasksData={_podTasks}
+          />
           <Box mt={"2em"}>
             <Button
               cursor={"pointer"}
