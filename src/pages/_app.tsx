@@ -17,7 +17,7 @@ const client = new ApolloClient({
 
 function MyApp({ Component, pageProps }: any) {
   useEffect(() => {
-    initGA(process.env.REACT_APP_GOOGLE_ANALYTIC_ID); // Using Universal Analytics Version from Google Analytics
+    initGA("UA-199218131-4"); // Using Universal Analytics Version from Google Analytics
     PageView();
   }, []);
 

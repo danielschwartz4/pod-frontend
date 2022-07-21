@@ -13,6 +13,7 @@ const PodRadio: React.FC<podRadioProps> = (props) => {
         onClick={() => {
           props.setIsRandom(true);
           Event("Desktop", "tasks/# radio.tsx Button", "Random Pod");
+
         }}
       >
         <RadioCard isChecked={props.isRandom}>Random Pod</RadioCard>

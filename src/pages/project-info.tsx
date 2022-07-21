@@ -7,7 +7,7 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
 import { Layout } from "../components/Layout";
 import ProjectForm from "../components/ProjectInfo/ProjectForm";
@@ -15,11 +15,12 @@ import RecurringTaskForm from "../components/ProjectInfo/RecurringTaskForm";
 import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import { useIsAuth } from "../utils/usIsAuth";
-import { Event } from "../libs/tracking";
+import { Event, PageView } from "../libs/tracking";
 
 interface ProjectInfoProps {}
 
 const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
+  useEffect(() => PageView(), []);
   useIsAuth();
   //
   const { data, loading, error } = useMeQuery({

@@ -6,7 +6,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import DashTabs from "../../components/Dash/DashTabs";
 import DashWrapper from "../../components/Dash/DashWrapper";
 import { Layout } from "../../components/Layout";
@@ -23,10 +23,12 @@ import {
 import { NotePopup, randNotesSplurge } from "../../utils/randNotesSplurge";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import { PageView } from "../../libs/tracking";
 
 interface TaskHomeProps {}
 
 const TaskHome: React.FC<TaskHomeProps> = ({}) => {
+  useEffect(() => PageView(), []);
   useIsAuth();
 
   const [changeTab, useChangeTab] = useState<string>("task");

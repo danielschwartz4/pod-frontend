@@ -13,13 +13,16 @@ import {
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import { InputField } from "../components/Inputs/InputField";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import firstLogo from "../images/Logos/firstLogo.png";
 import { toErrorMap } from "../utils/toErrorMap";
+import { Event, PageView } from "../libs/tracking";
 
 const Login: React.FC<{}> = ({}) => {
+  useEffect(() => PageView(), []);
+
   const router = useRouter();
   const [login] = useLoginMutation();
 
@@ -145,6 +148,13 @@ const Login: React.FC<{}> = ({}) => {
                           width={"100%"}
                           cursor={"pointer"}
                           loadingText="Submitting"
+                          onClick={() =>
+                            Event(
+                              "Desktop",
+                              "Login login.tsx Button",
+                              "Sign in"
+                            )
+                          }
                         >
                           Sign in
                         </Button>
