@@ -20,6 +20,7 @@ import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import firstLogo from "../../images/Logos/firstLogo.png";
 import { isServer } from "../../utils/isServer";
 import { HelpProjectPopover } from "./HelpProjectPopover";
+import { Event } from "../../libs/tracking";
 
 interface ProfileNavBarProps {
   isProjectsPage?: boolean;
@@ -59,6 +60,9 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
               src={firstLogo.src}
               alt=""
               mr={4}
+              onClick={() =>
+                Event("Desktop", "ProfileNavBar.tsx Button", "Clicked Logo")
+              }
             />
           </NextLink>
 
@@ -77,7 +81,14 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
               >
                 {!isProjectsPage ? (
                   <HelpProjectPopover>
-                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
+                    <Button
+                      mr={4}
+                      colorScheme={"tan"}
+                      cursor={"pointer"}
+                      onClick={() =>
+                        Event("Desktop", "ProfileNavBar.tsx Button", "Help")
+                      }
+                    >
                       <BsQuestionSquare size={24} />
                     </Button>
                   </HelpProjectPopover>
@@ -86,7 +97,10 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                   mr={4}
                   colorScheme={"tan"}
                   cursor={"pointer"}
-                  onClick={() => router.push("/settings")}
+                  onClick={() => {
+                    router.push("/settings");
+                    Event("Desktop", "ProfileNavBar.tsx Button", "Settings");
+                  }}
                 >
                   {data?.me?.username}
                 </Button>
@@ -95,13 +109,25 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                     mr={4}
                     colorScheme={"tan"}
                     cursor={"pointer"}
-                    onClick={() => router.push("/profile")}
+                    onClick={() => {
+                      router.push("/profile");
+                      Event(
+                        "Desktop",
+                        "ProfileNavBar.tsx Button",
+                        "My projects"
+                      );
+                    }}
                   >
                     My projects
                   </Button>
                 ) : null}
                 <Button
                   onClick={() => {
+                    Event(
+                      "Desktop",
+                      "ProfileNavBar.tsx LogoutButton",
+                      "Logout"
+                    );
                     logout({
                       update: (cache) => {
                         cache.evict({ id: "User:" + data?.me.id });

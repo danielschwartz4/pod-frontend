@@ -7,6 +7,7 @@ import { sendMessage } from "../../utils/messaging/sendMessage";
 import { objectToArray } from "../../utils/objectToArray";
 import { InputField } from "../Inputs/InputField";
 import MilestoneInputs from "../Inputs/MilestoneInputs";
+import { Event } from "../../libs/tracking";
 
 interface EnterProjectProps {
   meData: MeQuery;
@@ -95,6 +96,9 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
                 isloading={isSubmitting ? "true" : "false"}
                 cursor="pointer"
                 colorScheme="gray.300"
+                onClick={() =>
+                  Event("Desktop", "ProjectForm.tsx Button", "Get started!")
+                }
               >
                 Get started!
               </Button>

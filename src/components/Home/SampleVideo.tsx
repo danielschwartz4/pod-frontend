@@ -1,5 +1,6 @@
 import { Flex, Box, Text } from "@chakra-ui/react";
 import React from "react";
+import { Event } from "../../libs/tracking";
 
 interface SampleVideoProps {}
 
@@ -16,7 +17,14 @@ const SampleVideo: React.FC<SampleVideoProps> = ({}) => {
           TUTORIAL
         </Text>
       </Flex>
-      <Box mt={8} mx={"auto"} display={["none", "block"]}>
+      <Box
+        mt={8}
+        mx={"auto"}
+        display={["none", "block"]}
+        onClick={() =>
+          Event("Desktop", "SampleVideo.tsx Button", "Clicked Tutorial")
+        }
+      >
         <iframe
           width="672"
           height="378"
