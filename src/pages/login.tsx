@@ -18,6 +18,7 @@ import { InputField } from "../components/Inputs/InputField";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import firstLogo from "../images/Logos/firstLogo.png";
 import { toErrorMap } from "../utils/toErrorMap";
+import { Event } from "../libs/tracking";
 
 const Login: React.FC<{}> = ({}) => {
   const router = useRouter();
@@ -145,6 +146,13 @@ const Login: React.FC<{}> = ({}) => {
                           width={"100%"}
                           cursor={"pointer"}
                           loadingText="Submitting"
+                          onClick={() =>
+                            Event(
+                              "Desktop",
+                              "Login login.tsx Button",
+                              "Sign in"
+                            )
+                          }
                         >
                           Sign in
                         </Button>
