@@ -2,6 +2,7 @@ import { Flex, Button, Box } from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
 import { MeQuery } from "../../generated/graphql";
+import { Event } from "../../libs/tracking";
 
 interface ProfileHeadingProps {
   meData: MeQuery;
@@ -14,7 +15,10 @@ const ProfileHeading: React.FC<ProfileHeadingProps> = ({ meData }) => {
         bg={"#7e9cd6"}
         mt={8}
         cursor={"pointer"}
-        onClick={() => router.push("/project-info")}
+        onClick={() => {
+          router.push("/project-info");
+          Event("Desktop", "Create Project Button", "Create Project");
+        }}
       >
         create project
       </Button>

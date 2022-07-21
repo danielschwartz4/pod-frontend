@@ -17,6 +17,7 @@ import { InputField } from "../Inputs/InputField";
 import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import RepetitionStepper from "./RepetitionStepperField";
+import { Event } from "../../libs/tracking";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -163,6 +164,13 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 isloading={isSubmitting ? "true" : "false"}
                 cursor="pointer"
                 colorScheme="gray.300"
+                onClick={() =>
+                  Event(
+                    "Desktop",
+                    "RecurringTaskForm.tsx Button",
+                    "Get Started!"
+                  )
+                }
               >
                 Get started!
               </Button>
