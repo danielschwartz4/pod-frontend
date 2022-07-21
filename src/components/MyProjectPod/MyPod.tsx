@@ -189,12 +189,12 @@ export const MyPod: React.FC<MyPodProps> = ({
                     },
                   });
 
-                  // sendMessage({
-                  //   to: "+12173817277",
-                  //   body: `${meData?.me?.username}'s project has joined a pod! text/email them
-                  //       Email: ${meData?.me?.email},
-                  //       Phone: ${meData?.me?.phone}`,
-                  // });
+                  sendMessage({
+                    to: "+12173817277",
+                    body: `${meData?.me?.username}'s project has joined a pod! text/email them
+                        Email: ${meData?.me?.email},
+                        Phone: ${meData?.me?.phone}`,
+                  });
                 }}
               >
                 Join!
