@@ -18,6 +18,7 @@ import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import firstLogo from "../images/Logos/firstLogo.png";
 import { sendMessage } from "../utils/messaging/sendMessage";
 import { toErrorMap } from "../utils/toErrorMap";
+import { Event } from "../libs/tracking";
 
 interface registerProps {}
 
@@ -64,6 +65,11 @@ const Register: React.FC<registerProps> = ({}) => {
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}
                 onSubmit={async (values, { setErrors }) => {
+                  Event(
+                    "Desktop",
+                    "Register register.tsx Button",
+                    "Join the community"
+                  );
                   const response = await register({
                     variables: {
                       options: {

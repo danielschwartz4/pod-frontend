@@ -4,6 +4,7 @@ import React from "react";
 import { useMeQuery } from "../../generated/graphql";
 import heroProject from "../../images/heroProject.png";
 import heroTask from "../../images/heroTask.png";
+import { Event } from "../../libs/tracking";
 
 interface HeroProps {}
 
@@ -52,7 +53,14 @@ const Hero: React.FC<HeroProps> = ({}) => {
               height={"100px"}
               color={"gainsboro"}
               cursor={"pointer"}
-              onClick={() => router.push("/register")}
+              onClick={() => {
+                router.push("/register");
+                Event(
+                  "Desktop",
+                  "Register Button",
+                  "Join a pod and get started"
+                );
+              }}
             >
               <Flex direction={"column"}>
                 <Text fontFamily={"sans-serif"} fontWeight={"medium"} mb={"-2"}>

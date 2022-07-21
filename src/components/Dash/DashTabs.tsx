@@ -1,5 +1,6 @@
 import { Tab, TabList, Tabs } from "@chakra-ui/react";
 import React from "react";
+import { Event } from "../../libs/tracking";
 
 interface DashTabsProps {
   type: "project" | "task";
@@ -42,6 +43,7 @@ const DashTabs: React.FC<DashTabsProps> = ({
           onClick={() => {
             useChangeTab("pod");
             setKeepMounted(true);
+            Event("Desktop", "DashTabs.tsx Button", "My Pod");
           }}
           _selected={{ color: "white", bg: "#1a202c" }}
         >

@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { Event } from "../../libs/tracking";
 
 interface podRadioProps {
   isRandom: boolean;
@@ -8,7 +9,20 @@ interface podRadioProps {
 const PodRadio: React.FC<podRadioProps> = (props) => {
   return (
     <Flex>
-      <Box onClick={() => props.setIsRandom(true)}>
+      <Box
+        onClick={() => {
+          props.setIsRandom(false);
+          Event("Desktop", "tasks/# radio.tsx Button", "Friend Pod");
+        }}
+      >
+        <RadioCard isChecked={!props.isRandom}>Friend Pod</RadioCard>
+      </Box>
+      <Box
+        onClick={() => {
+          props.setIsRandom(true);
+          Event("Desktop", "tasks/# radio.tsx Button", "Random Pod");
+        }}
+      >
         <RadioCard isChecked={props.isRandom}>Random Pod</RadioCard>
       </Box>
       <Box onClick={() => props.setIsRandom(false)}>

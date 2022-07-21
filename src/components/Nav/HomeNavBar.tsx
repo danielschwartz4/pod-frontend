@@ -20,6 +20,7 @@ import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import firstLogo from "../../images/Logos/firstLogo.png";
 import { isServer } from "../../utils/isServer";
 import { HelpTaskPopover } from "./HelpTaskPopover";
+import { Event } from "../../libs/tracking";
 
 interface ProfileNavBarProps {
   isProjectsPage?: boolean;
@@ -60,6 +61,9 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
               src={firstLogo.src}
               alt=""
               mr={4}
+              onClick={() =>
+                Event("Desktop", "HomeNavBar.tsx Button", "Clicked Logo")
+              }
             />
           </NextLink>
 
@@ -78,7 +82,14 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
               >
                 {!isProjectsPage && withHelpPopover ? (
                   <HelpTaskPopover>
-                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
+                    <Button
+                      mr={4}
+                      colorScheme={"tan"}
+                      cursor={"pointer"}
+                      onClick={() =>
+                        Event("Desktop", "HomeNavBar.tsx Button", "Help")
+                      }
+                    >
                       <BsQuestionSquare size={24} />
                     </Button>
                   </HelpTaskPopover>
@@ -87,7 +98,10 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   mr={4}
                   colorScheme={"tan"}
                   cursor={"pointer"}
-                  onClick={() => router.push("/settings")}
+                  onClick={() => {
+                    router.push("/settings"),
+                      Event("Desktop", "HomeNavBar.tsx Button", "Settings");
+                  }}
                 >
                   {data?.me?.username}
                 </Button>
@@ -95,12 +109,16 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   mr={4}
                   colorScheme={"tan"}
                   cursor={"pointer"}
-                  onClick={() => router.push("/profile")}
+                  onClick={() => {
+                    router.push("/profile");
+                    Event("Desktop", "HomeNavBar.tsx Button", "My projects");
+                  }}
                 >
                   My projects
                 </Button>
                 <Button
                   onClick={() => {
+                    Event("Desktop", "HomeNavBar.tsx LogoutButton", "Logout");
                     logout({
                       update: (cache) => {
                         cache.evict({ id: "User:" + data?.me.id });
@@ -132,7 +150,14 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                 <Button
                   textColor={"gainsboro"}
                   cursor={"pointer"}
-                  onClick={() => router.push("/register")}
+                  onClick={() => {
+                    router.push("/register");
+                    Event(
+                      "Desktop",
+                      "Register HomeNavBar Button",
+                      "Join the community"
+                    );
+                  }}
                   mr={"1em"}
                 >
                   Join the community!
@@ -140,7 +165,10 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                 <Button
                   textColor={"gainsboro"}
                   cursor={"pointer"}
-                  onClick={() => router.push("/login")}
+                  onClick={() => {
+                    router.push("/login");
+                    Event("Desktop", "Login Button", "Login");
+                  }}
                 >
                   Login
                 </Button>
@@ -242,7 +270,14 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                     textColor={"gainsboro"}
                     color={"gainsboro"}
                     cursor={"pointer"}
-                    onClick={() => router.push("/register")}
+                    onClick={() => {
+                      router.push("/register");
+                      Event(
+                        "Mobile",
+                        "Register HomeNavBar Button",
+                        "Join the community"
+                      );
+                    }}
                   >
                     Join the community!
                   </Text>
@@ -254,7 +289,12 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                     textColor={"gainsboro"}
                     colorScheme={"tan"}
                     cursor={"pointer"}
-                    onClick={() => router.push("/login")}
+                    onClick={() => {
+                      {
+                        router.push("/login");
+                        Event("Mobile", "Login Button", "Login");
+                      }
+                    }}
                   >
                     Login
                   </Text>

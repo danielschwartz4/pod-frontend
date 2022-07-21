@@ -15,6 +15,7 @@ import RecurringTaskForm from "../components/ProjectInfo/RecurringTaskForm";
 import { useMeQuery } from "../generated/graphql";
 import { isServer } from "../utils/isServer";
 import { useIsAuth } from "../utils/usIsAuth";
+import { Event } from "../libs/tracking";
 
 interface ProjectInfoProps {}
 
@@ -43,11 +44,25 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
           >
             <Tabs isFitted={true} variant="enclosed" defaultIndex={0}>
               <TabList>
-                <Tab _selected={{ color: "white", bg: "#1a202c" }}>
+                <Tab
+                  onClick={() =>
+                    Event(
+                      "Desktop",
+                      "Recurring Task Project-Info Button",
+                      "Recurring Task"
+                    )
+                  }
+                  _selected={{ color: "white", bg: "#1a202c" }}
+                >
                   Recurring task &#160;
                   <RiRepeatLine />
                 </Tab>
-                <Tab _selected={{ color: "white", bg: "#1a202c" }}>
+                <Tab
+                  onClick={() =>
+                    Event("Desktop", "Project Project-Info Button", "Project")
+                  }
+                  _selected={{ color: "white", bg: "#1a202c" }}
+                >
                   Project &#160; <RiFlowChart />
                 </Tab>
               </TabList>

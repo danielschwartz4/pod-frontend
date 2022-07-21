@@ -23,6 +23,7 @@ import { PhoneNumber } from "../Inputs/PhoneNumber";
 import { exitPod, joinPod } from "./JoinExit";
 import { PodCreated } from "./PodCreated";
 import { PodNotCreated } from "./PodNotCreated";
+import { Event } from "../../libs/tracking";
 
 interface MyPodProps {
   projectData: ProjectQuery;
@@ -114,6 +115,7 @@ export const MyPod: React.FC<MyPodProps> = ({
               cursor={"pointer"}
               bgColor="gainsboro"
               onClick={async () =>
+                Event("Desktop", "MyProjectPod MyPod.tsx Button", "exit pod");
                 await exitPod(
                   projectData,
                   podData,
@@ -156,6 +158,11 @@ export const MyPod: React.FC<MyPodProps> = ({
                 bgColor="gainsboro"
                 cursor={"pointer"}
                 onClick={async () => {
+                  Event(
+                    "Desktop",
+                    "MyProjectPod tasks/# MyPod.tsx Button",
+                    "Join!"
+                  );
                   if (phone) {
                     await updatePhone({
                       variables: {
