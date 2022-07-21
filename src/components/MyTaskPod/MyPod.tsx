@@ -187,12 +187,12 @@ export const MyPod: React.FC<MyPodProps> = ({
                   });
 
                   // Just sending myself a message
-                  // sendMessage({
-                  //   to: "+12173817277",
-                  //   body: `${meData?.me?.username}'s task has joined a pod! text/email them
-                  //       Email: ${meData?.me?.email},
-                  //       Phone: ${meData?.me?.phone}`,
-                  // });
+                  sendMessage({
+                    to: "+12173817277",
+                    body: `${meData?.me?.username}'s task has joined a pod! text/email them
+                        Email: ${meData?.me?.email},
+                        Phone: ${meData?.me?.phone}`,
+                  });
                 }}
               >
                 Join!
