@@ -8,11 +8,11 @@ interface podRadioProps {
 const PodRadio: React.FC<podRadioProps> = (props) => {
   return (
     <Flex>
-      <Box onClick={() => props.setIsRandom(false)}>
-        <RadioCard isChecked={!props.isRandom}>Friend Pod</RadioCard>
-      </Box>
       <Box onClick={() => props.setIsRandom(true)}>
         <RadioCard isChecked={props.isRandom}>Random Pod</RadioCard>
+      </Box>
+      <Box onClick={() => props.setIsRandom(false)}>
+        <RadioCard isChecked={!props.isRandom}>Friend Pod</RadioCard>
       </Box>
     </Flex>
   );

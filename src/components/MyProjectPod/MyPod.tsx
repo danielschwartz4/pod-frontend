@@ -107,6 +107,7 @@ export const MyPod: React.FC<MyPodProps> = ({
             meData={meData}
             podData={podData}
             projectsData={_podProjects}
+            podCap={podData?.pod?.pod?.cap}
           />
           <Box mt={"2em"}>
             <Button

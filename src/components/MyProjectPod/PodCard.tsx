@@ -40,9 +40,9 @@ const PodCard: React.FC<PodCardProps> = ({ project, meData }) => {
         <Box h={"240px"} bg={"gray.100"} mt={-6} mx={-6} pos={"relative"}>
           <ReactFlowProvider>
             <FlowChartMini
-              milestoneProgress={project.milestoneProgress}
-              milestones={project.milestones}
-              milestoneDates={project.milestoneDates}
+              milestoneProgress={project?.milestoneProgress}
+              milestones={project?.milestones}
+              milestoneDates={project?.milestoneDates}
             />
           </ReactFlowProvider>
         </Box>
@@ -58,7 +58,7 @@ const PodCard: React.FC<PodCardProps> = ({ project, meData }) => {
                 : project?.projectName}
             </Heading>
             <Text overflow={"hidden"} color={"gray.500"}>
-              {project.overview}
+              {project?.overview}
             </Text>
           </Stack>
           <Stack
@@ -82,7 +82,7 @@ const PodCard: React.FC<PodCardProps> = ({ project, meData }) => {
                 </Text>
               </Flex>
               <Text fontSize={14}>
-                Last update: {formatDate(project.updatedAt, true)}
+                Last update: {formatDate(project?.updatedAt, true)}
               </Text>
             </Box>
           </Stack>
