@@ -103,7 +103,7 @@ export const MyPod: React.FC<MyPodProps> = ({
       {projectsDataLoading || projectDataLoading ? (
         <Box color={"gainsboro"}>loading...</Box>
       ) : podJoined && _podProjects ? (
-        <div>
+        <Box>
           <PodCreated
             meData={meData}
             podData={podData}
@@ -114,7 +114,7 @@ export const MyPod: React.FC<MyPodProps> = ({
             <Button
               cursor={"pointer"}
               bgColor="gainsboro"
-              onClick={async () =>
+              onClick={async () => {
                 Event("Desktop", "MyProjectPod MyPod.tsx Button", "exit pod");
                 await exitPod(
                   projectData,
@@ -122,13 +122,13 @@ export const MyPod: React.FC<MyPodProps> = ({
                   setPodJoined,
                   removeProjectFromPod,
                   updateProjectPod
-                )
-              }
+                );
+              }}
             >
               exit pod
             </Button>
           </Box>
-        </div>
+        </Box>
       ) : (
         <PodNotCreated
           availablePodsData={availablePodsData}
