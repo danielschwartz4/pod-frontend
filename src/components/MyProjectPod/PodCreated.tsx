@@ -58,7 +58,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
               {projectsData[i] ? (
                 <PodCard meData={meData} project={projectsData[i] as Project} />
               ) : (
-                <PodDummyCard></PodDummyCard>
+                <PodDummyCard />
               )}
             </GridItem>
           );
