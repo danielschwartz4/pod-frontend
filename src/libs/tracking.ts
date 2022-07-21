@@ -20,7 +20,7 @@ export const PageView = () => {
 export const Event = (category, action, label) => {
     ReactGA.event({
         category: category,
-        action: action + label,
+        action: "Action: " + action + " Label: " + label,
         label: label
     });
 };
