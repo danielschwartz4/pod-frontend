@@ -18,7 +18,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
 }) => {
   const podLength = tasksData?.podTasks?.length;
   const leftOver = podCap - podLength;
-  const fourPersonArr = Array(leftOver).fill(0);
+  const fourPersonArr = [0, 0, 0, 0];
 
   const gridProjects = (
     <Box w={"100%"}>
@@ -61,46 +61,6 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             </GridItem>
           );
         })}
-        {/* {test.map((t, i) => {
-          return (i == 2 && podLength == 3) || podLength == 1 ? (
-            <GridItem
-              colStart={{ md: null, lg: 2 }}
-              colEnd={{ md: null, lg: 4 }}
-              colSpan={{ base: 2, sm: 2, md: null }}
-              key={i}
-            >
-              <Box
-                border={"4px"}
-                borderColor="#3EE76D"
-                maxH={"420px"}
-                width={"100%"}
-                maxW={"380px"}
-                mx={[2, 4]}
-                bg={"gainsboro"}
-                boxShadow={"2xl"}
-                rounded={"md"}
-                overflow={"hidden"}
-                h={"420px"}
-              />
-            </GridItem>
-          ) : (
-            <GridItem colSpan={2} key={i}>
-              <Box
-                border={"4px"}
-                borderColor="#3EE76D"
-                maxH={"420px"}
-                width={"100%"}
-                maxW={"380px"}
-                mx={[2, 4]}
-                bg={"gainsboro"}
-                boxShadow={"2xl"}
-                rounded={"md"}
-                overflow={"hidden"}
-                h={"420px"}
-              />
-            </GridItem>
-          );
-        })} */}
       </Grid>
     </Box>
   );
