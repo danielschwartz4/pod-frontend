@@ -152,6 +152,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   color={"gray.800"}
                   borderRadius={"16px"}
                   fontFamily={"ubuntu"}
+                  _hover={{ bg: "#ffecc4" }}
                   onClick={() => {
                     router.push("/register");
                     Event(
@@ -171,6 +172,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   borderRadius={"16px"}
                   cursor={"pointer"}
                   fontFamily={"ubuntu"}
+                  _hover={{ bg: "gray.700" }}
                   onClick={() => {
                     router.push("/login");
                     Event("Desktop", "Login Button", "Login");

@@ -52,14 +52,14 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
         align={"center"}
       >
         <Flex flex={{ base: 1 }} justify={"start"}>
-          <NextLink href="/">
+          <NextLink href="/profile">
             <Image
               cursor={"pointer"}
-              h={70}
-              w={100}
+              h={50}
+              w={200}
               src={newLogo.src}
               alt=""
-              mr={4}
+              // mr={4}
               onClick={() =>
                 Event("Desktop", "ProfileNavBar.tsx Button", "Clicked Logo")
               }

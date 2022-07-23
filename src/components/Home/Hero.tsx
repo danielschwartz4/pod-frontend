@@ -37,33 +37,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         </Text>
         <Flex direction={["column", "row"]} mb={12}>
           <Box mx={"auto"}>
-            {meData?.me == null ? (
-              <Button
-                w={"250px"}
-                borderRadius={8}
-                height={"60px"}
-                color={"gainsboro"}
-                cursor={"pointer"}
-                border={"none"}
-                fontSize={".5em"}
-                fontFamily={"ubuntu"}
-                textColor={"gray.800"}
-                bgColor={"#FFDC93"}
-                mr={4}
-                onClick={() => {
-                  router.push("/register");
-                  Event(
-                    "Desktop",
-                    "Register Button",
-                    "Join a pod and get started"
-                  );
-                }}
-              >
-                Get started for free
-              </Button>
-            ) : (
-              <></>
-            )}
+            {meData?.me == null ? <GetStartedButton /> : <></>}
             <Button
               w={"250px"}
               borderRadius={8}
@@ -102,6 +76,31 @@ const Hero: React.FC<HeroProps> = ({}) => {
         </Box>
       </Flex>
     </Box>
+  );
+};
+
+export const GetStartedButton = () => {
+  return (
+    <Button
+      w={"250px"}
+      borderRadius={8}
+      height={"60px"}
+      color={"gainsboro"}
+      cursor={"pointer"}
+      border={"none"}
+      fontSize={"24px"}
+      fontFamily={"ubuntu"}
+      textColor={"gray.800"}
+      bgColor={"#FFDC93"}
+      _hover={{ bg: "#ffecc4" }}
+      mr={4}
+      onClick={() => {
+        router.push("/register");
+        Event("Desktop", "Register Button", "Join a pod and get started");
+      }}
+    >
+      Get started for free
+    </Button>
   );
 };
 

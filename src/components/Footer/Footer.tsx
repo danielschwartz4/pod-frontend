@@ -10,12 +10,13 @@ export default function LargeWithNewsletter() {
       display={["block", "flex"]}
       textColor={"#F5F5F5"}
       fontSize={"20px"}
+      fontFamily={"ubuntu"}
     >
       <Flex justifyContent={"space-between"} alignItems="center" mx={"auto"}>
         <Text mx={2}>Est. 2022</Text>
         <Image mx={2} cursor={"pointer"} w={100} src={newLogo.src} alt="" />
         <Text mx={2} as="span">
-          Contact: schwartzray8@gmail.com
+          | Contact: schwartzray8@gmail.com
         </Text>
       </Flex>
     </Flex>
