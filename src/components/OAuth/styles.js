@@ -4,12 +4,12 @@ export const OAuthContainer = styled.div`
     display: flex; 
     width: 80%; 
     height: 100%;
-    justify-content: flex-start; 
+    justify-content: center; 
     align-items: center;
     flex-direction: column;
-    margin-top: 35px;
-    margin-right: 5%;
+    margin: 30px 0px 30px 0px;
 `
+
 export const OAuthButton = styled.button`
     display: flex;
     justify-content: center;

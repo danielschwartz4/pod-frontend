@@ -63,10 +63,13 @@ const Login: React.FC<{}> = ({}) => {
             bg={useColorModeValue("white", "gray.700")}
             boxShadow={"lg"}
             p={8}
-            justifyContent={"center"}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
           >
             <OAuth OAuthType="login" />
-            <LandingDivider />
+            <LandingDivider style={{ margin: "0px 0px 30px 0px" }} />
             <Formik
               initialValues={{ usernameOrEmail: "", password: "" }}
               onSubmit={async (

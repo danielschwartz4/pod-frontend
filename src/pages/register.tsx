@@ -61,9 +61,10 @@ const Register: React.FC<registerProps> = ({}) => {
             display={"flex"}
             alignItems={"center"}
             flexDirection={"column"}
+            justifyContent={"center"}
           >
             <OAuth OAuthType="register" />
-            <LandingDivider />
+            <LandingDivider style={{ margin: 0 }} />
             <Stack spacing={4} p={8}>
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}

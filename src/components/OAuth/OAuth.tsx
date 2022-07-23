@@ -117,13 +117,18 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
 
     window.google.accounts.id.renderButton(
       document.getElementById("signInDiv"),
-      { theme: "outline", size: "large" }
+      { theme: "outline", width: "300px" }
     );
+
+    window.google.accounts.id.prompt();
   }, []);
 
   return (
     <OAuthContainer>
-      <div id="signInDiv" />
+      <div
+        style={{ width: "400px", display: "flex", justifyContent: "center" }}
+        id="signInDiv"
+      />
       {/* <OAuthButton>
         <OAuthImageContainer>
           <OAuthImage src="static/react/images/githubicon.png" alt="" />
