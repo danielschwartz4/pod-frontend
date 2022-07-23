@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { MeQuery, PodTasksQuery, RecurringTask } from "../../generated/graphql";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
@@ -21,14 +21,13 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
   const fourPersonArr = [0, 0, 0, 0];
 
   const gridProjects = (
-    <Flex>
+    <Box w={"100%"}>
       <Grid
-        mx={"auto"}
         templateColumns={{
           md: "repeat(2, 1fr)",
           lg: "repeat(4, 1fr)",
         }}
-        gap={8}
+        gap={4}
         textAlign={"center"}
       >
         {/* Logic for 2, 3, 4 people */}
@@ -63,7 +62,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
           );
         })}
       </Grid>
-    </Flex>
+    </Box>
   );
 
   if (podLength) {

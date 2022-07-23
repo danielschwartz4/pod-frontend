@@ -1,6 +1,5 @@
 import {
   Box,
-  Divider,
   Flex,
   TabPanel,
   TabPanels,
@@ -104,38 +103,67 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   return (
     <Layout withHelpPopover={true}>
-      <Box>
-        <Box>
-          {!taskDataLoading && !singleTasksDataLoading ? (
-            <RecurringTaskProgress
-              singleTasksData={singleTasksData}
-              myTaskData={myTaskData}
-              refetchSingleTasks={refetchSingleTasks}
-            />
-          ) : (
-            <Text>Loading...</Text>
-          )}
-        </Box>
-        <Flex mt={-8} mb={"8"}>
-          <Box alignItems={"center"} display={"flex"} mx={"auto"}>
-            <Divider color={"gray.400"} width={"300px"} />
-            <Text fontFamily={"ubuntu"} mx={4} textColor={"#FFDC93"}>
-              Your pod
-            </Text>
-            <Divider color={"gray.400"} width={"300px"} />
+      <DashWrapper>
+        <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
+          <Box mt={"28px"} ml={4} mr={0}>
+            {changeTab == "project" ? (
+              <></>
+            ) : (
+              <>
+                {tasksData?.podTasks?.length == 0 ||
+                tasksData?.podTasks === undefined ? (
+                  <Text h={2}></Text>
+                ) : (
+                  <Flex>
+                    <Text h={2} textColor={"gainsboro"}>
+                      Pod cap: {podData?.pod?.pod?.cap}
+                    </Text>
+                  </Flex>
+                )}
+              </>
+            )}
           </Box>
         </Flex>
-        <MyPod
-          podData={podData}
-          meData={meData}
-          tasksData={tasksData}
-          taskDataLoading={taskDataLoading}
-          tasksDataLoading={tasksDataLoading}
-          myTaskData={myTaskData}
-          refetchTask={refetchTask}
-          refetchTasks={refetchTasks}
-        />
-      </Box>
+        <DashTabs
+          type="task"
+          keepMounted={keepMounted}
+          useChangeTab={useChangeTab}
+          setKeepMounted={setKeepMounted}
+        >
+          <TabPanels>
+            <TabPanel outlineOffset={-16}>
+              {TEMP_BOOL ? (
+                <Box>
+                  {!taskDataLoading && !singleTasksDataLoading ? (
+                    <RecurringTaskProgress
+                      singleTasksData={singleTasksData}
+                      myTaskData={myTaskData}
+                      refetchSingleTasks={refetchSingleTasks}
+                    />
+                  ) : (
+                    <Text>Loading...</Text>
+                  )}
+                </Box>
+              ) : (
+                <Box>Loading...</Box>
+              )}
+            </TabPanel>
+
+            <TabPanel>
+              <MyPod
+                podData={podData}
+                meData={meData}
+                tasksData={tasksData}
+                taskDataLoading={taskDataLoading}
+                tasksDataLoading={tasksDataLoading}
+                myTaskData={myTaskData}
+                refetchTask={refetchTask}
+                refetchTasks={refetchTasks}
+              />
+            </TabPanel>
+          </TabPanels>
+        </DashTabs>
+      </DashWrapper>
     </Layout>
   );
 };
