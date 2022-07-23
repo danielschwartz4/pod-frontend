@@ -196,7 +196,10 @@ export const MyPod: React.FC<MyPodProps> = ({
                         Phone: ${meData?.me?.phone}`,
                       })
                     : null;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 6510c98fc9531e7cbaffca6fb5b11c19ab4791a5
                 }}
               >
                 Join!

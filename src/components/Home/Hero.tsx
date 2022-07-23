@@ -1,35 +1,24 @@
-import { Box, Button, Flex, Image, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
 import { useMeQuery } from "../../generated/graphql";
-import heroProject from "../../images/heroProject.png";
-import heroTask from "../../images/heroTask.png";
+import teamBuilding from "../../images/Hero/teamBuilding.jpg";
 import { Event } from "../../libs/tracking";
+import NextLink from "next/link";
 
 interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
   const { data: meData } = useMeQuery();
   const toast = useToast();
-
-  // let i = 0;
-  // function myLoop() {
-  //   setTimeout(function () {
-  //     toast({
-  //       title: "test",
-  //       description: "test",
-  //       position: "bottom-left",
-  //       status: "info",
-  //       duration: 9000,
-  //       isClosable: true,
-  //     });
-  //     i++; //  increment the counter
-  //     if (i < 10) {
-  //       myLoop();
-  //     } //  ..  setTimeout()
-  //   }, 2000);
-  // }
-  // myLoop();
 
   return (
     <Box width={"100%"} alignItems={"center"} minHeight={"65vh"}>
@@ -41,81 +30,77 @@ const Hero: React.FC<HeroProps> = ({}) => {
         textColor={"gainsboro"}
         fontSize={{ base: 36, md: 48 }}
       >
-        <Text fontFamily={"sans-serif"} fontWeight={"thin"}>
-          Join groups of others to stay <b>motivated</b> and <b>accountable</b>{" "}
-          while pursing a solo goal
+        <Heading size={"3xl"}>Pods for productivity</Heading>
+        <Text fontSize={"2xl"} fontFamily={"ubuntu"}>
+          Join small groups with others. Get inspired by their progress. Keep
+          accountable and grow together.
         </Text>
-        <Box ml={4} mb={16}>
-          {meData?.me == null ? (
+        <Flex direction={["column", "row"]} mb={12}>
+          <Box mx={"auto"}>
+            {meData?.me == null ? <GetStartedButton /> : <></>}
             <Button
-              textColor={"gainsboro"}
+              w={"250px"}
+              borderRadius={8}
+              mr={[0, 4]}
+              textColor={"#FFDC93"}
+              bgColor={"gray.800"}
+              border={"2px"}
+              borderColor={"#FFDC93"}
               fontSize={".5em"}
-              height={"100px"}
-              color={"gainsboro"}
+              fontWeight={"bold"}
+              height={"60px"}
+              fontFamily={"ubuntu"}
               cursor={"pointer"}
+              _hover={{ bg: "gray.700" }}
               onClick={() => {
-                router.push("/register");
-                Event(
-                  "Desktop",
-                  "Register Button",
-                  "Join a pod and get started"
+                router.push(
+                  // !! Open new tab on click
+                  "https://www.youtube.com/watch?v=k5YCmw6BNGQ&ab_channel=DRS"
                 );
               }}
             >
-              <Flex direction={"column"}>
-                <Text fontFamily={"sans-serif"} fontWeight={"medium"} mb={"-2"}>
-                  Join a pod and get started! 😆
-                </Text>
-                <Text fontSize={16} fontWeight={"light"}>
-                  (it's free)
-                </Text>
-              </Flex>
+              Watch a short video
             </Button>
-          ) : (
-            <></>
-          )}
-        </Box>
+          </Box>
+        </Flex>
       </Box>
       <Flex mb={4}>
         <Box
           p={2}
-          borderRadius={20}
-          border={"4px"}
           maxW={"850px"}
-          borderColor={"#F6793D"}
           gap={[1, 1, 12, 16]}
           mx={"auto"}
           display={{ base: "block", sm: "flex" }}
         >
-          <Flex>
-            <Image
-              mx={"auto"}
-              w={"380px"}
-              h={"430px"}
-              src={heroProject.src}
-              alt=""
-              draggable={false}
-            />
-          </Flex>
-          <Flex>
-            <Image
-              mx={"auto"}
-              w={"380px"}
-              h={"430px"}
-              src={heroTask.src}
-              alt=""
-              draggable={false}
-            />
-          </Flex>
-          {/* <PodCreated
-            projectsData={[
-              SeedData.ExampleProject1.project as Project,
-              SeedData.ExampleProject2.project as Project,
-            ]}
-          /> */}
+          <Image borderRadius={16} w={"800px"} src={teamBuilding.src} />
         </Box>
       </Flex>
     </Box>
+  );
+};
+
+export const GetStartedButton = () => {
+  return (
+    <Button
+      w={"250px"}
+      borderRadius={8}
+      height={"60px"}
+      color={"gainsboro"}
+      cursor={"pointer"}
+      border={"none"}
+      fontSize={"24px"}
+      fontFamily={"ubuntu"}
+      textColor={"gray.800"}
+      bgColor={"#FFDC93"}
+      _hover={{ bg: "#ffecc4" }}
+      mr={4}
+      onClick={() => {
+        router.push("/register");
+        Event("Desktop", "Register Button", "Join a pod and get started");
+      }}
+    >
+      Get started for free
+    </Button>
   );
 };
 
