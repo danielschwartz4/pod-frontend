@@ -88,7 +88,12 @@ const EnterNewMilestone: React.FC<EnterNewMilestoneProps> = (props) => {
               <Box mt={"28px"} ml={4} mr={0}>
                 {props.changeTab == "project" ? (
                   <Button
-                    cursor="pointer"
+                    border={"none"}
+                    bgColor={"#FFDC93"}
+                    color={"gray.800"}
+                    borderRadius={"16px"}
+                    cursor={"pointer"}
+                    fontFamily={"ubuntu"}
                     onClick={() => setIsAddingMilestone(!isAddingMilestone)}
                   >
                     {isAddingMilestone ? (
@@ -160,8 +165,12 @@ const DesktopEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
         <Button
           type="submit"
           isloading={isSubmitting ? "true" : "false"}
-          cursor="pointer"
-          color={"white"}
+          border={"none"}
+          bgColor={"#FFDC93"}
+          color={"gray.800"}
+          borderRadius={"16px"}
+          cursor={"pointer"}
+          fontFamily={"ubuntu"}
         >
           Add milestone
         </Button>
@@ -199,8 +208,12 @@ const MobileEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
         <Button
           type="submit"
           isloading={isSubmitting ? "true" : "false"}
-          cursor="pointer"
-          color={"white"}
+          border={"none"}
+          bgColor={"#FFDC93"}
+          color={"gray.800"}
+          borderRadius={"16px"}
+          cursor={"pointer"}
+          fontFamily={"ubuntu"}
         >
           Add milestone
         </Button>

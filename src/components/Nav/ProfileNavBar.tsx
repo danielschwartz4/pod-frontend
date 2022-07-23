@@ -42,13 +42,10 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
   return (
     <Box>
       <Flex
-        bg={"#3c4349"}
-        minH={"100px"}
+        bg={"gray.800"}
+        minH={"80px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
       >
         <Flex flex={{ base: 1 }} justify={"start"}>
@@ -59,10 +56,10 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
               w={200}
               src={newLogo.src}
               alt=""
-              // mr={4}
-              onClick={() =>
-                Event("Desktop", "ProfileNavBar.tsx Button", "Clicked Logo")
-              }
+              onClick={() => {
+                router.push("/");
+                Event("Desktop", "ProfileNavBar.tsx Button", "Clicked Logo");
+              }}
             />
           </NextLink>
 
@@ -83,61 +80,68 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                   <HelpProjectPopover>
                     <Button
                       mr={4}
-                      colorScheme={"tan"}
+                      border={"none"}
+                      bgColor={"gray.800"}
+                      color={"#FFDC93"}
                       cursor={"pointer"}
-                      onClick={() =>
-                        Event("Desktop", "ProfileNavBar.tsx Button", "Help")
-                      }
+                      onClick={() => {
+                        router.push("/profile");
+                        Event("Desktop", "ProfileNavBar.tsx Button", "Help");
+                      }}
                     >
                       <BsQuestionSquare size={24} />
                     </Button>
                   </HelpProjectPopover>
                 ) : null}
+
                 <Button
-                  mr={4}
-                  colorScheme={"tan"}
+                  border={"none"}
+                  bgColor={"#FFDC93"}
+                  color={"gray.800"}
+                  borderRadius={"16px"}
                   cursor={"pointer"}
-                  onClick={() => {
-                    router.push("/settings");
-                    Event("Desktop", "ProfileNavBar.tsx Button", "Settings");
-                  }}
+                  fontFamily={"ubuntu"}
+                  _hover={{ bg: "gray.700" }}
+                  onClick={() => router.push("/settings")}
+                  mr={4}
                 >
                   {data?.me?.username}
                 </Button>
                 {!isProjectsPage ? (
                   <Button
-                    mr={4}
-                    colorScheme={"tan"}
+                    border={"none"}
+                    bgColor={"#FFDC93"}
+                    color={"gray.800"}
+                    borderRadius={"16px"}
                     cursor={"pointer"}
+                    fontFamily={"ubuntu"}
+                    mr={4}
+                    _hover={{ bg: "gray.700" }}
                     onClick={() => {
                       router.push("/profile");
-                      Event(
-                        "Desktop",
-                        "ProfileNavBar.tsx Button",
-                        "My projects"
-                      );
+                      Event("Desktop", "HomeNavBar.tsx Button", "My projects");
                     }}
                   >
                     My projects
                   </Button>
                 ) : null}
                 <Button
+                  border={"none"}
+                  bgColor={"gray.800"}
+                  color={"#FFDC93"}
+                  borderRadius={"16px"}
+                  cursor={"pointer"}
+                  fontFamily={"ubuntu"}
+                  _hover={{ bg: "gray.700" }}
+                  isloading={logoutLoading.toString()}
                   onClick={() => {
-                    Event(
-                      "Desktop",
-                      "ProfileNavBar.tsx LogoutButton",
-                      "Logout"
-                    );
+                    Event("Desktop", "HomeNavBar.tsx LogoutButton", "Logout");
                     logout({
                       update: (cache) => {
                         cache.evict({ id: "User:" + data?.me.id });
                       },
                     });
                   }}
-                  isloading={logoutLoading.toString()}
-                  colorScheme={"tan"}
-                  type="button"
-                  cursor={"pointer"}
                 >
                   Logout
                 </Button>

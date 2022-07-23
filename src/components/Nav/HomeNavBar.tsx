@@ -47,23 +47,20 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
         minH={"80px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        // borderStyle={"solid"}
         align={"center"}
       >
         <Flex flex={{ base: 1 }} justify={"start"}>
-          <NextLink href="/">
-            <Image
-              cursor={"pointer"}
-              h={50}
-              w={200}
-              src={newLogo.src}
-              alt=""
-              onClick={() =>
-                Event("Desktop", "HomeNavBar.tsx Button", "Clicked Logo")
-              }
-            />
-          </NextLink>
-
+          <Image
+            cursor={"pointer"}
+            h={50}
+            w={200}
+            src={newLogo.src}
+            alt=""
+            onClick={() => {
+              router.push("/");
+              Event("Desktop", "HomeNavBar.tsx Button", "Clicked Logo");
+            }}
+          />
           {data?.me ? (
             <Flex
               display={{ base: "none", md: "flex" }}
@@ -81,7 +78,9 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   <HelpTaskPopover>
                     <Button
                       mr={4}
-                      colorScheme={"tan"}
+                      border={"none"}
+                      bgColor={"gray.800"}
+                      color={"#FFDC93"}
                       cursor={"pointer"}
                       onClick={() =>
                         Event("Desktop", "HomeNavBar.tsx Button", "Help")
@@ -92,20 +91,27 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   </HelpTaskPopover>
                 ) : null}
                 <Button
-                  mr={4}
-                  colorScheme={"tan"}
+                  border={"none"}
+                  bgColor={"#FFDC93"}
+                  color={"gray.800"}
+                  borderRadius={"16px"}
                   cursor={"pointer"}
-                  onClick={() => {
-                    router.push("/settings"),
-                      Event("Desktop", "HomeNavBar.tsx Button", "Settings");
-                  }}
+                  fontFamily={"ubuntu"}
+                  _hover={{ bg: "gray.700" }}
+                  onClick={() => router.push("/settings")}
+                  mr={4}
                 >
                   {data?.me?.username}
                 </Button>
                 <Button
-                  mr={4}
-                  colorScheme={"tan"}
+                  border={"none"}
+                  bgColor={"#FFDC93"}
+                  color={"gray.800"}
+                  borderRadius={"16px"}
                   cursor={"pointer"}
+                  fontFamily={"ubuntu"}
+                  mr={4}
+                  _hover={{ bg: "gray.700" }}
                   onClick={() => {
                     router.push("/profile");
                     Event("Desktop", "HomeNavBar.tsx Button", "My projects");
@@ -114,6 +120,14 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   My projects
                 </Button>
                 <Button
+                  border={"none"}
+                  bgColor={"gray.800"}
+                  color={"#FFDC93"}
+                  borderRadius={"16px"}
+                  cursor={"pointer"}
+                  fontFamily={"ubuntu"}
+                  _hover={{ bg: "gray.700" }}
+                  isloading={logoutLoading.toString()}
                   onClick={() => {
                     Event("Desktop", "HomeNavBar.tsx LogoutButton", "Logout");
                     logout({
@@ -122,10 +136,6 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                       },
                     });
                   }}
-                  isloading={logoutLoading.toString()}
-                  colorScheme={"tan"}
-                  type="button"
-                  cursor={"pointer"}
                 >
                   Logout
                 </Button>
