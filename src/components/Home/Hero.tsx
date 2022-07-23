@@ -77,14 +77,15 @@ const Hero: React.FC<HeroProps> = ({}) => {
               height={"60px"}
               fontFamily={"ubuntu"}
               cursor={"pointer"}
-              onClick={() => {
-                router.push(
-                  // !! Open new tab on click
-                  "https://www.youtube.com/watch?v=k5YCmw6BNGQ&ab_channel=DRS"
-                );
-              }}
             >
-              Watch a short video
+              <a
+                target="_blank"
+                href="https://www.youtube.com/watch?v=k5YCmw6BNGQ&ab_channel=DRS"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none", color: "#FFDC93" }}
+              >
+                Watch a short video
+              </a>
             </Button>
           </Box>
         </Flex>
