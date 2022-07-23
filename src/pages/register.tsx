@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { InputField } from "../components/Inputs/InputField";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
-import firstLogo from "../images/Logos/firstLogo.png";
+import newLogo from "../images/Logos/newLogo.png";
 import { sendMessage } from "../utils/messaging/sendMessage";
 import { toErrorMap } from "../utils/toErrorMap";
 import { Event, PageView } from "../libs/tracking";
@@ -39,13 +39,7 @@ const Register: React.FC<registerProps> = ({}) => {
       <Box w={"500px"}>
         <Flex pos={"absolute"} top={0} left={0} p={4}>
           <NextLink href="/">
-            <Image
-              cursor={"pointer"}
-              h={70}
-              w={200}
-              src={firstLogo.src}
-              alt=""
-            />
+            <Image cursor={"pointer"} h={50} w={200} src={newLogo.src} alt="" />
           </NextLink>
         </Flex>
         <Stack spacing={4} maxW={"lg"} pt={12} mx={4}>
@@ -91,10 +85,12 @@ const Register: React.FC<registerProps> = ({}) => {
                   if (response.data.register.errors) {
                     setErrors(toErrorMap(response.data.register.errors));
                   } else if (response.data.register.user) {
-                    sendMessage({
-                      to: "+12173817277",
-                      body: `${values.username} has joined the community! Their email is ${values.email}`,
-                    });
+                    process.env.NODE_ENV === "production"
+                      ? sendMessage({
+                          to: "+12173817277",
+                          body: `${values.username} has joined the community! Their email is ${values.email}`,
+                        })
+                      : null;
                     router.push("/profile");
                   }
                 }}
