@@ -19,6 +19,8 @@ import newLogo from "../images/Logos/newLogo.png";
 import { sendMessage } from "../utils/messaging/sendMessage";
 import { toErrorMap } from "../utils/toErrorMap";
 import { Event, PageView } from "../libs/tracking";
+import OAuth from "../components/OAuth/OAuth";
+import { LandingDivider } from "../css/styles";
 
 interface registerProps {}
 
@@ -56,7 +58,12 @@ const Register: React.FC<registerProps> = ({}) => {
             rounded={"lg"}
             bg={useColorModeValue("white", "gray.700")}
             boxShadow={"lg"}
+            display={"flex"}
+            alignItems={"center"}
+            flexDirection={"column"}
           >
+            <OAuth OAuthType="register" />
+            <LandingDivider />
             <Stack spacing={4} p={8}>
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}

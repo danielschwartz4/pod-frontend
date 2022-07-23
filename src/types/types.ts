@@ -33,6 +33,8 @@ export interface EndOptions {
   neverEnds: boolean;
 }
 
+export type OAuthType = "register" | "login";
+
 export type EndOptionsSelectorType = "none" | "date" | "repetitions" | "never";
 
 // Starts from sunday

@@ -19,6 +19,8 @@ import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import newLogo from "../images/Logos/newLogo.png";
 import { toErrorMap } from "../utils/toErrorMap";
 import { Event, PageView } from "../libs/tracking";
+import OAuth from "../components/OAuth/OAuth";
+import { LandingDivider } from "../css/styles";
 
 const Login: React.FC<{}> = ({}) => {
   useEffect(() => PageView(), []);
@@ -63,6 +65,8 @@ const Login: React.FC<{}> = ({}) => {
             p={8}
             justifyContent={"center"}
           >
+            <OAuth OAuthType="login" />
+            <LandingDivider />
             <Formik
               initialValues={{ usernameOrEmail: "", password: "" }}
               onSubmit={async (
