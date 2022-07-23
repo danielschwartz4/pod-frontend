@@ -12,7 +12,6 @@ import React from "react";
 import { useMeQuery } from "../../generated/graphql";
 import teamBuilding from "../../images/Hero/teamBuilding.jpg";
 import { Event } from "../../libs/tracking";
-import NextLink from "next/link";
 
 interface HeroProps {}
 
@@ -67,12 +66,15 @@ const Hero: React.FC<HeroProps> = ({}) => {
       <Flex mb={4}>
         <Box
           p={2}
-          maxW={"850px"}
           gap={[1, 1, 12, 16]}
           mx={"auto"}
           display={{ base: "block", sm: "flex" }}
         >
-          <Image borderRadius={16} w={"800px"} src={teamBuilding.src} />
+          <Image
+            borderRadius={16}
+            w={{ base: "350px", sm: "550px", md: "800px" }}
+            src={teamBuilding.src}
+          />
         </Box>
       </Flex>
     </Box>
@@ -84,6 +86,7 @@ export const GetStartedButton = () => {
     <Button
       w={"250px"}
       borderRadius={8}
+      mb={{ base: 4, sm: 0 }}
       height={"60px"}
       color={"gainsboro"}
       cursor={"pointer"}
@@ -93,7 +96,7 @@ export const GetStartedButton = () => {
       textColor={"gray.800"}
       bgColor={"#FFDC93"}
       _hover={{ bg: "#ffecc4" }}
-      mr={4}
+      mr={[0, 4]}
       onClick={() => {
         router.push("/register");
         Event("Desktop", "Register Button", "Join a pod and get started");

@@ -10,7 +10,7 @@ const About: React.FC<AboutProps> = ({}) => {
         width={"80%"}
         fontFamily={"ubuntu"}
         textColor={"#F5F5F5"}
-        mt={"0px"}
+        // mt={"0px"}
       >
         <Text fontSize={"3xl"} fontWeight={"bold"}>
           Why poddds?

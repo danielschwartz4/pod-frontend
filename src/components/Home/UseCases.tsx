@@ -36,7 +36,7 @@ const Entry = ({ emoji, text }) => {
   return (
     <VStack textAlign={"center"}>
       <Box fontSize={{ base: 48 }}>{emoji}</Box>
-      <Box fontSize={{ base: 24 }}>{text}</Box>
+      <Box fontSize={{ base: 20 }}>{text}</Box>
     </VStack>
   );
 };
