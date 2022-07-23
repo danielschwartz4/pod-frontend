@@ -17,7 +17,7 @@ import router, { useRouter } from "next/router";
 import React from "react";
 import { BsQuestionSquare } from "react-icons/bs";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
-import firstLogo from "../../images/Logos/firstLogo.png";
+import newLogo from "../../images/Logos/newLogo.png";
 import { isServer } from "../../utils/isServer";
 import { HelpProjectPopover } from "./HelpProjectPopover";
 import { Event } from "../../libs/tracking";
@@ -56,8 +56,8 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
             <Image
               cursor={"pointer"}
               h={70}
-              w={200}
-              src={firstLogo.src}
+              w={100}
+              src={newLogo.src}
               alt=""
               mr={4}
               onClick={() =>

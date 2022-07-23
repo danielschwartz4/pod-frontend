@@ -17,7 +17,7 @@ import router, { useRouter } from "next/router";
 import React from "react";
 import { BsQuestionSquare } from "react-icons/bs";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
-import firstLogo from "../../images/Logos/firstLogo.png";
+import newLogo from "../../images/Logos/newLogo.png";
 import { isServer } from "../../utils/isServer";
 import { HelpTaskPopover } from "./HelpTaskPopover";
 import { Event } from "../../libs/tracking";
@@ -43,24 +43,21 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
   return (
     <Box>
       <Flex
-        bg={"gray.700"}
-        minH={"100px"}
+        bg={"gray.800"}
+        minH={"80px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={"solid"}
-        borderColor={useColorModeValue("gray.200", "gray.900")}
+        // borderStyle={"solid"}
         align={"center"}
       >
         <Flex flex={{ base: 1 }} justify={"start"}>
           <NextLink href="/">
             <Image
               cursor={"pointer"}
-              h={70}
+              h={50}
               w={200}
-              src={firstLogo.src}
+              src={newLogo.src}
               alt=""
-              mr={4}
               onClick={() =>
                 Event("Desktop", "HomeNavBar.tsx Button", "Clicked Logo")
               }
@@ -148,8 +145,13 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                 alignItems={"center"}
               >
                 <Button
+                  border={"none"}
                   textColor={"gainsboro"}
                   cursor={"pointer"}
+                  bgColor={"#FFDC93"}
+                  color={"gray.800"}
+                  borderRadius={"16px"}
+                  fontFamily={"ubuntu"}
                   onClick={() => {
                     router.push("/register");
                     Event(
@@ -160,11 +162,15 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   }}
                   mr={"1em"}
                 >
-                  Join the community!
+                  Sign up
                 </Button>
                 <Button
-                  textColor={"gainsboro"}
+                  border={"none"}
+                  bgColor={"gray.800"}
+                  color={"#FFDC93"}
+                  borderRadius={"16px"}
                   cursor={"pointer"}
+                  fontFamily={"ubuntu"}
                   onClick={() => {
                     router.push("/login");
                     Event("Desktop", "Login Button", "Login");

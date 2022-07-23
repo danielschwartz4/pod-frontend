@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import React, { useState } from "react";
 import { InputField } from "../components/Inputs/InputField";
 import { useForgotPasswordMutation } from "../generated/graphql";
-import firstLogo from "../images/Logos/firstLogo.png";
+import newLogo from "../images/Logos/newLogo.png";
 
 const ForgotPassword: React.FC<{}> = ({}) => {
   const [complete, setComplete] = useState(false);
@@ -21,13 +21,7 @@ const ForgotPassword: React.FC<{}> = ({}) => {
       <Box w={"500px"}>
         <Flex pos={"absolute"} top={0} left={0} p={4}>
           <NextLink href="/">
-            <Image
-              cursor={"pointer"}
-              h={70}
-              w={200}
-              src={firstLogo.src}
-              alt=""
-            />
+            <Image cursor={"pointer"} h={70} w={200} src={newLogo.src} alt="" />
           </NextLink>
         </Flex>
 

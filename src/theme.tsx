@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
+import "@fontsource/ubuntu";
 
 // https://colorhunt.co/palette/fbf8f1f7ecdee9dac154bab9
 const fonts = { mono: `'Menlo', monospace` };
@@ -25,7 +26,10 @@ const theme = extendTheme({
     black: "#16161D",
   },
   solarized,
-  fonts,
+  fonts: {
+    heading: `'Ubuntu', sans-serif`,
+    text: `'Ubuntu', sans-serif`,
+  },
   breakpoints,
   icons: {
     logo: {
