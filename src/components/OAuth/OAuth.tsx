@@ -19,7 +19,7 @@ import fb from "../../images/Logos/fbicon.png";
 import reddit from "../../images/Logos/redditicon.png";
 import { useRouter } from "next/router";
 import { Event } from "../../libs/tracking";
-import { OAuthType } from "../../types/types";
+import { GsiButtonConfiguration, OAuthType } from "../../types/types";
 import { sendMessage } from "../../utils/messaging/sendMessage";
 import GoogleOAuth from "./GoogleOAuth";
 
@@ -117,7 +117,7 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
 
     window.google.accounts.id.renderButton(
       document.getElementById("signInDiv"),
-      { theme: "outline", width: "300px" }
+      { theme: "outline", width: "300px" } as GsiButtonConfiguration
     );
 
     window.google.accounts.id.prompt();
