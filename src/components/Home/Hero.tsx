@@ -36,7 +36,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         </Text>
         <Flex direction={["column", "row"]} mb={12}>
           <Box mx={"auto"}>
-            {meData?.me == null ? <GetStartedButton /> : <></>}
+            {meData?.me == null ? <GetStartedButton /> : <GoToProfile />}
             <Button
               w={"250px"}
               borderRadius={8}
@@ -103,6 +103,31 @@ export const GetStartedButton = () => {
       }}
     >
       Get started for free
+    </Button>
+  );
+};
+
+export const GoToProfile = () => {
+  return (
+    <Button
+      w={"250px"}
+      borderRadius={8}
+      mb={{ base: 4, sm: 0 }}
+      height={"60px"}
+      color={"gainsboro"}
+      cursor={"pointer"}
+      border={"none"}
+      fontSize={"24px"}
+      fontFamily={"ubuntu"}
+      textColor={"gray.800"}
+      bgColor={"#FFDC93"}
+      _hover={{ bg: "#ffecc4" }}
+      mr={[0, 4]}
+      onClick={() => {
+        router.push("/profile");
+      }}
+    >
+      Go to profile
     </Button>
   );
 };

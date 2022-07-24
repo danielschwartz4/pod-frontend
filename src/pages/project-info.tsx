@@ -29,7 +29,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
   });
   return (
     <Layout isProfile={true}>
-      <Box h={"100%"} minH={"60vh"}>
+      <Box h={"100%"} minH={"90vh"}>
         <Box mt={20} mx={{ base: 2, sm: "auto" }} maxW={"600px"}>
           <Text color={"grey"}>
             *you can edit this as much as you'd like in the future

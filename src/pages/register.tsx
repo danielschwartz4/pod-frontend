@@ -39,7 +39,7 @@ const Register: React.FC<registerProps> = ({}) => {
       m={-2}
     >
       <Box w={"500px"}>
-        <Flex pos={"absolute"} top={0} left={0} p={4}>
+        <Flex pos={"absolute"} mt={2} top={0} left={0} p={4}>
           <NextLink href="/">
             <Image cursor={"pointer"} h={50} w={200} src={newLogo.src} alt="" />
           </NextLink>
@@ -130,6 +130,7 @@ const Register: React.FC<registerProps> = ({}) => {
                       <Stack spacing={10} pt={2}>
                         <Box>
                           <Button
+                            border={"none"}
                             mt={4}
                             w={"100%"}
                             loadingText="Submitting"

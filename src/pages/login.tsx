@@ -37,9 +37,9 @@ const Login: React.FC<{}> = ({}) => {
       m={-2}
     >
       <Box w={"500px"}>
-        <Flex pos={"absolute"} top={0} left={0} p={4}>
+        <Flex pos={"absolute"} mt={2} top={0} left={0} p={4}>
           <NextLink href="/">
-            <Image cursor={"pointer"} h={70} w={200} src={newLogo.src} alt="" />
+            <Image cursor={"pointer"} h={50} w={200} src={newLogo.src} alt="" />
           </NextLink>
         </Flex>
         <Stack spacing={4} maxW={"lg"} pt={12} mx={4}>
@@ -68,15 +68,12 @@ const Login: React.FC<{}> = ({}) => {
             <OAuth OAuthType="login" />
             <LandingDivider />
             <Formik
-              initialValues={{ usernameOrEmail: "", password: "" }}
-              onSubmit={async (
-                { password, usernameOrEmail },
-                { setErrors }
-              ) => {
+              initialValues={{ email: "", password: "" }}
+              onSubmit={async ({ password, email }, { setErrors }) => {
                 const response = await login({
                   variables: {
                     password,
-                    usernameOrEmail,
+                    email,
                   },
                   update: (cache, { data }) => {
                     cache.writeQuery<MeQuery>({
@@ -105,9 +102,12 @@ const Login: React.FC<{}> = ({}) => {
                     <Box mr={8} textColor={"gainsboro"}>
                       <Box>
                         <InputField
-                          name="usernameOrEmail"
-                          label="Username or Email"
-                          placeholder="Username or email"
+                          // name="usernameOrEmail"
+                          // label="Username or Email"
+                          // placeholder="Username or email"
+                          name="email"
+                          label="Email"
+                          placeholder="Email"
                         />
                       </Box>
                       <Box mt={4}>
@@ -119,7 +119,6 @@ const Login: React.FC<{}> = ({}) => {
                         />
                       </Box>
                     </Box>
-
                     <Stack spacing={10} pt={2}>
                       <Flex
                         alignItems={"center"}
@@ -131,7 +130,6 @@ const Login: React.FC<{}> = ({}) => {
                           <Link color={"blue.400"}>forgot password?</Link>
                         </NextLink>
                       </Flex>
-
                       <Box>
                         <Button
                           w={"100%"}
@@ -142,6 +140,7 @@ const Login: React.FC<{}> = ({}) => {
                             bg: "blue.500",
                           }}
                           isloading={isSubmitting.toString()}
+                          border={"none"}
                           type="submit"
                           width={"100%"}
                           cursor={"pointer"}

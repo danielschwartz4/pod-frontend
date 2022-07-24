@@ -78,6 +78,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
             });
             if (singleTasksResponse) {
               console.log("success");
+              // !! Auto join a pod!!!
             }
             if (
               response?.data?.createRecurringTask?.task?.user?.phone !=

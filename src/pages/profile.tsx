@@ -37,7 +37,7 @@ const Profile: React.FC<profileProps> = ({}) => {
     return (
       <Layout isProjectsPage isProfile>
         <Flex>
-          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"70vh"} h={"100%"}>
+          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"90vh"} h={"100%"}>
             <ProfileHeading meData={meData} />
             <ProfileGrid
               hasSeed

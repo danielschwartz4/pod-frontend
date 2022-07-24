@@ -1,11 +1,11 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const PodCard = () => {
   return (
     <Box
-      maxH={"420px"}
-      h={"420px"}
-      width={"100%"}
+      maxH={"400px"}
+      h={"400px"}
+      width={"320px"}
       maxW={"380px"}
       mx={[2, 4]}
       bg={"gainsboro"}
@@ -14,7 +14,10 @@ const PodCard = () => {
       p={6}
       overflow={"hidden"}
     >
-      waiting for new members...
+      <Text textAlign={"left"}>
+        waiting for new members... You will get an email when a new member
+        joins!
+      </Text>
     </Box>
   );
 };
