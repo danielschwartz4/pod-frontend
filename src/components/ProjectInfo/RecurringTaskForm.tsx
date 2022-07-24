@@ -97,9 +97,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   sessionType: "task",
                 },
               });
-
               if (!podsLoading) {
-                console.log("INNN");
                 await joinPod(
                   4,
                   availablePodsData?.data,

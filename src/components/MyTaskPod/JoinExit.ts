@@ -14,7 +14,6 @@ import {
 export const joinPod = async (
   podSize: number,
   availablePodsData: FindPublicPodQuery,
-  // myTaskData: RecurringTaskQuery,
   taskId: number,
   createPod: CreatePodMutationType,
   updateTaskPod: UpdateTaskPodMutationType,
