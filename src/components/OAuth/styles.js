@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 export const OAuthContainer = styled.div`
     display: flex; 
-    width: 80%; 
-    height: 100%;
+    width: 100%; 
+    height: 50%;
     justify-content: center; 
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-    margin: 30px 0px 30px 0px;
+    margin: 0px 0px 0px 0px;
 `
 
 export const OAuthButton = styled.button`

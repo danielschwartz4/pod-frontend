@@ -24,6 +24,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       {!props.isField ? (
         <Input
           maxLength={200}
+          fontFamily={"ubuntu"}
           textColor={!props.textColor ? "gainsboro" : props.textColor}
           autoComplete={props.autoComplete}
           {...field}
@@ -33,6 +34,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       ) : (
         <Textarea
           maxLength={200}
+          fontFamily={"ubuntu"}
           textColor={!props.textColor ? "gainsboro" : props.textColor}
           {...field}
           id={field.name}

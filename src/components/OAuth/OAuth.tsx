@@ -126,7 +126,7 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
   return (
     <OAuthContainer>
       <div
-        style={{ width: "400px", display: "flex", justifyContent: "center" }}
+        style={{ width: "100%", display: "flex", justifyContent: "center" }}
         id="signInDiv"
       />
       {/* <OAuthButton>
