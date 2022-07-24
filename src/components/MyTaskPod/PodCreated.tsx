@@ -26,8 +26,8 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
         {children}
         <Grid
           templateColumns={{
-            md: "repeat(2, 1fr)",
-            lg: "repeat(4, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(4, 1fr)",
           }}
           gap={8}
           textAlign={"center"}

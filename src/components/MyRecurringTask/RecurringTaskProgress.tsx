@@ -50,7 +50,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
     <Stack
       justifyContent={"center"}
       direction={{ base: "column", sm: "column", md: "row" }}
-      gap={{ md: 0, lg: 20 }}
+      gap={{ base: 0, sm: 10, md: 10, lg: 20 }}
       mx={"auto"}
     >
       <Box>

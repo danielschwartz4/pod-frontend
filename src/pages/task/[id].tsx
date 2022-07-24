@@ -110,7 +110,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   return (
     <Layout withHelpPopover={true}>
       <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
-        <Box>
+        <Flex>
           {!taskDataLoading && !singleTasksDataLoading ? (
             <RecurringTaskProgress
               singleTasksData={singleTasksData}
@@ -120,18 +120,20 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
           ) : (
             <Text>Loading...</Text>
           )}
-        </Box>
+        </Flex>
 
-        <MyPod
-          podData={podData}
-          meData={meData}
-          tasksData={tasksData}
-          taskDataLoading={taskDataLoading}
-          tasksDataLoading={tasksDataLoading}
-          myTaskData={myTaskData}
-          refetchTask={refetchTask}
-          refetchTasks={refetchTasks}
-        />
+        <Box mt={8}>
+          <MyPod
+            podData={podData}
+            meData={meData}
+            tasksData={tasksData}
+            taskDataLoading={taskDataLoading}
+            tasksDataLoading={tasksDataLoading}
+            myTaskData={myTaskData}
+            refetchTask={refetchTask}
+            refetchTasks={refetchTasks}
+          />
+        </Box>
       </Box>
     </Layout>
   );
