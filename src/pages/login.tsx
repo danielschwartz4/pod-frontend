@@ -136,6 +136,7 @@ const Login: React.FC<{}> = ({}) => {
                             bg: "blue.500",
                           }}
                           isloading={isSubmitting.toString()}
+                          border={"none"}
                           type="submit"
                           width={"100%"}
                           cursor={"pointer"}

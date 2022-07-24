@@ -123,6 +123,7 @@ const Register: React.FC<registerProps> = ({}) => {
                       <Stack spacing={10} pt={2}>
                         <Box>
                           <Button
+                            border={"none"}
                             mt={4}
                             w={"100%"}
                             loadingText="Submitting"
