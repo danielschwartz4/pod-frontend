@@ -172,14 +172,14 @@ const Register: React.FC<registerProps> = ({}) => {
                 )}
               </Formik>
             </Stack>
-            <LandingDivider
+            {/* <LandingDivider
               style={{
                 height: "50vh",
                 width: "1px",
                 margin: "0px 35px 0px 35px",
               }}
             />
-            <OAuth OAuthType="register" />
+            <OAuth OAuthType="register" /> */}
           </CenteredContainer>
         </Stack>
       </Box>

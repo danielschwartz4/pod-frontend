@@ -18,11 +18,11 @@ export const LandingBox = styled.div`
 
 export const CenteredContainer = styled.div`
   display: flex;
-  width: 50vw;
-  height: 55vh;
+  width: 400px;
+  height: 100%;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background-color: #2D3748;
   border: 2px solid #ffdc93;
   border-radius: 15px;

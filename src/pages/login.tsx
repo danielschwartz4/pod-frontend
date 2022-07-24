@@ -178,14 +178,14 @@ const Login: React.FC<{}> = ({}) => {
                 )}
               </Formik>
             </Stack>
-            <LandingDivider
+            {/* <LandingDivider
               style={{
                 height: "50vh",
                 width: "1px",
                 margin: "0px 35px 0px 35px",
               }}
             />
-            <OAuth OAuthType="login" />
+            <OAuth OAuthType="login" /> */}
           </CenteredContainer>
         </Stack>
       </Box>
