@@ -19,6 +19,8 @@ import newLogo from "../images/Logos/newLogo.png";
 import { sendMessage } from "../utils/messaging/sendMessage";
 import { toErrorMap } from "../utils/toErrorMap";
 import { Event, PageView } from "../libs/tracking";
+import OAuth from "../components/OAuth/OAuth";
+import { CenteredContainer, LandingDivider } from "../css/styles";
 
 interface registerProps {}
 
@@ -30,34 +32,42 @@ const Register: React.FC<registerProps> = ({}) => {
 
   return (
     <Flex
-      h={"100vh"}
-      align={"center"}
-      justify={"center"}
+      height={"100vh"}
+      maxH={"100vh"}
+      alignItems={"flex-start"}
+      justifyContent={"center"}
       bg={"gray.800"}
       m={-2}
     >
-      <Box w={"500px"}>
+      <Box
+        display={"flex"}
+        alignItems={"flex-start"}
+        justifyContent={"center"}
+        w={"750px"}
+      >
         <Flex pos={"absolute"} mt={2} top={0} left={0} p={4}>
           <NextLink href="/">
             <Image cursor={"pointer"} h={50} w={200} src={newLogo.src} alt="" />
           </NextLink>
         </Flex>
-        <Stack spacing={4} maxW={"lg"} pt={12} mx={4}>
-          <Stack align={"center"}>
-            <Heading fontSize={"4xl"} textAlign={"center"} color={"gainsboro"}>
+        <Stack
+          width={"100%"}
+          pt={12}
+          mx={4}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
+          <Stack mb={"30px"} align={"center"} color={"gainsboro"}>
+            <Heading mb={"0px"} fontSize={"4xl"} textAlign={"center"}>
               Join the community!
             </Heading>
-            <Text fontSize={"lg"} color={"gray.600"}>
+            <Text color={"gainsboro"} fontFamily={"ubuntu"} fontSize={"lg"}>
               to enjoy all of our cool features 🔥
             </Text>
           </Stack>
 
-          <Box
-            rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
-            boxShadow={"lg"}
-          >
-            <Stack spacing={4} p={8}>
+          <CenteredContainer marginTop="20px" height="500px">
+            <Stack spacing={4} width={"100%"}>
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}
                 onSubmit={async (values, { setErrors }) => {
@@ -98,29 +108,32 @@ const Register: React.FC<registerProps> = ({}) => {
                 {({ isSubmitting }) => (
                   <Form>
                     <Box>
-                      <Box mr={8} textColor={"gainsboro"}>
+                      <Box mr={8} fontFamily={"ubuntu"} textColor={"gainsboro"}>
+                        <p>Username (feel free to use an alias)</p>
                         <InputField
                           name="username"
-                          placeholder="username"
-                          label="Username (feel free to use an alias)"
+                          placeholder="Username"
+                          label=""
                         />
+                        <p>Email</p>
                         <Box mt={4}>
                           <InputField
                             name="email"
-                            placeholder="email"
-                            label="Email"
+                            placeholder="Email"
+                            label=""
                           />
                         </Box>
+                        <p>Password</p>
                         <Box mt={4}>
                           <InputField
                             type={"password"}
                             name="password"
-                            placeholder="password"
-                            label="Password"
+                            placeholder="Password"
+                            label=""
                           />
                         </Box>
                       </Box>
-                      <Stack spacing={10} pt={2}>
+                      <Stack spacing={5} pt={2}>
                         <Box>
                           <Button
                             border={"none"}
@@ -140,7 +153,12 @@ const Register: React.FC<registerProps> = ({}) => {
                             Join the community!
                           </Button>
                         </Box>
-                        <Text align={"center"}>
+                        <Text
+                          textColor={"gainsboro"}
+                          mt={"0px"}
+                          fontFamily={"ubuntu"}
+                          align={"center"}
+                        >
                           Already a user?{" "}
                           <NextLink href={"/login"}>
                             <Link color={"blue.400"} ml="auto">
@@ -154,7 +172,15 @@ const Register: React.FC<registerProps> = ({}) => {
                 )}
               </Formik>
             </Stack>
-          </Box>
+            {/* <LandingDivider
+              style={{
+                height: "50vh",
+                width: "1px",
+                margin: "0px 35px 0px 35px",
+              }}
+            />
+            <OAuth OAuthType="register" /> */}
+          </CenteredContainer>
         </Stack>
       </Box>
     </Flex>

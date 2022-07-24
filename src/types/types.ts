@@ -33,6 +33,19 @@ export interface EndOptions {
   neverEnds: boolean;
 }
 
+export type OAuthType = "register" | "login";
+
+export interface GsiButtonConfiguration {
+  type: "standard" | "icon";
+  theme?: "outline" | "filled_blue" | "filled_black";
+  size?: "large" | "medium" | "small";
+  text?: "signin_with" | "signup_with" | "continue_with" | "signup_with";
+  shape?: "rectangular" | "pill" | "circle" | "square";
+  logo_alignment?: "left" | "center";
+  width?: string;
+  local?: string;
+}
+
 export type EndOptionsSelectorType = "none" | "date" | "repetitions" | "never";
 
 // Starts from sunday
