@@ -69,7 +69,7 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
         process.env.NODE_ENV === "production"
           ? sendMessage({
               to: "+12173817277",
-              body: `${user["given_name"]} has joined the community! Their email is ${user.email}`,
+              body: `${user["given_name"]} has joined the community! Their email is ${user["email"]}`,
             })
           : null;
         router.push("/profile");
@@ -78,7 +78,7 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
       const response_login = await login({
         variables: {
           password: "google", // TODO: Add other OAuth types
-          usernameOrEmail: user["email"],
+          email: user["email"],
         },
         update: (cache, { data }) => {
           cache.writeQuery<MeQuery>({
