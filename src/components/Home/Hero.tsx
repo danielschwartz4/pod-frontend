@@ -20,7 +20,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
   const toast = useToast();
 
   return (
-    <Box width={"100%"} alignItems={"center"} minHeight={"65vh"}>
+    <Box width={"100%"} alignItems={"center"} minHeight={"65vh"} m={-2}>
       <Box
         mx={"auto"}
         p={2}
@@ -29,17 +29,20 @@ const Hero: React.FC<HeroProps> = ({}) => {
         textColor={"gainsboro"}
         fontSize={{ base: 36, md: 48 }}
       >
-        <Heading size={"3xl"}>Pods for productivity</Heading>
-        <Text fontSize={"2xl"} fontFamily={"ubuntu"}>
+        <Heading mb={10} size={"3xl"}>
+          Pods for productivity
+        </Heading>
+        <Text mb={10} fontSize={"2xl"} fontFamily={"ubuntu"}>
           Join small groups with others. Get inspired by their progress. Keep
           accountable and grow together.
         </Text>
-        <Flex direction={["column", "row"]} mb={12}>
+        <Flex direction={["column", "row"]} mb={10}>
           <Box mx={"auto"}>
             {meData?.me == null ? <GetStartedButton /> : <GoToProfile />}
             <Button
               w={"250px"}
               borderRadius={8}
+              ml={[0, 2]}
               mr={[0, 4]}
               textColor={"#FFDC93"}
               bgColor={"gray.800"}
@@ -50,6 +53,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
               height={"60px"}
               fontFamily={"ubuntu"}
               cursor={"pointer"}
+              _hover={{ bg: "gray.700" }}
             >
               <a
                 target="_blank"

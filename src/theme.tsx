@@ -24,6 +24,7 @@ const solarized = {
 const theme = extendTheme({
   colors: {
     black: "#16161D",
+    gold: "#ffdc93",
   },
   solarized,
   fonts: {

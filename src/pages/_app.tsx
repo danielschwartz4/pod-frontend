@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }: any) {
         >
           <Head>
             <link rel="shortcut icon" href="/images/favicon.ico" />
+            <script src="https://accounts.google.com/gsi/client" async defer />
           </Head>
           <Component {...pageProps} />
         </ColorModeProvider>

@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-// Example: TranslateBox
-export const TranslateButtonContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100px;
-  margin-top: 60px;
-  justify-content: center;
-  align-items: flex-start;
-  background-color: transparent;
-`;
-
 export const LandingDivider = styled.hr`
   display: flex;
   justify-content: center;
@@ -25,4 +14,18 @@ export const LandingBox = styled.div`
   text-align: center;
   max-width: 1200px;
   width: 100%;
+`;
+
+export const CenteredContainer = styled.div`
+  display: flex;
+  width: 400px;
+  height: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #2D3748;
+  border: 2px solid #ffdc93;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 0px;
 `;
