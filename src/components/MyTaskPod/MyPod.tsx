@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   Exact,
@@ -24,6 +24,7 @@ import { exitPod, joinPod } from "./JoinExit";
 import { PodCreated } from "./PodCreated";
 import { PodNotCreated } from "./PodNotCreated";
 import { Event } from "../../libs/tracking";
+import { HelpTaskPopover } from "../Nav/HelpTaskPopover";
 
 interface MyPodProps {
   tasksDataLoading: boolean;
@@ -57,6 +58,8 @@ export const MyPod: React.FC<MyPodProps> = ({
   podData,
   refetchTask,
   refetchTasks,
+
+  children,
 }) => {
   useIsAuth();
   const countryOptions = COUNTRIES.map(({ name, iso }) => ({
@@ -73,9 +76,6 @@ export const MyPod: React.FC<MyPodProps> = ({
   const [sendEmails, {}] = useSendEmailsLazyQuery();
 
   const [podSize, setPodSize] = useState(null);
-  const [podJoined, setPodJoined] = useState(
-    myTaskData?.recurringTask?.task?.podId != 0
-  );
 
   const [phone, setPhone] = useState(null);
 
@@ -86,6 +86,10 @@ export const MyPod: React.FC<MyPodProps> = ({
       sessionType: "task",
     },
   });
+
+  const [podJoined, setPodJoined] = useState(
+    myTaskData?.recurringTask?.task?.podId != 0
+  );
 
   const [_podTasks, setPodTasks] = useState<PodTasksQuery>(tasksData);
 
@@ -104,101 +108,182 @@ export const MyPod: React.FC<MyPodProps> = ({
             podCap={podData?.pod?.pod?.cap}
             meData={meData}
             tasksData={_podTasks}
+          >
+            <PodNavBar
+              hasExit={true}
+              myTaskData={myTaskData}
+              podData={podData}
+              removeProjectFromPod={removeProjectFromPod}
+              updateTaskPod={updateTaskPod}
+              setPodJoined={setPodJoined}
+            />
+          </PodCreated>
+        </div>
+      ) : (
+        <>
+          <PodNavBar
+            hasExit={false}
+            myTaskData={myTaskData}
+            podData={podData}
+            removeProjectFromPod={removeProjectFromPod}
+            updateTaskPod={updateTaskPod}
+            setPodJoined={setPodJoined}
           />
-          <Box mt={"2em"}>
+          <PodNotCreated
+            updateTaskPod={updateTaskPod}
+            createPod={createPod}
+            myTaskData={myTaskData}
+            availablePodsData={availablePodsData}
+            addProjectToPod={addProjectToPod}
+            setPodSize={setPodSize}
+            podSize={podSize}
+            setPodJoined={setPodJoined}
+            meData={meData}
+            updateUserFriendRequests={updateUserFriendRequests}
+          >
+            {podSize != null ? (
+              <>
+                {meData?.me?.phone == null ? (
+                  <PhoneNumber
+                    country="US"
+                    options={countryOptions}
+                    placeholder="Enter phone number"
+                    setPhone={setPhone}
+                  />
+                ) : null}
+                <Button
+                  w={"100px"}
+                  mt={"8"}
+                  ml={2}
+                  bgColor="gainsboro"
+                  cursor={"pointer"}
+                  onClick={async () => {
+                    Event("Desktop", "MyTaskPod MyPod.tsx Button", "Join!");
+                    if (phone) {
+                      await updatePhone({
+                        variables: {
+                          updatePhoneId:
+                            myTaskData?.recurringTask?.task?.userId,
+                          phone: phone,
+                        },
+                      });
+                    }
+                    const pod: PodQuery["pod"]["pod"] = await joinPod(
+                      podSize,
+                      availablePodsData,
+                      myTaskData?.recurringTask?.task?.id,
+                      createPod,
+                      updateTaskPod,
+                      addProjectToPod,
+                      setPodJoined
+                    );
+                    // !! send SMS AND EMAIL message to all users that someone joined their pod
+                    sendEmails({
+                      variables: {
+                        message: "log into link ",
+                        subject:
+                          "someone joined your pod! Check out their progress <a href='url'>here</a>",
+                        userIds: pod?.userIds,
+                      },
+                    });
+
+                    // Just sending myself a message
+                    process.env.NODE_ENV === "production"
+                      ? sendMessage({
+                          to: "+12173817277",
+                          body: `${meData?.me?.username}'s task has joined a pod! text/email them
+                        Email: ${meData?.me?.email},
+                        Phone: ${meData?.me?.phone}`,
+                        })
+                      : null;
+                  }}
+                >
+                  Join!
+                </Button>
+              </>
+            ) : null}
+          </PodNotCreated>
+        </>
+      )}
+    </Box>
+  );
+};
+
+interface ExitProps {
+  hasExit: boolean;
+  removeProjectFromPod;
+  myTaskData;
+  podData;
+  setPodJoined;
+  updateTaskPod;
+}
+
+export const PodNavBar: React.FC<ExitProps> = (props) => {
+  return (
+    <Flex mt={-8} mb={"8"} alignItems={"center"}>
+      <Box alignItems={"center"} display={"flex"}>
+        {props.hasExit ? (
+          <>
+            <Text fontFamily={"ubuntu"} textColor={"#FFDC93"}>
+              This is your pod
+            </Text>
             <Button
+              ml={4}
+              border={"none"}
+              bgColor={"#FFDC93"}
+              color={"gray.800"}
               cursor={"pointer"}
-              bgColor="gainsboro"
               onClick={async () => {
-                Event("Desktop", "MyTaskPod MyPod.tsx Button", "exit pod");
                 await exitPod(
-                  removeProjectFromPod,
-                  myTaskData,
-                  podData,
-                  setPodJoined,
-                  updateTaskPod
+                  props.removeProjectFromPod,
+                  props.myTaskData,
+                  props.podData,
+                  props.setPodJoined,
+                  props.updateTaskPod
                 );
               }}
             >
               exit pod
             </Button>
-          </Box>
-        </div>
-      ) : (
-        <PodNotCreated
-          updateTaskPod={updateTaskPod}
-          createPod={createPod}
-          myTaskData={myTaskData}
-          availablePodsData={availablePodsData}
-          addProjectToPod={addProjectToPod}
-          setPodSize={setPodSize}
-          podSize={podSize}
-          setPodJoined={setPodJoined}
-          meData={meData}
-          updateUserFriendRequests={updateUserFriendRequests}
-        >
-          {podSize != null ? (
-            <>
-              {meData?.me?.phone == null ? (
-                <PhoneNumber
-                  country="US"
-                  options={countryOptions}
-                  placeholder="Enter phone number"
-                  setPhone={setPhone}
-                />
-              ) : null}
+            <HelpTaskPopover placement="top">
               <Button
-                w={"100px"}
-                mt={"8"}
-                ml={2}
-                bgColor="gainsboro"
+                ml={4}
+                border={"none"}
+                bgColor={"#FFDC93"}
+                color={"gray.800"}
                 cursor={"pointer"}
-                onClick={async () => {
-                  Event("Desktop", "MyTaskPod MyPod.tsx Button", "Join!");
-                  if (phone) {
-                    await updatePhone({
-                      variables: {
-                        updatePhoneId: myTaskData?.recurringTask?.task?.userId,
-                        phone: phone,
-                      },
-                    });
-                  }
-                  const pod: PodQuery["pod"]["pod"] = await joinPod(
-                    podSize,
-                    availablePodsData,
-                    myTaskData?.recurringTask?.task?.id,
-                    createPod,
-                    updateTaskPod,
-                    addProjectToPod,
-                    setPodJoined
-                  );
-                  // !! send SMS AND EMAIL message to all users that someone joined their pod
-                  sendEmails({
-                    variables: {
-                      message: "log into link ",
-                      subject:
-                        "someone joined your pod! Check out their progress <a href='url'>here</a>",
-                      userIds: pod?.userIds,
-                    },
-                  });
-
-                  // Just sending myself a message
-                  process.env.NODE_ENV === "production"
-                    ? sendMessage({
-                        to: "+12173817277",
-                        body: `${meData?.me?.username}'s task has joined a pod! text/email them
-                        Email: ${meData?.me?.email},
-                        Phone: ${meData?.me?.phone}`,
-                      })
-                    : null;
-                }}
+                onClick={() =>
+                  Event("Desktop", "HomeNavBar.tsx Button", "Help")
+                }
               >
-                Join!
+                How it works
               </Button>
-            </>
-          ) : null}
-        </PodNotCreated>
-      )}
-    </Box>
+            </HelpTaskPopover>
+          </>
+        ) : (
+          <Flex w={"100vw"}>
+            <Box mx={"auto"} display={"flex"} alignItems={"center"}>
+              <Text fontFamily={"ubuntu"} textColor={"#FFDC93"}>
+                Create a pod
+              </Text>
+              <HelpTaskPopover placement="top">
+                <Button
+                  ml={4}
+                  border={"none"}
+                  bgColor={"#FFDC93"}
+                  color={"gray.800"}
+                  cursor={"pointer"}
+                  onClick={() =>
+                    Event("Desktop", "HomeNavBar.tsx Button", "Help")
+                  }
+                >
+                  How it works
+                </Button>
+              </HelpTaskPopover>
+            </Box>
+          </Flex>
+        )}
+      </Box>
+    </Flex>
   );
 };

@@ -39,7 +39,6 @@ export const joinPod = async (
     variables: {
       addProjectToPodId:
         createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
-      // projectId: myTaskData?.recurringTask?.task?.id,
       projectId: taskId,
     },
   });
@@ -47,21 +46,14 @@ export const joinPod = async (
     variables: {
       podId:
         createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
-      // updateRecurringTaskPodId: myTaskData?.recurringTask?.task?.id,
       updateRecurringTaskPodId: taskId,
     },
   });
-  console.log("SETPODJOINED", setPodJoined);
-  if (setPodJoined) {
-    setPodJoined(true);
-  }
+
+  setPodJoined(true);
   if (createdPod) {
-    console.log("createdPod");
-    console.log(createdPod);
     return createdPod;
   } else {
-    console.log("foundPod");
-    console.log(foundPod);
     return foundPod;
   }
 };

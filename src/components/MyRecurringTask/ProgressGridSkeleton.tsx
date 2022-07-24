@@ -82,7 +82,11 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
     <Box>
       <Flex mb={-8} ml={4} fontSize={24} textColor={"gainsboro"}>
         {!daysIdxs?.has(TODAY.getDay()) ? (
-          <Text fontWeight={"thin"} fontFamily={"sans-serif"}>
+          <Text
+            textColor={"#FFDC93"}
+            fontWeight={"thin"}
+            fontFamily={"sans-serif"}
+          >
             Off day today!
           </Text>
         ) : (
@@ -92,7 +96,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
       <Grid templateColumns={"repeat(7, 0fr)"} gap={6}>
         {Object.keys(dayTitles).map((i) => {
           return (
-            <GridItem key={i}>
+            <GridItem key={i} ml={{ base: 0, sm: 4 }}>
               <Text
                 fontWeight={"medium"}
                 fontFamily={"sans-serif"}

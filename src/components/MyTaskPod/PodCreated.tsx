@@ -22,17 +22,18 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
 
   const gridProjects = (
     <Flex>
-      <Grid
-        mx={"auto"}
-        templateColumns={{
-          md: "repeat(2, 1fr)",
-          lg: "repeat(4, 1fr)",
-        }}
-        gap={8}
-        textAlign={"center"}
-      >
-        {/* Logic for 2, 3, 4 people */}
-        {/* {tasksData?.podTasks?.map((t, i) => {
+      <Box w={"800px"} mx={"auto"}>
+        {children}
+        <Grid
+          templateColumns={{
+            md: "repeat(2, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
+          gap={8}
+          textAlign={"center"}
+        >
+          {/* Logic for 2, 3, 4 people */}
+          {/* {tasksData?.podTasks?.map((t, i) => {
           return (i == 2 && podLength == 3) || podLength == 1 ? (
             <GridItem
               colStart={{ md: null, lg: 2 }}
@@ -48,37 +49,28 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             </GridItem>
           );
         })} */}
-        {fourPersonArr.map((t, i) => {
-          return (
-            <GridItem colSpan={2} key={i}>
-              {tasksData?.podTasks[i] ? (
-                <PodCard
-                  meData={meData}
-                  task={tasksData?.podTasks[i] as RecurringTask}
-                />
-              ) : (
-                <PodDummyCard />
-              )}
-            </GridItem>
-          );
-        })}
-      </Grid>
+          {fourPersonArr.map((t, i) => {
+            return (
+              <GridItem colSpan={2} key={i}>
+                {tasksData?.podTasks[i] ? (
+                  <PodCard
+                    meData={meData}
+                    task={tasksData?.podTasks[i] as RecurringTask}
+                  />
+                ) : (
+                  <PodDummyCard />
+                )}
+              </GridItem>
+            );
+          })}
+        </Grid>
+      </Box>
     </Flex>
   );
 
   if (podLength) {
-    return (
-      <div>
-        {gridProjects}
-        {children}
-      </div>
-    );
+    return <Box>{gridProjects}</Box>;
   }
 
-  return (
-    <div>
-      something went wrong
-      {children}
-    </div>
-  );
+  return <Box>something went wrong</Box>;
 };

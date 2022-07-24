@@ -12,15 +12,14 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
 import router, { useRouter } from "next/router";
 import React from "react";
 import { BsQuestionSquare } from "react-icons/bs";
 import { useLogoutMutation, useMeQuery } from "../../generated/graphql";
 import newLogo from "../../images/Logos/newLogo.png";
+import { Event } from "../../libs/tracking";
 import { isServer } from "../../utils/isServer";
 import { HelpTaskPopover } from "./HelpTaskPopover";
-import { Event } from "../../libs/tracking";
 
 interface ProfileNavBarProps {
   isProjectsPage?: boolean;

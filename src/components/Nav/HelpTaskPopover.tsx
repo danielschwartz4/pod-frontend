@@ -16,13 +16,16 @@ import { statusColorMap } from "../../utils/statusColorMap";
 import { CircleIcon } from "../MyRecurringTask/TaskCircle";
 import notesImage from "../../images/notesImage.png";
 
-interface HelpTaskPopoverProps {}
+interface HelpTaskPopoverProps {
+  placement?: "top" | "bottom" | "left" | "right";
+}
 
 export const HelpTaskPopover: React.FC<HelpTaskPopoverProps> = ({
+  placement = "bottom",
   children,
 }) => {
   return (
-    <Popover arrowSize={8} gutter={40}>
+    <Popover placement={placement} arrowSize={8} gutter={40}>
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent p={2} backgroundColor={"white"}>
         <PopoverCloseButton />

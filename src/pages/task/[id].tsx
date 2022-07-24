@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Divider,
   Flex,
   TabPanel,
@@ -19,12 +20,15 @@ import {
   usePodQuery,
   usePodTasksQuery,
   useRecentPodSingleTasksQuery,
+  useRemoveProjectFromPodMutation,
   useSingleTasksQuery,
+  useUpdateTaskPodMutation,
 } from "../../generated/graphql";
 import { NotePopup, randNotesSplurge } from "../../utils/randNotesSplurge";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { PageView } from "../../libs/tracking";
+import { exitPod } from "../../components/MyTaskPod/JoinExit";
 
 interface TaskHomeProps {}
 
@@ -34,6 +38,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   const [changeTab, useChangeTab] = useState<string>("task");
   const [keepMounted, setKeepMounted] = useState(true);
+
   const TEMP_BOOL = true;
 
   const { data: meData } = useMeQuery({});
@@ -116,15 +121,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             <Text>Loading...</Text>
           )}
         </Box>
-        <Flex mt={-8} mb={"8"}>
-          <Box alignItems={"center"} display={"flex"} mx={"auto"}>
-            <Divider color={"gray.400"} width={"30vw"} />
-            <Text fontFamily={"ubuntu"} mx={4} textColor={"#FFDC93"}>
-              Your pod
-            </Text>
-            <Divider color={"gray.400"} width={"30vw"} />
-          </Box>
-        </Flex>
+
         <MyPod
           podData={podData}
           meData={meData}
