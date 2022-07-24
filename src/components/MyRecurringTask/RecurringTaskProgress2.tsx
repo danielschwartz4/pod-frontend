@@ -47,52 +47,48 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   });
 
   return (
-    <Stack
-      justifyContent={"center"}
-      direction={{ base: "column", sm: "column", md: "row" }}
-      gap={{ md: 0, lg: 20 }}
-      mx={"auto"}
-    >
-      <Box>
-        <ProgressGridSkeleton
-          setCompletedCount={setCompletedCount}
-          completedCount={completedCount}
-          singleTasksData={singleTasksData}
-          rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
-          myTaskData={myTaskData}
-          refetchSingleTasks={refetchSingleTasks}
-        />
-      </Box>
-      <Flex display={{ base: "none", sm: "none", md: "flex" }}>
-        <Divider
-          my={"auto"}
-          color={"gray.400"}
-          h={"80%"}
-          orientation={"vertical"}
-        />
-      </Flex>
-      <Flex
-        justify={{
-          base: "none",
-          sm: "none",
-          md: "space-between",
-        }}
-        direction={{ base: "row", sm: "row", md: "column" }}
-        gap={{ base: "30px", sm: "30px", md: "0" }}
+    <Flex>
+      <Stack
+        direction={{ base: "column", lg: "row" }}
+        gap={{ md: 0, lg: 20 }}
+        mx={"auto"}
       >
-        <CircularTaskProgress
-          taskLength={singleTasksToToday.length}
-          completedCount={completedCount}
-          title={"All time consistency"}
-          variant={"allTime"}
-        />
-        <CircularTaskProgress
-          taskLength={singleTasksRangeDays.length}
-          completedCount={completedCount}
-          title={"Last 7 tasks' consistency"}
-          variant={"week"}
-        />
-      </Flex>
-    </Stack>
+        <Box mt={0}>
+          <ProgressGridSkeleton
+            setCompletedCount={setCompletedCount}
+            completedCount={completedCount}
+            singleTasksData={singleTasksData}
+            rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
+            myTaskData={myTaskData}
+            refetchSingleTasks={refetchSingleTasks}
+          />
+        </Box>
+        <Box display={{ base: "none", lg: "block" }}>
+          <Divider
+            color={"gray.400"}
+            orientation={"vertical"}
+            mt={8}
+            height={"80%"}
+          />
+        </Box>
+        <Box display={{ base: "block", lg: "none" }}>
+          <Divider color={"gray.400"} mt={2} orientation={"horizontal"} />
+        </Box>
+        <Flex justify={"space-between"} direction={{ md: "row", lg: "column" }}>
+          <CircularTaskProgress
+            taskLength={singleTasksToToday.length}
+            completedCount={completedCount}
+            title={"All time consistency"}
+            variant={"allTime"}
+          />
+          <CircularTaskProgress
+            taskLength={singleTasksRangeDays.length}
+            completedCount={completedCount}
+            title={"Last 7 tasks' consistency"}
+            variant={"week"}
+          />
+        </Flex>
+      </Stack>
+    </Flex>
   );
 };

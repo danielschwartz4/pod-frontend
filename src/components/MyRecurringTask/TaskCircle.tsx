@@ -57,7 +57,6 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
       <Box
         onClick={() => {
           const actionDate = new Date(singleTask?.actionDate);
-          // !! Something like only clickable if today or before today
           if ((isBefore || isEqual) && isInteractive) {
             setPopupHandler();
           }
@@ -80,8 +79,8 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
         </CircleIcon>
         <Icon
           transform={{
-            base: "translate(-8.5px, -24px)",
-            sm: "translate(-8px, -36px)",
+            base: "translate(8px, -24px)",
+            sm: "translate(19px, -36px)",
           }}
           position={"absolute"}
           color={"gray.700"}

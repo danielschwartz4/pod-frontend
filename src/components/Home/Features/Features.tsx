@@ -37,13 +37,11 @@ export const Features: React.FC<FeaturesProps> = ({}) => {
             mx={"auto"}
           >
             <Entry
-              // emoji={<FcSerialTasks />}
               emoji={<RiNumber1 />}
               title={"Set your goal"}
               text={"Create your task or project goal"}
             />
             <Entry
-              // emoji={<TiThLargeOutline color="lightblue" />}
               emoji={<RiNumber2 />}
               title={"Match into a random group"}
               text={
@@ -51,7 +49,6 @@ export const Features: React.FC<FeaturesProps> = ({}) => {
               }
             />
             <Entry
-              // emoji={<FcConferenceCall />}
               emoji={<RiNumber3 />}
               title={"Share your progress"}
               text={
@@ -76,10 +73,15 @@ const Entry = ({ emoji, title, text }) => {
         {emoji}
       </Box>
       <VStack width={"250px"} display={"flex"} flexDirection={"row"}>
-        <Box fontSize={{ base: 20 }} textAlign={"left"}>
-          <Text>{title}</Text>
+        <Flex
+          mb={"auto"}
+          direction={"column"}
+          fontSize={{ base: 20 }}
+          textAlign={"left"}
+        >
+          <Text mb={-2}>{title}</Text>
           <Text opacity={"60%"}>{text}</Text>
-        </Box>
+        </Flex>
       </VStack>
     </Flex>
   );
