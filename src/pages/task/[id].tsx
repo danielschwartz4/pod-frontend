@@ -104,7 +104,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   return (
     <Layout withHelpPopover={true}>
-      <Box mt={{ base: 0, sm: 16 }}>
+      <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
         <Box>
           {!taskDataLoading && !singleTasksDataLoading ? (
             <RecurringTaskProgress

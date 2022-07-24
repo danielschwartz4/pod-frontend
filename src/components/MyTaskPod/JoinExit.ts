@@ -14,11 +14,12 @@ import {
 export const joinPod = async (
   podSize: number,
   availablePodsData: FindPublicPodQuery,
-  myTaskData: RecurringTaskQuery,
-  setPodJoined: React.Dispatch<React.SetStateAction<boolean>>,
+  // myTaskData: RecurringTaskQuery,
+  taskId: number,
   createPod: CreatePodMutationType,
   updateTaskPod: UpdateTaskPodMutationType,
-  addProjectToPod: AddProjectToPodMutationType
+  addProjectToPod: AddProjectToPodMutationType,
+  setPodJoined?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   let createdPod = null;
   let foundPod = null;
@@ -39,20 +40,29 @@ export const joinPod = async (
     variables: {
       addProjectToPodId:
         createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
-      projectId: myTaskData?.recurringTask?.task?.id,
+      // projectId: myTaskData?.recurringTask?.task?.id,
+      projectId: taskId,
     },
   });
   await updateTaskPod({
     variables: {
       podId:
         createdPod != null ? createdPod?.data?.createPod?.id : foundPod?.id,
-      updateRecurringTaskPodId: myTaskData?.recurringTask?.task?.id,
+      // updateRecurringTaskPodId: myTaskData?.recurringTask?.task?.id,
+      updateRecurringTaskPodId: taskId,
     },
   });
-  setPodJoined(true);
+  console.log("SETPODJOINED", setPodJoined);
+  if (setPodJoined) {
+    setPodJoined(true);
+  }
   if (createdPod) {
+    console.log("createdPod");
+    console.log(createdPod);
     return createdPod;
   } else {
+    console.log("foundPod");
+    console.log(foundPod);
     return foundPod;
   }
 };

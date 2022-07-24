@@ -166,11 +166,11 @@ export const MyPod: React.FC<MyPodProps> = ({
                   const pod: PodQuery["pod"]["pod"] = await joinPod(
                     podSize,
                     availablePodsData,
-                    myTaskData,
-                    setPodJoined,
+                    myTaskData?.recurringTask?.task?.id,
                     createPod,
                     updateTaskPod,
-                    addProjectToPod
+                    addProjectToPod,
+                    setPodJoined
                   );
                   // !! send SMS AND EMAIL message to all users that someone joined their pod
                   sendEmails({

@@ -1,13 +1,19 @@
 import { Box, Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import router from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { ADD_TASKS_LIMIT } from "../../constants";
 import {
+  FindPublicPodQuery,
   MeQuery,
+  PodQuery,
+  useAddProjectToPodMutation,
   useAddSingleTaskMutation,
   useAddSingleTasksChunkMutation,
+  useCreatePodMutation,
   useCreateRecurringTaskMutation,
+  useFindPublicPodLazyQuery,
+  useUpdateTaskPodMutation,
 } from "../../generated/graphql";
 import { DaysType, EndOptionsSelectorType } from "../../types/types";
 import { sendMessage } from "../../utils/messaging/sendMessage";
@@ -18,6 +24,7 @@ import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import RepetitionStepper from "./RepetitionStepperField";
 import { Event } from "../../libs/tracking";
+import { joinPod } from "../MyTaskPod/JoinExit";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -29,6 +36,11 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [createRecurringTask] = useCreateRecurringTaskMutation();
   const [addSingleTask] = useAddSingleTaskMutation();
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
+  const [findPublicPods, { data, loading: podsLoading }] =
+    useFindPublicPodLazyQuery();
+  const [createPod] = useCreatePodMutation();
+  const [addProjectToPod] = useAddProjectToPodMutation();
+  const [updateTaskPod] = useUpdateTaskPodMutation();
 
   return (
     <Box>
@@ -78,7 +90,25 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
             });
             if (singleTasksResponse) {
               console.log("success");
-              // !! Auto join a pod!!!
+              const availablePodsData = await findPublicPods({
+                variables: {
+                  cap: 4,
+                  projectId: response?.data?.createRecurringTask?.task?.id,
+                  sessionType: "task",
+                },
+              });
+
+              if (!podsLoading) {
+                console.log("INNN");
+                await joinPod(
+                  4,
+                  availablePodsData?.data,
+                  response?.data?.createRecurringTask?.task?.id,
+                  createPod,
+                  updateTaskPod,
+                  addProjectToPod
+                );
+              }
             }
             if (
               response?.data?.createRecurringTask?.task?.user?.phone !=
