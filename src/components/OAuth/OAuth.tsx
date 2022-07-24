@@ -78,7 +78,7 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
       const response_login = await login({
         variables: {
           password: "google", // TODO: Add other OAuth types
-          usernameOrEmail: user["email"],
+          email: user["email"],
         },
         update: (cache, { data }) => {
           cache.writeQuery<MeQuery>({
