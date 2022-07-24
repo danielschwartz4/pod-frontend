@@ -22,7 +22,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
 
   const gridProjects = (
     <Flex>
-      <Box w={"800px"} mx={"auto"}>
+      <Box w={"900px"} mx={"auto"}>
         {children}
         <Grid
           templateColumns={{
