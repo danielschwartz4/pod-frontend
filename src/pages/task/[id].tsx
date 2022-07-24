@@ -104,7 +104,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   return (
     <Layout withHelpPopover={true}>
-      <Box>
+      <Box mt={{ base: 0, sm: 16 }}>
         <Box>
           {!taskDataLoading && !singleTasksDataLoading ? (
             <RecurringTaskProgress
@@ -118,11 +118,11 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
         </Box>
         <Flex mt={-8} mb={"8"}>
           <Box alignItems={"center"} display={"flex"} mx={"auto"}>
-            <Divider color={"gray.400"} width={"300px"} />
+            <Divider color={"gray.400"} width={"30vw"} />
             <Text fontFamily={"ubuntu"} mx={4} textColor={"#FFDC93"}>
               Your pod
             </Text>
-            <Divider color={"gray.400"} width={"300px"} />
+            <Divider color={"gray.400"} width={"30vw"} />
           </Box>
         </Flex>
         <MyPod
