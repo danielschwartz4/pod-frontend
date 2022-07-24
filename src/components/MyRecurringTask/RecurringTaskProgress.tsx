@@ -1,18 +1,12 @@
-import { Box, Button, Divider, Flex, Stack } from "@chakra-ui/react";
+import { Box, Divider, Flex, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { ADD_TASKS_LIMIT, RANGE_DAYS, TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
   SingleTask,
   SingleTasksQuery,
-  useAddSingleTasksChunkMutation,
 } from "../../generated/graphql";
 import { CompletedCount } from "../../types/types";
-import {
-  beforeToday,
-  daysEqual,
-  getConsistencyCount,
-} from "../../utils/getConsistency";
+import { getConsistencyCount } from "../../utils/getConsistency";
 import {
   singleTasksRangeDaysHelper,
   singleTasksToTodayHelper,

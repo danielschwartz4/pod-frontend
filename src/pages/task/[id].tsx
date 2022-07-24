@@ -1,16 +1,5 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  TabPanel,
-  TabPanels,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
-import React, { useMemo, useState, useEffect } from "react";
-import DashTabs from "../../components/Dash/DashTabs";
-import DashWrapper from "../../components/Dash/DashWrapper";
+import { Box, Flex, Text, useToast } from "@chakra-ui/react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Layout } from "../../components/Layout";
 import { RecurringTaskProgress } from "../../components/MyRecurringTask/RecurringTaskProgress";
 import { MyPod } from "../../components/MyTaskPod/MyPod";
@@ -20,15 +9,12 @@ import {
   usePodQuery,
   usePodTasksQuery,
   useRecentPodSingleTasksQuery,
-  useRemoveProjectFromPodMutation,
   useSingleTasksQuery,
-  useUpdateTaskPodMutation,
 } from "../../generated/graphql";
+import { PageView } from "../../libs/tracking";
 import { NotePopup, randNotesSplurge } from "../../utils/randNotesSplurge";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
-import { PageView } from "../../libs/tracking";
-import { exitPod } from "../../components/MyTaskPod/JoinExit";
 
 interface TaskHomeProps {}
 

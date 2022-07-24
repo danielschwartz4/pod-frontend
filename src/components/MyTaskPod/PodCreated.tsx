@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import { MeQuery, PodTasksQuery, RecurringTask } from "../../generated/graphql";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
