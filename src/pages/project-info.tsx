@@ -58,14 +58,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   Recurring task &#160;
                   <RiRepeatLine />
                 </Tab>
-                {/* <Tab
-                  onClick={() =>
-                    Event("Desktop", "Project Project-Info Button", "Project")
-                  }
-                  _selected={{ color: "white", bg: "#1a202c" }}
-                >
-                  Project &#160; <RiFlowChart />
-                </Tab> */}
               </TabList>
               <TabPanels>
                 <TabPanel minH={"600px"}>

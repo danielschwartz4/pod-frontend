@@ -108,6 +108,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 );
               }
             }
+
             if (
               response?.data?.createRecurringTask?.task?.user?.phone !=
               "+12173817277"
