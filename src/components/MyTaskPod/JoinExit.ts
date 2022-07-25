@@ -50,7 +50,10 @@ export const joinPod = async (
     },
   });
 
-  setPodJoined(true);
+  if (setPodJoined) {
+    setPodJoined(true);
+  }
+
   if (createdPod) {
     return createdPod;
   } else {
