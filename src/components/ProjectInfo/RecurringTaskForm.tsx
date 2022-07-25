@@ -121,7 +121,11 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   })
                 : null;
             }
-            await router.push("/profile");
+            const project_pod_page =
+              "/task/" + response?.data?.createRecurringTask?.task?.id;
+            await router.push(
+              "/task/" + response?.data?.createRecurringTask?.task?.id
+            );
           }
         }}
       >
