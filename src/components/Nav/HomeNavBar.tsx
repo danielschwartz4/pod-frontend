@@ -126,7 +126,8 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   cursor={"pointer"}
                   fontFamily={"ubuntu"}
                   _hover={{ bg: "gray.700" }}
-                  isloading={logoutLoading.toString()}
+                  // isloading={logoutLoading.toString()}
+                  isLoading={logoutLoading}
                   onClick={() => {
                     Event("Desktop", "HomeNavBar.tsx LogoutButton", "Logout");
                     logout({
@@ -258,7 +259,8 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                       },
                     });
                   }}
-                  isloading={logoutLoading.toString()}
+                  // isloading={logoutLoading.toString()}
+                  isLoading={logoutLoading}
                   fontSize={18}
                   type="button"
                   variant={"link"}

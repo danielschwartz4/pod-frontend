@@ -72,7 +72,8 @@ const FriendForm: React.FC<FriendFormProps> = (props) => {
               />
             </VStack>
             <Button
-              isloading={isSubmitting.toString()}
+              // isloading={isSubmitting.toString()}
+              isLoading={isSubmitting ? true : false}
               mt={8}
               mr={{ base: "140px", sm: "auto" }}
               type="submit"

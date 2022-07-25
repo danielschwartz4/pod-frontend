@@ -63,9 +63,9 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                 <TabPanel minH={"600px"}>
                   <RecurringTaskForm meData={data} />
                 </TabPanel>
-                <TabPanel minH={"600px"}>
+                {/* <TabPanel minH={"600px"}>
                   <ProjectForm meData={data} />
-                </TabPanel>
+                </TabPanel> */}
               </TabPanels>
             </Tabs>
           </Box>

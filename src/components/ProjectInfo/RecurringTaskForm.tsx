@@ -197,7 +197,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 mx={"auto"}
                 mt={8}
                 type="submit"
-                isloading={isSubmitting ? "true" : "false"}
+                isLoading={isSubmitting ? true : false}
                 cursor="pointer"
                 colorScheme="gray.300"
                 onClick={() =>

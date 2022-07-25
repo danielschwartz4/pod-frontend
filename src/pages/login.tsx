@@ -155,7 +155,8 @@ const Login: React.FC<{}> = ({}) => {
                             _hover={{
                               bg: "blue.500",
                             }}
-                            isloading={isSubmitting.toString()}
+                            // isloading={isSubmitting.toString()}
+                            isLoading={isSubmitting}
                             border={"none"}
                             type="submit"
                             width={"100%"}

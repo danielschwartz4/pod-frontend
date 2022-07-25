@@ -95,7 +95,7 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
                 mx={"auto"}
                 mt={4}
                 type="submit"
-                isloading={isSubmitting ? "true" : "false"}
+                isLoading={isSubmitting ? true : false}
                 cursor="pointer"
                 colorScheme="gray.300"
                 onClick={() =>

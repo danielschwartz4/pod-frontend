@@ -79,7 +79,8 @@ const Messaging: React.FC<MessagingProps> = ({ meData }) => {
         textColor={"gainsboro"}
         bg={"gray.600"}
         cursor={"pointer"}
-        isloading={loading.toString()}
+        // isloading={loading.toString()}
+        isLoading={loading}
         loadingText="Saving..."
         onClick={async () => {
           const updated = await updateMessagingSettings({
