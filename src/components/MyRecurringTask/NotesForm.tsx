@@ -1,6 +1,12 @@
-import { Box, PopoverFooter, ButtonGroup, Button } from "@chakra-ui/react";
+import {
+  Box,
+  PopoverFooter,
+  ButtonGroup,
+  Button,
+  Text,
+} from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import {
   SingleTask,
   useUpdateSingleTaskNotesMutation,
@@ -9,10 +15,20 @@ import { InputField } from "../Inputs/InputField";
 
 interface NotesFormProps {
   singleTask: SingleTask;
+  setCompletedNote;
 }
 
-const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
+const NotesForm: React.FC<NotesFormProps> = ({
+  children,
+  singleTask,
+  setCompletedNote,
+}) => {
   const [updateSingleTaskNotes] = useUpdateSingleTaskNotesMutation();
+
+  // const handleChange = (e) => {
+  //   console.log("LOGDED");
+  //   setCompletedNote(e.target.values.notes != "");
+  // };
 
   return (
     <Formik
@@ -26,7 +42,7 @@ const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
         });
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, values }) => (
         <Form>
           <Box mr={8}>
             <InputField
@@ -42,6 +58,9 @@ const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
               }
               label=""
               name="notes"
+              // value={values.notes}
+
+              onChange={setCompletedNote(values.notes != "")}
             />
           </Box>
           {children}

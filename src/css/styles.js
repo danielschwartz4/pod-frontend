@@ -29,3 +29,11 @@ export const CenteredContainer = styled.div`
   padding: 30px;
   margin: 0px;
 `;
+
+export const Font = styled.p`
+  color: gainsboro;
+  /* color: #FFDC93; // gold */
+  font-family: "ubuntu";
+  font-size: 24px;
+  margin: 5px;
+`

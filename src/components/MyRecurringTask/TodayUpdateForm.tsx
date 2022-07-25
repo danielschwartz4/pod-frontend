@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, PopoverFooter, useToast } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
@@ -20,6 +20,8 @@ import { generateSms } from "../../utils/taskSmsBody";
 import NotesForm from "./NotesForm";
 
 interface TodayUpdateFormProps {
+  completedNote: Boolean;
+  setCompletedNote;
   singleTask: SingleTask;
   setPopupHandler: () => void;
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -31,6 +33,8 @@ interface TodayUpdateFormProps {
 }
 
 const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
+  completedNote,
+  setCompletedNote,
   singleTask,
   setPopupHandler,
   setStatus,
@@ -132,69 +136,73 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   };
 
   return (
-    <NotesForm singleTask={singleTask}>
+    <NotesForm singleTask={singleTask} setCompletedNote={setCompletedNote}>
       <PopoverFooter d="flex" justifyContent="center">
         <ButtonGroup size="sm">
           <Button
             onClick={async () => {
-              setPopupHandler();
-              const response = await updateSingleTaskCompletionStatus({
-                variables: {
-                  status: "missed",
-                  updateSingleTaskCompletionStatusId: singleTask?.id,
-                },
-              });
-              if (response) {
-                setStatus("missed");
-                if (
-                  _status != "missed" &&
-                  _status != "tbd" &&
-                  _status != "overdue"
-                ) {
-                  setCompletedCountHandler(false);
+              if (completedNote) {
+                setPopupHandler();
+                const response = await updateSingleTaskCompletionStatus({
+                  variables: {
+                    status: "missed",
+                    updateSingleTaskCompletionStatusId: singleTask?.id,
+                  },
+                });
+                if (response) {
+                  setStatus("missed");
+                  if (
+                    _status != "missed" &&
+                    _status != "tbd" &&
+                    _status != "overdue"
+                  ) {
+                    setCompletedCountHandler(false);
+                  }
                 }
               }
             }}
             type="submit"
             background="#F26D51"
-            cursor="pointer"
+            cursor={completedNote ? "pointer" : "not-allowed"}
           >
             Did not complete
           </Button>
           <Button
             onClick={async () => {
-              setPopupHandler();
-              const response = await updateSingleTaskCompletionStatus({
-                variables: {
-                  status: "completed",
-                  updateSingleTaskCompletionStatusId: singleTask?.id,
-                },
-              });
-              if (response) {
-                setStatus("completed");
-                if (_status != "completed") {
-                  setCompletedCountHandler(true);
-                  toast({
-                    title: "Congrats!",
-                    description: "Your pod has been alerted!.",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                  });
-                  await sendMessageHandler();
+              if (completedNote) {
+                setPopupHandler();
+                const response = await updateSingleTaskCompletionStatus({
+                  variables: {
+                    status: "completed",
+                    updateSingleTaskCompletionStatusId: singleTask?.id,
+                  },
+                });
+                if (response) {
+                  setStatus("completed");
+                  if (_status != "completed") {
+                    setCompletedCountHandler(true);
+                    toast({
+                      title: "Congrats!",
+                      description: "Your pod has been alerted!.",
+                      status: "success",
+                      duration: 9000,
+                      isClosable: true,
+                    });
+                    await sendMessageHandler();
+                  }
+                  // !!MMke this execute on the last day
+                  // await addSingleTasksChunk({
+                  //   variables: {
+                  //     limit: SKELETON_UNIT_SIZE,
+                  //     recTaskId: task?.recurringTask?.task?.id,
+                  //   },
+                  // });
                 }
-                // !!MMke this execute on the last day
-                // await addSingleTasksChunk({
-                //   variables: {
-                //     limit: SKELETON_UNIT_SIZE,
-                //     recTaskId: task?.recurringTask?.task?.id,
-                //   },
-                // });
               }
             }}
             type="submit"
             background="#3EE76D"
-            cursor={"pointer"}
+            cursor={completedNote ? "pointer" : "not-allowed"}
           >
             Completed!
           </Button>
