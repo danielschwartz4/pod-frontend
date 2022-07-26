@@ -25,8 +25,9 @@ const NotesForm: React.FC<NotesFormProps> = ({
 }) => {
   const [updateSingleTaskNotes] = useUpdateSingleTaskNotesMutation();
   const handleOnChange = (event: FormEvent) => {
-    console.log("Form::onChange", event);
-    setCompletedNote(event.target["value"] != "");
+    if (setCompletedNote) {
+      setCompletedNote(event.target["value"] != "");
+    }
   };
 
   return (

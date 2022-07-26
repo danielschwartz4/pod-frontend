@@ -24,8 +24,6 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
       >
         💛
       </p>
-      {console.log("HERE")}
-      {console.log(recentPodSingleTasksData.recentPodSingleTasks.singleTasks)}
       <div
         style={{
           width: "418px",
@@ -44,7 +42,7 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
           rounded={"md"}
           p={"2"}
         >
-          {recentPodSingleTasksData.recentPodSingleTasks.singleTasks.map(
+          {recentPodSingleTasksData?.recentPodSingleTasks?.singleTasks?.map(
             (note) => (
               <Box p="1" minH="48px">
                 <Font style={{ color: "grey", fontSize: "16px" }}>
