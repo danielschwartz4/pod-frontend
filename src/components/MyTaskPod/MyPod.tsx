@@ -47,6 +47,7 @@ interface MyPodProps {
       }>
     >
   ) => Promise<ApolloQueryResult<PodTasksQuery>>;
+  recentPodSingleTasksData;
 }
 
 export const MyPod: React.FC<MyPodProps> = ({
@@ -58,7 +59,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   podData,
   refetchTask,
   refetchTasks,
-
+  recentPodSingleTasksData,
   children,
 }) => {
   useIsAuth();
@@ -104,20 +105,20 @@ export const MyPod: React.FC<MyPodProps> = ({
         <Box color={"gainsboro"}>loading...</Box>
       ) : podJoined && _podTasks ? (
         <div>
+          <PodNavBar
+            hasExit={true}
+            myTaskData={myTaskData}
+            podData={podData}
+            removeProjectFromPod={removeProjectFromPod}
+            updateTaskPod={updateTaskPod}
+            setPodJoined={setPodJoined}
+          />
           <PodCreated
             podCap={podData?.pod?.pod?.cap}
             meData={meData}
             tasksData={_podTasks}
-          >
-            <PodNavBar
-              hasExit={true}
-              myTaskData={myTaskData}
-              podData={podData}
-              removeProjectFromPod={removeProjectFromPod}
-              updateTaskPod={updateTaskPod}
-              setPodJoined={setPodJoined}
-            />
-          </PodCreated>
+            recentPodSingleTasksData={recentPodSingleTasksData}
+          />
         </div>
       ) : (
         <>
@@ -220,7 +221,7 @@ interface ExitProps {
 
 export const PodNavBar: React.FC<ExitProps> = (props) => {
   return (
-    <Flex mt={-8} mb={"8"} alignItems={"center"}>
+    <Flex mt={-8} mb={"8"} justifyContent={"center"}>
       <Box alignItems={"center"} display={"flex"}>
         {props.hasExit ? (
           <>

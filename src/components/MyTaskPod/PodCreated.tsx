@@ -2,12 +2,14 @@ import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import { MeQuery, PodTasksQuery, RecurringTask } from "../../generated/graphql";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
+import NotifCenter from "./NotifCenter";
 import PodCard from "./PodCard";
 
 interface PodCreatedProps {
   tasksData: PodTasksQuery;
   meData: MeQuery;
   podCap: number;
+  recentPodSingleTasksData;
 }
 // !! If length of users is 1 then say waiting for more users
 export const PodCreated: React.FC<PodCreatedProps> = ({
@@ -15,14 +17,20 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
   tasksData,
   podCap,
   children,
+  recentPodSingleTasksData,
 }) => {
   const podLength = tasksData?.podTasks?.length;
   const leftOver = podCap - podLength;
   const fourPersonArr = [0, 0, 0, 0];
 
   const gridProjects = (
-    <Flex>
-      <Box w={"900px"} mx={"auto"}>
+    <Flex justifyContent={"center"}>
+      <Box
+        w={"95%"}
+        // mx={"auto"}
+        display={{ base: "block", sm: "block", md: "flex" }}
+        justifyContent={"space-around"}
+      >
         {children}
         <Grid
           templateColumns={{
@@ -64,6 +72,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             );
           })}
         </Grid>
+        <NotifCenter recentPodSingleTasksData={recentPodSingleTasksData} />
       </Box>
     </Flex>
   );
