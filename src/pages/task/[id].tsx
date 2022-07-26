@@ -65,38 +65,41 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     },
   });
 
-  async function notesToastHandler(popup: NotePopup) {
-    toast({
-      title: popup.title,
-      description: popup.description,
-      position: "bottom",
-      status: "info",
-      duration: null,
-      isClosable: true,
-    });
-  }
+  // async function notesToastHandler(popup: NotePopup) {
+  //   toast({
+  //     title: popup.title,
+  //     description: popup.description,
+  //     position: "bottom",
+  //     status: "info",
+  //     duration: null,
+  //     isClosable: true,
+  //   });
+  // }
 
-  useMemo(() => {
-    if (
-      tasksData?.podTasks &&
-      tasksData?.podTasks?.length > 1 &&
-      !tasksDataLoading
-    ) {
-      const popups = randNotesSplurge(
-        recentPodSingleTasksData?.recentPodSingleTasks
-          ?.singleTasks as SingleTask[],
-        tasksData?.podTasks?.length
-      );
-      popups?.forEach(async (popup) => {
-        notesToastHandler(popup);
-      });
-    }
-  }, [recentPodSingleTasksData]);
+  // useMemo(() => {
+  //   if (
+  //     tasksData?.podTasks &&
+  //     tasksData?.podTasks?.length > 1 &&
+  //     !tasksDataLoading
+  //   ) {
+  //     const popups = randNotesSplurge(
+  //       recentPodSingleTasksData?.recentPodSingleTasks
+  //         ?.singleTasks as SingleTask[],
+  //       tasksData?.podTasks?.length
+  //     );
+  //     popups?.forEach(async (popup) => {
+  //       notesToastHandler(popup);
+  //     });
+  //   }
+  // }, [recentPodSingleTasksData]);
 
   return (
     <Layout withHelpPopover={true}>
       <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
         <Flex>
+          {!taskDataLoading && !singleTasksDataLoading
+            ? console.log(recentPodSingleTasksData)
+            : console.log("loading")}
           {!taskDataLoading && !singleTasksDataLoading ? (
             <RecurringTaskProgress
               singleTasksData={singleTasksData}
@@ -118,6 +121,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             myTaskData={myTaskData}
             refetchTask={refetchTask}
             refetchTasks={refetchTasks}
+            recentPodSingleTasksData={recentPodSingleTasksData}
           />
         </Box>
       </Box>

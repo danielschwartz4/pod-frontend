@@ -38,11 +38,6 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
   const daysAreEqual = daysEqual(tmpDate, TODAY);
   const isBefore = beforeToday(tmpDate, TODAY);
   const [completedNote, setCompletedNote] = useState(false);
-  // const handleNoteChange = (val) => {
-  //   console.log("eho");
-  //   setCompletedNote(val);
-  // };
-  console.log(completedNote);
 
   return (
     <>

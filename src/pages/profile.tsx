@@ -1,4 +1,15 @@
-import { Box, Flex, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Link,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
