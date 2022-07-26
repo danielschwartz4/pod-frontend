@@ -6,7 +6,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import React, { useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import {
   SingleTask,
   useUpdateSingleTaskNotesMutation,
@@ -15,7 +15,7 @@ import { InputField } from "../Inputs/InputField";
 
 interface NotesFormProps {
   singleTask: SingleTask;
-  setCompletedNote;
+  setCompletedNote: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NotesForm: React.FC<NotesFormProps> = ({
@@ -24,11 +24,10 @@ const NotesForm: React.FC<NotesFormProps> = ({
   setCompletedNote,
 }) => {
   const [updateSingleTaskNotes] = useUpdateSingleTaskNotesMutation();
-
-  // const handleChange = (e) => {
-  //   console.log("LOGDED");
-  //   setCompletedNote(e.target.values.notes != "");
-  // };
+  const handleOnChange = (event: FormEvent) => {
+    console.log("Form::onChange", event);
+    setCompletedNote(event.target["value"] != "");
+  };
 
   return (
     <Formik
@@ -43,7 +42,7 @@ const NotesForm: React.FC<NotesFormProps> = ({
       }}
     >
       {({ isSubmitting, values }) => (
-        <Form>
+        <Form onChange={handleOnChange}>
           <Box mr={8}>
             <InputField
               maxLength={200}
@@ -58,9 +57,6 @@ const NotesForm: React.FC<NotesFormProps> = ({
               }
               label=""
               name="notes"
-              // value={values.notes}
-
-              onChange={setCompletedNote(values.notes != "")}
             />
           </Box>
           {children}

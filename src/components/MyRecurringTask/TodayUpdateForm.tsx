@@ -21,7 +21,7 @@ import NotesForm from "./NotesForm";
 
 interface TodayUpdateFormProps {
   completedNote: Boolean;
-  setCompletedNote;
+  setCompletedNote: React.Dispatch<React.SetStateAction<boolean>>;
   singleTask: SingleTask;
   setPopupHandler: () => void;
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -55,9 +55,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
     useSingleTasksLazyQuery();
 
   const [podQuery, { data: podData }] = usePodLazyQuery();
-
   const [podUsersQuery, { data: usersData }] = usePodUsersLazyQuery();
-
   const [meQuery, { data: meData }] = useMeLazyQuery();
 
   const filterdBelow = singleTasksData?.singleTasks?.singleTasks?.filter(
