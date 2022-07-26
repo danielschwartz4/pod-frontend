@@ -9,6 +9,7 @@ import { InputField } from "../Inputs/InputField";
 
 interface NotesFormProps {
   singleTask: SingleTask;
+  setCompletedNote: boolean;
 }
 
 const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
