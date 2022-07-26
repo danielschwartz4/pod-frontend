@@ -15,7 +15,7 @@ import { InputField } from "../Inputs/InputField";
 
 interface NotesFormProps {
   singleTask: SingleTask;
-  setCompletedNote: React.Dispatch<React.SetStateAction<boolean>>;
+  setCompletedNote?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NotesForm: React.FC<NotesFormProps> = ({
