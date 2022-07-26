@@ -7,6 +7,7 @@ import {
 import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
+import { Font } from "../../css/styles";
 import {
   RecurringTaskQuery,
   SingleTaskDocument,
@@ -80,6 +81,10 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
 
   return (
     <Box>
+      <Font>
+        <b style={{ color: "#FFDC93" }}>Today’s Question: </b>
+        How did you feel after completing your task?
+      </Font>
       <Flex mb={-8} ml={4} fontSize={24} textColor={"gainsboro"}>
         {!daysIdxs?.has(TODAY.getDay()) ? (
           <Text

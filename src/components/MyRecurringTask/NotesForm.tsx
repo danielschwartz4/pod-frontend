@@ -1,6 +1,12 @@
-import { Box, PopoverFooter, ButtonGroup, Button } from "@chakra-ui/react";
+import {
+  Box,
+  PopoverFooter,
+  ButtonGroup,
+  Button,
+  Text,
+} from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import React from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import {
   SingleTask,
   useUpdateSingleTaskNotesMutation,
@@ -9,11 +15,23 @@ import { InputField } from "../Inputs/InputField";
 
 interface NotesFormProps {
   singleTask: SingleTask;
+<<<<<<< HEAD
   setCompletedNote: boolean;
+=======
+  setCompletedNote: React.Dispatch<React.SetStateAction<boolean>>;
+>>>>>>> user/kevin
 }
 
-const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
+const NotesForm: React.FC<NotesFormProps> = ({
+  children,
+  singleTask,
+  setCompletedNote,
+}) => {
   const [updateSingleTaskNotes] = useUpdateSingleTaskNotesMutation();
+  const handleOnChange = (event: FormEvent) => {
+    console.log("Form::onChange", event);
+    setCompletedNote(event.target["value"] != "");
+  };
 
   return (
     <Formik
@@ -27,8 +45,8 @@ const NotesForm: React.FC<NotesFormProps> = ({ children, singleTask }) => {
         });
       }}
     >
-      {({ isSubmitting }) => (
-        <Form>
+      {({ isSubmitting, values }) => (
+        <Form onChange={handleOnChange}>
           <Box mr={8}>
             <InputField
               maxLength={200}

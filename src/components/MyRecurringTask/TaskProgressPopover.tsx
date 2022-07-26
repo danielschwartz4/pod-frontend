@@ -10,8 +10,9 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/react";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { TODAY } from "../../constants";
+import { Font } from "../../css/styles";
 import { RecurringTaskQuery, SingleTask } from "../../generated/graphql";
 import { CompletedCount } from "../../types/types";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
@@ -36,6 +37,12 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
   const tmpDate = new Date(props.singleTask?.actionDate);
   const daysAreEqual = daysEqual(tmpDate, TODAY);
   const isBefore = beforeToday(tmpDate, TODAY);
+  const [completedNote, setCompletedNote] = useState(false);
+  // const handleNoteChange = (val) => {
+  //   console.log("eho");
+  //   setCompletedNote(val);
+  // };
+  console.log(completedNote);
 
   return (
     <>
@@ -50,7 +57,31 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
         <PopoverTrigger>{props.children}</PopoverTrigger>
         <PopoverContent p={2} backgroundColor={"white"}>
           {daysAreEqual ? (
-            <PopoverHeader fontWeight="semibold">Progress update</PopoverHeader>
+            <div>
+              <Font
+                style={{
+                  fontWeight: "bold",
+                  color: "black",
+                  textAlign: "center",
+                  fontSize: "14px",
+                }}
+              >
+                Your notes
+              </Font>
+              {completedNote ? (
+                <br />
+              ) : (
+                <Font
+                  style={{
+                    color: "red",
+                    textAlign: "center",
+                    fontSize: "12px",
+                  }}
+                >
+                  Please take 1 minute to answer today’s question below
+                </Font>
+              )}
+            </div>
           ) : isBefore && props.singleTask?.status == "overdue" ? (
             <PopoverHeader fontWeight="semibold">
               Looks like you forgot to fill this out!
@@ -59,10 +90,12 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
             <PopoverHeader fontWeight="semibold">Your notes</PopoverHeader>
           )}
           <PopoverCloseButton cursor={"pointer"} />
-          <PopoverBody>
+          <PopoverBody mt={0} padding={"0px 10px 0px 10px"}>
             {daysAreEqual ||
             (isBefore && props.singleTask?.status == "overdue") ? (
               <TodayUpdateForm
+                completedNote={completedNote}
+                setCompletedNote={setCompletedNote}
                 task={props.task}
                 setCompletedCount={props.setCompletedCount}
                 completedCount={props.completedCount}
