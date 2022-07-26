@@ -6,6 +6,7 @@ import {
   MeQuery,
   PodQuery,
   PodTasksQuery,
+  RecentPodSingleTasksQuery,
   RecurringTaskQuery,
   useAddProjectToPodMutation,
   useCreatePodMutation,
@@ -47,7 +48,7 @@ interface MyPodProps {
       }>
     >
   ) => Promise<ApolloQueryResult<PodTasksQuery>>;
-  recentPodSingleTasksData;
+  recentPodSingleTasksData?: RecentPodSingleTasksQuery;
 }
 
 export const MyPod: React.FC<MyPodProps> = ({
