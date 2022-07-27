@@ -38,10 +38,10 @@ const Login: React.FC<{}> = ({}) => {
       m={-2}
     >
       <Box
+        mt={"100px"}
         display={"flex"}
         alignItems={"flex-start"}
         justifyContent={"center"}
-        w={"100%"}
       >
         <Flex pos={"absolute"} mt={2} top={0} left={0} p={4}>
           <NextLink href="/">
@@ -66,12 +66,11 @@ const Login: React.FC<{}> = ({}) => {
                   here
                 </Link>
               </NextLink>{" "}
-              ✌️
             </Text>
           </Stack>
 
-          <CenteredContainer marginTop="20px" height="500px">
-            <Stack spacing={4} width={"100%"}>
+          <CenteredContainer marginTop="20px">
+            <Stack spacing={4} w={"100%"}>
               <Formik
                 initialValues={{ email: "", password: "" }}
                 onSubmit={async ({ password, email }, { setErrors }) => {
@@ -108,10 +107,6 @@ const Login: React.FC<{}> = ({}) => {
                         <Box fontFamily={"ubuntu"} textColor={"gainsboro"}>
                           <p>Email</p>
                           <InputField
-                            // name="usernameOrEmail"
-                            // label="Username or Email"
-                            // placeholder="Username or email"
-
                             name="email"
                             label=""
                             placeholder="Email"
@@ -155,7 +150,6 @@ const Login: React.FC<{}> = ({}) => {
                             _hover={{
                               bg: "blue.500",
                             }}
-                            // isloading={isSubmitting.toString()}
                             isLoading={isSubmitting}
                             border={"none"}
                             type="submit"

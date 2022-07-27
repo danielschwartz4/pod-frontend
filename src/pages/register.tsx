@@ -44,6 +44,7 @@ const Register: React.FC<registerProps> = ({}) => {
         alignItems={"flex-start"}
         justifyContent={"center"}
         w={"750px"}
+        mt={"100px"}
       >
         <Flex pos={"absolute"} mt={2} top={0} left={0} p={4}>
           <NextLink href="/">
@@ -66,7 +67,7 @@ const Register: React.FC<registerProps> = ({}) => {
             </Text>
           </Stack>
 
-          <CenteredContainer marginTop="20px" height="500px">
+          <CenteredContainer marginTop="20px">
             <Stack spacing={4} width={"100%"}>
               <Formik
                 initialValues={{ username: "", email: "", password: "" }}

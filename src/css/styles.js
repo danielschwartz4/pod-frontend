@@ -18,16 +18,19 @@ export const LandingBox = styled.div`
 
 export const CenteredContainer = styled.div`
   display: flex;
-  width: 400px;
+  width: 280px;
   height: 100%;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  background-color: #2D3748;
+  background-color: #2d3748;
   border: 2px solid #ffdc93;
   border-radius: 15px;
   padding: 30px;
   margin: 0px;
+  @media screen and (min-width: 400px) {
+    width: 400px;
+  }
 `;
 
 export const Font = styled.p`
@@ -36,4 +39,4 @@ export const Font = styled.p`
   font-family: "ubuntu";
   font-size: 24px;
   margin: 5px;
-`
+`;
