@@ -97,9 +97,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     <Layout withHelpPopover={true}>
       <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
         <Flex>
-          {!taskDataLoading && !singleTasksDataLoading
-            ? console.log(recentPodSingleTasksData)
-            : console.log("loading")}
           {!taskDataLoading && !singleTasksDataLoading ? (
             <RecurringTaskProgress
               singleTasksData={singleTasksData}

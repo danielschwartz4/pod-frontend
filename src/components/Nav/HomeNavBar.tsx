@@ -231,6 +231,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   color={"gainsboro"}
                   fontSize={18}
                   onClick={() => router.push("/settings")}
+                  fontFamily={"ubuntu"}
                 >
                   {data?.me?.username}
                 </Text>
@@ -244,6 +245,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   onClick={() => router.push("/profile")}
                   color={"gainsboro"}
                   fontSize={18}
+                  fontFamily={"ubuntu"}
                 >
                   <b>My projects</b>
                 </Text>
@@ -259,12 +261,12 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                       },
                     });
                   }}
-                  // isloading={logoutLoading.toString()}
                   isLoading={logoutLoading}
                   fontSize={18}
                   type="button"
                   variant={"link"}
                   color={"gainsboro"}
+                  fontFamily={"ubuntu"}
                 >
                   <b>Logout</b>
                 </Text>
@@ -289,6 +291,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                     textColor={"gainsboro"}
                     color={"gainsboro"}
                     cursor={"pointer"}
+                    fontFamily={"ubuntu"}
                     onClick={() => {
                       router.push("/register");
                       Event(
@@ -308,6 +311,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                     textColor={"gainsboro"}
                     colorScheme={"tan"}
                     cursor={"pointer"}
+                    fontFamily={"ubuntu"}
                     onClick={() => {
                       {
                         router.push("/login");

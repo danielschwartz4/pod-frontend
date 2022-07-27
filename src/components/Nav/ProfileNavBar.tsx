@@ -188,6 +188,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                   colorScheme={"tan"}
                   color={"gainsboro"}
                   fontSize={18}
+                  fontFamily={"ubuntu"}
                   onClick={() => router.push("/settings")}
                 >
                   {data?.me?.username}
@@ -203,6 +204,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                     onClick={() => router.push("/profile")}
                     color={"gainsboro"}
                     fontSize={18}
+                    fontFamily={"ubuntu"}
                   >
                     <b>My projects</b>
                   </Text>
@@ -225,6 +227,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
                   type="button"
                   variant={"link"}
                   color={"gainsboro"}
+                  fontFamily={"ubuntu"}
                 >
                   <b>Logout</b>
                 </Text>
