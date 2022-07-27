@@ -13,29 +13,31 @@ interface IndexProps {}
 
 const Index: React.FC<IndexProps> = ({}) => {
   return (
-    <Layout>
-      <Hero />
-      <Flex flexDirection={"column"} alignItems={"center"}>
-        <LandingDivider />
-        <LandingBox>
-          <UseCases />
-        </LandingBox>
-        <LandingDivider />
-        <LandingBox>
-          <Features />
-        </LandingBox>
-        <LandingDivider />
-        <LandingBox>
-          <About />
-        </LandingBox>
-        <LandingBox style={{ marginTop: "50px" }}>
-          <GetStartedButton />
-        </LandingBox>
-        <Box mt={16}>
-          <Footer />
-        </Box>
-      </Flex>
-    </Layout>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+      <Layout>
+        <Hero />
+        <Flex flexDirection={"column"} alignItems={"center"}>
+          <LandingDivider />
+          <LandingBox>
+            <UseCases />
+          </LandingBox>
+          <LandingDivider />
+          <LandingBox>
+            <Features />
+          </LandingBox>
+          <LandingDivider />
+          <LandingBox>
+            <About />
+          </LandingBox>
+          <LandingBox style={{ marginTop: "50px" }}>
+            <GetStartedButton />
+          </LandingBox>
+          <Box mt={16}>
+            <Footer />
+          </Box>
+        </Flex>
+      </Layout>
+    </meta>
   );
 };
 
