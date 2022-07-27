@@ -31,6 +31,10 @@ function MyApp({ Component, pageProps }: any) {
         >
           <Head>
             <link rel="shortcut icon" href="/images/favicon.ico" />
+            <meta
+              name="viewport"
+              content="width=device-width,initial-scale=1.0"
+            />
             <script src="https://accounts.google.com/gsi/client" async defer />
           </Head>
           <Component {...pageProps} />
