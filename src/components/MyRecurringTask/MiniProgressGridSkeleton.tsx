@@ -30,13 +30,13 @@ export const MiniProgressGridSkeleton: React.FC<
 
   let filledArr = [];
   let iter = 0;
-  console.log(filteredData);
   for (let d = lastMonday; d < nextMonday; d.setDate(d.getDate() + 1)) {
     if (filteredData != null) {
       if (daysEqual(new Date(filteredData[iter]?.actionDate), d)) {
         filledArr.push(filteredData[iter]);
         iter++;
       } else {
+        // filledArr.push({ notActive: true, actionDate: d });
         filledArr.push(null);
       }
     }
@@ -50,7 +50,7 @@ export const MiniProgressGridSkeleton: React.FC<
             return (
               <GridItem key={i} opacity={"70%"}>
                 <MiniTaskCircle
-                  isToday={filledArr[i] === undefined}
+                  isToday={filledArr[i] == undefined}
                   color="grey"
                 />
               </GridItem>
@@ -58,6 +58,7 @@ export const MiniProgressGridSkeleton: React.FC<
           } else {
             const tmpDate = new Date(filledArr[i].actionDate);
             const isDaysEqual = daysEqual(TODAY, tmpDate);
+
             return (
               <GridItem key={i}>
                 <MiniTaskCircle

@@ -17,8 +17,8 @@ export const MiniTaskCircle: React.FC<MiniTaskCircleProps> = ({
   return (
     <Box>
       <CircleIcon
-        strokeWidth={isToday ? "14" : null}
-        stroke="gray.700"
+        strokeWidth={isToday ? "4px" : null}
+        stroke="black"
         color={color}
         boxSize={6}
       >

@@ -10,6 +10,7 @@ import {
   Circle,
 } from "@chakra-ui/react";
 import React from "react";
+import { TODAY } from "../../constants";
 import {
   MeQuery,
   RecurringTask,
@@ -19,6 +20,7 @@ import {
 } from "../../generated/graphql";
 import avatarMap from "../../utils/avatarMap";
 import formatDate, { convertFromMilitaryTime } from "../../utils/formatDate";
+import { daysEqual } from "../../utils/getConsistency";
 import {
   singleTasksToTodayHelper,
   singleTasksRangeDaysHelper,
@@ -48,10 +50,23 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
 
   const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);
 
+  let todayStatus = null;
+  singleTasksData?.singleTasks?.singleTasks?.forEach((task) => {
+    if (daysEqual(TODAY, new Date(task?.actionDate))) {
+      todayStatus = task?.status;
+    }
+  });
+
+  console.log(singleTasksData);
+
   return (
     <Box
       border={"8px"}
-      borderColor={"#3EE76D"}
+      borderColor={
+        todayStatus == "completed" || todayStatus == null
+          ? "#3EE76D"
+          : "#F26D51"
+      }
       borderRadius={"50%"}
       bg={"#F8F2E6"}
       height={"250px"}
