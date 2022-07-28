@@ -1,5 +1,6 @@
-import { Box, Divider, Flex, Stack } from "@chakra-ui/react";
+import { Box, Divider, Text, Flex, Stack, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Font } from "../../css/styles";
 import {
   RecurringTaskQuery,
   SingleTask,
@@ -11,19 +12,22 @@ import {
   singleTasksRangeDaysHelper,
   singleTasksToTodayHelper,
 } from "../../utils/getDayRanges";
+import NotificationCenter from "../MyTaskPod/NotificationCenter";
 import { CircularTaskProgress } from "./CircularTaskProgress";
 import { ProgressGridSkeleton } from "./ProgressGridSkeleton";
 
-interface RecurringTaskProgressProps {
+interface MainDashProps {
   myTaskData: RecurringTaskQuery;
   singleTasksData: SingleTasksQuery;
   refetchSingleTasks: () => void;
+  recentPodSingleTasksData: SingleTasksQuery;
 }
 
-export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
+export const MainDash: React.FC<MainDashProps> = ({
   myTaskData,
   singleTasksData,
   refetchSingleTasks,
+  recentPodSingleTasksData,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <Box>Loading...</Box>;
@@ -41,13 +45,18 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   });
 
   return (
-    <Stack
-      justifyContent={"center"}
-      direction={{ base: "column", sm: "column", md: "row" }}
-      gap={{ base: 0, sm: 10, md: 10, lg: 20 }}
-      mx={"auto"}
-    >
-      <Box>
+    <Flex width={"100%"} p={8} justifyContent={"center"}>
+      <Box mr={16}>
+        <Flex>
+          <Heading mx={"auto"} fontFamily={"ubuntu"} textColor="gainsboro">
+            {myTaskData?.recurringTask?.task?.taskName}
+          </Heading>
+        </Flex>
+
+        <Text fontSize={"20px"} fontFamily={"ubuntu"} textColor="gainsboro">
+          <b style={{ color: "#FFDC93" }}>Today’s Question: </b>
+          How did you feel after completing your task?
+        </Text>
         <ProgressGridSkeleton
           setCompletedCount={setCompletedCount}
           completedCount={completedCount}
@@ -57,15 +66,17 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
           refetchSingleTasks={refetchSingleTasks}
         />
       </Box>
-      <Flex display={{ base: "none", sm: "none", md: "flex" }}>
-        <Divider
-          my={"auto"}
-          color={"gray.400"}
-          h={"80%"}
-          orientation={"vertical"}
+      <Box ml={16}>
+        <NotificationCenter
+          recentPodSingleTasksData={recentPodSingleTasksData}
         />
-      </Flex>
-      <Flex
+      </Box>
+    </Flex>
+  );
+};
+
+{
+  /* <Flex
         justify={{
           base: "none",
           sm: "none",
@@ -73,8 +84,10 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
         }}
         direction={{ base: "row", sm: "row", md: "column" }}
         gap={{ base: "30px", sm: "30px", md: "0" }}
-      >
-        <CircularTaskProgress
+      > */
+}
+{
+  /* <CircularTaskProgress
           taskLength={singleTasksToToday.length}
           completedCount={completedCount}
           title={"All time consistency"}
@@ -85,8 +98,8 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
           completedCount={completedCount}
           title={"Last 7 tasks' consistency"}
           variant={"week"}
-        />
-      </Flex>
-    </Stack>
-  );
-};
+        /> */
+}
+{
+  /* </Flex> */
+}

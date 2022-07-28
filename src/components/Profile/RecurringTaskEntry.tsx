@@ -3,6 +3,7 @@ import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { TODAY } from "../../constants";
 import {
+  RecurringTaskDocument,
   RecurringTaskQuery,
   useDeleteRecurringTaskMutation,
   useRemoveProjectFromPodMutation,
@@ -56,6 +57,15 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
       variables: {
         updateTaskNameId: task?.id,
         taskName: newName,
+      },
+      update: (cache, { data }) => {
+        cache.writeQuery<RecurringTaskQuery>({
+          query: RecurringTaskDocument,
+          data: {
+            __typename: "Query",
+            recurringTask: data?.updateTaskName,
+          },
+        });
       },
     });
   };

@@ -1,27 +1,15 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Link,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Box, Flex } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { Layout } from "../components/Layout";
-import ProfileHeading from "../components/Profile/ProfileHeading";
 import ProfileGrid from "../components/Profile/ProfileGrid";
+import ProfileHeading from "../components/Profile/ProfileHeading";
 import {
   useMeQuery,
   useProjectsQuery,
   useRecurringTasksQuery,
 } from "../generated/graphql";
-import { useIsAuth } from "../utils/usIsAuth";
 import { PageView } from "../libs/tracking";
+import { useIsAuth } from "../utils/usIsAuth";
 
 interface profileProps {}
 

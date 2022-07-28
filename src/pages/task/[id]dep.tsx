@@ -1,16 +1,7 @@
-import {
-  Box,
-  Flex,
-  TabPanel,
-  TabPanels,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
-import React, { useMemo, useState, useEffect } from "react";
-import DashTabs from "../../components/Dash/DashTabs";
-import DashWrapper from "../../components/Dash/DashWrapper";
+import { Box, Flex, Text, useToast } from "@chakra-ui/react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Layout } from "../../components/Layout";
-import { RecurringTaskProgress } from "../../components/MyRecurringTask/RecurringTaskProgress";
+import { MainDash } from "../../components/MyRecurringTask/MainDash";
 import { MyPod } from "../../components/MyTaskPod/MyPod";
 import {
   SingleTask,
@@ -20,10 +11,10 @@ import {
   useRecentPodSingleTasksQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
+import { PageView } from "../../libs/tracking";
 import { NotePopup, randNotesSplurge } from "../../utils/randNotesSplurge";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
-import { PageView } from "../../libs/tracking";
 
 interface TaskHomeProps {}
 
@@ -33,6 +24,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   const [changeTab, useChangeTab] = useState<string>("task");
   const [keepMounted, setKeepMounted] = useState(true);
+
   const TEMP_BOOL = true;
 
   const { data: meData } = useMeQuery({});
@@ -73,97 +65,63 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     },
   });
 
-  async function notesToastHandler(popup: NotePopup) {
-    toast({
-      title: popup.title,
-      description: popup.description,
-      position: "bottom",
-      status: "info",
-      duration: null,
-      isClosable: true,
-    });
-  }
+  // async function notesToastHandler(popup: NotePopup) {
+  //   toast({
+  //     title: popup.title,
+  //     description: popup.description,
+  //     position: "bottom",
+  //     status: "info",
+  //     duration: null,
+  //     isClosable: true,
+  //   });
+  // }
 
-  useMemo(() => {
-    if (
-      tasksData?.podTasks &&
-      tasksData?.podTasks?.length > 1 &&
-      !tasksDataLoading
-    ) {
-      const popups = randNotesSplurge(
-        recentPodSingleTasksData?.recentPodSingleTasks
-          ?.singleTasks as SingleTask[],
-        tasksData?.podTasks?.length
-      );
-      popups?.forEach(async (popup) => {
-        notesToastHandler(popup);
-      });
-    }
-  }, [recentPodSingleTasksData]);
+  // useMemo(() => {
+  //   if (
+  //     tasksData?.podTasks &&
+  //     tasksData?.podTasks?.length > 1 &&
+  //     !tasksDataLoading
+  //   ) {
+  //     const popups = randNotesSplurge(
+  //       recentPodSingleTasksData?.recentPodSingleTasks
+  //         ?.singleTasks as SingleTask[],
+  //       tasksData?.podTasks?.length
+  //     );
+  //     popups?.forEach(async (popup) => {
+  //       notesToastHandler(popup);
+  //     });
+  //   }
+  // }, [recentPodSingleTasksData]);
 
   return (
     <Layout withHelpPopover={true}>
-      <DashWrapper>
-        <Flex w={{ base: "100%", md: "800px", lg: "1024px" }}>
-          <Box mt={"28px"} ml={4} mr={0}>
-            {changeTab == "project" ? (
-              <></>
-            ) : (
-              <>
-                {tasksData?.podTasks?.length == 0 ||
-                tasksData?.podTasks === undefined ? (
-                  <Text h={2}></Text>
-                ) : (
-                  <Flex>
-                    <Text h={2} textColor={"gainsboro"}>
-                      Pod cap: {podData?.pod?.pod?.cap}
-                    </Text>
-                  </Flex>
-                )}
-              </>
-            )}
-          </Box>
+      <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
+        <Flex>
+          {!taskDataLoading && !singleTasksDataLoading ? (
+            <MainDash
+              singleTasksData={singleTasksData}
+              myTaskData={myTaskData}
+              refetchSingleTasks={refetchSingleTasks}
+            />
+          ) : (
+            <Text>Loading...</Text>
+          )}
         </Flex>
-        <DashTabs
-          type="task"
-          keepMounted={keepMounted}
-          useChangeTab={useChangeTab}
-          setKeepMounted={setKeepMounted}
-        >
-          <TabPanels>
-            <TabPanel outlineOffset={-16}>
-              {TEMP_BOOL ? (
-                <Box>
-                  {!taskDataLoading && !singleTasksDataLoading ? (
-                    <RecurringTaskProgress
-                      singleTasksData={singleTasksData}
-                      myTaskData={myTaskData}
-                      refetchSingleTasks={refetchSingleTasks}
-                    />
-                  ) : (
-                    <Text>Loading...</Text>
-                  )}
-                </Box>
-              ) : (
-                <Box>Loading...</Box>
-              )}
-            </TabPanel>
 
-            <TabPanel>
-              <MyPod
-                podData={podData}
-                meData={meData}
-                tasksData={tasksData}
-                taskDataLoading={taskDataLoading}
-                tasksDataLoading={tasksDataLoading}
-                myTaskData={myTaskData}
-                refetchTask={refetchTask}
-                refetchTasks={refetchTasks}
-              />
-            </TabPanel>
-          </TabPanels>
-        </DashTabs>
-      </DashWrapper>
+        <Box mt={8}>
+          <MyPod
+            podData={podData}
+            meData={meData}
+            tasksData={tasksData}
+            taskDataLoading={taskDataLoading}
+            tasksDataLoading={tasksDataLoading}
+            myTaskData={myTaskData}
+            refetchTask={refetchTask}
+            refetchTasks={refetchTasks}
+            recentPodSingleTasksData={recentPodSingleTasksData}
+          />
+        </Box>
+      </Box>
     </Layout>
   );
 };

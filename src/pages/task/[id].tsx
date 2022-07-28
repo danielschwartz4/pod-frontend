@@ -1,7 +1,7 @@
 import { Box, Flex, Text, useToast } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { Layout } from "../../components/Layout";
-import { RecurringTaskProgress } from "../../components/MyRecurringTask/RecurringTaskProgress";
+import { MainDash } from "../../components/MyRecurringTask/MainDash";
 import { MyPod } from "../../components/MyTaskPod/MyPod";
 import {
   SingleTask,
@@ -98,7 +98,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
       <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
         <Flex>
           {!taskDataLoading && !singleTasksDataLoading ? (
-            <RecurringTaskProgress
+            <MainDash
+              recentPodSingleTasksData={recentPodSingleTasksData}
               singleTasksData={singleTasksData}
               myTaskData={myTaskData}
               refetchSingleTasks={refetchSingleTasks}
@@ -108,7 +109,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
           )}
         </Flex>
 
-        <Box mt={8}>
+        {/* <Box mt={8}>
           <MyPod
             podData={podData}
             meData={meData}
@@ -120,7 +121,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             refetchTasks={refetchTasks}
             recentPodSingleTasksData={recentPodSingleTasksData}
           />
-        </Box>
+        </Box> */}
       </Box>
     </Layout>
   );
