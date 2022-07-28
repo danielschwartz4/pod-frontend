@@ -5,6 +5,7 @@ import PodDummyCard from "../MyProjectPod/PodDummyCard";
 import NotifCenter from "./NotifCenter";
 import PodCard from "./PodCard";
 import WidgetBot from "@widgetbot/react-embed";
+import { discordPodChannels } from "./DiscordPodChannel";
 
 interface PodCreatedProps {
   tasksData: PodTasksQuery;
@@ -77,13 +78,19 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
           <NotifCenter recentPodSingleTasksData={recentPodSingleTasksData} />
         </Box>
       </Flex>
-      <br />
-      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          margin: "50px 0",
+        }}
+      >
         <WidgetBot
-          width="800"
-          height="600"
+          width={800}
+          height={600}
           server="1002046685805023344"
-          channel="1002046686350278788"
+          channel={discordPodChannels[tasksData.podTasks.at(0).podId]}
         />
       </div>
     </Flex>
