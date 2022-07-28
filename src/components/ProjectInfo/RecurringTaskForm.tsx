@@ -25,6 +25,7 @@ import EndTaskSelection from "./EndTaskSelection";
 import RepetitionStepper from "./RepetitionStepperField";
 import { Event } from "../../libs/tracking";
 import { joinPod } from "../MyTaskPod/JoinExit";
+import { Font } from "../../css/styles";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -43,8 +44,8 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [updateTaskPod] = useUpdateTaskPodMutation();
 
   return (
-    <Box>
-      <Heading fontSize={24} color={"gainsboro"}>
+    <Box paddingTop={0}>
+      <Heading fontSize={20} color={"gainsboro"}>
         Tell us what you'd like to stay consistent with!
       </Heading>
       <Formik
@@ -134,19 +135,21 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           <Form>
             <Box>
               <Box mr={8} color={"gainsboro"}>
+                <Font style={{ fontSize: "18px" }}>Overview</Font>
                 <InputField
                   color="grey"
                   name="overview"
-                  placeholder="enter a brief overview of your project for your pod members"
-                  label="Overview"
+                  placeholder="Enter a brief overview of your project for your pod members"
+                  label=""
                   isField={true}
                 />
                 <Divider mx={"auto"} mt={4} color={"grey"} />
 
                 <Box mt={4} maxW={"200px"}>
+                  <Font style={{ fontSize: "18px" }}>Start date</Font>
                   <DatePickerInput
                     name={"startDate"}
-                    label="Start date"
+                    label=""
                     showTimeSelect={false}
                     placeholder="Date"
                     regularPosition
@@ -158,9 +161,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   mt={4}
                 >
                   <Box>
-                    <Text mb={2} color={"gainsboro"}>
-                      End options
-                    </Text>
+                    <Font style={{ fontSize: "18px" }}>End options</Font>
 
                     <EndTaskSelection
                       endOptionsSelector={endOptionsSelector}
@@ -188,18 +189,25 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 </Flex>
               </Box>
               <Box mt={6}>
-                <Text color={"gainsboro"}>
-                  Select the days you would like your task to recurr
-                </Text>
+                <Font style={{ fontSize: "18px", marginBottom: "10px" }}>
+                  Select the days you would like your task to recur
+                </Font>
+
                 <DayPicker name={"days"} />
               </Box>
               <Button
+                width={"100%"}
+                height={"75px"}
+                fontSize={"24px"}
+                backgroundColor={"#FFDC93"}
                 mx={"auto"}
                 mt={8}
                 type="submit"
                 isLoading={isSubmitting ? true : false}
                 cursor="pointer"
                 colorScheme="gray.300"
+                color="black"
+                _hover={{ bg: "#ffecc4" }}
                 onClick={() =>
                   Event(
                     "Desktop",
