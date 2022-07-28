@@ -80,18 +80,17 @@ export const MainDash: React.FC<MainDashProps> = ({
             variant={"week"}
           />
         </Flex>
-
         <Flex
           fontSize={["16px", "20px"]}
           fontFamily={"ubuntu"}
           alignItems={"center"}
+          my={-4}
         >
           <Text textColor="#FFDC93">Today’s Question: &ensp; </Text>
-          <Text textColor="gainsboro" mx={"auto"} my={-2} maxW={"99%"}>
+          <Text textColor="gainsboro" mx={"auto"} maxW={"99%"}>
             How did you feel after completing your task?
           </Text>
         </Flex>
-
         <Flex>
           <Box mx={"auto"}>
             <ProgressGridSkeleton
