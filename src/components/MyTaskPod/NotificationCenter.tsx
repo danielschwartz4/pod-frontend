@@ -15,8 +15,7 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
   return (
     <Box
       width={"400px"}
-      height={"100%"}
-      maxH={"800px"}
+      height={"400px"}
       overflow={"scroll"}
       color={"white"}
       backgroundColor={"black"}
@@ -37,12 +36,6 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
           </Box>
         )
       )}
-
-      {/* {[...Array(80)].map((_, i) => (
-            <Box key={i} minH="48px" borderBottom="1px solid">
-              {`Item ${i}`}
-            </Box>
-          ))} */}
     </Box>
   );
 };

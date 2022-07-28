@@ -1,4 +1,13 @@
-import { Box, Divider, Text, Flex, Stack, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Text,
+  Flex,
+  Stack,
+  Heading,
+  Tooltip,
+  Button,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Font } from "../../css/styles";
 import {
@@ -45,28 +54,62 @@ export const MainDash: React.FC<MainDashProps> = ({
   });
 
   return (
-    <Flex width={"100%"} p={8} justifyContent={"center"}>
-      <Box mr={16}>
-        <Flex>
-          <Heading mx={"auto"} fontFamily={"ubuntu"} textColor="gainsboro">
+    <Flex width={"100%"} p={4} justifyContent={"center"}>
+      <Box mr={{ lg: 4, xl: 16 }}>
+        <Flex mt={-2} alignItems={"center"}>
+          <Box>
+            <CircularTaskProgress
+              taskLength={singleTasksToToday.length}
+              completedCount={completedCount}
+              title={"All time consistency"}
+              variant={"allTime"}
+            />
+          </Box>
+          <Heading
+            mx={"auto"}
+            fontSize={"30px"}
+            fontFamily={"ubuntu"}
+            textColor="gainsboro"
+          >
             {myTaskData?.recurringTask?.task?.taskName}
           </Heading>
+          <CircularTaskProgress
+            taskLength={singleTasksRangeDays.length}
+            completedCount={completedCount}
+            title={"Last 7 tasks' consistency"}
+            variant={"week"}
+          />
         </Flex>
 
-        <Text fontSize={"20px"} fontFamily={"ubuntu"} textColor="gainsboro">
-          <b style={{ color: "#FFDC93" }}>Today’s Question: </b>
-          How did you feel after completing your task?
-        </Text>
-        <ProgressGridSkeleton
-          setCompletedCount={setCompletedCount}
-          completedCount={completedCount}
-          singleTasksData={singleTasksData}
-          rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
-          myTaskData={myTaskData}
-          refetchSingleTasks={refetchSingleTasks}
-        />
+        <Flex
+          fontSize={["16px", "20px"]}
+          fontFamily={"ubuntu"}
+          alignItems={"center"}
+        >
+          <Text textColor="#FFDC93">Today’s Question: &ensp; </Text>
+          <Text textColor="gainsboro" mx={"auto"} my={-2} maxW={"99%"}>
+            How did you feel after completing your task?
+          </Text>
+        </Flex>
+
+        <Flex>
+          <Box mx={"auto"}>
+            <ProgressGridSkeleton
+              setCompletedCount={setCompletedCount}
+              completedCount={completedCount}
+              singleTasksData={singleTasksData}
+              rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
+              myTaskData={myTaskData}
+              refetchSingleTasks={refetchSingleTasks}
+            />
+          </Box>
+        </Flex>
       </Box>
-      <Box ml={16}>
+
+      <Box
+        ml={{ lg: 4, xl: 16 }}
+        display={{ base: "none", sm: "none", md: "none", lg: "block" }}
+      >
         <NotificationCenter
           recentPodSingleTasksData={recentPodSingleTasksData}
         />

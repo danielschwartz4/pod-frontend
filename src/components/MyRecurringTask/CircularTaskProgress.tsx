@@ -3,6 +3,7 @@ import {
   CircularProgress,
   CircularProgressLabel,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import React from "react";
 import { CompletedCount } from "../../types/types";
@@ -29,16 +30,20 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
 
   return (
     <Box textColor={"gainsboro"}>
-      <Text fontSize={{ base: 18, sm: 20 }}>{title}</Text>
-      <CircularProgress
-        size={"180px"}
-        value={value}
-        color={getColorForPercentage(percentage)}
-      >
-        <CircularProgressLabel textColor={getColorForPercentage(percentage)}>
+      {/* <Text fontSize={{ base: 8, sm: 12 }}>{title}</Text> */}
+      <Tooltip hasArrow label={title} bg="gray.300" color="black">
+        <Box>
+          <CircularProgress
+            size={"50px"}
+            value={value}
+            color={getColorForPercentage(percentage)}
+          >
+            {/* <CircularProgressLabel textColor={getColorForPercentage(percentage)}>
           <Text transform={"translate(3px, -18px)"}>{Math.round(value)}%</Text>
-        </CircularProgressLabel>
-      </CircularProgress>
+        </CircularProgressLabel> */}
+          </CircularProgress>
+        </Box>
+      </Tooltip>
     </Box>
   );
 };
