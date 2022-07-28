@@ -48,13 +48,13 @@ const Profile: React.FC<profileProps> = ({}) => {
     return (
       <Layout isProjectsPage isProfile>
         <Flex>
-          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"90vh"} h={"100%"}>
-            <ProfileHeading meData={meData} />
-            <ProfileGrid
+          <Box mt={6} mx={"auto"} maxW={"1400px"} minH={"90vh"} h={"100%"}>
+            <ProfileHeading meData={meData} firstProject={true} />
+            {/* <ProfileGrid
               hasSeed
               tasksData={tasksData}
               projectsData={projectsData}
-            />
+            /> */}
           </Box>
         </Flex>
       </Layout>
@@ -66,8 +66,8 @@ const Profile: React.FC<profileProps> = ({}) => {
         <div>Loading...</div>
       ) : (
         <Flex>
-          <Box mt={12} mx={"auto"} maxW={"1400px"} minH={"100vh"} h={"100%"}>
-            <ProfileHeading meData={meData} />
+          <Box mt={6} mx={"auto"} maxW={"1400px"} minH={"100vh"} h={"100%"}>
+            <ProfileHeading meData={meData} firstProject={false} />
             <ProfileGrid tasksData={tasksData} projectsData={projectsData} />
           </Box>
         </Flex>
