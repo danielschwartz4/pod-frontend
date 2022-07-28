@@ -7,6 +7,7 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  Circle,
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -48,91 +49,24 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
   const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);
 
   return (
-    <Center>
-      <Box
-        border={task?.userId === data?.me?.id ? "4px" : ""}
-        borderColor="#3EE76D"
-        maxH={"420px"}
-        width={"100%"}
-        maxW={"380px"}
-        mx={[2, 4]}
-        bg={useColorModeValue("gainsboro", "gray.900")}
-        boxShadow={"2xl"}
-        rounded={"md"}
-        overflow={"hidden"}
-      >
-        {/* <Box h={"220px"} bg={"gray.100"} mt={-6} mx={-6}> */}
-        <Flex dir="vertical" h={"220px"} bg={"gray.100"}>
-          <Box m={"auto"}>
-            <MiniProgressGridSkeleton
-              singleTasksData={singleTasksData}
-              task={task}
-            />
-          </Box>
-        </Flex>
-        {/* </Box> */}
-        <Box px={6} pb={6}>
-          <Flex>
-            <Box>
-              <MiniCircleTaskProgress
-                variant={"allTime"}
-                taskLength={singleTasksToToday?.length}
-                title={"All time"}
-                completedCount={task?.completedCount}
-              />
-            </Box>
-            <Stack m={"auto"} maxH={"120px"}>
-              <Heading
-                color={useColorModeValue("gray.700", "gainsboro")}
-                fontSize={"2xl"}
-                fontFamily={"body"}
-              >
-                {task?.taskName == "Click here to name project"
-                  ? `Task ${task?.id}`
-                  : task?.taskName}
-              </Heading>
-              <Text overflow={"hidden"} color={"gray.500"}>
-                {task?.overview}
-              </Text>
-            </Stack>
-            <Box>
-              <MiniCircleTaskProgress
-                variant={"week"}
-                taskLength={singleTasksRangeDays?.length}
-                title={"Last 7 tasks"}
-                completedCount={task?.completedCount}
-              />
-            </Box>
-          </Flex>
-
-          <Stack
-            textColor={"gray.500"}
-            mt={4}
-            direction={"row"}
-            spacing={4}
-            align={"center"}
-          >
-            {meData?.me?.id == task?.userId ? (
-              <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} />
-            ) : (
-              <Avatar src={avatarMap(task?.user?.avatar)} alt={"Author"} />
-            )}
-            <Box>
-              <Flex>
-                <Text mr={"auto"} fontSize={14} mb={0}>
-                  {meData?.me?.id == task?.userId
-                    ? meData?.me?.username
-                    : task?.user?.username}
-                </Text>
-              </Flex>
-              <Text fontSize={14}>
-                Last update: {formatDate(task.updatedAt, true)}
-              </Text>
-            </Box>
-          </Stack>
-        </Box>
-      </Box>
-    </Center>
+    <Flex
+      border={"8px"}
+      borderColor={"#3EE76D"}
+      borderRadius={"50%"}
+      bg={"#F8F2E6"}
+      height={"250px"}
+      width={"250px"}
+    >
+      <Flex mt={4} w={"100%"}>
+        {/* <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} /> */}
+        <Text mx={"auto"} fontSize={18}>
+          {meData?.me?.id == task?.userId
+            ? meData?.me?.username
+            : task?.user?.username}
+        </Text>
+        {/* <Box ml={"auto"}>hello</Box> */}
+      </Flex>
+    </Flex>
   );
 };
 

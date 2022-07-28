@@ -37,7 +37,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     refetch: refetchTask,
   } = useGetTaskFromUrl();
 
-  const { data: podData } = usePodQuery({
+  const { data: podData, loading: podDataLoading } = usePodQuery({
     variables: { podId: myTaskData?.recurringTask?.task?.podId },
   });
 
@@ -96,7 +96,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   return (
     <Layout withHelpPopover={true}>
       <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
-        <Flex>
+        <Box minH={"400px"}>
           {!taskDataLoading && !singleTasksDataLoading ? (
             <MainDash
               recentPodSingleTasksData={recentPodSingleTasksData}
@@ -105,23 +105,35 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               refetchSingleTasks={refetchSingleTasks}
             />
           ) : (
-            <Text>Loading...</Text>
+            <Flex mt={16}>
+              <Text mx={"auto"} textColor={"gainsboro"}>
+                Dashboard loading...
+              </Text>
+            </Flex>
           )}
-        </Flex>
+        </Box>
 
-        {/* <Box mt={8}>
-          <MyPod
-            podData={podData}
-            meData={meData}
-            tasksData={tasksData}
-            taskDataLoading={taskDataLoading}
-            tasksDataLoading={tasksDataLoading}
-            myTaskData={myTaskData}
-            refetchTask={refetchTask}
-            refetchTasks={refetchTasks}
-            recentPodSingleTasksData={recentPodSingleTasksData}
-          />
-        </Box> */}
+        <Box mt={16}>
+          {!podDataLoading ? (
+            <MyPod
+              podData={podData}
+              meData={meData}
+              tasksData={tasksData}
+              taskDataLoading={taskDataLoading}
+              tasksDataLoading={tasksDataLoading}
+              myTaskData={myTaskData}
+              refetchTask={refetchTask}
+              refetchTasks={refetchTasks}
+              recentPodSingleTasksData={recentPodSingleTasksData}
+            />
+          ) : (
+            <Flex mt={16}>
+              <Text mx={"auto"} textColor={"gainsboro"}>
+                Pods loading...
+              </Text>
+            </Flex>
+          )}
+        </Box>
       </Box>
     </Layout>
   );

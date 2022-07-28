@@ -1,13 +1,15 @@
-import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import { MeQuery, PodTasksQuery, RecurringTask } from "../../generated/graphql";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
+import NotifCenter from "./NotificationCenter";
 import PodCard from "./PodCard";
 
 interface PodCreatedProps {
   tasksData: PodTasksQuery;
   meData: MeQuery;
   podCap: number;
+  recentPodSingleTasksData;
 }
 // !! If length of users is 1 then say waiting for more users
 export const PodCreated: React.FC<PodCreatedProps> = ({
@@ -15,23 +17,31 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
   tasksData,
   podCap,
   children,
+  recentPodSingleTasksData,
 }) => {
   const podLength = tasksData?.podTasks?.length;
   const leftOver = podCap - podLength;
   const fourPersonArr = [0, 0, 0, 0];
 
   const gridProjects = (
-    <Box w={"100%"}>
-      <Grid
-        templateColumns={{
-          md: "repeat(2, 1fr)",
-          lg: "repeat(4, 1fr)",
-        }}
-        gap={4}
-        textAlign={"center"}
+    <Flex justifyContent={"center"}>
+      <Box
+        w={"95%"}
+        // mx={"auto"}
+        display={{ base: "block", sm: "block", md: "flex" }}
+        justifyContent={"space-around"}
       >
-        {/* Logic for 2, 3, 4 people */}
-        {/* {tasksData?.podTasks?.map((t, i) => {
+        {children}
+        <Grid
+          templateColumns={{
+            sm: "repeat(2, 1fr)",
+            md: "repeat(4, 1fr)",
+          }}
+          gap={8}
+          textAlign={"center"}
+        >
+          {/* Logic for 2, 3, 4 people */}
+          {/* {tasksData?.podTasks?.map((t, i) => {
           return (i == 2 && podLength == 3) || podLength == 1 ? (
             <GridItem
               colStart={{ md: null, lg: 2 }}
@@ -47,37 +57,29 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             </GridItem>
           );
         })} */}
-        {fourPersonArr.map((t, i) => {
-          return (
-            <GridItem colSpan={2} key={i}>
-              {tasksData?.podTasks[i] ? (
-                <PodCard
-                  meData={meData}
-                  task={tasksData?.podTasks[i] as RecurringTask}
-                />
-              ) : (
-                <PodDummyCard />
-              )}
-            </GridItem>
-          );
-        })}
-      </Grid>
-    </Box>
+          {fourPersonArr.map((t, i) => {
+            return (
+              <GridItem colSpan={2} key={i}>
+                {tasksData?.podTasks[i] ? (
+                  <PodCard
+                    meData={meData}
+                    task={tasksData?.podTasks[i] as RecurringTask}
+                  />
+                ) : (
+                  <PodDummyCard />
+                )}
+              </GridItem>
+            );
+          })}
+        </Grid>
+        <NotifCenter recentPodSingleTasksData={recentPodSingleTasksData} />
+      </Box>
+    </Flex>
   );
 
   if (podLength) {
-    return (
-      <div>
-        {gridProjects}
-        {children}
-      </div>
-    );
+    return <Box>{gridProjects}</Box>;
   }
 
-  return (
-    <div>
-      something went wrong
-      {children}
-    </div>
-  );
+  return <Box>something went wrong</Box>;
 };

@@ -56,7 +56,10 @@ export const MainDash: React.FC<MainDashProps> = ({
   return (
     <Flex width={"100%"} p={4} justifyContent={"center"}>
       <Box mr={{ lg: 4, xl: 16 }}>
-        <Flex mt={-2} alignItems={"center"}>
+        <Flex
+          // mt={-2}
+          alignItems={"center"}
+        >
           <Box>
             <CircularTaskProgress
               taskLength={singleTasksToToday.length}
@@ -109,6 +112,16 @@ export const MainDash: React.FC<MainDashProps> = ({
         ml={{ lg: 4, xl: 16 }}
         display={{ base: "none", sm: "none", md: "none", lg: "block" }}
       >
+        <Flex>
+          <Heading
+            mx={"auto"}
+            fontSize={"30px"}
+            fontFamily={"ubuntu"}
+            textColor="gainsboro"
+          >
+            Chat
+          </Heading>
+        </Flex>
         <NotificationCenter
           recentPodSingleTasksData={recentPodSingleTasksData}
         />
@@ -116,32 +129,3 @@ export const MainDash: React.FC<MainDashProps> = ({
     </Flex>
   );
 };
-
-{
-  /* <Flex
-        justify={{
-          base: "none",
-          sm: "none",
-          md: "space-between",
-        }}
-        direction={{ base: "row", sm: "row", md: "column" }}
-        gap={{ base: "30px", sm: "30px", md: "0" }}
-      > */
-}
-{
-  /* <CircularTaskProgress
-          taskLength={singleTasksToToday.length}
-          completedCount={completedCount}
-          title={"All time consistency"}
-          variant={"allTime"}
-        />
-        <CircularTaskProgress
-          taskLength={singleTasksRangeDays.length}
-          completedCount={completedCount}
-          title={"Last 7 tasks' consistency"}
-          variant={"week"}
-        /> */
-}
-{
-  /* </Flex> */
-}

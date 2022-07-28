@@ -2,7 +2,6 @@ import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import { MeQuery, PodTasksQuery, RecurringTask } from "../../generated/graphql";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
-import NotifCenter from "./NotificationCenter";
 import PodCard from "./PodCard";
 
 interface PodCreatedProps {
@@ -40,26 +39,9 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
           gap={8}
           textAlign={"center"}
         >
-          {/* Logic for 2, 3, 4 people */}
-          {/* {tasksData?.podTasks?.map((t, i) => {
-          return (i == 2 && podLength == 3) || podLength == 1 ? (
-            <GridItem
-              colStart={{ md: null, lg: 2 }}
-              colEnd={{ md: null, lg: 4 }}
-              colSpan={{ base: 2, sm: 2, md: null }}
-              key={i}
-            >
-              <PodCard meData={meData} task={t as RecurringTask} />
-            </GridItem>
-          ) : (
-            <GridItem colSpan={2} key={i}>
-              <PodCard meData={meData} task={t as RecurringTask} />
-            </GridItem>
-          );
-        })} */}
           {fourPersonArr.map((t, i) => {
             return (
-              <GridItem colSpan={2} key={i}>
+              <GridItem key={i} colSpan={{ sm: 2, md: 2, lg: 1 }}>
                 {tasksData?.podTasks[i] ? (
                   <PodCard
                     meData={meData}
@@ -72,7 +54,6 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             );
           })}
         </Grid>
-        <NotifCenter recentPodSingleTasksData={recentPodSingleTasksData} />
       </Box>
     </Flex>
   );
