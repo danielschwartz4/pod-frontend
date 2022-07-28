@@ -19,6 +19,7 @@
     "@mui/material": "^5.4.0",
     "@types/google.accounts": "^0.0.2",
     "@types/react-slick": "^0.23.8",
+    "@widgetbot/react-embed": "^1.4.1",
     "connect-redis": "^6.1.0",
     "express-session": "^1.17.2",
     "formik": "^2.2.9",
