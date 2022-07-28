@@ -20,8 +20,7 @@ export const MiniTaskCircle: React.FC<MiniTaskCircleProps> = ({
         strokeWidth={isToday ? "14" : null}
         stroke="gray.700"
         color={color}
-        boxSize={7}
-        mx={1.5}
+        boxSize={6}
       >
         <ViewIcon />
       </CircleIcon>

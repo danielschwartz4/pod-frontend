@@ -1,5 +1,4 @@
 import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import { filter } from "core-js/core/array";
 import React from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
 import { RecurringTask, SingleTasksQuery } from "../../generated/graphql";
@@ -15,36 +14,49 @@ interface MiniProgressGridSkeletonProps {
 export const MiniProgressGridSkeleton: React.FC<
   MiniProgressGridSkeletonProps
 > = ({ task, singleTasksData }) => {
-  const d = new Date();
-  // set to Monday of this week
-  let lastMonday = new Date(d.setDate(d.getDate() - ((d.getDay() + 7) % 7)));
-
-  // set to next Monday
-  let nextMonday = new Date(d.setDate(d.getDate() + 7));
+  const filterdBelow = singleTasksData?.singleTasks?.singleTasks?.filter(
+    (task) => beforeToday(new Date(task?.actionDate), TODAY)
+  );
 
   const filteredData = singleTasksData?.singleTasks?.singleTasks?.filter(
     (task) =>
-      !beforeToday(new Date(task?.actionDate), lastMonday) &&
-      beforeToday(new Date(task?.actionDate), nextMonday)
+      !beforeToday(new Date(task?.actionDate), addDays(-14, TODAY)) &&
+      beforeToday(
+        new Date(task?.actionDate),
+        addDays(Math.max(14, 14 + (14 - filterdBelow?.length)), TODAY)
+      )
   );
 
-  let filledArr = [];
-  let iter = 0;
-  console.log(filteredData);
-  for (let d = lastMonday; d < nextMonday; d.setDate(d.getDate() + 1)) {
-    if (filteredData != null) {
-      if (daysEqual(new Date(filteredData[iter]?.actionDate), d)) {
-        filledArr.push(filteredData[iter]);
-        iter++;
+  let i = 0;
+  let taskIter = 0;
+  let filledArr = [] as {}[];
+  let tmpActionDay: Date;
+  let daysAfterTmp: 0;
+  while (taskIter <= filteredData?.length - 1) {
+    if (i % SKELETON_UNIT_SIZE == filteredData[taskIter].actionDay) {
+      filledArr.push(filteredData[taskIter]);
+      tmpActionDay = filteredData[taskIter].actionDate;
+
+      i++;
+      taskIter++;
+      daysAfterTmp = 0;
+    } else {
+      daysAfterTmp++;
+      // !! Push the date instead of null
+
+      if (daysEqual(addDays(daysAfterTmp, tmpActionDay), TODAY)) {
+        filledArr.push(undefined);
       } else {
         filledArr.push(null);
       }
+      i++;
     }
   }
+  filledArr = filledArr.slice(0, 35);
 
   return (
     <Box>
-      <Grid templateColumns={"repeat(7, 1fr)"} gap={2}>
+      <Grid templateColumns={"repeat(7, 1fr)"} gap={3}>
         {Object.keys(filledArr).map((i) => {
           if (filledArr[i] == null) {
             return (

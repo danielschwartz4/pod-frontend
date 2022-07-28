@@ -49,24 +49,35 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
   const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);
 
   return (
-    <Flex
+    <Box
       border={"8px"}
       borderColor={"#3EE76D"}
       borderRadius={"50%"}
       bg={"#F8F2E6"}
       height={"250px"}
       width={"250px"}
+      fontFamily={"ubuntu"}
     >
-      <Flex mt={4} w={"100%"}>
+      <Flex mt={2} w={"100%"}>
         {/* <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} /> */}
         <Text mx={"auto"} fontSize={18}>
           {meData?.me?.id == task?.userId
             ? meData?.me?.username
             : task?.user?.username}
         </Text>
-        {/* <Box ml={"auto"}>hello</Box> */}
       </Flex>
-    </Flex>
+      <Flex mt={-4}>
+        <Text mx={"auto"} fontSize={14}>
+          Last update: {formatDate(task.updatedAt, true)}
+        </Text>
+      </Flex>
+      <MiniProgressGridSkeleton singleTasksData={singleTasksData} task={task} />
+      <Flex>
+        <Text mx={"auto"} fontSize={14} width="90%">
+          {task?.overview}
+        </Text>
+      </Flex>
+    </Box>
   );
 };
 

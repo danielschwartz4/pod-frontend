@@ -119,7 +119,7 @@ export const MainDash: React.FC<MainDashProps> = ({
             fontFamily={"ubuntu"}
             textColor="gainsboro"
           >
-            Chat
+            Pod updates
           </Heading>
         </Flex>
         <NotificationCenter
