@@ -1,7 +1,8 @@
 // tour.js
 
-import React from "react";
+// import React from "react";
 import JoyRide from "react-joyride";
+import { useMeQuery } from "../generated/graphql";
 
 // Tour steps
 const TOUR_STEPS = [
@@ -50,15 +51,22 @@ const TOUR_STEPS = [
 
 // Tour component
 const Tour = () => {
+  const { data: meData } = useMeQuery({});
+  console.log(meData?.me?.hasCreatedTask);
+
   return (
     <>
-      <JoyRide
-        spotlightClicks={true}
-        locale={{ last: "Done" }}
-        steps={TOUR_STEPS}
-        continuous={true}
-        scrollOffset={200}
-      />
+      {!meData?.me?.hasCreatedTask ? (
+        <JoyRide
+          spotlightClicks={true}
+          locale={{ last: "Done" }}
+          steps={TOUR_STEPS}
+          continuous={true}
+          scrollOffset={200}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
