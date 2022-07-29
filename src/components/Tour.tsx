@@ -2,7 +2,10 @@
 
 // import React from "react";
 import JoyRide from "react-joyride";
-import { useMeQuery } from "../generated/graphql";
+import {
+  useMeQuery,
+  useUpdateHasCreatedTaskMutation,
+} from "../generated/graphql";
 
 // Tour steps
 const TOUR_STEPS = [
@@ -52,8 +55,7 @@ const TOUR_STEPS = [
 // Tour component
 const Tour = () => {
   const { data: meData } = useMeQuery({});
-  console.log(meData?.me?.hasCreatedTask);
-
+  const [updateHasCreatedTask] = useUpdateHasCreatedTaskMutation();
   return (
     <>
       {!meData?.me?.hasCreatedTask ? (
@@ -63,6 +65,18 @@ const Tour = () => {
           steps={TOUR_STEPS}
           continuous={true}
           scrollOffset={200}
+          callback={(e) => {
+            // Update user hasCreatedTask to true
+            console.log(e);
+            if (e.status === "finished") {
+              console.log("HERE");
+              updateHasCreatedTask({
+                variables: {
+                  hasCreated: true,
+                },
+              });
+            }
+          }}
         />
       ) : (
         <></>
