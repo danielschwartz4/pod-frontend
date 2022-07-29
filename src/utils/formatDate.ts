@@ -19,18 +19,6 @@ const formatDate = (date: string, withTime = false): string => {
   return withTime
     ? moment(date).utc().format("dddd, MMMM YYYY h:mma")
     : moment(date).utc().format("MM/DD/YYYY");
-  // if (!date) {
-  //   return date;
-  // }
-  // let day = date.split(" ")[0];
-  // let month = date.split(" ").slice(1, 3).join(" ");
-  // let year = date.split(" ")[3];
-
-  // if (date.includes("00:00:00")) {
-  //   return day + ", " + month;
-  // }
-  // let t = convertFromMilitaryTime(date.split(" ")[4]);
-  // return day + ", " + month + ", " + " " + t;
 };
 
 export default formatDate;

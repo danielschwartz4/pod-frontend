@@ -9,6 +9,7 @@ import {
   useColorModeValue,
   Circle,
 } from "@chakra-ui/react";
+import moment from "moment";
 import React from "react";
 import { TODAY } from "../../constants";
 import {
@@ -63,7 +64,7 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
       borderColor={
         todayStatus == "completed" || todayStatus == null
           ? "#3EE76D"
-          : todayStatus == "missed"
+          : todayStatus == "missed" || todayStatus == "tbd"
           ? "#F26D51"
           : "gray"
       }
@@ -83,7 +84,7 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
       </Flex>
       <Flex mt={-4}>
         <Text mx={"auto"} fontSize={14}>
-          Last update: {formatDate(task.updatedAt, true)}
+          Last update: {moment(task?.updatedAt).utc().format("dddd, h:mma")}
         </Text>
       </Flex>
       <MiniProgressGridSkeleton singleTasksData={singleTasksData} task={task} />
