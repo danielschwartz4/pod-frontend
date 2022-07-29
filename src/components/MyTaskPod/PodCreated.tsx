@@ -97,6 +97,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             width: "100%",
             margin: "50px 0",
           }}
+          className="discord"
         >
           <WidgetBot
             width={800}

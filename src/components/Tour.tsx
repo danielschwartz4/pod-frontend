@@ -33,6 +33,11 @@ const TOUR_STEPS = [
     content:
       "You are auto-placed in a pod to start, but feel free to exit and enter new ones as you please!",
   },
+  {
+    target: ".discord",
+    content:
+      "You are also auto placed in a discord channel when you join a pod. This feature is in beta.",
+  },
   // {
   //   target: ".tour-external-links",
   //   content: "This is where you can find the external links.",
@@ -47,7 +52,13 @@ const TOUR_STEPS = [
 const Tour = () => {
   return (
     <>
-      <JoyRide steps={TOUR_STEPS} continuous={true} />
+      <JoyRide
+        spotlightClicks={true}
+        locale={{ last: "Done" }}
+        steps={TOUR_STEPS}
+        continuous={true}
+        scrollOffset={200}
+      />
     </>
   );
 };
