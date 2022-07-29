@@ -31,9 +31,9 @@ const Index: React.FC<IndexProps> = ({}) => {
         <LandingBox style={{ marginTop: "50px" }}>
           <GetStartedButton />
         </LandingBox>
-        <Box mt={16}>
+        {/* <Box mt={16}>
           <Footer />
-        </Box>
+        </Box> */}
       </Flex>
     </Layout>
   );

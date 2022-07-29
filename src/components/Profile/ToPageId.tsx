@@ -1,6 +1,6 @@
 import { Link } from "@chakra-ui/react";
 import NextLink from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { ProjectQuery, RecurringTaskQuery } from "../../generated/graphql";
 
 interface ToProjectPageIdProps {
@@ -26,9 +26,16 @@ export const ToTaskPageId: React.FC<ToTaskPageIdProps> = ({
   children,
   task,
 }) => {
+  const [loading, setLoading] = useState(false);
+
   return (
     <NextLink href="/task/[id]" as={`/task/${task?.id}`}>
-      <Link>{children}</Link>
+      <Link
+        onClick={() => setLoading(true)}
+        cursor={!loading ? "pointer" : "progress"}
+      >
+        {children}
+      </Link>
     </NextLink>
   );
 };

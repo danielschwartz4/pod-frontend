@@ -14,6 +14,8 @@ const ProfileHeading: React.FC<ProfileHeadingProps> = ({
   meData,
   firstProject,
 }) => {
+  const [loading, setLoading] = React.useState(false);
+
   return (
     <Flex
       display={{ base: "contents", sm: "flex" }}
@@ -25,6 +27,7 @@ const ProfileHeading: React.FC<ProfileHeadingProps> = ({
         <b style={{ fontSize: "48px" }}>My Projects</b>
       </Font>
       <Button
+        border={"none"}
         display={"flex"}
         alignItems={"center"}
         width={"65px"}
@@ -32,10 +35,12 @@ const ProfileHeading: React.FC<ProfileHeadingProps> = ({
         fontFamily={"ubuntu"}
         style={{ fontSize: "48px", borderRadius: "45px", fontWeight: "thin" }}
         bg={"#FFDC93"}
-        mt={8}
+        mt={6}
         cursor={"pointer"}
         outline={"black"}
+        isLoading={loading}
         onClick={() => {
+          setLoading(true);
           router.push("/project-info");
           Event("Desktop", "Create Project Button", "Create Project");
         }}
