@@ -116,8 +116,14 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
                   setNewName(e.target.value);
                 }}
               />
+            ) : newName == "Unnamed task" ? (
+              <Heading as="h3" size="sm">
+                Click here to name project
+              </Heading>
             ) : (
-              newName
+              <Heading as="h3" size="sm">
+                {newName}
+              </Heading>
             )}
           </Box>
         </Box>
