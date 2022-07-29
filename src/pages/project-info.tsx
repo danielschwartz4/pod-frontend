@@ -30,10 +30,10 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
   return (
     <Layout isProfile={true}>
       <Box h={"100%"} minH={"90vh"}>
-        <Box mt={20} mx={{ base: 2, sm: "auto" }} maxW={"600px"}>
-          <Text color={"grey"}>
+        <Box mt={0} mx={{ base: 2, sm: "auto" }} maxW={"600px"}>
+          {/* <Text color={"grey"}>
             *you can edit this as much as you'd like in the future
-          </Text>
+          </Text> */}
           <Box
             mx={{ base: 2, sm: "auto" }}
             padding={4}
@@ -46,6 +46,8 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
             <Tabs isFitted={true} variant="enclosed" defaultIndex={0}>
               <TabList>
                 <Tab
+                  fontFamily={"ubuntu"}
+                  fontSize={"24px"}
                   onClick={() =>
                     Event(
                       "Desktop",

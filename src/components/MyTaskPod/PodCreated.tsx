@@ -12,6 +12,8 @@ import { daysEqual } from "../../utils/getConsistency";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
 import PodCard from "./PodCard";
 import { PodTaskCompletion } from "./PodTaskCompletion";
+import WidgetBot from "@widgetbot/react-embed";
+import { discordPodChannels } from "./DiscordPodChannel";
 
 interface PodCreatedProps {
   tasksData: PodTasksQuery;
@@ -74,6 +76,21 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
           </Grid>
         </Box>
       </Flex>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          margin: "50px 0",
+        }}
+      >
+        <WidgetBot
+          width={800}
+          height={600}
+          server="1002046685805023344"
+          channel={discordPodChannels[tasksData.podTasks.at(0).podId]}
+        />
+      </div>
     </Box>
   );
 

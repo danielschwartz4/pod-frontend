@@ -18,6 +18,7 @@ import { sendMessages } from "../../utils/messaging/sendMessage";
 import { addDays } from "../../utils/singleTaskUtils";
 import { generateSms } from "../../utils/taskSmsBody";
 import NotesForm from "./NotesForm";
+import { Event } from "../../libs/tracking";
 
 interface TodayUpdateFormProps {
   completedNote: Boolean;
@@ -140,6 +141,11 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           <Button
             onClick={async () => {
               if (completedNote) {
+                Event(
+                  "Desktop",
+                  "Completed Button, user " + task.recurringTask.task.userId,
+                  "Did not complete task!"
+                );
                 setPopupHandler();
                 const response = await updateSingleTaskCompletionStatus({
                   variables: {
@@ -168,6 +174,11 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           <Button
             onClick={async () => {
               if (completedNote) {
+                Event(
+                  "Desktop",
+                  "Completed Button, user" + task.recurringTask.task.userId,
+                  "Completed Task!"
+                );
                 setPopupHandler();
                 const response = await updateSingleTaskCompletionStatus({
                   variables: {
