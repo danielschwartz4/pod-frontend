@@ -4,7 +4,7 @@ const PodCard = () => {
   return (
     <Flex
       border={"8px"}
-      borderColor={"#3EE76D"}
+      borderColor={"gray"}
       borderRadius={"50%"}
       bg={"#F8F2E6"}
       height={"250px"}

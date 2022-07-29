@@ -25,7 +25,6 @@ export const getDaysBetween = (startDate: Date, endDate: Date) => {
 };
 
 export const daysEqual = (date1: Date, date2: Date) => {
-  console.log(date1, date2);
   let isEqual = false;
   isEqual =
     date1.getDate() == date2.getDate() &&

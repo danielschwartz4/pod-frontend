@@ -57,15 +57,15 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
     }
   });
 
-  console.log(singleTasksData);
-
   return (
     <Box
       border={"8px"}
       borderColor={
         todayStatus == "completed" || todayStatus == null
           ? "#3EE76D"
-          : "#F26D51"
+          : todayStatus == "missed"
+          ? "#F26D51"
+          : "gray"
       }
       borderRadius={"50%"}
       bg={"#F8F2E6"}
