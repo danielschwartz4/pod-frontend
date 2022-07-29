@@ -1,0 +1,11 @@
+mutation UpdateHasCreatedTask($hasCreated: Boolean!) {
+  updateHasCreatedTask(hasCreated: $hasCreated) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}

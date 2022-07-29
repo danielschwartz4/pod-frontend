@@ -1,10 +1,9 @@
 import { Box, Flex, Text, useToast } from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../../components/Layout";
 import { MainDash } from "../../components/MyRecurringTask/MainDash";
 import { MyPod } from "../../components/MyTaskPod/MyPod";
 import {
-  SingleTask,
   useMeQuery,
   usePodQuery,
   usePodTasksQuery,
@@ -12,7 +11,6 @@ import {
   useSingleTasksQuery,
 } from "../../generated/graphql";
 import { PageView } from "../../libs/tracking";
-import { NotePopup, randNotesSplurge } from "../../utils/randNotesSplurge";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 
@@ -65,33 +63,13 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     },
   });
 
-  // async function notesToastHandler(popup: NotePopup) {
-  //   toast({
-  //     title: popup.title,
-  //     description: popup.description,
-  //     position: "bottom",
-  //     status: "info",
-  //     duration: null,
-  //     isClosable: true,
-  //   });
-  // }
-
-  // useMemo(() => {
-  //   if (
-  //     tasksData?.podTasks &&
-  //     tasksData?.podTasks?.length > 1 &&
-  //     !tasksDataLoading
-  //   ) {
-  //     const popups = randNotesSplurge(
-  //       recentPodSingleTasksData?.recentPodSingleTasks
-  //         ?.singleTasks as SingleTask[],
-  //       tasksData?.podTasks?.length
-  //     );
-  //     popups?.forEach(async (popup) => {
-  //       notesToastHandler(popup);
-  //     });
-  //   }
-  // }, [recentPodSingleTasksData]);
+  const steps = [
+    {
+      selector: ".first-step",
+      content: "This is my first Step",
+    },
+    // ...
+  ];
 
   return (
     <Layout withHelpPopover={true}>

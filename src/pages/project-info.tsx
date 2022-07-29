@@ -31,9 +31,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
     <Layout isProfile={true}>
       <Box mt={[10, 20]} h={"100%"} minH={"90vh"}>
         <Box mt={0} mx={{ base: 2, sm: "auto" }} maxW={"600px"}>
-          {/* <Text color={"grey"}>
-            *you can edit this as much as you'd like in the future
-          </Text> */}
           <Box
             mx={{ base: 2, sm: "auto" }}
             padding={4}
@@ -65,9 +62,6 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                 <TabPanel minH={"600px"}>
                   <RecurringTaskForm meData={data} />
                 </TabPanel>
-                {/* <TabPanel minH={"600px"}>
-                  <ProjectForm meData={data} />
-                </TabPanel> */}
               </TabPanels>
             </Tabs>
           </Box>

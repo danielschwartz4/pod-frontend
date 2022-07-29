@@ -1,31 +1,28 @@
-import { Box, Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Heading } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import router from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { ADD_TASKS_LIMIT } from "../../constants";
+import { Font } from "../../css/styles";
 import {
-  FindPublicPodQuery,
   MeQuery,
-  PodQuery,
   useAddProjectToPodMutation,
-  useAddSingleTaskMutation,
   useAddSingleTasksChunkMutation,
   useCreatePodMutation,
   useCreateRecurringTaskMutation,
   useFindPublicPodLazyQuery,
   useUpdateTaskPodMutation,
 } from "../../generated/graphql";
+import { Event } from "../../libs/tracking";
 import { DaysType, EndOptionsSelectorType } from "../../types/types";
 import { sendMessage } from "../../utils/messaging/sendMessage";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
 import { InputField } from "../Inputs/InputField";
+import { joinPod } from "../MyTaskPod/JoinExit";
 import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import RepetitionStepper from "./RepetitionStepperField";
-import { Event } from "../../libs/tracking";
-import { joinPod } from "../MyTaskPod/JoinExit";
-import { Font } from "../../css/styles";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -35,7 +32,6 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [endOptionsSelector, setEndOptionsSelector] =
     React.useState<EndOptionsSelectorType>("none");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
-  const [addSingleTask] = useAddSingleTaskMutation();
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
   const [findPublicPods, { data, loading: podsLoading }] =
     useFindPublicPodLazyQuery();
@@ -109,7 +105,6 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 );
               }
             }
-
             if (
               response?.data?.createRecurringTask?.task?.user?.phone !=
               "+12173817277"
@@ -123,11 +118,9 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   })
                 : null;
             }
-            const project_pod_page =
+            const taskPage =
               "/task/" + response?.data?.createRecurringTask?.task?.id;
-            await router.push(
-              "/task/" + response?.data?.createRecurringTask?.task?.id
-            );
+            await router.push(taskPage);
           }
         }}
       >
