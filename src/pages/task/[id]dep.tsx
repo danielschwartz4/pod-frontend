@@ -99,6 +99,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
         <Flex>
           {!taskDataLoading && !singleTasksDataLoading ? (
             <MainDash
+              recentPodSingleTasksData={recentPodSingleTasksData}
               singleTasksData={singleTasksData}
               myTaskData={myTaskData}
               refetchSingleTasks={refetchSingleTasks}
