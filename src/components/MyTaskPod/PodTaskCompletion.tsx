@@ -9,8 +9,8 @@ interface PodTaskCompletionProps {
 export const PodTaskCompletion: React.FC<PodTaskCompletionProps> = ({
   progress,
 }) => {
-  const percentage = progress / 100;
-  const fakeVal = 1 - percentage;
+  const fakeVal = progress;
+  const value = 100 - progress * 100;
   return (
     <Box>
       <Progress
@@ -18,7 +18,7 @@ export const PodTaskCompletion: React.FC<PodTaskCompletionProps> = ({
         borderRadius={"16"}
         colorScheme={"gray"}
         bgColor={getColorForPercentage(fakeVal)}
-        value={progress}
+        value={value}
         transform={"scaleX(-1)"}
       />
     </Box>
