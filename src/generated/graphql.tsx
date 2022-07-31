@@ -400,8 +400,8 @@ export type RecurringTaskInput = {
   days?: InputMaybe<Scalars['JSONObject']>;
   endOptions?: InputMaybe<Scalars['JSONObject']>;
   overview: Scalars['String'];
-  projectName: Scalars['String'];
   startDate?: InputMaybe<Scalars['DateTime']>;
+  taskName: Scalars['String'];
   userId: Scalars['Float'];
 };
 

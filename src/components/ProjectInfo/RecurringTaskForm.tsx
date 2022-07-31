@@ -47,7 +47,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
       <Formik
         initialValues={{
           overview: "",
-          projectName: "",
+          taskName: "",
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
           days: {
@@ -61,7 +61,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           } as DaysType,
         }}
         onSubmit={async (
-          { overview, projectName, startDate, endOptions, days },
+          { overview, taskName, startDate, endOptions, days },
           { setErrors }
         ) => {
           const response = await createRecurringTask({
@@ -69,13 +69,14 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
               recurringTaskOptions: {
                 userId: meData?.me.id,
                 overview: overview,
-                projectName: projectName,
+                taskName: taskName,
                 startDate: startDate,
                 endOptions: endOptions,
                 days: days,
               },
             },
           });
+          console.log(response);
           if (response?.data?.createRecurringTask?.errors) {
             setErrors(toErrorMap(response.data.createRecurringTask.errors));
           } else {
@@ -128,14 +129,27 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           <Form>
             <Box>
               <Box mr={8} color={"gainsboro"}>
-                <Font style={{ fontSize: "18px" }}>Overview</Font>
-                <InputField
-                  color="grey"
-                  name="overview"
-                  placeholder="Enter a brief overview of your project for your pod members"
-                  label=""
-                  isField={true}
-                />
+                <Box mb={4}>
+                  <Font style={{ fontSize: "18px" }}>Task name</Font>
+                  <Box maxW={"200px"}>
+                    <InputField
+                      color="grey"
+                      name="taskName"
+                      placeholder="e.g. Exercise"
+                      label=""
+                    />
+                  </Box>
+                </Box>
+                <Box>
+                  <Font style={{ fontSize: "18px" }}>Overview</Font>
+                  <InputField
+                    color="grey"
+                    name="overview"
+                    placeholder="e.g. I'm going to run a mile on Mondays, Wednesdays, and Fridays until the end of the summer"
+                    label=""
+                    isField={true}
+                  />
+                </Box>
                 <Divider mx={"auto"} mt={4} color={"grey"} />
 
                 <Box mt={4} maxW={"200px"}>
@@ -155,7 +169,6 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 >
                   <Box>
                     <Font style={{ fontSize: "18px" }}>End options</Font>
-
                     <EndTaskSelection
                       endOptionsSelector={endOptionsSelector}
                       name={"endOptions"}
@@ -185,7 +198,6 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 <Font style={{ fontSize: "18px", marginBottom: "10px" }}>
                   Select the days you would like your task to recur
                 </Font>
-
                 <DayPicker name={"days"} />
               </Box>
               <Button
