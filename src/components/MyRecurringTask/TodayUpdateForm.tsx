@@ -19,6 +19,7 @@ import { addDays } from "../../utils/singleTaskUtils";
 import { generateSms } from "../../utils/taskSmsBody";
 import NotesForm from "./NotesForm";
 import { Event } from "../../libs/tracking";
+import { useReward } from "react-rewards";
 
 interface TodayUpdateFormProps {
   completedNote: Boolean;
@@ -51,10 +52,10 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
 
   const toast = useToast();
+  const { reward, isAnimating } = useReward("rewardId", "confetti");
 
   const [singleTasksQuery, { data: singleTasksData }] =
     useSingleTasksLazyQuery();
-
   const [podQuery, { data: podData }] = usePodLazyQuery();
   const [podUsersQuery, { data: usersData }] = usePodUsersLazyQuery();
   const [meQuery, { data: meData }] = useMeLazyQuery();
@@ -71,6 +72,20 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
         addDays(Math.max(14, 14 + (14 - filterdBelow.length)), TODAY)
       )
   );
+
+  const confetti_config = {
+    angle: 90,
+    spread: 360,
+    startVelocity: 40,
+    elementCount: 70,
+    dragFriction: 0.12,
+    duration: 3000,
+    stagger: 3,
+    width: "10px",
+    height: "10px",
+    perspective: "500px",
+    colors: ["#f00", "#0f0", "#00f"],
+  };
 
   const sendMessageHandler = async () => {
     if (task?.recurringTask?.task?.podId != 0) {
@@ -189,10 +204,12 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 if (response) {
                   setStatus("completed");
                   if (_status != "completed") {
+                    reward();
                     setCompletedCountHandler(true);
                     toast({
                       title: "Congrats!",
-                      description: "Your pod has been alerted!.",
+                      description:
+                        "You'll get an email when your next task is approaching",
                       status: "success",
                       duration: 9000,
                       isClosable: true,

@@ -86,6 +86,9 @@ export const MainDash: React.FC<MainDashProps> = ({
               variant={"week"}
             />
           </Flex>
+          <Flex justifyContent={"center"}>
+            <span id="rewardId" />
+          </Flex>
           <Flex
             fontSize={["16px", "20px"]}
             fontFamily={"ubuntu"}

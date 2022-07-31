@@ -1,5 +1,5 @@
 import { Box, Flex, Text, useToast } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Layout } from "../../components/Layout";
 import { MainDash } from "../../components/MyRecurringTask/MainDash";
 import { MyPod } from "../../components/MyTaskPod/MyPod";
@@ -11,20 +11,14 @@ import {
   useRecentPodSingleTasksQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
-import { PageView } from "../../libs/tracking";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
 
 interface TaskHomeProps {}
 
 const TaskHome: React.FC<TaskHomeProps> = ({}) => {
-  useEffect(() => PageView(), []);
+  // useEffect(() => PageView(), []);
   useIsAuth();
-
-  const [changeTab, useChangeTab] = useState<string>("task");
-  const [keepMounted, setKeepMounted] = useState(true);
-
-  const TEMP_BOOL = true;
 
   const { data: meData } = useMeQuery({});
 
