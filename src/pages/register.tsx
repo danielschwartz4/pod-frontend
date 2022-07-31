@@ -7,6 +7,7 @@ import {
   Link,
   Stack,
   Text,
+  Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -53,13 +54,17 @@ const Register: React.FC<registerProps> = ({}) => {
         </Flex>
         <Stack
           width={"100%"}
-          pt={12}
           mx={4}
           alignItems={"center"}
           justifyContent={"center"}
         >
           <Stack mb={"30px"} align={"center"} color={"gainsboro"}>
-            <Heading mb={"0px"} fontSize={"4xl"} textAlign={"center"}>
+            <Heading
+              mt={"0px"}
+              mb={"0px"}
+              fontSize={"4xl"}
+              textAlign={"center"}
+            >
               Join the community!
             </Heading>
             <Text color={"gainsboro"} fontFamily={"ubuntu"} fontSize={"lg"}>
@@ -70,7 +75,12 @@ const Register: React.FC<registerProps> = ({}) => {
           <CenteredContainer marginTop="20px">
             <Stack spacing={4} width={"100%"}>
               <Formik
-                initialValues={{ username: "", email: "", password: "" }}
+                initialValues={{
+                  username: "",
+                  email: "",
+                  password: "",
+                  feedback: "",
+                }}
                 onSubmit={async (values, { setErrors }) => {
                   Event(
                     "Desktop",
@@ -133,7 +143,21 @@ const Register: React.FC<registerProps> = ({}) => {
                             label=""
                           />
                         </Box>
+                        <p>
+                          What do you think are successes and challenges for you
+                          when having accountability groups?
+                        </p>
+                        <Box mt={4}>
+                          <Textarea
+                            type={"feedback"}
+                            textColor={"gainsboro"}
+                            name="feedback"
+                            placeholder="ex. I’m able to talk daily to my accountability partners"
+                            label=""
+                          />
+                        </Box>
                       </Box>
+
                       <Stack spacing={5} pt={2}>
                         <Box>
                           <Button
