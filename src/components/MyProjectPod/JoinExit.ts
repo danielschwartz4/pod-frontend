@@ -28,6 +28,7 @@ export const joinPod = async (
         cap: podSize,
         isPrivate: false,
         sessionType: "project",
+        taskType: "other",
       },
     });
   } else {
