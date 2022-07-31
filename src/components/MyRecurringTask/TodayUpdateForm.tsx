@@ -152,6 +152,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
 
   return (
     <NotesForm singleTask={singleTask} setCompletedNote={setCompletedNote}>
+      <button onClick={reward}>click hereasdas</button>
       <PopoverFooter d="flex" justifyContent="center">
         <ButtonGroup size="sm">
           <Button
