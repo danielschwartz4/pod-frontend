@@ -26,6 +26,7 @@ interface ProgressGridSkeletonProps {
   rangeStart: Date;
   myTaskData: RecurringTaskQuery;
   refetchSingleTasks: () => void;
+  reward;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
@@ -35,6 +36,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   rangeStart,
   myTaskData,
   refetchSingleTasks,
+  reward,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -122,6 +124,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                   isInteractive={false}
                   rangeStart={rangeStart}
                   isToday={filledArr[i] === undefined}
+                  reward={reward}
                 />
               </GridItem>
             );

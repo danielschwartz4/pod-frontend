@@ -31,6 +31,7 @@ interface TodayUpdateFormProps {
   rangeStart: Date;
   task: RecurringTaskQuery;
   _status: string;
+  reward;
 }
 
 const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
@@ -44,6 +45,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   setCompletedCount,
   rangeStart,
   task,
+  reward,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -71,6 +73,20 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
         addDays(Math.max(14, 14 + (14 - filterdBelow.length)), TODAY)
       )
   );
+
+  const confetti_config = {
+    angle: 90,
+    spread: 360,
+    startVelocity: 40,
+    elementCount: 70,
+    dragFriction: 0.12,
+    duration: 3000,
+    stagger: 3,
+    width: "10px",
+    height: "10px",
+    perspective: "500px",
+    colors: ["#f00", "#0f0", "#00f"],
+  };
 
   const sendMessageHandler = async () => {
     if (task?.recurringTask?.task?.podId != 0) {
@@ -174,6 +190,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           <Button
             onClick={async () => {
               if (completedNote) {
+                reward;
                 Event(
                   "Desktop",
                   "Completed Button, user" + task.recurringTask.task.userId,
@@ -215,6 +232,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           >
             Completed!
           </Button>
+          <button onClick={reward}></button>
         </ButtonGroup>
       </PopoverFooter>
     </NotesForm>

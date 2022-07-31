@@ -13,6 +13,8 @@ import {
 import { PageView } from "../../libs/tracking";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import Confetti from "react-dom-confetti";
+import { useReward } from "react-rewards";
 
 interface TaskHomeProps {}
 
@@ -71,6 +73,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     // ...
   ];
 
+  const { reward, isAnimating } = useReward("rewardId", "confetti");
+
   return (
     <Layout withHelpPopover={true}>
       <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
@@ -81,6 +85,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               singleTasksData={singleTasksData}
               myTaskData={myTaskData}
               refetchSingleTasks={refetchSingleTasks}
+              reward={reward}
             />
           ) : (
             <Flex mt={16}>
