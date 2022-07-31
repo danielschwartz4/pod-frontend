@@ -98,6 +98,7 @@ export type MutationCreatePodArgs = {
   cap: Scalars['Float'];
   isPrivate: Scalars['Boolean'];
   sessionType: Scalars['String'];
+  taskType: Scalars['String'];
 };
 
 
@@ -245,6 +246,7 @@ export type Pod = {
   isPrivate: Scalars['Boolean'];
   projectIds: Array<Scalars['Int']>;
   sessionType: Scalars['String'];
+  taskType: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   userIds: Array<Scalars['Int']>;
 };
@@ -385,6 +387,7 @@ export type RecurringTask = {
   singleTasks?: Maybe<Array<SingleTask>>;
   startDate: Scalars['DateTime'];
   taskName: Scalars['String'];
+  taskType: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user?: Maybe<User>;
   userId: Scalars['Int'];
@@ -400,8 +403,9 @@ export type RecurringTaskInput = {
   days?: InputMaybe<Scalars['JSONObject']>;
   endOptions?: InputMaybe<Scalars['JSONObject']>;
   overview: Scalars['String'];
-  projectName: Scalars['String'];
   startDate?: InputMaybe<Scalars['DateTime']>;
+  taskName: Scalars['String'];
+  taskType: Scalars['String'];
   userId: Scalars['Float'];
 };
 
@@ -476,7 +480,7 @@ export type UsernamePasswordInput = {
   username: Scalars['String'];
 };
 
-export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> };
+export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> };
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null };
 
@@ -492,16 +496,17 @@ export type AddProjectToPodMutationVariables = Exact<{
 }>;
 
 
-export type AddProjectToPodMutation = { __typename?: 'Mutation', addProjectToPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
+export type AddProjectToPodMutation = { __typename?: 'Mutation', addProjectToPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
 
 export type CreatePodMutationVariables = Exact<{
   isPrivate: Scalars['Boolean'];
   cap: Scalars['Float'];
   sessionType: Scalars['String'];
+  taskType: Scalars['String'];
 }>;
 
 
-export type CreatePodMutation = { __typename?: 'Mutation', createPod: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } };
+export type CreatePodMutation = { __typename?: 'Mutation', createPod: { __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } };
 
 export type RemoveProjectFromPodMutationVariables = Exact<{
   projectId: Scalars['Float'];
@@ -509,7 +514,7 @@ export type RemoveProjectFromPodMutationVariables = Exact<{
 }>;
 
 
-export type RemoveProjectFromPodMutation = { __typename?: 'Mutation', removeProjectFromPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
+export type RemoveProjectFromPodMutation = { __typename?: 'Mutation', removeProjectFromPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
 
 export type AddProjectInfoMutationVariables = Exact<{
   projectOptions: ProjectInput;
@@ -733,14 +738,14 @@ export type FindPublicPodQueryVariables = Exact<{
 }>;
 
 
-export type FindPublicPodQuery = { __typename?: 'Query', findPublicPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
+export type FindPublicPodQuery = { __typename?: 'Query', findPublicPod: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } };
 
 export type PodQueryVariables = Exact<{
   podId: Scalars['Float'];
 }>;
 
 
-export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } | null };
+export type PodQuery = { __typename?: 'Query', pod?: { __typename?: 'PodResponse', errors?: string | null, pod?: { __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> } | null } | null };
 
 export type PodProjectsQueryVariables = Exact<{
   podId: Scalars['Int'];
@@ -759,7 +764,7 @@ export type PodUsersQuery = { __typename?: 'Query', podUsers?: Array<{ __typenam
 export type PodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PodsQuery = { __typename?: 'Query', pods: Array<{ __typename?: 'Pod', id: number, cap: number, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> }> };
+export type PodsQuery = { __typename?: 'Query', pods: Array<{ __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> }> };
 
 export type ProjectQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -831,6 +836,7 @@ export const RegularPodFragmentDoc = gql`
     fragment RegularPod on Pod {
   id
   cap
+  taskType
   projectIds
   updatedAt
   createdAt
@@ -946,8 +952,13 @@ export type AddProjectToPodMutationHookResult = ReturnType<typeof useAddProjectT
 export type AddProjectToPodMutationResult = Apollo.MutationResult<AddProjectToPodMutation>;
 export type AddProjectToPodMutationOptions = Apollo.BaseMutationOptions<AddProjectToPodMutation, AddProjectToPodMutationVariables>;
 export const CreatePodDocument = gql`
-    mutation CreatePod($isPrivate: Boolean!, $cap: Float!, $sessionType: String!) {
-  createPod(isPrivate: $isPrivate, cap: $cap, sessionType: $sessionType) {
+    mutation CreatePod($isPrivate: Boolean!, $cap: Float!, $sessionType: String!, $taskType: String!) {
+  createPod(
+    isPrivate: $isPrivate
+    cap: $cap
+    sessionType: $sessionType
+    taskType: $taskType
+  ) {
     ...RegularPod
   }
 }
@@ -970,6 +981,7 @@ export type CreatePodMutationFn = Apollo.MutationFunction<CreatePodMutation, Cre
  *      isPrivate: // value for 'isPrivate'
  *      cap: // value for 'cap'
  *      sessionType: // value for 'sessionType'
+ *      taskType: // value for 'taskType'
  *   },
  * });
  */
