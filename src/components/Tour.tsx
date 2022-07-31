@@ -58,7 +58,7 @@ const Tour = () => {
   const [updateHasCreatedTask] = useUpdateHasCreatedTaskMutation();
   return (
     <>
-      {!meData?.me?.hasCreatedTask ? (
+      {meData?.me?.hasCreatedTask ? (
         <JoyRide
           spotlightClicks={true}
           locale={{ last: "Done" }}
@@ -66,10 +66,8 @@ const Tour = () => {
           continuous={true}
           scrollOffset={200}
           callback={(e) => {
-            // Update user hasCreatedTask to true
-            console.log(e);
+            // !! Fix this it's updateing on first render
             if (e.status === "finished") {
-              console.log("HERE");
               updateHasCreatedTask({
                 variables: {
                   hasCreated: true,
