@@ -57,7 +57,6 @@ const Login: React.FC<{}> = ({}) => {
         </Flex>
         <Stack
           width={"100%"}
-          pt={12}
           mx={4}
           alignItems={"center"}
           justifyContent={"center"}
