@@ -8,6 +8,7 @@ import {
   Link,
   Stack,
   Text,
+  Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -15,7 +16,12 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
+import {
+  MeDocument,
+  MeQuery,
+  useLoginMutation,
+  useUpdateFeedbackMutation,
+} from "../generated/graphql";
 import newLogo from "../images/Logos/newLogo.png";
 import { toErrorMap } from "../utils/toErrorMap";
 import { Event, PageView } from "../libs/tracking";
@@ -27,11 +33,12 @@ const Login: React.FC<{}> = ({}) => {
 
   const router = useRouter();
   const [login] = useLoginMutation();
+  const [updateFeedback] = useUpdateFeedbackMutation();
 
   return (
     <Flex
       height={"100vh"}
-      maxH={"100vh"}
+      minH={"120vh"}
       alignItems={"flex-start"}
       justifyContent={"center"}
       bg={"gray.800"}
@@ -72,8 +79,15 @@ const Login: React.FC<{}> = ({}) => {
           <CenteredContainer marginTop="20px">
             <Stack spacing={4} w={"100%"}>
               <Formik
-                initialValues={{ email: "", password: "" }}
-                onSubmit={async ({ password, email }, { setErrors }) => {
+                initialValues={{ email: "", password: "", feedback: "" }}
+                onSubmit={async (
+                  { password, email, feedback },
+                  { setErrors }
+                ) => {
+                  console.log("FEEDBACK");
+                  console.log(email);
+                  console.log(password);
+                  console.log(feedback);
                   const response = await login({
                     variables: {
                       password,
@@ -92,6 +106,11 @@ const Login: React.FC<{}> = ({}) => {
                   if (response.data?.login.errors) {
                     setErrors(toErrorMap(response.data.login.errors));
                   } else if (response.data?.login.user) {
+                    await updateFeedback({
+                      variables: {
+                        feedback: feedback,
+                      },
+                    });
                     if (typeof router.query.next === "string") {
                       router.push(router.query.next);
                     } else {
@@ -103,8 +122,8 @@ const Login: React.FC<{}> = ({}) => {
                 {({ isSubmitting }) => (
                   <Form>
                     <Box>
-                      <Box mr={8} textColor={"gainsboro"}>
-                        <Box fontFamily={"ubuntu"} textColor={"gainsboro"}>
+                      <Box fontFamily={"ubuntu"} mr={8} textColor={"gainsboro"}>
+                        <Box textColor={"gainsboro"}>
                           <p>Email</p>
                           <InputField
                             name="email"
@@ -112,17 +131,24 @@ const Login: React.FC<{}> = ({}) => {
                             placeholder="Email"
                           />
                         </Box>
-                        <Box
-                          mt={4}
-                          fontFamily={"ubuntu"}
-                          textColor={"gainsboro"}
-                        >
+                        <Box mt={4} textColor={"gainsboro"}>
                           <p>Password</p>
                           <InputField
                             name="password"
                             label=""
                             placeholder="Password"
                             type="password"
+                          />
+                        </Box>
+                        <p>Do you have any feedback for the site?</p>
+                        <Box mt={4}>
+                          <InputField
+                            // type={"feedback"}
+                            textColor={"gainsboro"}
+                            name="feedback"
+                            placeholder="Optional but welcome!"
+                            label=""
+                            isField={true}
                           />
                         </Box>
                       </Box>
