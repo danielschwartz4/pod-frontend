@@ -71,7 +71,7 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
       </Flex>
       <Flex mt={-4}>
         <Text mx={"auto"} fontSize={14}>
-          Last update: {moment(task?.updatedAt).utc().format("dddd, h:mma")}
+          Last update: {moment(task?.updatedAt).calendar()}
         </Text>
       </Flex>
       <MiniProgressGridSkeleton singleTasksData={singleTasksData} task={task} />
