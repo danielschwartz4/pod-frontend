@@ -30,7 +30,6 @@ interface MainDashProps {
   singleTasksData: SingleTasksQuery;
   refetchSingleTasks: () => void;
   recentPodSingleTasksData: SingleTasksQuery;
-  reward;
 }
 
 export const MainDash: React.FC<MainDashProps> = ({
@@ -38,7 +37,6 @@ export const MainDash: React.FC<MainDashProps> = ({
   singleTasksData,
   refetchSingleTasks,
   recentPodSingleTasksData,
-  reward,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <Box>Loading...</Box>;
@@ -109,7 +107,6 @@ export const MainDash: React.FC<MainDashProps> = ({
               rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
               myTaskData={myTaskData}
               refetchSingleTasks={refetchSingleTasks}
-              reward={reward}
             />
           </Box>
         </Flex>

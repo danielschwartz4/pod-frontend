@@ -18,7 +18,6 @@ interface TaskCircleProps {
   rangeStart: Date;
   task: RecurringTaskQuery;
   isToday: boolean;
-  reward;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
@@ -31,7 +30,6 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   rangeStart,
   task,
   isToday,
-  reward,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -55,7 +53,6 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
       completedCount={completedCount}
       rangeStart={rangeStart}
       _status={_status}
-      reward={reward}
     >
       <Box
         onClick={() => {
