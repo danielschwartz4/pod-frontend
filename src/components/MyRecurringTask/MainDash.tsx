@@ -40,7 +40,7 @@ export const MainDash: React.FC<MainDashProps> = ({
   recentPodSingleTasksData,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
-    return <Box>Loading...</Box>;
+    return <></>;
   }
 
   const singleTasksToToday = singleTasksToTodayHelper(

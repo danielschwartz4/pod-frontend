@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import WidgetBot from "@widgetbot/react-embed";
 import React from "react";
 import { TODAY } from "../../constants";
 import {
@@ -6,15 +7,13 @@ import {
   PodTasksQuery,
   RecentPodSingleTasksQuery,
   RecurringTask,
-  SingleTasksQuery,
 } from "../../generated/graphql";
 import { daysEqual } from "../../utils/getConsistency";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
+import Tour from "../Tour";
+import { discordPodChannels } from "./DiscordPodChannel";
 import PodCard from "./PodCard";
 import { PodTaskCompletion } from "./PodTaskCompletion";
-import WidgetBot from "@widgetbot/react-embed";
-import { discordPodChannels } from "./DiscordPodChannel";
-import Tour from "../Tour";
 
 interface PodCreatedProps {
   tasksData: PodTasksQuery;

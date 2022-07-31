@@ -104,7 +104,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   return (
     <Box h={"100%"} w={"100%"}>
       {tasksDataLoading || taskDataLoading ? (
-        <Box color={"gainsboro"}>loading...</Box>
+        <></>
       ) : podJoined && _podTasks ? (
         <div>
           <PodNavBar

@@ -73,7 +73,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               />
             ) : (
               <Flex mt={16}>
-                <Text mx={"auto"} textColor={"gainsboro"}>
+                <Text fontSize={30} mx={"auto"} textColor={"gainsboro"}>
                   Dashboard loading...
                 </Text>
               </Flex>
@@ -81,7 +81,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
           </Box>
 
           <Box mt={16}>
-            {!podDataLoading ? (
+            {!podDataLoading && !taskDataLoading ? (
               <MyPod
                 podData={podData}
                 meData={meData}
@@ -95,7 +95,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               />
             ) : (
               <Flex mt={16}>
-                <Text mx={"auto"} textColor={"gainsboro"}>
+                <Text fontSize={30} mx={"auto"} textColor={"gainsboro"}>
                   Pods loading...
                 </Text>
               </Flex>
