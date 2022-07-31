@@ -385,6 +385,7 @@ export type RecurringTask = {
   singleTasks?: Maybe<Array<SingleTask>>;
   startDate: Scalars['DateTime'];
   taskName: Scalars['String'];
+  taskType: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user?: Maybe<User>;
   userId: Scalars['Int'];
@@ -402,6 +403,7 @@ export type RecurringTaskInput = {
   overview: Scalars['String'];
   startDate?: InputMaybe<Scalars['DateTime']>;
   taskName: Scalars['String'];
+  taskType: Scalars['String'];
   userId: Scalars['Float'];
 };
 
@@ -480,7 +482,7 @@ export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, 
 
 export type RegularProjectFragment = { __typename?: 'Project', userId: number, id: number, milestoneDates: Array<string>, milestones: Array<string>, milestoneProgress: Array<number>, createdAt: any, updatedAt: any, overview: string, podId?: number | null, projectName: string, friendProposals?: Array<string> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null };
 
-export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null };
+export type RegularRecurringTaskFragment = { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null };
 
 export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes?: string | null, userId: number, taskId: number, updatedAt: any, createdAt: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null };
 
@@ -580,7 +582,7 @@ export type CreateRecurringTaskMutationVariables = Exact<{
 }>;
 
 
-export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
+export type CreateRecurringTaskMutation = { __typename?: 'Mutation', createRecurringTask: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
 
 export type DeleteRecurringTaskMutationVariables = Exact<{
   deleteRecurringTaskId: Scalars['Float'];
@@ -595,7 +597,7 @@ export type UpdateCompletedCountMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCompletedCountMutation = { __typename?: 'Mutation', updateCompletedCount: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
+export type UpdateCompletedCountMutation = { __typename?: 'Mutation', updateCompletedCount: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
 
 export type UpdateTaskFriendProposalsMutationVariables = Exact<{
   updateTaskFriendProposalsId: Scalars['Float'];
@@ -605,7 +607,7 @@ export type UpdateTaskFriendProposalsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTaskFriendProposalsMutation = { __typename?: 'Mutation', updateTaskFriendProposals?: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } | null };
+export type UpdateTaskFriendProposalsMutation = { __typename?: 'Mutation', updateTaskFriendProposals?: { __typename?: 'RecurringTaskResponse', errors?: string | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } | null };
 
 export type UpdateTaskNameMutationVariables = Exact<{
   taskName: Scalars['String'];
@@ -613,7 +615,7 @@ export type UpdateTaskNameMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTaskNameMutation = { __typename?: 'Mutation', updateTaskName: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
+export type UpdateTaskNameMutation = { __typename?: 'Mutation', updateTaskName: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
 
 export type UpdateTaskPodMutationVariables = Exact<{
   podId: Scalars['Float'];
@@ -621,7 +623,7 @@ export type UpdateTaskPodMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTaskPodMutation = { __typename?: 'Mutation', updateTaskPod: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
+export type UpdateTaskPodMutation = { __typename?: 'Mutation', updateTaskPod: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } };
 
 export type AddSingleTaskMutationVariables = Exact<{
   singleTaskOptions: SingleTaskInput;
@@ -778,19 +780,19 @@ export type PodTasksQueryVariables = Exact<{
 }>;
 
 
-export type PodTasksQuery = { __typename?: 'Query', podTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null }> | null };
+export type PodTasksQuery = { __typename?: 'Query', podTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null }> | null };
 
 export type RecurringTaskQueryVariables = Exact<{
   recurringTaskId: Scalars['Int'];
 }>;
 
 
-export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } | null };
+export type RecurringTaskQuery = { __typename?: 'Query', recurringTask?: { __typename?: 'RecurringTaskFieldResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } | null };
 
 export type RecurringTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null }> | null };
+export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null }> | null };
 
 export type RecentPodSingleTasksQueryVariables = Exact<{
   taskIds: Array<Scalars['Int']> | Scalars['Int'];
@@ -884,6 +886,7 @@ export const RegularRecurringTaskFragmentDoc = gql`
   overview
   podId
   taskName
+  taskType
   cursorDate
   friendProposals
   completedCount

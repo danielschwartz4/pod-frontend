@@ -1,21 +1,12 @@
-import {
-  Box,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { RiFlowChart, RiRepeatLine } from "react-icons/ri";
+import { RiRepeatLine } from "react-icons/ri";
 import { Layout } from "../components/Layout";
-import ProjectForm from "../components/ProjectInfo/ProjectForm";
 import RecurringTaskForm from "../components/ProjectInfo/RecurringTaskForm";
 import { useMeQuery } from "../generated/graphql";
+import { Event, PageView } from "../libs/tracking";
 import { isServer } from "../utils/isServer";
 import { useIsAuth } from "../utils/usIsAuth";
-import { Event, PageView } from "../libs/tracking";
 
 interface ProjectInfoProps {}
 

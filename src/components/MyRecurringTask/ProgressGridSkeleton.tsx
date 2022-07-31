@@ -4,13 +4,11 @@ import {
   ViewIcon,
   ViewOffIcon,
 } from "@chakra-ui/icons";
-import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import React from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
-import { Font } from "../../css/styles";
 import {
   RecurringTaskQuery,
-  SingleTaskDocument,
   SingleTasksQuery,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";

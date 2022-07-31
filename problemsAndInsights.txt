@@ -105,3 +105,6 @@ To need to make sure your creating new object in javascript (see convertToDays f
 
 6-14-22
 retaining base project name for pod projects query :/
+
+7-30-22
+made other so that we could default the other pods
