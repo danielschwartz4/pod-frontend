@@ -70,14 +70,16 @@ const Hero: React.FC<HeroProps> = ({}) => {
         </Flex>
       </Box>
       <Flex justifyContent={"center"} mb={20}>
-        <WidgetBot
-          width={800}
-          height={600}
-          server="1002046685805023344"
-          channel="1002046686350278788"
-        />
+        {typeof window !== "undefined" ? (
+          <WidgetBot
+            width={800}
+            height={600}
+            server="1002046685805023344"
+            channel="1002046686350278788"
+          />
+        ) : null}
       </Flex>
-      <Flex mb={2}>
+      {/* <Flex mb={2}>
         <Box
           p={2}
           gap={[1, 1, 12, 16]}
@@ -90,7 +92,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
             src={teamBuilding.src}
           />
         </Box>
-      </Flex>
+      </Flex> */}
     </Box>
   );
 };
