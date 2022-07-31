@@ -54,9 +54,11 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
 
   const { data: recentPodSingleTasksData } = useRecentPodSingleTasksQuery({
     variables: {
-      taskIds: singleTasksData?.singleTasks?.singleTasks.map((task) => task.id),
+      // taskIds: singleTasksData?.singleTasks?.singleTasks.map((task) => task.id),
+      taskIds: tasksData?.podTasks?.map((task) => task.id),
     },
   });
+  console.log(recentPodSingleTasksData);
 
   return (
     <>
