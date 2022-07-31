@@ -83,6 +83,7 @@ export const MyPod: React.FC<MyPodProps> = ({
       cap: podSize,
       projectId: projectData?.project?.project.id,
       sessionType: "project",
+      taskType: "other",
     },
   });
 
