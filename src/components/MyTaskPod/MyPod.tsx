@@ -106,14 +106,14 @@ export const MyPod: React.FC<MyPodProps> = ({
         <Box color={"gainsboro"}>loading...</Box>
       ) : podJoined && _podTasks ? (
         <div>
-          {/* <PodNavBar
+          <PodNavBar
             hasExit={true}
             myTaskData={myTaskData}
             podData={podData}
             removeProjectFromPod={removeProjectFromPod}
             updateTaskPod={updateTaskPod}
             setPodJoined={setPodJoined}
-          /> */}
+          />
           <PodCreated
             podCap={podData?.pod?.pod?.cap}
             meData={meData}

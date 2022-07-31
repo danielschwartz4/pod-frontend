@@ -1,8 +1,9 @@
 import { Box, Flex, Text, useToast } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Layout } from "../../components/Layout";
 import { MainDash } from "../../components/MyRecurringTask/MainDash";
 import { MyPod } from "../../components/MyTaskPod/MyPod";
+import Tour from "../../components/Tour";
 import {
   useMeQuery,
   usePodQuery,
@@ -10,22 +11,14 @@ import {
   useRecentPodSingleTasksQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
-import { PageView } from "../../libs/tracking";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
-import Confetti from "react-dom-confetti";
-import { useReward } from "react-rewards";
 
 interface TaskHomeProps {}
 
 const TaskHome: React.FC<TaskHomeProps> = ({}) => {
-  useEffect(() => PageView(), []);
+  // useEffect(() => PageView(), []);
   useIsAuth();
-
-  const [changeTab, useChangeTab] = useState<string>("task");
-  const [keepMounted, setKeepMounted] = useState(true);
-
-  const TEMP_BOOL = true;
 
   const { data: meData } = useMeQuery({});
 
@@ -65,60 +58,52 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     },
   });
 
-  const steps = [
-    {
-      selector: ".first-step",
-      content: "This is my first Step",
-    },
-    // ...
-  ];
-
-  const { reward, isAnimating } = useReward("rewardId", "confetti");
-
   return (
-    <Layout withHelpPopover={true}>
-      <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
-        <Box minH={"400px"}>
-          {!taskDataLoading && !singleTasksDataLoading ? (
-            <MainDash
-              recentPodSingleTasksData={recentPodSingleTasksData}
-              singleTasksData={singleTasksData}
-              myTaskData={myTaskData}
-              refetchSingleTasks={refetchSingleTasks}
-              reward={reward}
-            />
-          ) : (
-            <Flex mt={16}>
-              <Text mx={"auto"} textColor={"gainsboro"}>
-                Dashboard loading...
-              </Text>
-            </Flex>
-          )}
-        </Box>
+    <>
+      <Tour />
+      <Layout withHelpPopover={true}>
+        <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
+          <Box minH={"400px"}>
+            {!taskDataLoading && !singleTasksDataLoading ? (
+              <MainDash
+                recentPodSingleTasksData={recentPodSingleTasksData}
+                singleTasksData={singleTasksData}
+                myTaskData={myTaskData}
+                refetchSingleTasks={refetchSingleTasks}
+              />
+            ) : (
+              <Flex mt={16}>
+                <Text mx={"auto"} textColor={"gainsboro"}>
+                  Dashboard loading...
+                </Text>
+              </Flex>
+            )}
+          </Box>
 
-        <Box mt={16}>
-          {!podDataLoading ? (
-            <MyPod
-              podData={podData}
-              meData={meData}
-              tasksData={tasksData}
-              taskDataLoading={taskDataLoading}
-              tasksDataLoading={tasksDataLoading}
-              myTaskData={myTaskData}
-              refetchTask={refetchTask}
-              refetchTasks={refetchTasks}
-              recentPodSingleTasksData={recentPodSingleTasksData}
-            />
-          ) : (
-            <Flex mt={16}>
-              <Text mx={"auto"} textColor={"gainsboro"}>
-                Pods loading...
-              </Text>
-            </Flex>
-          )}
+          <Box mt={16}>
+            {!podDataLoading ? (
+              <MyPod
+                podData={podData}
+                meData={meData}
+                tasksData={tasksData}
+                taskDataLoading={taskDataLoading}
+                tasksDataLoading={tasksDataLoading}
+                myTaskData={myTaskData}
+                refetchTask={refetchTask}
+                refetchTasks={refetchTasks}
+                recentPodSingleTasksData={recentPodSingleTasksData}
+              />
+            ) : (
+              <Flex mt={16}>
+                <Text mx={"auto"} textColor={"gainsboro"}>
+                  Pods loading...
+                </Text>
+              </Flex>
+            )}
+          </Box>
         </Box>
-      </Box>
-    </Layout>
+      </Layout>
+    </>
   );
 };
 

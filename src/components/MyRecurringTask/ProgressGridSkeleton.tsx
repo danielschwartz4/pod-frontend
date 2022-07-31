@@ -26,7 +26,6 @@ interface ProgressGridSkeletonProps {
   rangeStart: Date;
   myTaskData: RecurringTaskQuery;
   refetchSingleTasks: () => void;
-  reward;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
@@ -36,7 +35,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   rangeStart,
   myTaskData,
   refetchSingleTasks,
-  reward,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -115,17 +113,30 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
 
         {Object.keys(filledArr).map((i) => {
           if (filledArr[i] == null || filledArr[i] == undefined) {
+            const status = filledArr[i]?.status;
             return (
               <GridItem key={i} opacity={"70%"}>
-                <TaskCircle
-                  task={myTaskData}
-                  icon={SmallCloseIcon}
-                  status={filledArr[i]?.status}
-                  isInteractive={false}
-                  rangeStart={rangeStart}
-                  isToday={filledArr[i] === undefined}
-                  reward={reward}
-                />
+                {i == "0" ? (
+                  <Box className="task-circle">
+                    <TaskCircle
+                      task={myTaskData}
+                      icon={SmallCloseIcon}
+                      status={status}
+                      isInteractive={false}
+                      rangeStart={rangeStart}
+                      isToday={filledArr[i] === undefined}
+                    />
+                  </Box>
+                ) : (
+                  <TaskCircle
+                    task={myTaskData}
+                    icon={SmallCloseIcon}
+                    status={status}
+                    isInteractive={false}
+                    rangeStart={rangeStart}
+                    isToday={filledArr[i] === undefined}
+                  />
+                )}
               </GridItem>
             );
           } else {

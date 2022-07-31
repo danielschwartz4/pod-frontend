@@ -22,6 +22,7 @@ import {
   singleTasksToTodayHelper,
 } from "../../utils/getDayRanges";
 import NotificationCenter from "../MyTaskPod/NotificationCenter";
+import Tour from "../Tour";
 import { CircularTaskProgress } from "./CircularTaskProgress";
 import { ProgressGridSkeleton } from "./ProgressGridSkeleton";
 
@@ -30,7 +31,6 @@ interface MainDashProps {
   singleTasksData: SingleTasksQuery;
   refetchSingleTasks: () => void;
   recentPodSingleTasksData: SingleTasksQuery;
-  reward;
 }
 
 export const MainDash: React.FC<MainDashProps> = ({
@@ -38,7 +38,6 @@ export const MainDash: React.FC<MainDashProps> = ({
   singleTasksData,
   refetchSingleTasks,
   recentPodSingleTasksData,
-  reward,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <Box>Loading...</Box>;
@@ -56,83 +55,86 @@ export const MainDash: React.FC<MainDashProps> = ({
   });
 
   return (
-    <Flex width={"100%"} p={4} justifyContent={"center"}>
-      <Box mr={{ lg: 4, xl: 16 }}>
-        <Flex
-          // mt={-2}
-          alignItems={"center"}
-        >
-          <Box>
+    <>
+      <Tour />
+      <Flex width={"100%"} p={4} justifyContent={"center"}>
+        <Box mr={{ lg: 4, xl: 16 }} className={"calendar"}>
+          <Flex
+            // mt={-2}
+            alignItems={"center"}
+          >
+            <Box>
+              <CircularTaskProgress
+                taskLength={singleTasksToToday.length}
+                completedCount={completedCount}
+                title={"All time consistency"}
+                variant={"allTime"}
+              />
+            </Box>
+            <Heading
+              mx={"auto"}
+              fontSize={"30px"}
+              fontFamily={"ubuntu"}
+              textColor="gainsboro"
+            >
+              {myTaskData?.recurringTask?.task?.taskName}
+            </Heading>
             <CircularTaskProgress
-              taskLength={singleTasksToToday.length}
+              taskLength={singleTasksRangeDays.length}
               completedCount={completedCount}
-              title={"All time consistency"}
-              variant={"allTime"}
+              title={"Last 7 tasks' consistency"}
+              variant={"week"}
             />
-          </Box>
-          <Heading
-            mx={"auto"}
-            fontSize={"30px"}
+          </Flex>
+          <Flex justifyContent={"center"}>
+            <span id="rewardId" />
+          </Flex>
+          <Flex
+            fontSize={["16px", "20px"]}
             fontFamily={"ubuntu"}
-            textColor="gainsboro"
+            alignItems={"center"}
+            my={-4}
+            className={"daily-question"}
           >
-            {myTaskData?.recurringTask?.task?.taskName}
-          </Heading>
-          <CircularTaskProgress
-            taskLength={singleTasksRangeDays.length}
-            completedCount={completedCount}
-            title={"Last 7 tasks' consistency"}
-            variant={"week"}
-          />
-        </Flex>
-        <Flex justifyContent={"center"}>
-          <span id="rewardId" />
-        </Flex>
+            <Text textColor="#FFDC93">Today’s Question: &ensp; </Text>
+            <Text textColor="gainsboro" mx={"auto"} maxW={"99%"}>
+              How did you feel after completing your task?
+            </Text>
+          </Flex>
+          <Flex>
+            <Box mx={"auto"}>
+              <ProgressGridSkeleton
+                setCompletedCount={setCompletedCount}
+                completedCount={completedCount}
+                singleTasksData={singleTasksData}
+                rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
+                myTaskData={myTaskData}
+                refetchSingleTasks={refetchSingleTasks}
+              />
+            </Box>
+          </Flex>
+        </Box>
 
-        <Flex
-          fontSize={["16px", "20px"]}
-          fontFamily={"ubuntu"}
-          alignItems={"center"}
-          my={-4}
+        <Box
+          ml={{ lg: 4, xl: 16 }}
+          display={{ base: "none", sm: "none", md: "none", lg: "block" }}
+          className={"pod-updates"}
         >
-          <Text textColor="#FFDC93">Today’s Question: &ensp; </Text>
-          <Text textColor="gainsboro" mx={"auto"} maxW={"99%"}>
-            How did you feel after completing your task?
-          </Text>
-        </Flex>
-        <Flex>
-          <Box mx={"auto"}>
-            <ProgressGridSkeleton
-              setCompletedCount={setCompletedCount}
-              completedCount={completedCount}
-              singleTasksData={singleTasksData}
-              rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
-              myTaskData={myTaskData}
-              refetchSingleTasks={refetchSingleTasks}
-              reward={reward}
-            />
-          </Box>
-        </Flex>
-      </Box>
-
-      <Box
-        ml={{ lg: 4, xl: 16 }}
-        display={{ base: "none", sm: "none", md: "none", lg: "block" }}
-      >
-        <Flex>
-          <Heading
-            mx={"auto"}
-            fontSize={"30px"}
-            fontFamily={"ubuntu"}
-            textColor="gainsboro"
-          >
-            Pod updates
-          </Heading>
-        </Flex>
-        <NotificationCenter
-          recentPodSingleTasksData={recentPodSingleTasksData}
-        />
-      </Box>
-    </Flex>
+          <Flex>
+            <Heading
+              mx={"auto"}
+              fontSize={"30px"}
+              fontFamily={"ubuntu"}
+              textColor="gainsboro"
+            >
+              Pod updates
+            </Heading>
+          </Flex>
+          <NotificationCenter
+            recentPodSingleTasksData={recentPodSingleTasksData}
+          />
+        </Box>
+      </Flex>
+    </>
   );
 };

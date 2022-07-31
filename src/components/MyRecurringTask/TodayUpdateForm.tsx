@@ -19,6 +19,7 @@ import { addDays } from "../../utils/singleTaskUtils";
 import { generateSms } from "../../utils/taskSmsBody";
 import NotesForm from "./NotesForm";
 import { Event } from "../../libs/tracking";
+import { useReward } from "react-rewards";
 
 interface TodayUpdateFormProps {
   completedNote: Boolean;
@@ -31,7 +32,6 @@ interface TodayUpdateFormProps {
   rangeStart: Date;
   task: RecurringTaskQuery;
   _status: string;
-  reward;
 }
 
 const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
@@ -45,7 +45,6 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   setCompletedCount,
   rangeStart,
   task,
-  reward,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -53,10 +52,10 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
 
   const toast = useToast();
+  const { reward, isAnimating } = useReward("rewardId", "confetti");
 
   const [singleTasksQuery, { data: singleTasksData }] =
     useSingleTasksLazyQuery();
-
   const [podQuery, { data: podData }] = usePodLazyQuery();
   const [podUsersQuery, { data: usersData }] = usePodUsersLazyQuery();
   const [meQuery, { data: meData }] = useMeLazyQuery();
@@ -152,7 +151,6 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
 
   return (
     <NotesForm singleTask={singleTask} setCompletedNote={setCompletedNote}>
-      <button onClick={reward}>click hereasdas</button>
       <PopoverFooter d="flex" justifyContent="center">
         <ButtonGroup size="sm">
           <Button
@@ -191,7 +189,6 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           <Button
             onClick={async () => {
               if (completedNote) {
-                reward;
                 Event(
                   "Desktop",
                   "Completed Button, user" + task.recurringTask.task.userId,
@@ -207,10 +204,12 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 if (response) {
                   setStatus("completed");
                   if (_status != "completed") {
+                    reward();
                     setCompletedCountHandler(true);
                     toast({
                       title: "Congrats!",
-                      description: "Your pod has been alerted!.",
+                      description:
+                        "You'll get an email when your next task is approaching",
                       status: "success",
                       duration: 9000,
                       isClosable: true,
@@ -233,7 +232,6 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           >
             Completed!
           </Button>
-          <button onClick={reward}></button>
         </ButtonGroup>
       </PopoverFooter>
     </NotesForm>
