@@ -51,6 +51,7 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
             username: user["given_name"],
             email: user["email"],
             password: "google",
+            feedback: null,
           },
         },
         update: (cache, { data }) => {
