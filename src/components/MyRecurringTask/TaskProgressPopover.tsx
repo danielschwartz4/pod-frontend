@@ -50,7 +50,6 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
         placement="bottom"
         closeOnBlur={false}
       >
-        <button onClick={props.reward}>confetti works</button>
         <PopoverTrigger>{props.children}</PopoverTrigger>
         <PopoverContent p={2} backgroundColor={"white"}>
           {daysAreEqual ? (
@@ -87,7 +86,6 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
             <PopoverHeader fontWeight="semibold">Your notes</PopoverHeader>
           )}
           <PopoverCloseButton cursor={"pointer"} />
-          <button onClick={props.reward}>confetti doesn't work</button>
           <PopoverBody mt={0} padding={"0px 10px 0px 10px"}>
             {daysAreEqual ||
             (isBefore && props.singleTask?.status == "overdue") ? (

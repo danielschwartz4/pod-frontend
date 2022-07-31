@@ -12,6 +12,8 @@ import React from "react";
 import { useMeQuery } from "../../generated/graphql";
 import teamBuilding from "../../images/Hero/teamBuilding.jpg";
 import { Event } from "../../libs/tracking";
+import WidgetBot from "@widgetbot/react-embed";
+import { discordPodChannels } from "../MyTaskPod/DiscordPodChannel";
 
 interface HeroProps {}
 
@@ -67,7 +69,15 @@ const Hero: React.FC<HeroProps> = ({}) => {
           </Box>
         </Flex>
       </Box>
-      <Flex mb={4}>
+      <Flex justifyContent={"center"} mb={20}>
+        <WidgetBot
+          width={800}
+          height={600}
+          server="1002046685805023344"
+          channel="1002046686350278788"
+        />
+      </Flex>
+      <Flex mb={2}>
         <Box
           p={2}
           gap={[1, 1, 12, 16]}
