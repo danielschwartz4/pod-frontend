@@ -29,13 +29,14 @@ const EndTaskSelection: React.FC<EndTaskSelectionProps> = ({
   }, [endOptionsSelector]);
 
   return (
-    <Box width={"250px"} color={"gainsboro"}>
+    <Box width={"240px"} color={"gainsboro"}>
       <FormControl isInvalid={!!error}>
         <Select
           {...field}
-          color={"gainsboro"}
+          height={"44px"}
+          textColor={endOptionsSelector == "none" ? "grey" : "gainsboro"}
           label="End Task"
-          textColor={"gainsboro"}
+          borderColor={"gainsboro"}
           cursor={"pointer"}
           name="dropdown"
           placeholder={"End this task..."}

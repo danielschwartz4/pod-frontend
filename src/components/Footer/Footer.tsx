@@ -1,4 +1,11 @@
-import { Box, Flex, useColorModeValue, Text, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  useColorModeValue,
+  Text,
+  Image,
+  Stack,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import newLogo from "../../images/Logos/newLogo.png";
 
@@ -22,9 +29,11 @@ export default function LargeWithNewsletter() {
         {" | "}
         <Image mx={2} cursor={"pointer"} w={100} src={newLogo.src} alt="" />
         {" | "}
-        <Text mx={2} as="span">
-          Contact: schwartzray8@gmail.com
-        </Text>
+        <Box mx={2}>
+          <Text as="span"> schwartzray8@gmail.com</Text>
+          {/* Don't know how to make this look good lol */}
+          {/* <Text as="span"> 1kevin.huang@gmail.com</Text> */}
+        </Box>
       </Flex>
     </Flex>
   );

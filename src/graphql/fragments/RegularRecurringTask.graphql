@@ -10,6 +10,7 @@ fragment RegularRecurringTask on RecurringTask {
   overview
   podId
   taskName
+  taskType
   cursorDate
   friendProposals
   completedCount

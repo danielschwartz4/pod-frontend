@@ -14,7 +14,11 @@ import {
   useUpdateTaskPodMutation,
 } from "../../generated/graphql";
 import { Event } from "../../libs/tracking";
-import { DaysType, EndOptionsSelectorType } from "../../types/types";
+import {
+  DaysType,
+  EndOptionsSelectorType,
+  TaskTypeSelectorType,
+} from "../../types/types";
 import { sendMessage } from "../../utils/messaging/sendMessage";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
@@ -23,6 +27,7 @@ import { joinPod } from "../MyTaskPod/JoinExit";
 import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import RepetitionStepper from "./RepetitionStepperField";
+import TaskTypeSelection from "./TaskTypeSelection";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -31,6 +36,8 @@ interface RecurringTaskProps {
 const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [endOptionsSelector, setEndOptionsSelector] =
     React.useState<EndOptionsSelectorType>("none");
+  const [taskTypeSelector, setTaskTypeSelector] =
+    React.useState<TaskTypeSelectorType>("exercise");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
   const [findPublicPods, { data, loading: podsLoading }] =
@@ -47,7 +54,8 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
       <Formik
         initialValues={{
           overview: "",
-          projectName: "",
+          taskName: "",
+          taskType: "exercise",
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
           days: {
@@ -61,7 +69,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           } as DaysType,
         }}
         onSubmit={async (
-          { overview, projectName, startDate, endOptions, days },
+          { overview, taskName, taskType, startDate, endOptions, days },
           { setErrors }
         ) => {
           const response = await createRecurringTask({
@@ -69,7 +77,8 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
               recurringTaskOptions: {
                 userId: meData?.me.id,
                 overview: overview,
-                projectName: projectName,
+                taskName: taskName,
+                taskType: taskType,
                 startDate: startDate,
                 endOptions: endOptions,
                 days: days,
@@ -91,6 +100,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 variables: {
                   cap: 4,
                   projectId: response?.data?.createRecurringTask?.task?.id,
+                  taskType: response?.data?.createRecurringTask?.task?.taskType,
                   sessionType: "task",
                 },
               });
@@ -99,8 +109,10 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   4,
                   availablePodsData?.data,
                   response?.data?.createRecurringTask?.task?.id,
+                  response?.data?.createRecurringTask?.task?.taskType,
                   createPod,
                   updateTaskPod,
+
                   addProjectToPod
                 );
               }
@@ -128,14 +140,43 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           <Form>
             <Box>
               <Box mr={8} color={"gainsboro"}>
-                <Font style={{ fontSize: "18px" }}>Overview</Font>
-                <InputField
-                  color="grey"
-                  name="overview"
-                  placeholder="Enter a brief overview of your project for your pod members"
-                  label=""
-                  isField={true}
-                />
+                <Flex
+                  display={["block", "flex"]}
+                  mb={4}
+                  justifyContent={"space-between"}
+                >
+                  <Box>
+                    <Font style={{ fontSize: "18px" }}>Task name</Font>
+                    <Box maxW={"200px"}>
+                      <InputField
+                        color="grey"
+                        name="taskName"
+                        placeholder="e.g. Getting jacked!"
+                        label=""
+                      />
+                    </Box>
+                  </Box>
+                  <Box mt={[4, 0]}>
+                    <Font style={{ fontSize: "18px" }}>Task category</Font>
+                    <Box maxW={"200px"}>
+                      <TaskTypeSelection
+                        name={"taskType"}
+                        taskTypeSelector={taskTypeSelector}
+                        setTaskTypeSelector={setTaskTypeSelector}
+                      />
+                    </Box>
+                  </Box>
+                </Flex>
+                <Box>
+                  <Font style={{ fontSize: "18px" }}>Overview</Font>
+                  <InputField
+                    color="grey"
+                    name="overview"
+                    placeholder="e.g. I'm going to run a mile on Mondays, Wednesdays, and Fridays until the end of the summer"
+                    label=""
+                    isField={true}
+                  />
+                </Box>
                 <Divider mx={"auto"} mt={4} color={"grey"} />
 
                 <Box mt={4} maxW={"200px"}>
@@ -155,7 +196,6 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 >
                   <Box>
                     <Font style={{ fontSize: "18px" }}>End options</Font>
-
                     <EndTaskSelection
                       endOptionsSelector={endOptionsSelector}
                       name={"endOptions"}
@@ -185,7 +225,6 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 <Font style={{ fontSize: "18px", marginBottom: "10px" }}>
                   Select the days you would like your task to recur
                 </Font>
-
                 <DayPicker name={"days"} />
               </Box>
               <Button
