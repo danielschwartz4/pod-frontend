@@ -48,6 +48,7 @@ export type Mutation = {
   register: UserResponse;
   removeProjectFromPod: PodResponse;
   updateCompletedCount: RecurringTaskResponse;
+  updateFeedback?: Maybe<UserResponse>;
   updateHasCreatedTask: UserResponse;
   updateMessagingSettings: UserResponse;
   updatePhone?: Maybe<UserResponse>;
@@ -142,6 +143,11 @@ export type MutationRemoveProjectFromPodArgs = {
 export type MutationUpdateCompletedCountArgs = {
   completedCount: CompletedCountInput;
   id: Scalars['Float'];
+};
+
+
+export type MutationUpdateFeedbackArgs = {
+  feedback: Scalars['String'];
 };
 
 
@@ -457,6 +463,7 @@ export type User = {
   avatar?: Maybe<Scalars['Int']>;
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
+  feedback: Scalars['String'];
   friendRequests?: Maybe<Array<Scalars['JSONObject']>>;
   hasCreatedTask: Scalars['Boolean'];
   id: Scalars['Int'];
@@ -477,6 +484,7 @@ export type UserResponse = {
 
 export type UsernamePasswordInput = {
   email: Scalars['String'];
+  feedback: Scalars['String'];
   password: Scalars['String'];
   username: Scalars['String'];
 };
@@ -714,6 +722,13 @@ export type RegisterMutationVariables = Exact<{
 
 
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } };
+
+export type UpdateFeedbackMutationVariables = Exact<{
+  feedback: Scalars['String'];
+}>;
+
+
+export type UpdateFeedbackMutation = { __typename?: 'Mutation', updateFeedback?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null };
 
 export type UpdateMessagingSettingsMutationVariables = Exact<{
   messagingSettings: Scalars['JSONObject'];
@@ -2014,6 +2029,45 @@ export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<Reg
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export const UpdateFeedbackDocument = gql`
+    mutation UpdateFeedback($feedback: String!) {
+  updateFeedback(feedback: $feedback) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}
+    ${RegularUserFragmentDoc}`;
+export type UpdateFeedbackMutationFn = Apollo.MutationFunction<UpdateFeedbackMutation, UpdateFeedbackMutationVariables>;
+
+/**
+ * __useUpdateFeedbackMutation__
+ *
+ * To run a mutation, you first call `useUpdateFeedbackMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFeedbackMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFeedbackMutation, { data, loading, error }] = useUpdateFeedbackMutation({
+ *   variables: {
+ *      feedback: // value for 'feedback'
+ *   },
+ * });
+ */
+export function useUpdateFeedbackMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFeedbackMutation, UpdateFeedbackMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFeedbackMutation, UpdateFeedbackMutationVariables>(UpdateFeedbackDocument, options);
+      }
+export type UpdateFeedbackMutationHookResult = ReturnType<typeof useUpdateFeedbackMutation>;
+export type UpdateFeedbackMutationResult = Apollo.MutationResult<UpdateFeedbackMutation>;
+export type UpdateFeedbackMutationOptions = Apollo.BaseMutationOptions<UpdateFeedbackMutation, UpdateFeedbackMutationVariables>;
 export const UpdateMessagingSettingsDocument = gql`
     mutation UpdateMessagingSettings($messagingSettings: JSONObject!) {
   updateMessagingSettings(messagingSettings: $messagingSettings) {

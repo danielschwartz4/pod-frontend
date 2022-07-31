@@ -1,0 +1,11 @@
+mutation UpdateFeedback($feedback: String!) {
+  updateFeedback(feedback: $feedback) {
+    errors {
+      field
+      message
+    }
+    user {
+      ...RegularUser
+    }
+  }
+}

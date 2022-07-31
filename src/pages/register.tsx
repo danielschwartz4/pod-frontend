@@ -7,20 +7,19 @@ import {
   Link,
   Stack,
   Text,
-  useColorModeValue,
+  Textarea,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { InputField } from "../components/Inputs/InputField";
+import { CenteredContainer } from "../css/styles";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import newLogo from "../images/Logos/newLogo.png";
+import { Event, PageView } from "../libs/tracking";
 import { sendMessage } from "../utils/messaging/sendMessage";
 import { toErrorMap } from "../utils/toErrorMap";
-import { Event, PageView } from "../libs/tracking";
-import OAuth from "../components/OAuth/OAuth";
-import { CenteredContainer, LandingDivider } from "../css/styles";
 
 interface registerProps {}
 
@@ -33,7 +32,7 @@ const Register: React.FC<registerProps> = ({}) => {
   return (
     <Flex
       height={"100vh"}
-      maxH={"100vh"}
+      minH={"120vh"}
       alignItems={"flex-start"}
       justifyContent={"center"}
       bg={"gray.800"}
@@ -53,13 +52,17 @@ const Register: React.FC<registerProps> = ({}) => {
         </Flex>
         <Stack
           width={"100%"}
-          pt={12}
           mx={4}
           alignItems={"center"}
           justifyContent={"center"}
         >
           <Stack mb={"30px"} align={"center"} color={"gainsboro"}>
-            <Heading mb={"0px"} fontSize={"4xl"} textAlign={"center"}>
+            <Heading
+              mt={"0px"}
+              mb={"0px"}
+              fontSize={"4xl"}
+              textAlign={"center"}
+            >
               Join the community!
             </Heading>
             <Text color={"gainsboro"} fontFamily={"ubuntu"} fontSize={"lg"}>
@@ -70,7 +73,12 @@ const Register: React.FC<registerProps> = ({}) => {
           <CenteredContainer marginTop="20px">
             <Stack spacing={4} width={"100%"}>
               <Formik
-                initialValues={{ username: "", email: "", password: "" }}
+                initialValues={{
+                  username: "",
+                  email: "",
+                  password: "",
+                  feedback: "",
+                }}
                 onSubmit={async (values, { setErrors }) => {
                   Event(
                     "Desktop",
@@ -133,7 +141,22 @@ const Register: React.FC<registerProps> = ({}) => {
                             label=""
                           />
                         </Box>
+                        <p>
+                          What do you think are successes and challenges for you
+                          when having accountability groups?
+                        </p>
+                        <Box mt={4}>
+                          <InputField
+                            type={"feedback"}
+                            textColor={"gainsboro"}
+                            name="feedback"
+                            placeholder="ex. I’m able to talk daily to my accountability partners"
+                            label=""
+                            isField={true}
+                          />
+                        </Box>
                       </Box>
+
                       <Stack spacing={5} pt={2}>
                         <Box>
                           <Button

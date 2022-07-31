@@ -20,7 +20,7 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
   });
   return (
     <Layout isProfile={true}>
-      <Box mt={[10, 20]} h={"100%"} minH={"90vh"}>
+      <Box mt={[0]} h={"100%"} minH={"90vh"}>
         <Box mt={0} mx={{ base: 2, sm: "auto" }} maxW={"600px"}>
           <Box
             mx={{ base: 2, sm: "auto" }}
