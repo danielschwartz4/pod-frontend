@@ -1,14 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Center,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-  useColorModeValue,
-  Circle,
-} from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import moment from "moment";
 import React from "react";
 import { TODAY } from "../../constants";
@@ -19,14 +9,11 @@ import {
   useMeQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
-import avatarMap from "../../utils/avatarMap";
-import formatDate, { convertFromMilitaryTime } from "../../utils/formatDate";
 import { daysEqual } from "../../utils/getConsistency";
 import {
-  singleTasksToTodayHelper,
   singleTasksRangeDaysHelper,
+  singleTasksToTodayHelper,
 } from "../../utils/getDayRanges";
-import { MiniCircleTaskProgress } from "../MyRecurringTask/MiniCircleTaskProgress";
 import { MiniProgressGridSkeleton } from "../MyRecurringTask/MiniProgressGridSkeleton";
 
 interface PodCardProps {

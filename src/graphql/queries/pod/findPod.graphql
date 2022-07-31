@@ -1,8 +1,0 @@
-query FindPublicPod($projectId: Float!, $cap: Float!, $sessionType: String!) {
-  findPublicPod(projectId: $projectId, cap: $cap, sessionType: $sessionType) {
-    errors
-    pod {
-      ...RegularPod
-    }
-  }
-}

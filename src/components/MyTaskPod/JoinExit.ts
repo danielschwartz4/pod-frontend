@@ -10,11 +10,13 @@ import {
   RemoveProjectFromPodMutationType,
   UpdateTaskPodMutationType,
 } from "../../types/mutationTypes";
+import { TaskTypeSelectorType } from "../../types/types";
 
 export const joinPod = async (
   podSize: number,
   availablePodsData: FindPublicPodQuery,
   taskId: number,
+  taskType: string,
   createPod: CreatePodMutationType,
   updateTaskPod: UpdateTaskPodMutationType,
   addProjectToPod: AddProjectToPodMutationType,
@@ -29,12 +31,12 @@ export const joinPod = async (
         cap: podSize,
         isPrivate: false,
         sessionType: "task",
+        taskType: taskType as TaskTypeSelectorType,
       },
     });
   } else {
     foundPod = availablePodsData?.findPublicPod?.pod;
   }
-
   await addProjectToPod({
     variables: {
       addProjectToPodId:

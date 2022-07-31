@@ -86,6 +86,7 @@ export const MyPod: React.FC<MyPodProps> = ({
       cap: podSize,
       projectId: myTaskData?.recurringTask?.task?.id,
       sessionType: "task",
+      taskType: myTaskData?.recurringTask?.task?.taskType,
     },
   });
 
@@ -103,7 +104,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   return (
     <Box h={"100%"} w={"100%"}>
       {tasksDataLoading || taskDataLoading ? (
-        <Box color={"gainsboro"}>loading...</Box>
+        <></>
       ) : podJoined && _podTasks ? (
         <div>
           <PodNavBar
@@ -174,6 +175,7 @@ export const MyPod: React.FC<MyPodProps> = ({
                       podSize,
                       availablePodsData,
                       myTaskData?.recurringTask?.task?.id,
+                      myTaskData?.recurringTask?.task?.taskType,
                       createPod,
                       updateTaskPod,
                       addProjectToPod,

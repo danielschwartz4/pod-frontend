@@ -1,6 +1,7 @@
 fragment RegularPod on Pod {
   id
   cap
+  taskType
   projectIds
   updatedAt
   createdAt

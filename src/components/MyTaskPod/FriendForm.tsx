@@ -91,6 +91,7 @@ const FriendForm: React.FC<FriendFormProps> = (props) => {
                     isPrivate: true,
                     cap: 4,
                     sessionType: "project",
+                    taskType: "other",
                   },
                 });
                 await props.updateTaskPod({

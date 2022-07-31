@@ -23,8 +23,8 @@ const UseCases: React.FC<UseCasesProps> = ({}) => {
           width={"100%"}
           fontFamily={"ubuntu"}
         >
-          <Entry emoji={"💪"} text={"Working out and Diet"} />
-          <Entry emoji={"📚"} text={"Studying and Reading"} />
+          <Entry emoji={"💪"} text={"Working out"} />
+          <Entry emoji={"📚"} text={"Studying"} />
           <Entry emoji={"📝"} text={"Solo Projects"} />
         </Flex>
       </VStack>

@@ -26,7 +26,7 @@ export const RecurringTaskProgress: React.FC<RecurringTaskProgressProps> = ({
   refetchSingleTasks,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
-    return <Box>Loading...</Box>;
+    return <></>;
   }
 
   const singleTasksToToday = singleTasksToTodayHelper(

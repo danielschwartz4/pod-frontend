@@ -87,6 +87,8 @@ export type DaysType = {
   };
 };
 
+export type TaskTypeSelectorType = "exercise" | "study" | "other";
+
 export type TaskStatus = "completed" | "missed" | "overdue" | "tbd";
 
 export type SingleTaskOptions = {

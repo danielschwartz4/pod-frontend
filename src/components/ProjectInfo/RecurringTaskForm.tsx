@@ -14,7 +14,11 @@ import {
   useUpdateTaskPodMutation,
 } from "../../generated/graphql";
 import { Event } from "../../libs/tracking";
-import { DaysType, EndOptionsSelectorType } from "../../types/types";
+import {
+  DaysType,
+  EndOptionsSelectorType,
+  TaskTypeSelectorType,
+} from "../../types/types";
 import { sendMessage } from "../../utils/messaging/sendMessage";
 import { toErrorMap } from "../../utils/toErrorMap";
 import DatePickerInput from "../Inputs/DatePickerInput";
@@ -23,6 +27,7 @@ import { joinPod } from "../MyTaskPod/JoinExit";
 import DayPicker from "./DayPickerField";
 import EndTaskSelection from "./EndTaskSelection";
 import RepetitionStepper from "./RepetitionStepperField";
+import TaskTypeSelection from "./TaskTypeSelection";
 
 interface RecurringTaskProps {
   meData: MeQuery;
@@ -31,6 +36,8 @@ interface RecurringTaskProps {
 const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [endOptionsSelector, setEndOptionsSelector] =
     React.useState<EndOptionsSelectorType>("none");
+  const [taskTypeSelector, setTaskTypeSelector] =
+    React.useState<TaskTypeSelectorType>("exercise");
   const [createRecurringTask] = useCreateRecurringTaskMutation();
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
   const [findPublicPods, { data, loading: podsLoading }] =
@@ -48,6 +55,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
         initialValues={{
           overview: "",
           taskName: "",
+          taskType: "exercise",
           startDate: null,
           endOptions: { date: null, repetitions: null, neverEnds: null },
           days: {
@@ -61,7 +69,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           } as DaysType,
         }}
         onSubmit={async (
-          { overview, taskName, startDate, endOptions, days },
+          { overview, taskName, taskType, startDate, endOptions, days },
           { setErrors }
         ) => {
           const response = await createRecurringTask({
@@ -70,13 +78,13 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 userId: meData?.me.id,
                 overview: overview,
                 taskName: taskName,
+                taskType: taskType,
                 startDate: startDate,
                 endOptions: endOptions,
                 days: days,
               },
             },
           });
-          console.log(response);
           if (response?.data?.createRecurringTask?.errors) {
             setErrors(toErrorMap(response.data.createRecurringTask.errors));
           } else {
@@ -92,6 +100,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 variables: {
                   cap: 4,
                   projectId: response?.data?.createRecurringTask?.task?.id,
+                  taskType: response?.data?.createRecurringTask?.task?.taskType,
                   sessionType: "task",
                 },
               });
@@ -100,8 +109,10 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   4,
                   availablePodsData?.data,
                   response?.data?.createRecurringTask?.task?.id,
+                  response?.data?.createRecurringTask?.task?.taskType,
                   createPod,
                   updateTaskPod,
+
                   addProjectToPod
                 );
               }
@@ -129,17 +140,33 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
           <Form>
             <Box>
               <Box mr={8} color={"gainsboro"}>
-                <Box mb={4}>
-                  <Font style={{ fontSize: "18px" }}>Task name</Font>
-                  <Box maxW={"200px"}>
-                    <InputField
-                      color="grey"
-                      name="taskName"
-                      placeholder="e.g. Exercise"
-                      label=""
-                    />
+                <Flex
+                  display={["block", "flex"]}
+                  mb={4}
+                  justifyContent={"space-between"}
+                >
+                  <Box>
+                    <Font style={{ fontSize: "18px" }}>Task name</Font>
+                    <Box maxW={"200px"}>
+                      <InputField
+                        color="grey"
+                        name="taskName"
+                        placeholder="e.g. Getting jacked!"
+                        label=""
+                      />
+                    </Box>
                   </Box>
-                </Box>
+                  <Box mt={[4, 0]}>
+                    <Font style={{ fontSize: "18px" }}>Task category</Font>
+                    <Box maxW={"200px"}>
+                      <TaskTypeSelection
+                        name={"taskType"}
+                        taskTypeSelector={taskTypeSelector}
+                        setTaskTypeSelector={setTaskTypeSelector}
+                      />
+                    </Box>
+                  </Box>
+                </Flex>
                 <Box>
                   <Font style={{ fontSize: "18px" }}>Overview</Font>
                   <InputField

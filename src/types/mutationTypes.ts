@@ -15,7 +15,7 @@ import {
   UpdateTaskPodMutation,
   UpdateUserFriendRequestsMutation,
 } from "../generated/graphql";
-import { SessionType } from "./types";
+import { SessionType, TaskTypeSelectorType } from "./types";
 
 export type CreatePodMutationType = (
   options?: MutationFunctionOptions<
@@ -24,6 +24,7 @@ export type CreatePodMutationType = (
       isPrivate: boolean;
       cap: number;
       sessionType: SessionType;
+      taskType: TaskTypeSelectorType;
     }>,
     DefaultContext,
     ApolloCache<any>
