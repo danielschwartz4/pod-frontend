@@ -14,6 +14,7 @@ type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   placeholder: string;
   isField?: boolean;
   textColor?: string;
+  isPassword?: boolean;
 };
 
 export const InputField: React.FC<InputFieldProps> = (props) => {
@@ -30,6 +31,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
           {...field}
           id={field.name}
           placeholder={props.placeholder}
+          type={props.isPassword ? "password" : "text"}
         />
       ) : (
         <Textarea
