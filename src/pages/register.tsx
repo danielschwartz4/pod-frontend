@@ -139,6 +139,7 @@ const Register: React.FC<registerProps> = ({}) => {
                             name="password"
                             placeholder="Password"
                             label=""
+                            isPassword={true}
                           />
                         </Box>
                         <p>

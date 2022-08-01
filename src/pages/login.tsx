@@ -137,6 +137,7 @@ const Login: React.FC<{}> = ({}) => {
                             label=""
                             placeholder="Password"
                             type="password"
+                            isPassword={true}
                           />
                         </Box>
                         <p>Do you have any feedback for the site?</p>
