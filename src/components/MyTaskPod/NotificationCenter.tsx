@@ -26,8 +26,8 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
       borderRadius={16}
     >
       {recentPodSingleTasksData?.recentPodSingleTasks?.singleTasks?.map(
-        (note) => (
-          <Box p="1" minH="48px">
+        (note, i) => (
+          <Box p="1" minH="48px" key={i}>
             <Font style={{ color: "grey", fontSize: "16px" }}>
               <b style={{ color: "gainsboro" }}>{note.user.username}</b>{" "}
               {formatDate(note.updatedAt, true)}

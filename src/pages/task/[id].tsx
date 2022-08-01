@@ -58,7 +58,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
       taskIds: tasksData?.podTasks?.map((task) => task.id),
     },
   });
-  console.log(recentPodSingleTasksData);
 
   return (
     <>
@@ -81,7 +80,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               </Flex>
             )}
           </Box>
-
           <Box mt={16}>
             {!podDataLoading && !taskDataLoading ? (
               <MyPod

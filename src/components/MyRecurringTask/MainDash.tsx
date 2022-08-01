@@ -1,15 +1,5 @@
-import {
-  Box,
-  Divider,
-  Text,
-  Flex,
-  Stack,
-  Heading,
-  Tooltip,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Tooltip } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Font } from "../../css/styles";
 import {
   RecurringTaskQuery,
   SingleTask,
@@ -121,14 +111,22 @@ export const MainDash: React.FC<MainDashProps> = ({
           className={"pod-updates"}
         >
           <Flex>
-            <Heading
-              mx={"auto"}
-              fontSize={"30px"}
-              fontFamily={"ubuntu"}
-              textColor="gainsboro"
+            <Tooltip
+              hasArrow
+              label={"Updates from everyone who has ever been in this pod"}
+              bg="gray.300"
+              color="black"
+              placement="top"
             >
-              Pod updates
-            </Heading>
+              <Heading
+                mx={"auto"}
+                fontSize={"30px"}
+                fontFamily={"ubuntu"}
+                textColor="gainsboro"
+              >
+                Pod updates
+              </Heading>
+            </Tooltip>
           </Flex>
           <NotificationCenter
             recentPodSingleTasksData={recentPodSingleTasksData}

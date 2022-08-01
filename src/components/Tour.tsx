@@ -1,7 +1,5 @@
-// tour.js
-
-// import React from "react";
-import JoyRide from "react-joyride";
+import React, { useEffect, useState } from "react";
+import JoyRide, { ACTIONS, EVENTS, STATUS } from "react-joyride";
 import {
   useMeQuery,
   useUpdateHasCreatedTaskMutation,
@@ -42,39 +40,51 @@ const TOUR_STEPS = [
     content:
       "You are also auto placed in a discord channel when you join a pod. This feature is in beta.",
   },
-  // {
-  //   target: ".tour-external-links",
-  //   content: "This is where you can find the external links.",
-  // },
-  // {
-  //   target: ".tour-footer",
-  //   content: "This is where you can see the footer links.",
-  // },
 ];
 
 // Tour component
 const Tour = () => {
   const { data: meData } = useMeQuery({});
   const [updateHasCreatedTask] = useUpdateHasCreatedTaskMutation();
+  const [run, setRun] = useState(true);
+  const [stepIndex, setStepIndex] = useState(0);
+
+  const handleJoyrideCallback = (data) => {
+    const { action, index, status, type } = data;
+
+    if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
+      // Update state to advance the tour
+      setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
+    } else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      // Need to set our running state to false, so we can restart if we click start again.
+      setRun(false);
+    }
+  };
+
   return (
     <>
-      {meData?.me?.hasCreatedTask ? (
+      {!meData?.me?.hasCreatedTask ? (
         <JoyRide
           spotlightClicks={true}
           locale={{ last: "Done" }}
           steps={TOUR_STEPS}
+          run={run}
+          stepIndex={stepIndex}
           continuous={true}
           scrollOffset={200}
-          callback={(e) => {
-            // !! Fix this it's updateing on first render
-            if (e.status === "finished") {
-              updateHasCreatedTask({
-                variables: {
-                  hasCreated: true,
-                },
-              });
-            }
-          }}
+          callback={handleJoyrideCallback}
+
+          // callback={(e) => {
+          //   console.log(e);
+          //   // !! Fix this it's updateing on first render
+          //   if (e.status === "finished") {
+          //     // updateHasCreatedTask({
+          //     //   variables: {
+          //     //     hasCreated: true,
+          //     //   },
+          //     // });
+          //   }
+          // }}
         />
       ) : (
         <></>

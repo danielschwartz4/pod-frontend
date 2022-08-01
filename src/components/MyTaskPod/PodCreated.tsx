@@ -35,12 +35,16 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
 
   let coveredTasks = new Set();
   recentPodSingleTasksData?.recentPodSingleTasks?.singleTasks.forEach((st) => {
+    console.log(TODAY);
+    console.log(new Date(st?.actionDate));
     if (daysEqual(TODAY, new Date(st?.actionDate))) {
+      console.log("here");
       podCompletion += +(st?.status == "completed");
       coveredTasks.add(st?.taskId);
     }
   });
-
+  console.log(podCompletion);
+  console.log(coveredTasks);
   const notToday = podLength - coveredTasks.size;
   podCompletion += notToday;
 
