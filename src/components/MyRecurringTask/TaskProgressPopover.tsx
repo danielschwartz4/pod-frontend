@@ -111,7 +111,7 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
           <Flex alignItems={"center"}>
             <Box ml={"auto"} mr={"1em"}>
               Target date:{" "}
-              {moment(props.singleTask?.actionDate).utc().format("MM/DD/YYYY")}
+              {moment(props.singleTask?.actionDate).format("MM/DD/YYYY")}
             </Box>
           </Flex>
         </PopoverContent>
