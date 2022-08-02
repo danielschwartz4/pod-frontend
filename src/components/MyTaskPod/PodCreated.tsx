@@ -57,13 +57,14 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
               templateColumns={{
                 sm: "repeat(4, 1fr)",
                 md: "repeat(4, 1fr)",
+                // lg: "repeat(4, 1fr)",
               }}
               gap={8}
               textAlign={"center"}
             >
               {fourPersonArr.map((t, i) => {
                 return (
-                  <GridItem key={i} colSpan={{ sm: 2, md: 2, lg: 1 }}>
+                  <GridItem key={i} colSpan={{ sm: 2, md: 2, lg: 2, xl: 1 }}>
                     {tasksData?.podTasks[i] ? (
                       <PodCard
                         meData={meData}

@@ -31,7 +31,13 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
   return (
     <Box textColor={"gainsboro"}>
       {/* <Text fontSize={{ base: 8, sm: 12 }}>{title}</Text> */}
-      <Tooltip hasArrow label={title} bg="gray.300" color="black">
+      <Tooltip
+        placement="top"
+        hasArrow
+        label={title}
+        bg="gray.300"
+        color="black"
+      >
         <Box>
           <CircularProgress
             size={"50px"}
