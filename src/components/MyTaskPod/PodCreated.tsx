@@ -33,8 +33,6 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
   const fourPersonArr = [0, 0, 0, 0];
   const [madeCount, setMadeCount] = useState(0);
 
-  console.log(madeCount);
-
   const gridProjects = (
     <>
       <Tour />
