@@ -57,12 +57,11 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
       }
       borderRadius={"50%"}
       bg={"#F8F2E6"}
-      height={"250px"}
-      width={"250px"}
+      height={"275px"}
+      width={"275px"}
       fontFamily={"ubuntu"}
     >
-      <Flex mt={2} w={"100%"}>
-        {/* <Avatar src={avatarMap(meData?.me?.avatar)} alt={"Author"} /> */}
+      <Flex mt={8} w={"100%"}>
         <Text mx={"auto"} fontSize={18}>
           {meData?.me?.id == task?.userId
             ? meData?.me?.username
