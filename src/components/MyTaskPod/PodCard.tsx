@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import moment from "moment";
-import React from "react";
+import React, { useEffect } from "react";
 import { TODAY } from "../../constants";
 import {
   MeQuery,
@@ -19,9 +19,16 @@ import { MiniProgressGridSkeleton } from "../MyRecurringTask/MiniProgressGridSke
 interface PodCardProps {
   task: RecurringTask;
   meData: MeQuery;
+  madeCount: number;
+  setMadeCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
+const PodCard: React.FC<PodCardProps> = ({
+  task,
+  meData,
+  madeCount,
+  setMadeCount,
+}) => {
   const { data, loading } = useMeQuery({});
   const date = task.updatedAt.split(".")[0].split("T");
 
@@ -44,6 +51,13 @@ const PodCard: React.FC<PodCardProps> = ({ task, meData }) => {
       todayStatus = task?.status;
     }
   });
+
+  useEffect(() => {
+    console.log(todayStatus);
+    if (todayStatus == "completed" || todayStatus == null) {
+      setMadeCount(madeCount + 1);
+    }
+  }, []);
 
   return (
     <Box

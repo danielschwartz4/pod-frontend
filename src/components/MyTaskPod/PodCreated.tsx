@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import WidgetBot from "@widgetbot/react-embed";
-import React from "react";
+import React, { useState } from "react";
 import { TODAY } from "../../constants";
 import {
   MeQuery,
@@ -31,18 +31,9 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
 }) => {
   const podLength = tasksData?.podTasks?.length;
   const fourPersonArr = [0, 0, 0, 0];
-  let podCompletion = 0;
+  const [madeCount, setMadeCount] = useState(0);
 
-  let coveredTasks = new Set();
-  recentPodSingleTasksData?.recentPodSingleTasks?.singleTasks.forEach((st) => {
-    if (daysEqual(TODAY, new Date(st?.actionDate))) {
-      podCompletion += +(st?.status == "completed");
-      coveredTasks.add(st?.taskId);
-    }
-  });
-
-  const notToday = podLength - coveredTasks.size;
-  podCompletion += notToday;
+  console.log(madeCount);
 
   const gridProjects = (
     <>
@@ -55,7 +46,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
           mb={16}
           className={"pod-task-completion"}
         >
-          <PodTaskCompletion progress={podCompletion / podLength} />
+          <PodTaskCompletion progress={madeCount / podLength} />
         </Box>
         <Flex w={"100%"}>
           <Box
@@ -79,6 +70,8 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
                       <PodCard
                         meData={meData}
                         task={tasksData?.podTasks[i] as RecurringTask}
+                        madeCount={madeCount}
+                        setMadeCount={setMadeCount}
                       />
                     ) : (
                       <PodDummyCard />
