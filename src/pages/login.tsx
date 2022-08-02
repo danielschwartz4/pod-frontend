@@ -8,14 +8,13 @@ import {
   Link,
   Stack,
   Text,
-  Textarea,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { InputField } from "../components/Inputs/InputField";
+import { CenteredContainer } from "../css/styles";
 import {
   MeDocument,
   MeQuery,
@@ -23,10 +22,8 @@ import {
   useUpdateFeedbackMutation,
 } from "../generated/graphql";
 import newLogo from "../images/Logos/newLogo.png";
-import { toErrorMap } from "../utils/toErrorMap";
 import { Event, PageView } from "../libs/tracking";
-import OAuth from "../components/OAuth/OAuth";
-import { CenteredContainer, LandingDivider } from "../css/styles";
+import { toErrorMap } from "../utils/toErrorMap";
 
 const Login: React.FC<{}> = ({}) => {
   useEffect(() => PageView(), []);

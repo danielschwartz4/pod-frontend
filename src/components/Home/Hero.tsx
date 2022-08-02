@@ -1,9 +1,17 @@
-import { Box, Button, Flex, Heading, Text, useToast } from "@chakra-ui/react";
-import WidgetBot from "@widgetbot/react-embed";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 import router from "next/router";
 import React from "react";
 import { useMeQuery } from "../../generated/graphql";
 import { Event } from "../../libs/tracking";
+import teamBuilding from "../../images/Hero/teamBuilding.jpg";
 
 interface HeroProps {}
 
@@ -59,7 +67,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
           </Box>
         </Flex>
       </Box>
-      <Flex justifyContent={"center"} mb={0}>
+      {/* <Flex justifyContent={"center"} mb={0}>
         {typeof window !== "undefined" ? (
           <WidgetBot
             width={800}
@@ -68,8 +76,8 @@ const Hero: React.FC<HeroProps> = ({}) => {
             channel="1002046686350278788"
           />
         ) : null}
-      </Flex>
-      {/* <Flex mb={2}>
+      </Flex> */}
+      <Flex mb={2}>
         <Box
           p={2}
           gap={[1, 1, 12, 16]}
@@ -82,7 +90,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
             src={teamBuilding.src}
           />
         </Box>
-      </Flex> */}
+      </Flex>
     </Box>
   );
 };
