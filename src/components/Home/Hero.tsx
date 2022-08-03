@@ -5,6 +5,7 @@ import {
   Heading,
   Image,
   Text,
+  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import router from "next/router";
@@ -12,12 +13,14 @@ import React from "react";
 import { useMeQuery } from "../../generated/graphql";
 import { Event } from "../../libs/tracking";
 import teamBuilding from "../../images/Hero/teamBuilding.jpg";
+import { Modal, ModalOverlay, ModalContent, ModalBody } from "@chakra-ui/react";
 
 interface HeroProps {}
 
 const Hero: React.FC<HeroProps> = ({}) => {
   const { data: meData } = useMeQuery();
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box width={"100%"} alignItems={"center"} minHeight={"65vh"} m={-2}>
@@ -54,16 +57,29 @@ const Hero: React.FC<HeroProps> = ({}) => {
               fontFamily={"ubuntu"}
               cursor={"pointer"}
               _hover={{ bg: "gray.700" }}
+              onClick={onOpen}
             >
-              <a
-                target="_blank"
-                href="https://www.youtube.com/watch?v=k5YCmw6BNGQ&ab_channel=DRS"
-                rel="noopener noreferrer"
-                style={{ textDecoration: "none", color: "#FFDC93" }}
-              >
-                Watch a short video
-              </a>
+              Watch a short video
             </Button>
+            <Modal size={"6xl"} isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent
+                backgroundColor={"gray.800"}
+                boxShadow={"0 0 50px 10px #999"}
+              >
+                <ModalBody display={"flex"} justifyContent={"center"}>
+                  <iframe
+                    width="100%"
+                    height="600"
+                    src="https://www.youtube.com/embed/k5YCmw6BNGQ?autoplay=1"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </ModalBody>
+              </ModalContent>
+            </Modal>
           </Box>
         </Flex>
       </Box>
