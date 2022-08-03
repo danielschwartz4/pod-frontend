@@ -42,6 +42,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         <Flex direction={["column", "row"]} mb={10}>
           <Box mx={"auto"}>
             {meData?.me == null ? <GetStartedButton /> : <GoToProfile />}
+            {/* <divx></div> */}
             <Button
               w={"250px"}
               borderRadius={8}
@@ -68,6 +69,9 @@ const Hero: React.FC<HeroProps> = ({}) => {
                 boxShadow={"0 0 50px 10px #999"}
               >
                 <ModalBody display={"flex"} justifyContent={"center"}>
+                  {isOpen
+                    ? Event("Desktop", "Watch Video Button", "Watch Video")
+                    : ""}
                   <iframe
                     width="100%"
                     height="600"
