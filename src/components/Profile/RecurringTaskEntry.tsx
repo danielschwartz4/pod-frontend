@@ -88,16 +88,23 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
   return (
     <ProfileGridItem type="recurringTask">
       <TaskEntryHeading task={task}></TaskEntryHeading>
-      <Box ml={4}>
-        <NextTaskDueDate singleTasksData={filteredData}></NextTaskDueDate>
+      <Box mt={0}>
+        <NextTaskDueDate singleTasksData={singleTasksData}></NextTaskDueDate>
       </Box>
       <ToTaskPageId task={task}>
         <Box mx={4}>
-          <TaskVis singleTasksData={filteredData} task={task}></TaskVis>
+          <TaskVis singleTasksData={singleTasksData} task={task}></TaskVis>
         </Box>
       </ToTaskPageId>
-      <Flex alignItems={"center"} mb={6}>
-        <Box ml={"1em"}>
+      <Flex
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        mb={6}
+        mr={4}
+        ml={4}
+      >
+        <Box />
+        <Box mr={4}>
           <Box
             ref={wrapperRef}
             onClick={() => {
@@ -121,14 +128,15 @@ const RecurringTaskEntry: React.FC<RecurringTaskEntryProps> = ({ task }) => {
                 Click here to name project
               </Heading>
             ) : (
-              <Heading as="h3" size="sm">
+              <Heading mt={2} mb={0} fontSize={28}>
                 {newName}
               </Heading>
             )}
           </Box>
         </Box>
-        <Box ml={"auto"} mr={"1em"}>
+        <Box>
           <DeleteIcon
+            mt={2}
             cursor={"pointer"}
             onClick={async () => {
               const pod = task?.podId;

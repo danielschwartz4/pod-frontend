@@ -42,7 +42,7 @@ const ProjectsGrid: React.FC<projectsGridProps> = ({
       outline={4}
       borderRadius={20}
       border={"4px"}
-      borderColor={"#F6793D"}
+      borderColor={"#FFDC93"}
       p={4}
     >
       {hasSeed ? <SeedGridItem /> : null}

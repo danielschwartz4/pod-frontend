@@ -2,13 +2,17 @@ import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import { filter } from "core-js/core/array";
 import React from "react";
 import { SKELETON_UNIT_SIZE, TODAY } from "../../constants";
-import { RecurringTask, SingleTasksQuery } from "../../generated/graphql";
+import {
+  RecurringTask,
+  RecurringTaskQuery,
+  SingleTasksQuery,
+} from "../../generated/graphql";
 import { beforeToday, daysEqual } from "../../utils/getConsistency";
 import { addDays, extractDaysIdxs } from "../../utils/singleTaskUtils";
 import { MiniTaskCircle } from "./MiniTaskCircle";
 
 interface MiniProgressGridSkeletonProps {
-  task: RecurringTask;
+  task: RecurringTaskQuery["recurringTask"]["task"];
   singleTasksData: SingleTasksQuery;
 }
 

@@ -1,4 +1,4 @@
-import { Box, Divider, GridItem, VStack } from "@chakra-ui/react";
+import { Box, Button, Divider, GridItem, VStack } from "@chakra-ui/react";
 import React from "react";
 
 interface GridItemProps {
@@ -14,7 +14,7 @@ export const ProfileGridItem: React.FC<GridItemProps> = ({
   return (
     <GridItem
       borderRadius={8}
-      bg={type == "project" ? "gray.500" : "gray.400"}
+      bg={"#F8F2E6"}
       minW={"300px"}
       maxW={"300px"}
       h={"300px"}
@@ -23,7 +23,7 @@ export const ProfileGridItem: React.FC<GridItemProps> = ({
         divider={
           <Box maxHeight={20}>
             <Divider
-              color={"gray.700"}
+              color={"black"}
               mx={"auto"}
               w={"90%"}
               orientation="horizontal"
