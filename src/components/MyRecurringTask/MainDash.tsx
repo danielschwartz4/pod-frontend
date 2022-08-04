@@ -88,7 +88,8 @@ export const MainDash: React.FC<MainDashProps> = ({
           >
             <Text textColor="#FFDC93">Today’s Question: &ensp; </Text>
             <Text textColor="gainsboro" mx={"auto"} maxW={"99%"}>
-              What was the hardest part of completing your task today?
+              What resulted in you to completing or not completing your previous
+              task??
             </Text>
           </Flex>
           <Flex>
