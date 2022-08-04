@@ -63,6 +63,20 @@ const defaultOptions = {
     width: undefined,
     zIndex: 100,
   },
+  tooltipContent: {
+    fontSize: 16,
+    fontFamily: "ubuntu",
+    color: "#67777E",
+  },
+  buttonNext: {
+    fontFamily: "ubuntu",
+    fontSize: 16,
+    width: "45%",
+    height: "2.5rem",
+    color: "#fff",
+    backgroundColor: "#E42311",
+    borderRadius: 4,
+  },
 };
 
 // Tour component

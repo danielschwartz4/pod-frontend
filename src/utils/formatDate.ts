@@ -17,9 +17,8 @@ export const convertFromMilitaryTime = (date: string): string => {
 
 const formatDate = (date: string, withTime = false): string => {
   return withTime
-    ? moment(date).utc().calendar()
-    : moment(date).utc().format("MM/DD/YYYY");
-  // moment().format('MMMM Do YYYY, h:mm:ss a');
+    ? moment(date).calendar()
+    : moment(date).format("MMMM Do");
 };
 
 export default formatDate;
