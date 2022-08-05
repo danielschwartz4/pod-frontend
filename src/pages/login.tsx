@@ -80,10 +80,6 @@ const Login: React.FC<{}> = ({}) => {
                   { password, email, feedback },
                   { setErrors }
                 ) => {
-                  console.log("FEEDBACK");
-                  console.log(email);
-                  console.log(password);
-                  console.log(feedback);
                   const response = await login({
                     variables: {
                       password,

@@ -143,8 +143,8 @@ const Register: React.FC<registerProps> = ({}) => {
                           />
                         </Box>
                         <p>
-                          What do you think are successes and challenges for you
-                          when having accountability groups?
+                          What have been successes and challenges for you while
+                          working in accountability groups?
                         </p>
                         <Box mt={4}>
                           <InputField
