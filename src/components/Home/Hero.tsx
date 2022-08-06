@@ -39,6 +39,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
           Join small groups with others. Get inspired by their progress. Keep
           accountable and grow together.
         </Text>
+
         <Flex direction={["column", "row"]} mb={10}>
           <Box mx={"auto"}>
             {meData?.me == null ? <GetStartedButton /> : <GoToProfile />}
@@ -61,6 +62,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
             >
               Watch a short video
             </Button>
+
             <Modal size={"6xl"} isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent
@@ -71,12 +73,12 @@ const Hero: React.FC<HeroProps> = ({}) => {
                   <iframe
                     width="100%"
                     height="600"
-                    src="https://www.youtube.com/embed/k5YCmw6BNGQ?autoplay=1"
+                    src="https://www.youtube.com/embed/6A5LXlSlolE?autoplay=1"
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                  ></iframe>
+                  />
                 </ModalBody>
               </ModalContent>
             </Modal>
