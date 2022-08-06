@@ -45,11 +45,15 @@ const EndTaskSelection: React.FC<EndTaskSelectionProps> = ({
             setEndOptionsSelector(e.target.value as EndOptionsSelectorType);
           }}
         >
-          <option value="date">After a certain date </option>
-          <option value="repetitions">
+          <option style={{ color: "black" }} value="date">
+            After a certain date{" "}
+          </option>
+          <option style={{ color: "black" }} value="repetitions">
             After a number of successful weeks
           </option>
-          <option value="never">Never</option>
+          <option style={{ color: "black" }} value="never">
+            Never
+          </option>
         </Select>
         <FormErrorMessage>{error}</FormErrorMessage>
       </FormControl>

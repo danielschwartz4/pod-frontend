@@ -47,7 +47,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
   const [updateTaskPod] = useUpdateTaskPodMutation();
 
   return (
-    <Box paddingTop={0}>
+    <Box mt={0} paddingTop={0}>
       <Heading fontSize={20} color={"gainsboro"}>
         Tell us what you'd like to stay consistent with!
       </Heading>
@@ -146,7 +146,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   justifyContent={"space-between"}
                 >
                   <Box>
-                    <Font style={{ fontSize: "18px" }}>Task name</Font>
+                    <Font style={{ fontSize: "18px" }}>End goal</Font>
                     <Box maxW={"200px"}>
                       <InputField
                         color="grey"
@@ -168,7 +168,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   </Box>
                 </Flex>
                 <Box>
-                  <Font style={{ fontSize: "18px" }}>Overview</Font>
+                  <Font style={{ fontSize: "18px" }}>Action steps</Font>
                   <InputField
                     color="grey"
                     name="overview"

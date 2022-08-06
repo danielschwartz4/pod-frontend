@@ -161,7 +161,7 @@ export const MyPod: React.FC<MyPodProps> = ({
                   bgColor="gainsboro"
                   cursor={"pointer"}
                   onClick={async () => {
-                    Event("Desktop", "MyTaskPod MyPod.tsx Button", "Join!");
+                    Event("Desktop", "Join a random pod MyPod.tsx", "Join!");
                     if (phone) {
                       await updatePhone({
                         variables: {
@@ -237,6 +237,7 @@ export const PodNavBar: React.FC<ExitProps> = (props) => {
               bgColor={"#FFDC93"}
               color={"gray.800"}
               cursor={"pointer"}
+              _hover={{ bg: "#ffecc4" }}
               onClick={async () => {
                 await exitPod(
                   props.removeProjectFromPod,
@@ -257,8 +258,9 @@ export const PodNavBar: React.FC<ExitProps> = (props) => {
                 color={"gray.800"}
                 cursor={"pointer"}
                 onClick={() =>
-                  Event("Desktop", "HomeNavBar.tsx Button", "Help")
+                  Event("Desktop", "How it works Button MyPod.tsx", "Help")
                 }
+                _hover={{ bg: "#ffecc4" }}
               >
                 How it works
               </Button>
@@ -278,7 +280,7 @@ export const PodNavBar: React.FC<ExitProps> = (props) => {
                   color={"gray.800"}
                   cursor={"pointer"}
                   onClick={() =>
-                    Event("Desktop", "HomeNavBar.tsx Button", "Help")
+                    Event("Desktop", "How it works button MyPod.tsx", "Help")
                   }
                 >
                   How it works

@@ -22,7 +22,7 @@ const SampleVideo: React.FC<SampleVideoProps> = ({}) => {
         mx={"auto"}
         display={["none", "block"]}
         onClick={() =>
-          Event("Desktop", "SampleVideo.tsx Button", "Clicked Tutorial")
+          Event("Desktop", "Watch video button", "Clicked Tutorial")
         }
       >
         <iframe

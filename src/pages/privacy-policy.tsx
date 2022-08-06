@@ -81,7 +81,7 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({}) => {
             <b>Children’s Privacy</b>
           </Font>
           <Font>
-            These Services do not address anyone under the age of 13. we do not
+            These Services do not address anyone under the age of 13. We do not
             knowingly collect personally identifiable information from children
             under 13. In the case we do discover that a child under 13 has
             provided me with personal information, we will immediately delete

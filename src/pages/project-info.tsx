@@ -1,8 +1,17 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { RiRepeatLine } from "react-icons/ri";
 import { Layout } from "../components/Layout";
 import RecurringTaskForm from "../components/ProjectInfo/RecurringTaskForm";
+import { LandingDivider } from "../css/styles";
 import { useMeQuery } from "../generated/graphql";
 import { Event, PageView } from "../libs/tracking";
 import { isServer } from "../utils/isServer";
@@ -20,13 +29,13 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
   });
   return (
     <Layout isProfile={true}>
-      <Box mt={[0]} h={"100%"} minH={"90vh"}>
-        <Box mt={0} mx={{ base: 2, sm: "auto" }} maxW={"600px"}>
+      <Box h={"100%"} minH={"90vh"}>
+        <Box mx={{ base: 2, sm: "auto" }} maxW={"600px"}>
           <Box
             mx={{ base: 2, sm: "auto" }}
             padding={4}
             border="4px"
-            borderColor={"gray.600"}
+            borderColor={"gainsboro"}
             borderRadius={12}
             maxW={"600px"}
             justifyContent={"center"}
@@ -49,8 +58,9 @@ const ProjectInfo: React.FC<ProjectInfoProps> = ({}) => {
                   <RiRepeatLine />
                 </Tab>
               </TabList>
-              <TabPanels>
-                <TabPanel minH={"600px"}>
+              <Divider mx={"auto"} mt={2} color={"grey"} />
+              <TabPanels paddingTop={0}>
+                <TabPanel paddingTop={2} minH={"600px"}>
                   <RecurringTaskForm meData={data} />
                 </TabPanel>
               </TabPanels>

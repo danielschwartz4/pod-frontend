@@ -41,7 +41,11 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
     console.log(userObject);
     setUser(userObject);
 
-    Event("Desktop", "Register register.tsx Button", "Join the community");
+    Event(
+      "Desktop",
+      "Click Register register.tsx Button /login",
+      "Join the community"
+    );
 
     console.log(OAuthType);
     if (OAuthType == "register") {

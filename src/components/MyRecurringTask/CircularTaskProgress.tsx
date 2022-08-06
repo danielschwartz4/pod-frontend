@@ -37,6 +37,7 @@ export const CircularTaskProgress: React.FC<CircularTaskProgressProps> = ({
         label={title}
         bg="gray.300"
         color="black"
+        fontFamily={"ubuntu"}
       >
         <Box>
           <CircularProgress

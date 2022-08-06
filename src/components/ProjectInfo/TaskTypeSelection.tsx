@@ -44,9 +44,15 @@ const TaskTypeSelection: React.FC<TaskTypeSelectionProps> = ({
             setTaskTypeSelector(e.target.value as TaskTypeSelectorType);
           }}
         >
-          <option value="exercise">Exercising </option>
-          <option value="study">Studying</option>
-          <option value="other">Other</option>
+          <option style={{ color: "black" }} value="exercise">
+            Exercising
+          </option>
+          <option style={{ color: "black" }} value="study">
+            Studying
+          </option>
+          <option style={{ color: "black" }} value="other">
+            Other
+          </option>
         </Select>
         <FormErrorMessage>{error}</FormErrorMessage>
       </FormControl>
