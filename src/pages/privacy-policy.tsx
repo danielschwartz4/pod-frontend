@@ -1,9 +1,6 @@
 import { Box, Divider, Flex, Text, Image, Stack } from "@chakra-ui/react";
 import React from "react";
-import { Layout } from "../components/Layout";
 import { HomeNavBar } from "../components/Nav/HomeNavBar";
-import NextLink from "next/link";
-import newLogo from "../images/Logos/newLogo.png";
 import { Font } from "../css/styles";
 
 interface PrivacyPolicyProps {}
