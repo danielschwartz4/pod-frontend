@@ -126,7 +126,6 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   cursor={"pointer"}
                   fontFamily={"ubuntu"}
                   _hover={{ bg: "gray.700" }}
-                  // isloading={logoutLoading.toString()}
                   isLoading={logoutLoading}
                   onClick={() => {
                     Event("Desktop", "HomeNavBar.tsx LogoutButton", "Logout");
@@ -215,7 +214,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
       <Collapse in={isOpen} animateOpacity>
         <VStack
           bg={useColorModeValue("white", "gray.800")}
-          p={4}
+          m={4}
           display={{ md: "none" }}
         >
           {data?.me ? (
@@ -285,7 +284,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
             </>
           ) : (
             <>
-              <Box fontSize={18} color={"gainsboro"}>
+              <Box bg={"gray.800"} fontSize={18} color={"gainsboro"}>
                 <Flex mr={6} justifyContent={"end"}>
                   <Text
                     textColor={"gainsboro"}

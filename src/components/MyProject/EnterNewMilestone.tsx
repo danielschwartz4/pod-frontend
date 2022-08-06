@@ -164,7 +164,7 @@ const DesktopEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
       <Box ml={12} mt={"auto"} mb={"2px"}>
         <Button
           type="submit"
-          isloading={isSubmitting ? "true" : "false"}
+          isLoading={isSubmitting ? "true" : "false"}
           border={"none"}
           bgColor={"#FFDC93"}
           color={"gray.800"}
@@ -207,7 +207,7 @@ const MobileEnterNewMilestone: React.FC<SubProps> = ({ isSubmitting }) => {
       <Box mt={4}>
         <Button
           type="submit"
-          isloading={isSubmitting ? "true" : "false"}
+          isLoading={isSubmitting ? true : false}
           border={"none"}
           bgColor={"#FFDC93"}
           color={"gray.800"}
