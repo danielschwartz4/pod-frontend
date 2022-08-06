@@ -28,8 +28,8 @@ const theme = extendTheme({
   },
   solarized,
   fonts: {
-    heading: `'Ubuntu', sans-serif`,
-    text: `'Ubuntu', sans-serif`,
+    heading: `ubuntu, sans-serif`,
+    text: `ubuntu, sans-serif`,
   },
   breakpoints,
   icons: {
