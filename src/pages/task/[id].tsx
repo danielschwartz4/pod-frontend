@@ -95,7 +95,12 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
               />
             ) : (
               <Flex mt={16}>
-                <Text fontSize={30} mx={"auto"} textColor={"gainsboro"}>
+                <Text
+                  fontFamily={"ubuntu"}
+                  fontSize={30}
+                  mx={"auto"}
+                  textColor={"gainsboro"}
+                >
                   Pods loading...
                 </Text>
               </Flex>

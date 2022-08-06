@@ -10,8 +10,8 @@ const PodCard = () => {
       height={"275px"}
       width={"275px"}
     >
-      <Text width={"90%"} textAlign={"center"} m={"auto"}>
-        waiting for new members... You will get an email when a new member
+      <Text fontFamily={"ubuntu"} width={"90%"} textAlign={"center"} m={"auto"}>
+        Waiting for new members... You will get an email when a new member
         joins!
       </Text>
     </Flex>
