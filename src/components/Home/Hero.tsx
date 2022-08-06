@@ -58,9 +58,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
               fontFamily={"ubuntu"}
               cursor={"pointer"}
               _hover={{ bg: "gray.700" }}
-              onClick={() => {
-                onOpen;
-              }}
+              onClick={onOpen}
             >
               Watch a short video
             </Button>
@@ -75,7 +73,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
                   <iframe
                     width="100%"
                     height="600"
-                    src="https://www.youtube.com/watch?v=6A5LXlSlolE&ab_channel=DRS"
+                    src="https://www.youtube.com/embed/6A5LXlSlolE?autoplay=1"
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

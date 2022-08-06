@@ -172,7 +172,6 @@ const Register: React.FC<registerProps> = ({}) => {
                               bg: "blue.500",
                             }}
                             type="submit"
-                            // isloading={isSubmitting ? "true" : "false"}
                             isLoading={isSubmitting}
                             cursor={"pointer"}
                           >
