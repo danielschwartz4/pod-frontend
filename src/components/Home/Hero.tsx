@@ -129,7 +129,11 @@ export const GetStartedButton = () => {
       mr={[0, 4]}
       onClick={() => {
         router.push("/register");
-        Event("Desktop", "Register Button", "Join a pod and get started");
+        Event(
+          "Desktop",
+          "Register button dashtabs.tsx",
+          "Join a pod and get started"
+        );
       }}
     >
       Get started for free

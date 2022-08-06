@@ -57,7 +57,11 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
             alt=""
             onClick={() => {
               router.push("/");
-              Event("Desktop", "HomeNavBar.tsx Button", "Clicked Logo");
+              Event(
+                "Desktop",
+                "Click logo button HomeNavBar.tsx",
+                "Clicked Logo"
+              );
             }}
           />
           {data?.me ? (
@@ -82,8 +86,9 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                       color={"#FFDC93"}
                       cursor={"pointer"}
                       onClick={() =>
-                        Event("Desktop", "HomeNavBar.tsx Button", "Help")
+                        Event("Desktop", "Help button HomeNavBar.tsx", "Help")
                       }
+                      _hover={{ bg: "gray.700" }}
                     >
                       <BsQuestionSquare size={24} />
                     </Button>
@@ -96,9 +101,9 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   borderRadius={"16px"}
                   cursor={"pointer"}
                   fontFamily={"ubuntu"}
-                  _hover={{ bg: "gray.700" }}
                   onClick={() => router.push("/settings")}
                   mr={4}
+                  _hover={{ bg: "#ffecc4" }}
                 >
                   {data?.me?.username}
                 </Button>
@@ -110,10 +115,14 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   cursor={"pointer"}
                   fontFamily={"ubuntu"}
                   mr={4}
-                  _hover={{ bg: "gray.700" }}
+                  _hover={{ bg: "#ffecc4" }}
                   onClick={() => {
                     router.push("/profile");
-                    Event("Desktop", "HomeNavBar.tsx Button", "My projects");
+                    Event(
+                      "Desktop",
+                      "Click my projects button HomeNavBar.tsx",
+                      "My projects"
+                    );
                   }}
                 >
                   My projects
@@ -128,7 +137,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   _hover={{ bg: "gray.700" }}
                   isLoading={logoutLoading}
                   onClick={() => {
-                    Event("Desktop", "HomeNavBar.tsx LogoutButton", "Logout");
+                    Event("Desktop", "Logout button HomeNavBar.tsx", "Logout");
                     logout({
                       update: (cache) => {
                         cache.evict({ id: "User:" + data?.me.id });
@@ -184,7 +193,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   _hover={{ bg: "gray.700" }}
                   onClick={() => {
                     router.push("/login");
-                    Event("Desktop", "Login Button", "Login");
+                    Event("Desktop", "Login button", "Login");
                   }}
                 >
                   Login
@@ -245,6 +254,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   color={"gainsboro"}
                   fontSize={18}
                   fontFamily={"ubuntu"}
+                  _hover={{ bg: "#ffecc4" }}
                 >
                   <b>My projects</b>
                 </Text>

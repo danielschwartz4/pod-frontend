@@ -42,8 +42,13 @@ const ProfileHeading: React.FC<ProfileHeadingProps> = ({
         onClick={() => {
           setLoading(true);
           router.push("/project-info");
-          Event("Desktop", "Create Project Button", "Create Project");
+          Event(
+            "Desktop",
+            "Click Create Project Button /project-info",
+            "Create Project"
+          );
         }}
+        _hover={{ bg: "#ffecc4" }}
       >
         +
       </Button>

@@ -99,7 +99,11 @@ const EnterProject: React.FC<EnterProjectProps> = ({ meData }) => {
                 cursor="pointer"
                 colorScheme="gray.300"
                 onClick={() =>
-                  Event("Desktop", "ProjectForm.tsx Button", "Get started!")
+                  Event(
+                    "Desktop",
+                    "Get started button ProjectForm.tsx",
+                    "Get started!"
+                  )
                 }
               >
                 Get started!

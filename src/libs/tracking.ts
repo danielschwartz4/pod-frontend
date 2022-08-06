@@ -10,7 +10,12 @@ export const initGA = (trackingId) => {
 /* this is for getting url website when user access our websites */
 export const PageView = () => {
   if (process.env.NODE_ENV === "production") {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    let track_string = window.location.pathname + window.location.search
+    if (window.location.pathname.includes("/task")) {
+      track_string = "/task"
+    }
+    console.log("track string: " + track_string)
+    ReactGA.pageview(track_string);
   }
 };
 
