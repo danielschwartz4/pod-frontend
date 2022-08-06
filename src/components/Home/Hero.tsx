@@ -57,14 +57,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
               fontFamily={"ubuntu"}
               cursor={"pointer"}
               _hover={{ bg: "gray.700" }}
-              onClick={() => {
-                onOpen;
-                Event(
-                  "Desktop",
-                  "Clicked Wathc a short video Button",
-                  "Watch a short video"
-                );
-              }}
+              onClick={onOpen}
             >
               Watch a short video
             </Button>
