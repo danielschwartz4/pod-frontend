@@ -368,7 +368,6 @@ const FriendForm: React.FC<PodNotCreatedProps> = (props) => {
               />
             </VStack>
             <Button
-              // isloading={isSubmitting.toString()}
               isLoading={isSubmitting ? true : false}
               mt={8}
               mr={{ base: "140px", sm: "auto" }}

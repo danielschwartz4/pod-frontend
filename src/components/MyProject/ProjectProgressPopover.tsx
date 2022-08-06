@@ -333,7 +333,7 @@ const ProjectProgressPopover: React.FC<ProjectProgressPopoverProps> = (
                     <Button
                       type="submit"
                       w={"100%"}
-                      isloading={isSubmitting ? "true" : "false"}
+                      isLoading={isSubmitting ? true : false}
                       cursor={"pointer"}
                     >
                       <CheckIcon />
