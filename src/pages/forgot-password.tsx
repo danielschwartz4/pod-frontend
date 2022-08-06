@@ -3,8 +3,10 @@ import { Form, Formik } from "formik";
 import NextLink from "next/link";
 import React, { useState } from "react";
 import { InputField } from "../components/Inputs/InputField";
+import { Font } from "../css/styles";
 import { useForgotPasswordMutation } from "../generated/graphql";
 import newLogo from "../images/Logos/newLogo.png";
+import { Event } from "../libs/tracking";
 
 const ForgotPassword: React.FC<{}> = ({}) => {
   const [complete, setComplete] = useState(false);
@@ -19,9 +21,9 @@ const ForgotPassword: React.FC<{}> = ({}) => {
       m={-2}
     >
       <Box w={"500px"}>
-        <Flex pos={"absolute"} top={0} left={0} p={4}>
+        <Flex pos={"absolute"} mt={2} top={0} left={0} p={4}>
           <NextLink href="/">
-            <Image cursor={"pointer"} h={70} w={200} src={newLogo.src} alt="" />
+            <Image cursor={"pointer"} h={50} w={200} src={newLogo.src} alt="" />
           </NextLink>
         </Flex>
 
@@ -36,35 +38,51 @@ const ForgotPassword: React.FC<{}> = ({}) => {
           <Formik
             initialValues={{ email: "" }}
             onSubmit={async (values, { setErrors }) => {
-              await forgotPassword({
+              console.log(values.email);
+              let res = await forgotPassword({
                 variables: values,
               });
+              console.log(res);
               setComplete(true);
             }}
           >
             {({ isSubmitting }) =>
               complete ? (
                 <Box>
-                  if an account with that email exists, we sent you an email
+                  <Font>
+                    If an account with that email exists, we sent you an email
+                    👍
+                  </Font>
                 </Box>
               ) : (
                 <Form>
-                  <Box mt={4} mr={8}>
+                  <Box mr={8}>
+                    <Font style={{ marginBottom: "20px" }}>
+                      Enter email to reset password
+                    </Font>
                     <InputField
                       name="email"
-                      label="Enter email to reset password"
-                      placeholder="email"
+                      label=""
+                      placeholder="Email"
                       type="email"
                     />
                   </Box>
                   <Button
                     mt={4}
                     isLoading={isSubmitting}
-                    colorScheme="teal"
+                    bg="#FFDC93"
+                    color="black"
                     type="submit"
                     cursor={isSubmitting ? "not-allowed" : "pointer"}
+                    onClick={() =>
+                      Event(
+                        "Desktop",
+                        "Forgot Password Button",
+                        "Forgot my password"
+                      )
+                    }
                   >
-                    forgot password
+                    Forgot password
                   </Button>
                 </Form>
               )
