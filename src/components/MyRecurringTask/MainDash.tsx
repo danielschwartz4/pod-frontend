@@ -47,7 +47,7 @@ export const MainDash: React.FC<MainDashProps> = ({
   return (
     <>
       <Tour />
-      <Flex width={"100%"} p={4} justifyContent={"center"}>
+      <Flex p={4} justifyContent={"center"}>
         <Box mr={{ lg: 4, xl: 16 }} className={"calendar"}>
           <Flex
             // mt={-2}
