@@ -75,7 +75,10 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
             position="absolute"
             transform={"translate(310px, -30px)"}
           >
-            <AiOutlineSend color="gainsboro" />
+            <AiOutlineSend
+              opacity={message == "" ? "50%" : "100%"}
+              color="gainsboro"
+            />
           </Box>
         </Box>
       </Box>
