@@ -260,69 +260,79 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
         >
           {data?.me ? (
             <>
-              <Flex
-                justifyContent={"end"}
-                fontSize={18}
-                mr={6}
-                color={"gainsboro"}
-              >
-                <Text
-                  colorScheme={"tan"}
-                  color={"gainsboro"}
+              <Box bg={"gray.800"} fontSize={18} color={"gainsboro"}>
+                <Flex
+                  justifyContent={"end"}
                   fontSize={18}
-                  onClick={() => router.push("/settings")}
-                  fontFamily={"ubuntu"}
-                >
-                  {data?.me?.username}
-                </Text>
-              </Flex>
-              <Divider />
-              <Flex justify={"end"}>
-                <Text
                   mr={6}
-                  colorScheme={"tan"}
-                  cursor={"pointer"}
-                  onClick={() => router.push("/profile")}
                   color={"gainsboro"}
-                  fontSize={18}
-                  fontFamily={"ubuntu"}
-                  _hover={{ bg: "#ffecc4" }}
                 >
-                  <b>My projects</b>
-                </Text>
-              </Flex>
-              <Divider />
-              <Flex justifyContent={"end"}>
-                <Text
-                  mr={6}
-                  onClick={() => {
-                    logout({
-                      update: (cache) => {
-                        cache.evict({ id: "User:" + data?.me.id });
-                      },
-                    });
-                  }}
-                  isLoading={logoutLoading}
-                  fontSize={18}
-                  type="button"
-                  variant={"link"}
-                  color={"gainsboro"}
-                  fontFamily={"ubuntu"}
-                >
-                  <b>Logout</b>
-                </Text>
-              </Flex>
-              <Divider />
-              <Flex justifyContent={"end"}>
-                {!isProjectsPage && withHelpPopover ? (
-                  <HelpTaskPopover>
-                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
-                      <BsQuestionSquare size={24} />
-                    </Button>
-                  </HelpTaskPopover>
-                ) : null}
-              </Flex>
-              <Divider />
+                  <Text
+                    colorScheme={"tan"}
+                    color={"gainsboro"}
+                    fontSize={18}
+                    onClick={() => router.push("/settings")}
+                    fontFamily={"ubuntu"}
+                    cursor={"pointer"}
+                  >
+                    {data?.me?.username}
+                  </Text>
+                </Flex>
+                <Divider />
+                <Flex justify={"end"}>
+                  <Text
+                    mr={6}
+                    colorScheme={"tan"}
+                    cursor={"pointer"}
+                    onClick={() => router.push("/profile")}
+                    color={"gainsboro"}
+                    fontSize={18}
+                    fontFamily={"ubuntu"}
+                  >
+                    My projects
+                  </Text>
+                </Flex>
+                <Divider />
+                <Flex justifyContent={"end"}>
+                  <Text
+                    mr={6}
+                    onClick={() => {
+                      logout({
+                        update: (cache) => {
+                          cache.evict({ id: "User:" + data?.me.id });
+                        },
+                      });
+                    }}
+                    isLoading={logoutLoading}
+                    fontSize={18}
+                    type="button"
+                    variant={"link"}
+                    color={"gainsboro"}
+                    fontFamily={"ubuntu"}
+                    cursor={"pointer"}
+                  >
+                    Logout
+                  </Text>
+                </Flex>
+                <Divider />
+                <Flex justifyContent={"end"}>
+                  {!isProjectsPage && withHelpPopover ? (
+                    <HelpTaskPopover>
+                      <Button
+                        mr={4}
+                        colorScheme={"tan"}
+                        cursor={"pointer"}
+                        border={"none"}
+                        bgColor={"gray.800"}
+                        color={"gainsboro"}
+                      >
+                        <BsQuestionSquare size={24} />
+                      </Button>
+                    </HelpTaskPopover>
+                  ) : null}
+                </Flex>
+                {/* <Divider /> */}
+              </Box>
             </>
           ) : (
             <>
