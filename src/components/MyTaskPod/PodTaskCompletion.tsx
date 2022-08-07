@@ -9,7 +9,6 @@ interface PodTaskCompletionProps {
 export const PodTaskCompletion: React.FC<PodTaskCompletionProps> = ({
   progress,
 }) => {
-  // console.log(progress);
   const fakeVal = progress;
   const value = 100 - progress * 100;
   return (

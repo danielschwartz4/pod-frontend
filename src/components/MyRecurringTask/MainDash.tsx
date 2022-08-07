@@ -47,7 +47,7 @@ export const MainDash: React.FC<MainDashProps> = ({
   return (
     <>
       <Tour />
-      <Flex width={"100%"} p={4} justifyContent={"center"}>
+      <Flex p={4} justifyContent={"center"}>
         <Box mr={{ lg: 4, xl: 16 }} className={"calendar"}>
           <Flex
             // mt={-2}
@@ -86,8 +86,10 @@ export const MainDash: React.FC<MainDashProps> = ({
             my={-4}
             className={"daily-question"}
           >
-            <Text textColor="#FFDC93">Today’s Question: &ensp; </Text>
-            <Text textColor="gainsboro" mx={"auto"} maxW={"99%"}>
+            <Text mb={"auto"} textColor="#FFDC93">
+              Today’s Question: &ensp;{" "}
+            </Text>
+            <Text textColor="gainsboro" mx={"auto"} maxW={"450px"}>
               {/* What resulted in you completing or not completing today's task? */}
               Describe something you learned today from completing/not
               completing your task.

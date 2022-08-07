@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
-import { Box, Button, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   Exact,
@@ -17,15 +17,15 @@ import {
   useUpdateTaskPodMutation,
   useUpdateUserFriendRequestsMutation,
 } from "../../generated/graphql";
+import { Event } from "../../libs/tracking";
 import { sendMessage } from "../../utils/messaging/sendMessage";
 import { useIsAuth } from "../../utils/usIsAuth";
 import { COUNTRIES } from "../Inputs/countries";
 import { PhoneNumber } from "../Inputs/PhoneNumber";
+import { HelpTaskPopover } from "../Nav/HelpTaskPopover";
 import { exitPod, joinPod } from "./JoinExit";
 import { PodCreated } from "./PodCreated";
 import { PodNotCreated } from "./PodNotCreated";
-import { Event } from "../../libs/tracking";
-import { HelpTaskPopover } from "../Nav/HelpTaskPopover";
 
 interface MyPodProps {
   tasksDataLoading: boolean;

@@ -1,17 +1,13 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
-import WidgetBot from "@widgetbot/react-embed";
 import React, { useState } from "react";
-import { TODAY } from "../../constants";
 import {
   MeQuery,
   PodTasksQuery,
   RecentPodSingleTasksQuery,
   RecurringTask,
 } from "../../generated/graphql";
-import { daysEqual } from "../../utils/getConsistency";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
 import Tour from "../Tour";
-import { discordPodChannels } from "./DiscordPodChannel";
 import PodCard from "./PodCard";
 import { PodTaskCompletion } from "./PodTaskCompletion";
 
@@ -81,7 +77,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             </Grid>
           </Box>
         </Flex>
-        <div
+        {/* <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -96,7 +92,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
             server="1002046685805023344"
             channel={discordPodChannels[tasksData.podTasks.at(0).podId]}
           />
-        </div>
+        </div> */}
       </Box>
     </>
   );
