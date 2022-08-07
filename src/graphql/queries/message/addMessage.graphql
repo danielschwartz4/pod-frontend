@@ -1,5 +1,5 @@
-mutation AddMessage($message: String!, $taskId: Int!, $userId: Int!) {
-  addMessage(message: $message, taskId: $taskId, userId: $userId) {
+mutation AddMessage($message: String!, $taskId: Int!) {
+  addMessage(message: $message, taskId: $taskId) {
     errors {
       field
       message

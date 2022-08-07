@@ -134,6 +134,7 @@ export const MainDash: React.FC<MainDashProps> = ({
           </Flex>
           <NotificationCenter
             recentPodSingleTasksData={recentPodSingleTasksData}
+            myTaskData={myTaskData}
           />
         </Box>
       </Flex>

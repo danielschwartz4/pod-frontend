@@ -1,17 +1,24 @@
-import { Box, Flex, Input } from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import { Font } from "../../css/styles";
+import {
+  RecurringTaskQuery,
+  useAddMessageMutation,
+} from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 
-interface NotifCenterProps {
+interface NotificationCenterProps {
   recentPodSingleTasksData;
+  myTaskData: RecurringTaskQuery;
 }
 
-const NotifCenter: React.FC<NotifCenterProps> = ({
+const NotificationCenter: React.FC<NotificationCenterProps> = ({
   recentPodSingleTasksData,
+  myTaskData,
 }) => {
   const [message, setMessage] = useState("");
+  const [addMessage] = useAddMessageMutation();
 
   return (
     <Box width={"400px"}>
@@ -53,8 +60,18 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
           ml={8}
           bgColor={"gray.800"}
           cursor={"pointer"}
-          onClick={() => {
+          onClick={async () => {
             console.log(message);
+            const res = await addMessage({
+              variables: {
+                message: message,
+                taskId: myTaskData?.recurringTask?.task?.id,
+              },
+            });
+            if (res) {
+              setMessage("");
+            }
+            // Refetch
           }}
         >
           <Input
@@ -86,4 +103,4 @@ const NotifCenter: React.FC<NotifCenterProps> = ({
   );
 };
 
-export default NotifCenter;
+export default NotificationCenter;

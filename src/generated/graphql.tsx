@@ -95,7 +95,6 @@ export type Mutation = {
 export type MutationAddMessageArgs = {
   message: Scalars['String'];
   taskId: Scalars['Int'];
-  userId: Scalars['Int'];
 };
 
 
@@ -792,7 +791,6 @@ export type UpdateUserFriendRequestsMutation = { __typename?: 'Mutation', update
 export type AddMessageMutationVariables = Exact<{
   message: Scalars['String'];
   taskId: Scalars['Int'];
-  userId: Scalars['Int'];
 }>;
 
 
@@ -2223,8 +2221,8 @@ export type UpdateUserFriendRequestsMutationHookResult = ReturnType<typeof useUp
 export type UpdateUserFriendRequestsMutationResult = Apollo.MutationResult<UpdateUserFriendRequestsMutation>;
 export type UpdateUserFriendRequestsMutationOptions = Apollo.BaseMutationOptions<UpdateUserFriendRequestsMutation, UpdateUserFriendRequestsMutationVariables>;
 export const AddMessageDocument = gql`
-    mutation AddMessage($message: String!, $taskId: Int!, $userId: Int!) {
-  addMessage(message: $message, taskId: $taskId, userId: $userId) {
+    mutation AddMessage($message: String!, $taskId: Int!) {
+  addMessage(message: $message, taskId: $taskId) {
     errors {
       field
       message
@@ -2252,7 +2250,6 @@ export type AddMessageMutationFn = Apollo.MutationFunction<AddMessageMutation, A
  *   variables: {
  *      message: // value for 'message'
  *      taskId: // value for 'taskId'
- *      userId: // value for 'userId'
  *   },
  * });
  */
