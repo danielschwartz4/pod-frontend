@@ -29,11 +29,17 @@ export const HelpTaskPopover: React.FC<HelpTaskPopoverProps> = ({
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent p={2} backgroundColor={"white"}>
         <PopoverCloseButton />
-        <PopoverHeader>
+        <PopoverHeader color={"black"}>
           <b> How it works</b>
         </PopoverHeader>
         <PopoverBody>
-          <Box border={"1px"} borderColor={"gray.600"} borderRadius={8} m={0}>
+          <Box
+            color={"black"}
+            border={"1px"}
+            borderColor={"gray.600"}
+            borderRadius={8}
+            m={0}
+          >
             <Flex h={"170px"}>
               <Box>
                 <Flex>
