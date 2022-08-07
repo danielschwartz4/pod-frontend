@@ -1,7 +1,5 @@
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import * as React from "react";
-import { FcConferenceCall, FcSerialTasks } from "react-icons/fc";
-import { TiThLargeOutline } from "react-icons/ti";
 import { RiNumber1, RiNumber2, RiNumber3 } from "react-icons/ri";
 
 interface FeaturesProps {}
