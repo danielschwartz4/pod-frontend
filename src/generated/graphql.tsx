@@ -540,6 +540,14 @@ export type RegularSingleTaskFragment = { __typename?: 'SingleTask', actionDate?
 
 export type RegularUserFragment = { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean };
 
+export type AddMessageMutationVariables = Exact<{
+  message: Scalars['String'];
+  taskId: Scalars['Int'];
+}>;
+
+
+export type AddMessageMutation = { __typename?: 'Mutation', addMessage: { __typename?: 'MessageResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, message?: { __typename?: 'Message', id: number, message: string, taskId: number, userId: number, createdAt: any, updatedAt: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } | null } };
+
 export type AddProjectToPodMutationVariables = Exact<{
   projectId: Scalars['Float'];
   addProjectToPodId: Scalars['Float'];
@@ -788,13 +796,12 @@ export type UpdateUserFriendRequestsMutationVariables = Exact<{
 
 export type UpdateUserFriendRequestsMutation = { __typename?: 'Mutation', updateUserFriendRequests?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null };
 
-export type AddMessageMutationVariables = Exact<{
-  message: Scalars['String'];
-  taskId: Scalars['Int'];
+export type MessagesQueryVariables = Exact<{
+  podId: Scalars['Int'];
 }>;
 
 
-export type AddMessageMutation = { __typename?: 'Mutation', addMessage: { __typename?: 'MessageResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, message?: { __typename?: 'Message', id: number, message: string, taskId: number, userId: number, createdAt: any, updatedAt: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } | null } };
+export type MessagesQuery = { __typename?: 'Query', messages?: { __typename?: 'MessagesResponse', errors?: string | null, messages?: Array<{ __typename?: 'Message', id: number, message: string, taskId: number, userId: number, createdAt: any, updatedAt: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null }> | null } | null };
 
 export type FindPublicPodQueryVariables = Exact<{
   projectId: Scalars['Float'];
@@ -998,6 +1005,46 @@ export const RegularSingleTaskFragmentDoc = gql`
   }
 }
     ${RegularUserFragmentDoc}`;
+export const AddMessageDocument = gql`
+    mutation AddMessage($message: String!, $taskId: Int!) {
+  addMessage(message: $message, taskId: $taskId) {
+    errors {
+      field
+      message
+    }
+    message {
+      ...RegularMessage
+    }
+  }
+}
+    ${RegularMessageFragmentDoc}`;
+export type AddMessageMutationFn = Apollo.MutationFunction<AddMessageMutation, AddMessageMutationVariables>;
+
+/**
+ * __useAddMessageMutation__
+ *
+ * To run a mutation, you first call `useAddMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addMessageMutation, { data, loading, error }] = useAddMessageMutation({
+ *   variables: {
+ *      message: // value for 'message'
+ *      taskId: // value for 'taskId'
+ *   },
+ * });
+ */
+export function useAddMessageMutation(baseOptions?: Apollo.MutationHookOptions<AddMessageMutation, AddMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddMessageMutation, AddMessageMutationVariables>(AddMessageDocument, options);
+      }
+export type AddMessageMutationHookResult = ReturnType<typeof useAddMessageMutation>;
+export type AddMessageMutationResult = Apollo.MutationResult<AddMessageMutation>;
+export type AddMessageMutationOptions = Apollo.BaseMutationOptions<AddMessageMutation, AddMessageMutationVariables>;
 export const AddProjectToPodDocument = gql`
     mutation AddProjectToPod($projectId: Float!, $addProjectToPodId: Float!) {
   addProjectToPod(projectId: $projectId, id: $addProjectToPodId) {
@@ -2220,46 +2267,44 @@ export function useUpdateUserFriendRequestsMutation(baseOptions?: Apollo.Mutatio
 export type UpdateUserFriendRequestsMutationHookResult = ReturnType<typeof useUpdateUserFriendRequestsMutation>;
 export type UpdateUserFriendRequestsMutationResult = Apollo.MutationResult<UpdateUserFriendRequestsMutation>;
 export type UpdateUserFriendRequestsMutationOptions = Apollo.BaseMutationOptions<UpdateUserFriendRequestsMutation, UpdateUserFriendRequestsMutationVariables>;
-export const AddMessageDocument = gql`
-    mutation AddMessage($message: String!, $taskId: Int!) {
-  addMessage(message: $message, taskId: $taskId) {
-    errors {
-      field
-      message
-    }
-    message {
+export const MessagesDocument = gql`
+    query Messages($podId: Int!) {
+  messages(podId: $podId) {
+    errors
+    messages {
       ...RegularMessage
     }
   }
 }
     ${RegularMessageFragmentDoc}`;
-export type AddMessageMutationFn = Apollo.MutationFunction<AddMessageMutation, AddMessageMutationVariables>;
 
 /**
- * __useAddMessageMutation__
+ * __useMessagesQuery__
  *
- * To run a mutation, you first call `useAddMessageMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddMessageMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useMessagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [addMessageMutation, { data, loading, error }] = useAddMessageMutation({
+ * const { data, loading, error } = useMessagesQuery({
  *   variables: {
- *      message: // value for 'message'
- *      taskId: // value for 'taskId'
+ *      podId: // value for 'podId'
  *   },
  * });
  */
-export function useAddMessageMutation(baseOptions?: Apollo.MutationHookOptions<AddMessageMutation, AddMessageMutationVariables>) {
+export function useMessagesQuery(baseOptions: Apollo.QueryHookOptions<MessagesQuery, MessagesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddMessageMutation, AddMessageMutationVariables>(AddMessageDocument, options);
+        return Apollo.useQuery<MessagesQuery, MessagesQueryVariables>(MessagesDocument, options);
       }
-export type AddMessageMutationHookResult = ReturnType<typeof useAddMessageMutation>;
-export type AddMessageMutationResult = Apollo.MutationResult<AddMessageMutation>;
-export type AddMessageMutationOptions = Apollo.BaseMutationOptions<AddMessageMutation, AddMessageMutationVariables>;
+export function useMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MessagesQuery, MessagesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MessagesQuery, MessagesQueryVariables>(MessagesDocument, options);
+        }
+export type MessagesQueryHookResult = ReturnType<typeof useMessagesQuery>;
+export type MessagesLazyQueryHookResult = ReturnType<typeof useMessagesLazyQuery>;
+export type MessagesQueryResult = Apollo.QueryResult<MessagesQuery, MessagesQueryVariables>;
 export const FindPublicPodDocument = gql`
     query FindPublicPod($projectId: Float!, $cap: Float!, $taskType: String!, $sessionType: String!) {
   findPublicPod(

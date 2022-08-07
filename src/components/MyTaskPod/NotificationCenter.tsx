@@ -5,6 +5,7 @@ import { Font } from "../../css/styles";
 import {
   RecurringTaskQuery,
   useAddMessageMutation,
+  useMessagesQuery,
 } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
 
@@ -19,6 +20,11 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
 }) => {
   const [message, setMessage] = useState("");
   const [addMessage] = useAddMessageMutation();
+  const { data: messagesData, refetch: refetchMessages } = useMessagesQuery({
+    variables: {
+      podId: myTaskData?.recurringTask?.task?.podId,
+    },
+  });
 
   return (
     <Box width={"400px"}>
@@ -34,7 +40,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
         borderColor={"#FFDC93"}
         borderRadius={16}
       >
-        {recentPodSingleTasksData?.recentPodSingleTasks?.singleTasks?.map(
+        {/* {recentPodSingleTasksData?.recentPodSingleTasks?.singleTasks?.map(
           (note, i) => (
             <Box p="1" minH="48px" key={i}>
               <Font style={{ color: "grey", fontSize: "16px" }}>
@@ -44,7 +50,16 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
               <Font style={{ fontSize: "16px" }}>{note.notes}</Font>
             </Box>
           )
-        )}
+        )} */}
+        {messagesData?.messages?.messages?.map((message, i) => (
+          <Box p="1" minH="48px" key={i}>
+            <Font style={{ color: "grey", fontSize: "16px" }}>
+              <b style={{ color: "gainsboro" }}>{message.user.username}</b>{" "}
+              {formatDate(message.updatedAt, true)}
+            </Font>
+            <Font style={{ fontSize: "16px" }}>{message.message}</Font>
+          </Box>
+        ))}
       </Box>
       <Box
         borderRadius={16}
@@ -61,7 +76,6 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
           bgColor={"gray.800"}
           cursor={"pointer"}
           onClick={async () => {
-            console.log(message);
             const res = await addMessage({
               variables: {
                 message: message,
@@ -70,6 +84,9 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
             });
             if (res) {
               setMessage("");
+              refetchMessages({
+                podId: myTaskData?.recurringTask?.task?.podId,
+              });
             }
             // Refetch
           }}
