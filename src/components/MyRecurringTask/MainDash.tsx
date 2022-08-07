@@ -88,7 +88,9 @@ export const MainDash: React.FC<MainDashProps> = ({
           >
             <Text textColor="#FFDC93">Today’s Question: &ensp; </Text>
             <Text textColor="gainsboro" mx={"auto"} maxW={"99%"}>
-              What resulted in you completing or not completing today's task?
+              {/* What resulted in you completing or not completing today's task? */}
+              Describe something you learned today from completing/not
+              completing your task.
             </Text>
           </Flex>
           <Flex>
