@@ -110,7 +110,7 @@ const Register: React.FC<registerProps> = ({}) => {
                           body: `${values.username} has joined the community! Their email is ${values.email}`,
                         })
                       : null;
-                    router.push("/profile");
+                    router.push("/project-info");
                   }
                 }}
               >

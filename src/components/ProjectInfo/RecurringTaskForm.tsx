@@ -243,7 +243,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                 onClick={() =>
                   Event(
                     "Desktop",
-                    "RecurringTaskForm.tsx Button",
+                    "Get Started! button RecurringTaskForm.tsx",
                     "Get Started!"
                   )
                 }
