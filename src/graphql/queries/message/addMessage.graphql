@@ -1,0 +1,11 @@
+mutation AddMessage($message: String!, $taskId: Int!, $userId: Int!) {
+  addMessage(message: $message, taskId: $taskId, userId: $userId) {
+    errors {
+      field
+      message
+    }
+    message {
+      ...RegularMessage
+    }
+  }
+}

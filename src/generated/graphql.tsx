@@ -30,8 +30,33 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type Message = {
+  __typename?: 'Message';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['Int'];
+  message: Scalars['String'];
+  task?: Maybe<RecurringTask>;
+  taskId: Scalars['Int'];
+  updatedAt: Scalars['DateTime'];
+  user?: Maybe<User>;
+  userId: Scalars['Int'];
+};
+
+export type MessageResponse = {
+  __typename?: 'MessageResponse';
+  errors?: Maybe<Array<FieldError>>;
+  message?: Maybe<Message>;
+};
+
+export type MessagesResponse = {
+  __typename?: 'MessagesResponse';
+  errors?: Maybe<Scalars['String']>;
+  messages?: Maybe<Array<Message>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  addMessage: MessageResponse;
   addProjectInfo: ProjectInfoResponse;
   addProjectToPod: PodResponse;
   addSingleTask: SingleTaskResponse;
@@ -64,6 +89,13 @@ export type Mutation = {
   updateTaskName: RecurringTaskFieldResponse;
   updateTaskPod: RecurringTaskFieldResponse;
   updateUserFriendRequests?: Maybe<UserResponse>;
+};
+
+
+export type MutationAddMessageArgs = {
+  message: Scalars['String'];
+  taskId: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 
@@ -305,6 +337,7 @@ export type Query = {
   findPublicPod: PodResponse;
   hello: Scalars['String'];
   me?: Maybe<User>;
+  messages?: Maybe<MessagesResponse>;
   pod?: Maybe<PodResponse>;
   podProjects?: Maybe<Array<Project>>;
   podTasks?: Maybe<Array<RecurringTask>>;
@@ -326,6 +359,11 @@ export type QueryFindPublicPodArgs = {
   projectId: Scalars['Float'];
   sessionType: Scalars['String'];
   taskType: Scalars['String'];
+};
+
+
+export type QueryMessagesArgs = {
+  podId: Scalars['Int'];
 };
 
 
@@ -389,6 +427,7 @@ export type RecurringTask = {
   endOptions: Scalars['JSONObject'];
   friendProposals?: Maybe<Array<Scalars['String']>>;
   id: Scalars['Int'];
+  messages?: Maybe<Array<Message>>;
   overview: Scalars['String'];
   podId?: Maybe<Scalars['Int']>;
   singleTasks?: Maybe<Array<SingleTask>>;
@@ -467,6 +506,7 @@ export type User = {
   friendRequests?: Maybe<Array<Scalars['JSONObject']>>;
   hasCreatedTask: Scalars['Boolean'];
   id: Scalars['Int'];
+  messages: Array<Message>;
   messagingSettings?: Maybe<Scalars['JSONObject']>;
   phone?: Maybe<Scalars['String']>;
   projects?: Maybe<Array<Project>>;
@@ -488,6 +528,8 @@ export type UsernamePasswordInput = {
   password: Scalars['String'];
   username: Scalars['String'];
 };
+
+export type RegularMessageFragment = { __typename?: 'Message', id: number, message: string, taskId: number, userId: number, createdAt: any, updatedAt: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null };
 
 export type RegularPodFragment = { __typename?: 'Pod', id: number, cap: number, taskType: string, projectIds: Array<number>, updatedAt: any, createdAt: any, isPrivate: boolean, sessionType: string, userIds: Array<number> };
 
@@ -747,6 +789,15 @@ export type UpdateUserFriendRequestsMutationVariables = Exact<{
 
 export type UpdateUserFriendRequestsMutation = { __typename?: 'Mutation', updateUserFriendRequests?: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null };
 
+export type AddMessageMutationVariables = Exact<{
+  message: Scalars['String'];
+  taskId: Scalars['Int'];
+  userId: Scalars['Int'];
+}>;
+
+
+export type AddMessageMutation = { __typename?: 'Mutation', addMessage: { __typename?: 'MessageResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, message?: { __typename?: 'Message', id: number, message: string, taskId: number, userId: number, createdAt: any, updatedAt: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null, task?: { __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null } | null } | null } };
+
 export type FindPublicPodQueryVariables = Exact<{
   projectId: Scalars['Float'];
   cap: Scalars['Float'];
@@ -849,19 +900,6 @@ export type SendEmailsQueryVariables = Exact<{
 
 export type SendEmailsQuery = { __typename?: 'Query', sendEmails?: string | null };
 
-export const RegularPodFragmentDoc = gql`
-    fragment RegularPod on Pod {
-  id
-  cap
-  taskType
-  projectIds
-  updatedAt
-  createdAt
-  isPrivate
-  sessionType
-  userIds
-}
-    `;
 export const RegularUserFragmentDoc = gql`
     fragment RegularUser on User {
   createdAt
@@ -876,24 +914,6 @@ export const RegularUserFragmentDoc = gql`
   hasCreatedTask
 }
     `;
-export const RegularProjectFragmentDoc = gql`
-    fragment RegularProject on Project {
-  userId
-  id
-  milestoneDates
-  milestones
-  milestoneProgress
-  createdAt
-  updatedAt
-  overview
-  podId
-  projectName
-  friendProposals
-  user {
-    ...RegularUser
-  }
-}
-    ${RegularUserFragmentDoc}`;
 export const RegularRecurringTaskFragmentDoc = gql`
     fragment RegularRecurringTask on RecurringTask {
   userId
@@ -911,6 +931,54 @@ export const RegularRecurringTaskFragmentDoc = gql`
   cursorDate
   friendProposals
   completedCount
+  user {
+    ...RegularUser
+  }
+}
+    ${RegularUserFragmentDoc}`;
+export const RegularMessageFragmentDoc = gql`
+    fragment RegularMessage on Message {
+  id
+  message
+  taskId
+  userId
+  createdAt
+  updatedAt
+  user {
+    ...RegularUser
+  }
+  task {
+    ...RegularRecurringTask
+  }
+}
+    ${RegularUserFragmentDoc}
+${RegularRecurringTaskFragmentDoc}`;
+export const RegularPodFragmentDoc = gql`
+    fragment RegularPod on Pod {
+  id
+  cap
+  taskType
+  projectIds
+  updatedAt
+  createdAt
+  isPrivate
+  sessionType
+  userIds
+}
+    `;
+export const RegularProjectFragmentDoc = gql`
+    fragment RegularProject on Project {
+  userId
+  id
+  milestoneDates
+  milestones
+  milestoneProgress
+  createdAt
+  updatedAt
+  overview
+  podId
+  projectName
+  friendProposals
   user {
     ...RegularUser
   }
@@ -2154,6 +2222,47 @@ export function useUpdateUserFriendRequestsMutation(baseOptions?: Apollo.Mutatio
 export type UpdateUserFriendRequestsMutationHookResult = ReturnType<typeof useUpdateUserFriendRequestsMutation>;
 export type UpdateUserFriendRequestsMutationResult = Apollo.MutationResult<UpdateUserFriendRequestsMutation>;
 export type UpdateUserFriendRequestsMutationOptions = Apollo.BaseMutationOptions<UpdateUserFriendRequestsMutation, UpdateUserFriendRequestsMutationVariables>;
+export const AddMessageDocument = gql`
+    mutation AddMessage($message: String!, $taskId: Int!, $userId: Int!) {
+  addMessage(message: $message, taskId: $taskId, userId: $userId) {
+    errors {
+      field
+      message
+    }
+    message {
+      ...RegularMessage
+    }
+  }
+}
+    ${RegularMessageFragmentDoc}`;
+export type AddMessageMutationFn = Apollo.MutationFunction<AddMessageMutation, AddMessageMutationVariables>;
+
+/**
+ * __useAddMessageMutation__
+ *
+ * To run a mutation, you first call `useAddMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addMessageMutation, { data, loading, error }] = useAddMessageMutation({
+ *   variables: {
+ *      message: // value for 'message'
+ *      taskId: // value for 'taskId'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAddMessageMutation(baseOptions?: Apollo.MutationHookOptions<AddMessageMutation, AddMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddMessageMutation, AddMessageMutationVariables>(AddMessageDocument, options);
+      }
+export type AddMessageMutationHookResult = ReturnType<typeof useAddMessageMutation>;
+export type AddMessageMutationResult = Apollo.MutationResult<AddMessageMutation>;
+export type AddMessageMutationOptions = Apollo.BaseMutationOptions<AddMessageMutation, AddMessageMutationVariables>;
 export const FindPublicPodDocument = gql`
     query FindPublicPod($projectId: Float!, $cap: Float!, $taskType: String!, $sessionType: String!) {
   findPublicPod(
