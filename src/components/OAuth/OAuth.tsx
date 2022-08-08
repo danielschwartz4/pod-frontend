@@ -28,86 +28,83 @@ interface OAuthProps {
 }
 
 export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
-  // console.log(OAuthType);
-  const [user, setUser] = useState({});
   const [register] = useRegisterMutation();
   const [login] = useLoginMutation();
   const router = useRouter();
+  const [userStatus, setUserStatus] = useState(false);
 
   const handleCallbackResponse = async (response) => {
-    // TODO
-    console.log("Encoded JWT ID token: " + response.credential);
-    const userObject = jwt_decode(response.credential);
-    console.log(userObject);
-    setUser(userObject);
+    const userObject = await jwt_decode(response.credential);
+    const userEmail = await jwt_decode(response.credential)["email"];
+    const userName = await jwt_decode(response.credential)["given_name"];
 
-    Event(
-      "Desktop",
-      "Click Register register.tsx Button /login",
-      "Join the community"
-    );
+    Event("Desktop", "Click OAuth Button", "Join the community");
 
-    console.log(OAuthType);
-    if (OAuthType == "register") {
-      const response_reg = await register({
-        variables: {
-          options: {
-            username: user["given_name"],
-            email: user["email"],
-            password: "google",
-            feedback: null,
+    // login anyway
+    const response_login = await login({
+      variables: {
+        password: "tempGoogle", // TODO: Add other OAuth types and make a more secure password
+        email: userEmail,
+      },
+      update: (cache, { data }) => {
+        cache.writeQuery<MeQuery>({
+          query: MeDocument,
+          data: {
+            __typename: "Query",
+            me: data?.login?.user,
           },
-        },
-        update: (cache, { data }) => {
-          cache.writeQuery<MeQuery>({
-            query: MeDocument,
-            data: {
-              __typename: "Query",
-              me: data?.register.user,
-            },
-          });
-        },
-      });
+        });
+      },
+    });
+    if (response_login?.data?.login.errors) {
+      console.log(
+        "Login error: " + response_login.data?.login.errors?.at(0).message
+      );
+    } else if (response_login.data?.login.user) {
+      // not sure what the below is
+      // if (typeof router.query.next === "string") {
+      //   router.push(router.query.next);
+      // } else {
+      router.push("/profile");
+      return; // break from register
+      // }
+    }
 
-      console.log(response_reg);
-      if (response_reg?.data?.register?.user) {
-        process.env.NODE_ENV === "production"
-          ? sendMessage({
-              to: "+12173817277",
-              body: `${user["given_name"]} has joined the community! Their email is ${user["email"]}`,
-            })
-          : null;
-        router.push("/profile");
-      }
-    } else if (OAuthType == "login") {
-      const response_login = await login({
-        variables: {
-          password: "google", // TODO: Add other OAuth types
-          email: user["email"],
+    const response_reg = await register({
+      variables: {
+        options: {
+          username: userName,
+          email: userEmail,
+          password: "tempGoogle",
+          feedback: "",
         },
-        update: (cache, { data }) => {
-          cache.writeQuery<MeQuery>({
-            query: MeDocument,
-            data: {
-              __typename: "Query",
-              me: data?.login?.user,
-            },
-          });
-        },
-      });
-
-      if (response_login.data?.login.user) {
-        if (typeof router.query.next === "string") {
-          router.push(router.query.next);
-        } else {
-          router.push("/profile");
-        }
-      }
+      },
+      update: (cache, { data }) => {
+        cache.writeQuery<MeQuery>({
+          query: MeDocument,
+          data: {
+            __typename: "Query",
+            me: data?.register.user,
+          },
+        });
+      },
+    });
+    if (response_reg.data.register.errors) {
+      console.log(
+        "Register error: " + response_reg.data?.register.errors?.at(0).message
+      );
+    } else if (response_reg?.data?.register?.user) {
+      process.env.NODE_ENV === "production"
+        ? sendMessage({
+            to: "+12173817277",
+            body: `${userName} has joined the community! Their email is ${userEmail}`,
+          })
+        : null;
+      router.push("/project-info");
     }
   };
 
   const handleSignOut = (e) => {
-    setUser({});
     document.getElementById("signInDiv").hidden = false;
   };
 
@@ -131,7 +128,12 @@ export const OAuth: React.FC<OAuthProps> = ({ OAuthType }) => {
   return (
     <OAuthContainer>
       <div
-        style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        style={{
+          marginTop: "10px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}
         id="signInDiv"
       />
       {/* <OAuthButton>
