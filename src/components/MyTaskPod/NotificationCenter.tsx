@@ -67,7 +67,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
               <Font style={{ color: "grey", fontSize: "16px" }}>
                 <b style={{ color: "gainsboro" }}>{item["username"]}</b>{" "}
                 <b style={{ color: "gainsboro" }}>
-                  {item["isMessage"] == true ? "📝" : "💭"}
+                  {item["isMessage"] == true ? "📝" : ""}
                 </b>{" "}
                 {formatDate(item["date"], true)}
               </Font>
