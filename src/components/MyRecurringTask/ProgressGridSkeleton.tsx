@@ -24,6 +24,7 @@ interface ProgressGridSkeletonProps {
   rangeStart: Date;
   myTaskData: RecurringTaskQuery;
   refetchSingleTasks: () => void;
+  refetchPodSingleTasksData: () => void;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
@@ -33,6 +34,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
   rangeStart,
   myTaskData,
   refetchSingleTasks,
+  refetchPodSingleTasksData,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -79,19 +81,6 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
 
   return (
     <Box>
-      {/* <Flex mb={-8} ml={4} fontSize={24} textColor={"gainsboro"}> */}
-      {/* {!daysIdxs?.has(TODAY.getDay()) ? (
-          <Text
-            textColor={"#FFDC93"}
-            fontWeight={"thin"}
-            fontFamily={"sans-serif"}
-          >
-            Off day today!
-          </Text>
-        ) : (
-          <Text />
-        )} */}
-      {/* </Flex> */}
       <Grid templateColumns={"repeat(7, 0fr)"} gap={6}>
         {Object.keys(dayTitles).map((i) => {
           return (
@@ -185,6 +174,7 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
                   singleTask={filledArr[i]}
                   isInteractive={true}
                   rangeStart={rangeStart}
+                  refetchPodSingleTasksData={refetchPodSingleTasksData}
                 />
               </GridItem>
             );

@@ -1,4 +1,4 @@
-import { Box, Input } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import { Font } from "../../css/styles";
@@ -8,6 +8,7 @@ import {
   useAddMessageMutation,
   useMessagesQuery,
 } from "../../generated/graphql";
+import avatarMap from "../../utils/avatarMap";
 import formatDate from "../../utils/formatDate";
 import { mergeNotesMessages } from "../../utils/mergeData";
 
@@ -56,13 +57,23 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
           </Box>
         ))} */}
         {merged?.map((item, i) => (
-          <Box p="1" minH="48px" key={i}>
-            <Font style={{ color: "grey", fontSize: "16px" }}>
-              <b style={{ color: "gainsboro" }}>{item["username"]}</b>{" "}
-              {formatDate(item["date"], true)}
-            </Font>
-            <Font style={{ fontSize: "16px" }}>{item["text"]}</Font>
-          </Box>
+          <Flex alignItems={"center"} p="1" minH="48px" key={i}>
+            <Avatar
+              size={"md"}
+              src={avatarMap(item["avatar"])}
+              alt={"Author"}
+            />
+            <Box ml={2}>
+              <Font style={{ color: "grey", fontSize: "16px" }}>
+                <b style={{ color: "gainsboro" }}>{item["username"]}</b>{" "}
+                <b style={{ color: "gainsboro" }}>
+                  {item["isMessage"] == true ? "📝" : "💭"}
+                </b>{" "}
+                {formatDate(item["date"], true)}
+              </Font>
+              <Font style={{ fontSize: "16px" }}>{item["text"]}</Font>
+            </Box>
+          </Flex>
         ))}
       </Box>
       <Box

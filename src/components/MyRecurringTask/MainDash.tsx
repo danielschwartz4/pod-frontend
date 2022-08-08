@@ -51,10 +51,7 @@ export const MainDash: React.FC<MainDashProps> = ({
       <Tour />
       <Flex p={4} justifyContent={"center"}>
         <Box mr={{ lg: 4, xl: 16 }} className={"calendar"}>
-          <Flex
-            // mt={-2}
-            alignItems={"center"}
-          >
+          <Flex alignItems={"center"}>
             <Box>
               <CircularTaskProgress
                 taskLength={singleTasksToToday.length}
@@ -106,6 +103,7 @@ export const MainDash: React.FC<MainDashProps> = ({
                 rangeStart={new Date(singleTasksRangeDays[0]?.actionDate)}
                 myTaskData={myTaskData}
                 refetchSingleTasks={refetchSingleTasks}
+                refetchPodSingleTasksData={refetchPodSingleTasksData}
               />
             </Box>
           </Flex>

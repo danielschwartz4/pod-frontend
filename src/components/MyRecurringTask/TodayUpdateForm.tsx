@@ -34,6 +34,7 @@ interface TodayUpdateFormProps {
   rangeStart: Date;
   task: RecurringTaskQuery;
   _status: string;
+  refetchPodSingleTasksData: () => void;
 }
 
 const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
@@ -47,6 +48,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
   setCompletedCount,
   rangeStart,
   task,
+  refetchPodSingleTasksData,
 }) => {
   const [updateSingleTaskCompletionStatus] =
     useUpdateSingleTaskCompletionStatusMutation();
@@ -191,6 +193,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 });
                 if (response) {
                   setStatus("missed");
+                  refetchPodSingleTasksData();
                   if (
                     _status != "missed" &&
                     _status != "tbd" &&
@@ -236,6 +239,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 if (response) {
                   setStatus("completed");
                   if (_status != "completed") {
+                    refetchPodSingleTasksData();
                     reward();
                     setCompletedCountHandler(true);
                     toast({

@@ -18,6 +18,7 @@ interface TaskCircleProps {
   rangeStart: Date;
   task: RecurringTaskQuery;
   isToday: boolean;
+  refetchPodSingleTasksData?: () => void;
 }
 
 const TaskCircle: React.FC<TaskCircleProps> = ({
@@ -30,6 +31,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
   rangeStart,
   task,
   isToday,
+  refetchPodSingleTasksData,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
@@ -53,6 +55,7 @@ const TaskCircle: React.FC<TaskCircleProps> = ({
       completedCount={completedCount}
       rangeStart={rangeStart}
       _status={_status}
+      refetchPodSingleTasksData={refetchPodSingleTasksData}
     >
       <Box
         onClick={() => {

@@ -31,6 +31,7 @@ interface TaskProgressPopoverProps {
   setCompletedCount: React.Dispatch<React.SetStateAction<CompletedCount>>;
   rangeStart: Date;
   task: RecurringTaskQuery;
+  refetchPodSingleTasksData: () => void;
 }
 
 const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
@@ -99,6 +100,7 @@ const TaskProgressPopover: React.FC<TaskProgressPopoverProps> = (props) => {
                 setStatus={props.setStatus}
                 _status={props._status}
                 rangeStart={props.rangeStart}
+                refetchPodSingleTasksData={props.refetchPodSingleTasksData}
               />
             ) : (
               <LateDayUpdateForm
