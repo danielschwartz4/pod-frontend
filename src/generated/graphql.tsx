@@ -397,11 +397,6 @@ export type QueryProjectArgs = {
 };
 
 
-export type QueryRecentPodSingleTasksArgs = {
-  taskIds: Array<Scalars['Int']>;
-};
-
-
 export type QueryRecurringTaskArgs = {
   id: Scalars['Int'];
 };
@@ -883,9 +878,7 @@ export type DiscordBotQueryVariables = Exact<{
 
 export type DiscordBotQuery = { __typename?: 'Query', discordBot?: string | null };
 
-export type RecentPodSingleTasksQueryVariables = Exact<{
-  taskIds: Array<Scalars['Int']> | Scalars['Int'];
-}>;
+export type RecentPodSingleTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecentPodSingleTasksQuery = { __typename?: 'Query', recentPodSingleTasks?: { __typename?: 'SingleTasksResponse', errors?: string | null, singleTasks?: Array<{ __typename?: 'SingleTask', actionDate?: any | null, actionDay?: number | null, status: string, id: number, notes?: string | null, userId: number, taskId: number, updatedAt: any, createdAt: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null }> | null } | null };
@@ -2722,8 +2715,8 @@ export type DiscordBotQueryHookResult = ReturnType<typeof useDiscordBotQuery>;
 export type DiscordBotLazyQueryHookResult = ReturnType<typeof useDiscordBotLazyQuery>;
 export type DiscordBotQueryResult = Apollo.QueryResult<DiscordBotQuery, DiscordBotQueryVariables>;
 export const RecentPodSingleTasksDocument = gql`
-    query RecentPodSingleTasks($taskIds: [Int!]!) {
-  recentPodSingleTasks(taskIds: $taskIds) {
+    query RecentPodSingleTasks {
+  recentPodSingleTasks {
     errors
     singleTasks {
       ...RegularSingleTask
@@ -2744,11 +2737,10 @@ export const RecentPodSingleTasksDocument = gql`
  * @example
  * const { data, loading, error } = useRecentPodSingleTasksQuery({
  *   variables: {
- *      taskIds: // value for 'taskIds'
  *   },
  * });
  */
-export function useRecentPodSingleTasksQuery(baseOptions: Apollo.QueryHookOptions<RecentPodSingleTasksQuery, RecentPodSingleTasksQueryVariables>) {
+export function useRecentPodSingleTasksQuery(baseOptions?: Apollo.QueryHookOptions<RecentPodSingleTasksQuery, RecentPodSingleTasksQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<RecentPodSingleTasksQuery, RecentPodSingleTasksQueryVariables>(RecentPodSingleTasksDocument, options);
       }

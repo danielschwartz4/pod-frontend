@@ -1,5 +1,5 @@
-query RecentPodSingleTasks($taskIds: [Int!]!) {
-  recentPodSingleTasks(taskIds: $taskIds) {
+query RecentPodSingleTasks {
+  recentPodSingleTasks {
     errors
     singleTasks {
       ...RegularSingleTask
