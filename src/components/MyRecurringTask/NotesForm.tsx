@@ -16,17 +16,20 @@ import { InputField } from "../Inputs/InputField";
 interface NotesFormProps {
   singleTask: SingleTask;
   setCompletedNote?: React.Dispatch<React.SetStateAction<boolean>>;
+  setNote?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const NotesForm: React.FC<NotesFormProps> = ({
   children,
   singleTask,
   setCompletedNote,
+  setNote,
 }) => {
   const [updateSingleTaskNotes] = useUpdateSingleTaskNotesMutation();
   const handleOnChange = (event: FormEvent) => {
     if (setCompletedNote) {
       setCompletedNote(event.target["value"] != "");
+      setNote(event.target["value"]);
     }
   };
 

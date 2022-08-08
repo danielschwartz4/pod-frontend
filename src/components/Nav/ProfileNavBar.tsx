@@ -40,7 +40,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
   const { isReady } = useRouter();
 
   return (
-    <Box>
+    <Box bg={"gray.800"} fontSize={18} color={"gainsboro"}>
       <Flex
         bg={"gray.800"}
         minH={"80px"}
@@ -73,6 +73,7 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
               flex={1}
               ml={10}
               alignItems={"center"}
+              bg={"gray.800"}
             >
               <Flex
                 w={"100%"}
@@ -185,76 +186,86 @@ export const ProfileNavBar: React.FC<ProfileNavBarProps> = ({
       <Collapse in={isOpen} animateOpacity>
         <VStack
           bg={useColorModeValue("white", "gray.800")}
-          p={4}
+          m={4}
           display={{ md: "none" }}
         >
           {data?.me ? (
             <>
-              <Flex
-                justifyContent={"end"}
-                fontSize={18}
-                mr={6}
-                color={"gainsboro"}
-              >
-                <Text
-                  colorScheme={"tan"}
-                  color={"gainsboro"}
+              <Box bg={"gray.800"} fontSize={18} color={"gainsboro"}>
+                <Flex
+                  justifyContent={"end"}
                   fontSize={18}
-                  fontFamily={"ubuntu"}
-                  onClick={() => router.push("/settings")}
-                  _hover={{ bg: "#ffecc4" }}
+                  mr={6}
+                  color={"gainsboro"}
                 >
-                  {data?.me?.username}
-                </Text>
-              </Flex>
-              {!isProjectsPage ? <Divider /> : null}
-              <Flex justifyContent={"end"}>
-                {!isProjectsPage ? (
                   <Text
-                    mr={6}
                     colorScheme={"tan"}
-                    cursor={"pointer"}
-                    onClick={() => router.push("/profile")}
                     color={"gainsboro"}
                     fontSize={18}
                     fontFamily={"ubuntu"}
-                    _hover={{ bg: "#ffecc4" }}
+                    onClick={() => router.push("/settings")}
+                    cursor={"pointer"}
                   >
-                    <b>My projects</b>
+                    {data?.me?.username}
                   </Text>
-                ) : null}
-              </Flex>
-              <Divider />
-              <Flex justifyContent={"end"}>
-                <Text
-                  mr={6}
-                  onClick={() => {
-                    logout({
-                      update: (cache) => {
-                        cache.evict({ id: "User:" + data?.me.id });
-                      },
-                    });
-                  }}
-                  isLoading={logoutLoading}
-                  fontSize={18}
-                  type="button"
-                  variant={"link"}
-                  color={"gainsboro"}
-                  fontFamily={"ubuntu"}
-                >
-                  <b>Logout</b>
-                </Text>
-              </Flex>
-              <Divider />
-              <Flex justifyContent={"end"}>
-                {!isProjectsPage ? (
-                  <HelpProjectPopover>
-                    <Button mr={4} colorScheme={"tan"} cursor={"pointer"}>
-                      <BsQuestionSquare size={24} />
-                    </Button>
-                  </HelpProjectPopover>
-                ) : null}
-              </Flex>
+                </Flex>
+                {!isProjectsPage ? <Divider /> : null}
+                <Flex justifyContent={"end"}>
+                  {!isProjectsPage ? (
+                    <Text
+                      mr={6}
+                      colorScheme={"tan"}
+                      cursor={"pointer"}
+                      onClick={() => router.push("/profile")}
+                      color={"gainsboro"}
+                      fontSize={18}
+                      fontFamily={"ubuntu"}
+                      _hover={{ bg: "#ffecc4" }}
+                    >
+                      My projects
+                    </Text>
+                  ) : null}
+                </Flex>
+                <Divider />
+                <Flex justifyContent={"end"}>
+                  <Text
+                    mr={6}
+                    onClick={() => {
+                      logout({
+                        update: (cache) => {
+                          cache.evict({ id: "User:" + data?.me.id });
+                        },
+                      });
+                    }}
+                    isLoading={logoutLoading}
+                    fontSize={18}
+                    type="button"
+                    variant={"link"}
+                    color={"gainsboro"}
+                    fontFamily={"ubuntu"}
+                    cursor={"pointer"}
+                  >
+                    Logout
+                  </Text>
+                </Flex>
+                <Divider />
+                <Flex justifyContent={"end"}>
+                  {!isProjectsPage ? (
+                    <HelpProjectPopover>
+                      <Button
+                        mr={4}
+                        colorScheme={"tan"}
+                        cursor={"pointer"}
+                        border={"none"}
+                        bgColor={"gray.800"}
+                        color={"gainsboro"}
+                      >
+                        <BsQuestionSquare size={24} />
+                      </Button>
+                    </HelpProjectPopover>
+                  ) : null}
+                </Flex>
+              </Box>
             </>
           ) : (
             <></>

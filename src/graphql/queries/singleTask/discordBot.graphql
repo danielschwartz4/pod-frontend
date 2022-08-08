@@ -1,0 +1,3 @@
+query DiscordBot($message: String!) {
+  discordBot(message: $message)
+}

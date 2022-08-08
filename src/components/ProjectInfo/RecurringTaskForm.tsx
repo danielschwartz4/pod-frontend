@@ -248,7 +248,7 @@ const RecurringTaskForm: React.FC<RecurringTaskProps> = ({ meData }) => {
                   )
                 }
               >
-                Get started!
+                Get started and join your pod!
               </Button>
             </Box>
           </Form>

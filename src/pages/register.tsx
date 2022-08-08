@@ -14,7 +14,8 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { CenteredContainer } from "../css/styles";
+import OAuth from "../components/OAuth/OAuth";
+import { CenteredContainer, LandingDivider } from "../css/styles";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import newLogo from "../images/Logos/newLogo.png";
 import { Event, PageView } from "../libs/tracking";
@@ -32,7 +33,7 @@ const Register: React.FC<registerProps> = ({}) => {
   return (
     <Flex
       height={"100vh"}
-      minH={"120vh"}
+      minH={"130vh"}
       alignItems={"flex-start"}
       justifyContent={"center"}
       bg={"gray.800"}
@@ -72,6 +73,13 @@ const Register: React.FC<registerProps> = ({}) => {
 
           <CenteredContainer marginTop="20px">
             <Stack spacing={4} width={"100%"}>
+              <OAuth OAuthType="register" />
+              <LandingDivider
+                style={{
+                  width: "100%",
+                  margin: "35px 0px 0px 0px",
+                }}
+              />
               <Formik
                 initialValues={{
                   username: "",
@@ -118,13 +126,18 @@ const Register: React.FC<registerProps> = ({}) => {
                   <Form>
                     <Box>
                       <Box mr={8} fontFamily={"ubuntu"} textColor={"gainsboro"}>
-                        <p>Username (feel free to use an alias)</p>
+                        <p>
+                          Username (feel free to use an alias)
+                          <b style={{ color: "#DC143C" }}> *</b>
+                        </p>
                         <InputField
                           name="username"
                           placeholder="Username"
                           label=""
                         />
-                        <p>Email</p>
+                        <p>
+                          Email<b style={{ color: "#DC143C" }}> *</b>
+                        </p>
                         <Box mt={4}>
                           <InputField
                             name="email"
@@ -132,7 +145,9 @@ const Register: React.FC<registerProps> = ({}) => {
                             label=""
                           />
                         </Box>
-                        <p>Password</p>
+                        <p>
+                          Password<b style={{ color: "#DC143C" }}> *</b>
+                        </p>
                         <Box mt={4}>
                           <InputField
                             type={"password"}
@@ -197,14 +212,6 @@ const Register: React.FC<registerProps> = ({}) => {
                 )}
               </Formik>
             </Stack>
-            {/* <LandingDivider
-              style={{
-                height: "50vh",
-                width: "1px",
-                margin: "0px 35px 0px 35px",
-              }}
-            />
-            <OAuth OAuthType="register" /> */}
           </CenteredContainer>
         </Stack>
       </Box>

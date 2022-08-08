@@ -20,6 +20,8 @@ import { generateSms } from "../../utils/taskSmsBody";
 import NotesForm from "./NotesForm";
 import { Event } from "../../libs/tracking";
 import { useReward } from "react-rewards";
+import { useDiscordBotLazyQuery } from "../../generated/graphql";
+import formatDate from "../../utils/formatDate";
 
 interface TodayUpdateFormProps {
   completedNote: Boolean;
@@ -53,6 +55,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
 
   const toast = useToast();
   const { reward, isAnimating } = useReward("rewardId", "confetti");
+  const [note, setNote] = useState("");
 
   const [singleTasksQuery, { data: singleTasksData }] =
     useSingleTasksLazyQuery();
@@ -149,13 +152,31 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
     });
   };
 
+  const [activateDiscordbot, { data: discordBotData }] =
+    useDiscordBotLazyQuery();
+
   return (
-    <NotesForm singleTask={singleTask} setCompletedNote={setCompletedNote}>
+    <NotesForm
+      singleTask={singleTask}
+      setCompletedNote={setCompletedNote}
+      setNote={setNote}
+    >
       <PopoverFooter d="flex" justifyContent="center">
         <ButtonGroup size="sm">
           <Button
             onClick={async () => {
               if (completedNote) {
+                activateDiscordbot({
+                  variables: {
+                    message:
+                      "Community update! On " +
+                      formatDate(singleTask.user.createdAt) +
+                      ", " +
+                      singleTask.user.username +
+                      " said " +
+                      note,
+                  },
+                });
                 Event(
                   "Desktop",
                   "Completed Button, user " + task.recurringTask.task.userId,
@@ -189,6 +210,17 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           <Button
             onClick={async () => {
               if (completedNote) {
+                activateDiscordbot({
+                  variables: {
+                    message:
+                      "Community update! On " +
+                      formatDate(singleTask.user.createdAt) +
+                      ", " +
+                      singleTask.user.username +
+                      " said " +
+                      note,
+                  },
+                });
                 Event(
                   "Desktop",
                   "Completed Button, user" + task.recurringTask.task.userId,

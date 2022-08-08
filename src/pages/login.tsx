@@ -14,7 +14,8 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { InputField } from "../components/Inputs/InputField";
-import { CenteredContainer } from "../css/styles";
+import OAuth from "../components/OAuth/OAuth";
+import { CenteredContainer, LandingDivider } from "../css/styles";
 import {
   MeDocument,
   MeQuery,
@@ -35,7 +36,7 @@ const Login: React.FC<{}> = ({}) => {
   return (
     <Flex
       height={"100vh"}
-      minH={"120vh"}
+      minH={"130vh"}
       alignItems={"flex-start"}
       justifyContent={"center"}
       bg={"gray.800"}
@@ -74,6 +75,14 @@ const Login: React.FC<{}> = ({}) => {
 
           <CenteredContainer marginTop="20px">
             <Stack spacing={4} w={"100%"}>
+              <OAuth OAuthType="login" />
+              <LandingDivider
+                style={{
+                  width: "100%",
+                  margin: "35px 0px 0px 0px",
+                }}
+              />
+
               <Formik
                 initialValues={{ email: "", password: "", feedback: "" }}
                 onSubmit={async (
@@ -116,7 +125,9 @@ const Login: React.FC<{}> = ({}) => {
                     <Box>
                       <Box fontFamily={"ubuntu"} mr={8} textColor={"gainsboro"}>
                         <Box textColor={"gainsboro"}>
-                          <p>Email</p>
+                          <p>
+                            Email <b style={{ color: "#DC143C" }}> *</b>
+                          </p>
                           <InputField
                             name="email"
                             label=""
@@ -124,7 +135,9 @@ const Login: React.FC<{}> = ({}) => {
                           />
                         </Box>
                         <Box mt={4} textColor={"gainsboro"}>
-                          <p>Password</p>
+                          <p>
+                            Password<b style={{ color: "#DC143C" }}> *</b>
+                          </p>
                           <InputField
                             name="password"
                             label=""
@@ -172,7 +185,6 @@ const Login: React.FC<{}> = ({}) => {
                             isLoading={isSubmitting}
                             border={"none"}
                             type="submit"
-                            width={"100%"}
                             cursor={"pointer"}
                             loadingText="Submitting"
                             onClick={() =>
@@ -192,14 +204,6 @@ const Login: React.FC<{}> = ({}) => {
                 )}
               </Formik>
             </Stack>
-            {/* <LandingDivider
-              style={{
-                height: "50vh",
-                width: "1px",
-                margin: "0px 35px 0px 35px",
-              }}
-            />
-            <OAuth OAuthType="login" /> */}
           </CenteredContainer>
         </Stack>
       </Box>

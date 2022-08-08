@@ -121,6 +121,7 @@ export const MainDash: React.FC<MainDashProps> = ({
               bg="gray.300"
               color="black"
               placement="top"
+              fontFamily={"ubuntu"}
             >
               <Heading
                 mx={"auto"}
