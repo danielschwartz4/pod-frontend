@@ -42,8 +42,6 @@ export function mergeNotesMessages(
   notes: SingleTasksQuery,
   messages: MessagesQuery
 ) {
-  console.log("notes", notes["recentPodSingleTasks"]["singleTasks"]);
-  console.log("messages", messages);
   const notesReduction = notes["recentPodSingleTasks"]["singleTasks"]?.reduce(
     (acc, note) => {
       acc["n" + note.id] = {

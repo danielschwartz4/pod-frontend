@@ -46,6 +46,8 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
         border={"4px"}
         borderColor={"#FFDC93"}
         borderRadius={16}
+        display={"flex"}
+        flexDirection={"column-reverse"}
       >
         {/* {messagesData?.messages?.messages?.map((message, i) => (
           <Box p="1" minH="48px" key={i}>
@@ -67,7 +69,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
               <Font style={{ color: "grey", fontSize: "16px" }}>
                 <b style={{ color: "gainsboro" }}>{item["username"]}</b>{" "}
                 <b style={{ color: "gainsboro" }}>
-                  {item["isMessage"] == true ? "📝" : ""}
+                  {item["isMessage"] == true ? "" : "📝"}
                 </b>{" "}
                 {formatDate(item["date"], true)}
               </Font>

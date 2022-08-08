@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useToast } from "@chakra-ui/react";
+import { Box, Flex, Text, useToast, Image, Avatar } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../../components/Layout";
 import { MainDash } from "../../components/MyRecurringTask/MainDash";
@@ -13,6 +13,7 @@ import {
 } from "../../generated/graphql";
 import { useGetTaskFromUrl } from "../../utils/useGetTaskFromUrl";
 import { useIsAuth } from "../../utils/usIsAuth";
+import purple from "../../images/avatars/purple.svg";
 
 interface TaskHomeProps {}
 
@@ -58,6 +59,8 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   return (
     <>
       <Tour />
+      {/* <Avatar src="purple.src"></Avatar> */}
+
       <Layout withHelpPopover={true}>
         <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
           <Box minH={"400px"}>
@@ -78,6 +81,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
             )}
           </Box>
           <Box mt={16}>
+            <img src="purple.src" alt="" />
             {!podDataLoading && !taskDataLoading ? (
               <MyPod
                 podData={podData}
