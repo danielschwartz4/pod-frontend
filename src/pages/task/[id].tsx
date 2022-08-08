@@ -52,12 +52,14 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
     },
   });
 
-  const { data: recentPodSingleTasksData } = useRecentPodSingleTasksQuery({
-    variables: {
-      // taskIds: singleTasksData?.singleTasks?.singleTasks.map((task) => task.id),
-      taskIds: tasksData?.podTasks?.map((task) => task.id),
-    },
-  });
+  // const { data: recentPodSingleTasksData } = useRecentPodSingleTasksQuery({
+  //   variables: {
+  //     // taskIds: singleTasksData?.singleTasks?.singleTasks.map((task) => task.id),
+  //     taskIds: tasksData?.podTasks?.map((task) => task.id),
+  //   },
+  // });
+  const { data: recentPodSingleTasksData, refetch: refetchPodSingleTasksData } =
+    useRecentPodSingleTasksQuery({});
 
   return (
     <>
@@ -71,6 +73,7 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
                 singleTasksData={singleTasksData}
                 myTaskData={myTaskData}
                 refetchSingleTasks={refetchSingleTasks}
+                refetchPodSingleTasksData={refetchPodSingleTasksData}
               />
             ) : (
               <Flex mt={16}>
@@ -90,7 +93,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
                 tasksDataLoading={tasksDataLoading}
                 myTaskData={myTaskData}
                 refetchTask={refetchTask}
-                refetchTasks={refetchTasks}
                 recentPodSingleTasksData={recentPodSingleTasksData}
               />
             ) : (

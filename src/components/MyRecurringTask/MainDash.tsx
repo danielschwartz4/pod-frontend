@@ -21,6 +21,7 @@ interface MainDashProps {
   singleTasksData: SingleTasksQuery;
   refetchSingleTasks: () => void;
   recentPodSingleTasksData: SingleTasksQuery;
+  refetchPodSingleTasksData: () => void;
 }
 
 export const MainDash: React.FC<MainDashProps> = ({
@@ -28,6 +29,7 @@ export const MainDash: React.FC<MainDashProps> = ({
   singleTasksData,
   refetchSingleTasks,
   recentPodSingleTasksData,
+  refetchPodSingleTasksData,
 }) => {
   if (!singleTasksData?.singleTasks?.singleTasks) {
     return <></>;
@@ -136,6 +138,7 @@ export const MainDash: React.FC<MainDashProps> = ({
           <NotificationCenter
             recentPodSingleTasksData={recentPodSingleTasksData}
             myTaskData={myTaskData}
+            refetchPodSingleTasksData={refetchPodSingleTasksData}
           />
         </Box>
       </Flex>

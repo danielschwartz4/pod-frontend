@@ -4,19 +4,23 @@ import { AiOutlineSend } from "react-icons/ai";
 import { Font } from "../../css/styles";
 import {
   RecurringTaskQuery,
+  SingleTasksQuery,
   useAddMessageMutation,
   useMessagesQuery,
 } from "../../generated/graphql";
 import formatDate from "../../utils/formatDate";
+import { mergeNotesMessages } from "../../utils/mergeData";
 
 interface NotificationCenterProps {
-  recentPodSingleTasksData;
   myTaskData: RecurringTaskQuery;
+  recentPodSingleTasksData: SingleTasksQuery;
+  refetchPodSingleTasksData: () => void;
 }
 
 const NotificationCenter: React.FC<NotificationCenterProps> = ({
-  recentPodSingleTasksData,
   myTaskData,
+  recentPodSingleTasksData,
+  refetchPodSingleTasksData,
 }) => {
   const [message, setMessage] = useState("");
   const [addMessage] = useAddMessageMutation();
@@ -25,6 +29,8 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
       podId: myTaskData?.recurringTask?.task?.podId,
     },
   });
+
+  const merged = mergeNotesMessages(recentPodSingleTasksData, messagesData);
 
   return (
     <Box width={"400px"}>
@@ -40,24 +46,22 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
         borderColor={"#FFDC93"}
         borderRadius={16}
       >
-        {/* {recentPodSingleTasksData?.recentPodSingleTasks?.singleTasks?.map(
-          (note, i) => (
-            <Box p="1" minH="48px" key={i}>
-              <Font style={{ color: "grey", fontSize: "16px" }}>
-                <b style={{ color: "gainsboro" }}>{note.user.username}</b>{" "}
-                {formatDate(note.updatedAt, true)}
-              </Font>
-              <Font style={{ fontSize: "16px" }}>{note.notes}</Font>
-            </Box>
-          )
-        )} */}
-        {messagesData?.messages?.messages?.map((message, i) => (
+        {/* {messagesData?.messages?.messages?.map((message, i) => (
           <Box p="1" minH="48px" key={i}>
             <Font style={{ color: "grey", fontSize: "16px" }}>
               <b style={{ color: "gainsboro" }}>{message.user.username}</b>{" "}
               {formatDate(message.updatedAt, true)}
             </Font>
             <Font style={{ fontSize: "16px" }}>{message.message}</Font>
+          </Box>
+        ))} */}
+        {merged?.map((item, i) => (
+          <Box p="1" minH="48px" key={i}>
+            <Font style={{ color: "grey", fontSize: "16px" }}>
+              <b style={{ color: "gainsboro" }}>{item["username"]}</b>{" "}
+              {formatDate(item["date"], true)}
+            </Font>
+            <Font style={{ fontSize: "16px" }}>{item["text"]}</Font>
           </Box>
         ))}
       </Box>

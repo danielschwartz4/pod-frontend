@@ -41,13 +41,6 @@ interface MyPodProps {
       }>
     >
   ) => Promise<ApolloQueryResult<RecurringTaskQuery>>;
-  refetchTasks: (
-    variables?: Partial<
-      Exact<{
-        podId: number;
-      }>
-    >
-  ) => Promise<ApolloQueryResult<PodTasksQuery>>;
   recentPodSingleTasksData?: RecentPodSingleTasksQuery;
 }
 
@@ -59,7 +52,6 @@ export const MyPod: React.FC<MyPodProps> = ({
   myTaskData,
   podData,
   refetchTask,
-  refetchTasks,
   recentPodSingleTasksData,
   children,
 }) => {
