@@ -53,7 +53,6 @@ const PodCard: React.FC<PodCardProps> = ({
   });
 
   useEffect(() => {
-    console.log(todayStatus);
     if (todayStatus == "completed" || todayStatus == null) {
       setMadeCount(madeCount + 1);
     }

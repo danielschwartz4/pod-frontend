@@ -74,7 +74,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
           borderRadius={20}
           ml={8}
           bgColor={"gray.800"}
-          cursor={"pointer"}
+          cursor={message == "" ? "default" : "pointer"}
           onClick={async () => {
             const res = await addMessage({
               variables: {
@@ -88,7 +88,6 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
                 podId: myTaskData?.recurringTask?.task?.podId,
               });
             }
-            // Refetch
           }}
         >
           <Input
