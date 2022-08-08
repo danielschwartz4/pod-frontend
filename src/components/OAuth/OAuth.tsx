@@ -1,27 +1,16 @@
-import { useEffect, useState } from "react";
-import {
-  OAuthContainer,
-  OAuthButton,
-  OAuthText,
-  OAuthImage,
-  OAuthImageContainer,
-} from "./styles";
 import jwt_decode from "jwt-decode";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   MeDocument,
   MeQuery,
   useLoginMutation,
   useRegisterMutation,
 } from "../../generated/graphql";
-import discord from "../../images/Logos/discordicon.png";
-import google from "../../images/Logos/googleicon.jpg";
-import fb from "../../images/Logos/fbicon.png";
-import reddit from "../../images/Logos/redditicon.png";
-import { useRouter } from "next/router";
 import { Event } from "../../libs/tracking";
 import { GsiButtonConfiguration, OAuthType } from "../../types/types";
 import { sendMessage } from "../../utils/messaging/sendMessage";
-import GoogleOAuth from "./GoogleOAuth";
+import { OAuthContainer } from "./styles";
 
 interface OAuthProps {
   OAuthType: OAuthType;

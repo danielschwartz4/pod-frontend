@@ -18,7 +18,7 @@ export const LandingBox = styled.div`
 
 export const CenteredContainer = styled.div`
   display: flex;
-  width: 280px;
+  width: 400px;
   height: 100%;
   flex-direction: row;
   justify-content: center;
@@ -28,8 +28,8 @@ export const CenteredContainer = styled.div`
   border-radius: 15px;
   padding: 30px;
   margin: 0px;
-  @media screen and (min-width: 400px) {
-    width: 400px;
+  @media screen and (max-width: 500px) {
+    width: 300px;
   }
 `;
 

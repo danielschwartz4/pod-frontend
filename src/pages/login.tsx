@@ -185,7 +185,6 @@ const Login: React.FC<{}> = ({}) => {
                             isLoading={isSubmitting}
                             border={"none"}
                             type="submit"
-                            width={"100%"}
                             cursor={"pointer"}
                             loadingText="Submitting"
                             onClick={() =>
