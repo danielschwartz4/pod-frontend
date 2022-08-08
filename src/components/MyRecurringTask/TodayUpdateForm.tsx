@@ -166,17 +166,19 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           <Button
             onClick={async () => {
               if (completedNote) {
-                activateDiscordbot({
-                  variables: {
-                    message:
-                      "Community update! On " +
-                      formatDate(singleTask.user.createdAt) +
-                      ", " +
-                      singleTask.user.username +
-                      " said " +
-                      note,
-                  },
-                });
+                if (process.env.NODE_ENV === "production") {
+                  activateDiscordbot({
+                    variables: {
+                      message:
+                        "Community update! On " +
+                        formatDate(singleTask.user.createdAt) +
+                        ", " +
+                        singleTask.user.username +
+                        " said " +
+                        note,
+                    },
+                  });
+                }
                 Event(
                   "Desktop",
                   "Completed Button, user " + task.recurringTask.task.userId,
@@ -210,17 +212,19 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
           <Button
             onClick={async () => {
               if (completedNote) {
-                activateDiscordbot({
-                  variables: {
-                    message:
-                      "Community update! On " +
-                      formatDate(singleTask.user.createdAt) +
-                      ", " +
-                      singleTask.user.username +
-                      " said " +
-                      note,
-                  },
-                });
+                if (process.env.NODE_ENV === "production") {
+                  activateDiscordbot({
+                    variables: {
+                      message:
+                        "Community update! On " +
+                        formatDate(singleTask.user.createdAt) +
+                        ", " +
+                        singleTask.user.username +
+                        " said " +
+                        note,
+                    },
+                  });
+                }
                 Event(
                   "Desktop",
                   "Completed Button, user" + task.recurringTask.task.userId,
