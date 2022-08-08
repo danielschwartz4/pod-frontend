@@ -302,6 +302,7 @@ export type ProjectResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  discordBot?: Maybe<Scalars['String']>;
   findPublicPod: PodResponse;
   hello: Scalars['String'];
   me?: Maybe<User>;
@@ -318,6 +319,11 @@ export type Query = {
   sendEmails?: Maybe<Scalars['String']>;
   singleTask?: Maybe<SingleTaskResponse>;
   singleTasks?: Maybe<SingleTasksResponse>;
+};
+
+
+export type QueryDiscordBotArgs = {
+  message: Scalars['String'];
 };
 
 
@@ -813,6 +819,13 @@ export type RecurringTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RecurringTasksQuery = { __typename?: 'Query', recurringTasks?: Array<{ __typename?: 'RecurringTask', userId: number, id: number, days: any, endOptions: any, startDate: any, createdAt: any, updatedAt: any, overview: string, podId?: number | null, taskName: string, taskType: string, cursorDate?: any | null, friendProposals?: Array<string> | null, completedCount: any, user?: { __typename?: 'User', createdAt: any, email: string, phone?: string | null, id: number, updatedAt: any, username: string, friendRequests?: Array<any> | null, avatar?: number | null, messagingSettings?: any | null, hasCreatedTask: boolean } | null }> | null };
+
+export type DiscordBotQueryVariables = Exact<{
+  message: Scalars['String'];
+}>;
+
+
+export type DiscordBotQuery = { __typename?: 'Query', discordBot?: string | null };
 
 export type RecentPodSingleTasksQueryVariables = Exact<{
   taskIds: Array<Scalars['Int']> | Scalars['Int'];
@@ -2524,6 +2537,39 @@ export function useRecurringTasksLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type RecurringTasksQueryHookResult = ReturnType<typeof useRecurringTasksQuery>;
 export type RecurringTasksLazyQueryHookResult = ReturnType<typeof useRecurringTasksLazyQuery>;
 export type RecurringTasksQueryResult = Apollo.QueryResult<RecurringTasksQuery, RecurringTasksQueryVariables>;
+export const DiscordBotDocument = gql`
+    query DiscordBot($message: String!) {
+  discordBot(message: $message)
+}
+    `;
+
+/**
+ * __useDiscordBotQuery__
+ *
+ * To run a query within a React component, call `useDiscordBotQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDiscordBotQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDiscordBotQuery({
+ *   variables: {
+ *      message: // value for 'message'
+ *   },
+ * });
+ */
+export function useDiscordBotQuery(baseOptions: Apollo.QueryHookOptions<DiscordBotQuery, DiscordBotQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<DiscordBotQuery, DiscordBotQueryVariables>(DiscordBotDocument, options);
+      }
+export function useDiscordBotLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DiscordBotQuery, DiscordBotQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<DiscordBotQuery, DiscordBotQueryVariables>(DiscordBotDocument, options);
+        }
+export type DiscordBotQueryHookResult = ReturnType<typeof useDiscordBotQuery>;
+export type DiscordBotLazyQueryHookResult = ReturnType<typeof useDiscordBotLazyQuery>;
+export type DiscordBotQueryResult = Apollo.QueryResult<DiscordBotQuery, DiscordBotQueryVariables>;
 export const RecentPodSingleTasksDocument = gql`
     query RecentPodSingleTasks($taskIds: [Int!]!) {
   recentPodSingleTasks(taskIds: $taskIds) {
