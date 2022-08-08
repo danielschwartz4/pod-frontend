@@ -36,7 +36,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
   return (
     <Box width={"400px"}>
       <Box
-        width={"400px"}
+        width={{ base: "350px", sm: "350px", lg: "400px" }}
         height={"400px"}
         overflow={"scroll"}
         color={"white"}
@@ -79,13 +79,13 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
       <Box
         borderRadius={16}
         ml={2}
-        width={"410px"}
+        width={{ base: "340px", sm: "350px", lg: "350px" }}
         transform={"translate(0px, -48px)"}
         bgColor={"black"}
       >
         <Box
           flex={"flex"}
-          width={"310px"}
+          width={{ base: "260px", sm: "260px", lg: "310px" }}
           borderRadius={20}
           ml={8}
           bgColor={"gray.800"}

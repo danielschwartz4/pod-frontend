@@ -49,7 +49,11 @@ export const MainDash: React.FC<MainDashProps> = ({
   return (
     <>
       <Tour />
-      <Flex p={4} justifyContent={"center"}>
+      <Flex
+        display={{ base: "block", sm: "block", md: "flex" }}
+        p={4}
+        justifyContent={"center"}
+      >
         <Box mr={{ lg: 4, xl: 16 }} className={"calendar"}>
           <Flex alignItems={"center"}>
             <Box>
@@ -111,7 +115,7 @@ export const MainDash: React.FC<MainDashProps> = ({
 
         <Box
           ml={{ lg: 4, xl: 16 }}
-          display={{ base: "none", sm: "none", md: "none", lg: "block" }}
+          // display={{ base: "none", sm: "none", md: "none", lg: "block" }}
           className={"pod-updates"}
         >
           <Flex>
@@ -133,11 +137,15 @@ export const MainDash: React.FC<MainDashProps> = ({
               </Heading>
             </Tooltip>
           </Flex>
-          <NotificationCenter
-            recentPodSingleTasksData={recentPodSingleTasksData}
-            myTaskData={myTaskData}
-            refetchPodSingleTasksData={refetchPodSingleTasksData}
-          />
+          <Flex>
+            <Box mx={"auto"}>
+              <NotificationCenter
+                recentPodSingleTasksData={recentPodSingleTasksData}
+                myTaskData={myTaskData}
+                refetchPodSingleTasksData={refetchPodSingleTasksData}
+              />
+            </Box>
+          </Flex>
         </Box>
       </Flex>
     </>

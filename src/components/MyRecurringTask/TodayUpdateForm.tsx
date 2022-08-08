@@ -252,7 +252,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                     });
                     await sendMessageHandler();
                   }
-                  // !!MMke this execute on the last day
+                  // !!Make this execute on the last day
                   // await addSingleTasksChunk({
                   //   variables: {
                   //     limit: SKELETON_UNIT_SIZE,
