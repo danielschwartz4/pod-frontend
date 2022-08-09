@@ -59,8 +59,6 @@ const TaskHome: React.FC<TaskHomeProps> = ({}) => {
   return (
     <>
       <Tour />
-      {/* <Avatar src="purple.src"></Avatar> */}
-
       <Layout withHelpPopover={true}>
         <Box minH={"100vh"} h={"100%"} mt={{ base: 0, sm: 16 }}>
           <Box minH={"400px"}>
