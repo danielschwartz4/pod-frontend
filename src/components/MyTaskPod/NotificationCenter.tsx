@@ -32,6 +32,20 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
   });
 
   const merged = mergeNotesMessages(recentPodSingleTasksData, messagesData);
+  const sendMessageHandler = async () => {
+    const res = await addMessage({
+      variables: {
+        message: message,
+        taskId: myTaskData?.recurringTask?.task?.id,
+      },
+    });
+    if (res) {
+      setMessage("");
+      refetchMessages({
+        podId: myTaskData?.recurringTask?.task?.podId,
+      });
+    }
+  };
 
   return (
     <Box width={"400px"}>
@@ -92,18 +106,10 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
           ml={8}
           bgColor={"gray.800"}
           cursor={message == "" ? "default" : "pointer"}
-          onClick={async () => {
-            const res = await addMessage({
-              variables: {
-                message: message,
-                taskId: myTaskData?.recurringTask?.task?.id,
-              },
-            });
-            if (res) {
-              setMessage("");
-              refetchMessages({
-                podId: myTaskData?.recurringTask?.task?.podId,
-              });
+          onClick={sendMessageHandler}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              sendMessageHandler();
             }
           }}
         >
