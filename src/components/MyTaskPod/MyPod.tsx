@@ -95,11 +95,17 @@ export const MyPod: React.FC<MyPodProps> = ({
   }, [tasksData, podJoined]);
 
   return (
-    <Box h={"100%"} w={"100%"}>
+    <Box h={"100%"} display={"flex"} justifyContent={"center"}>
       {tasksDataLoading || taskDataLoading ? (
         <></>
       ) : podJoined && _podTasks ? (
-        <div>
+        <Box width={"90%"}>
+          <PodCreated
+            podCap={podData?.pod?.pod?.cap}
+            meData={meData}
+            tasksData={_podTasks}
+            recentPodSingleTasksData={recentPodSingleTasksData}
+          />
           <PodNavBar
             hasExit={true}
             myTaskData={myTaskData}
@@ -108,13 +114,7 @@ export const MyPod: React.FC<MyPodProps> = ({
             updateTaskPod={updateTaskPod}
             setPodJoined={setPodJoined}
           />
-          <PodCreated
-            podCap={podData?.pod?.pod?.cap}
-            meData={meData}
-            tasksData={_podTasks}
-            recentPodSingleTasksData={recentPodSingleTasksData}
-          />
-        </div>
+        </Box>
       ) : (
         <>
           <PodNavBar
@@ -217,20 +217,19 @@ interface ExitProps {
 
 export const PodNavBar: React.FC<ExitProps> = (props) => {
   return (
-    <Flex mt={-8} mb={"8"} justifyContent={"center"}>
+    <Flex justifyContent={"flex-end"}>
       <Box alignItems={"center"} display={"flex"}>
         {props.hasExit ? (
           <>
-            <Text fontFamily={"ubuntu"} textColor={"#FFDC93"}>
-              This is your pod
-            </Text>
             <Button
-              ml={4}
-              border={"none"}
-              bgColor={"#FFDC93"}
-              color={"gray.800"}
+              mt={10}
+              border={"1px"}
+              borderColor={"gray.700"}
+              bgColor={"black"}
+              color={"#F26D51"}
               cursor={"pointer"}
-              _hover={{ bg: "#ffecc4" }}
+              fontWeight={"normal"}
+              _hover={{ bg: "gray.700" }}
               onClick={async () => {
                 await exitPod(
                   props.removeProjectFromPod,
@@ -241,23 +240,8 @@ export const PodNavBar: React.FC<ExitProps> = (props) => {
                 );
               }}
             >
-              exit pod
+              Leave pod
             </Button>
-            <HelpTaskPopover placement="top">
-              <Button
-                ml={4}
-                border={"none"}
-                bgColor={"#FFDC93"}
-                color={"gray.800"}
-                cursor={"pointer"}
-                onClick={() =>
-                  Event("Desktop", "How it works Button MyPod.tsx", "Help")
-                }
-                _hover={{ bg: "#ffecc4" }}
-              >
-                How it works
-              </Button>
-            </HelpTaskPopover>
           </>
         ) : (
           <Flex w={"100vw"}>

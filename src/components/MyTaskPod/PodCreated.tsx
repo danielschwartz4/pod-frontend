@@ -55,9 +55,9 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
   }, [todayStatus]);
 
   const gridProjects = (
-    <>
+    <Flex justifyContent={"center"}>
       <Tour />
-      <Box>
+      <Box width={"100%"}>
         <Box
           mx={"auto"}
           maxW={"1200px"}
@@ -118,7 +118,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
           />
         </div> */}
       </Box>
-    </>
+    </Flex>
   );
 
   if (podLength) {
