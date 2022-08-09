@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Input } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import { Font } from "../../css/styles";
@@ -34,19 +34,35 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
   const merged = mergeNotesMessages(recentPodSingleTasksData, messagesData);
 
   return (
-    <Box width={"400px"}>
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"flex-start"}
+      width={{ base: "350px", sm: "350px", lg: "400px" }}
+      height={"450px"}
+      color={"white"}
+      backgroundColor={"black"}
+      rounded={"md"}
+      border={"2px"}
+      borderColor={"#FFDC93"}
+      borderRadius={16}
+      alignItems={"center"}
+    >
       <Box
-        width={{ base: "350px", sm: "350px", lg: "400px" }}
-        height={"400px"}
+        width={{ base: "350px", sm: "350px", lg: "390px" }}
+        height={"100%"}
         overflow={"scroll"}
+        overflowX={"hidden"}
+        // style={{ webkitOverflowScrolling: { display: "none" } }}
+        // overflowY={"hidden"}
         color={"white"}
         backgroundColor={"black"}
         rounded={"md"}
-        p={"2"}
-        border={"4px"}
-        borderColor={"#FFDC93"}
         borderRadius={16}
         display={"flex"}
+        ml={"10px"}
+        mt={"10px"}
+        mr={"10px"}
         flexDirection={"column-reverse"}
       >
         {/* {messagesData?.messages?.messages?.map((message, i) => (
@@ -59,75 +75,105 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
           </Box>
         ))} */}
         {merged?.map((item, i) => (
-          <Flex alignItems={"center"} p="1" minH="48px" key={i}>
+          // <Flex
+          //   alignItems={"flex-start"}
+          //   p="1"
+          //   minH="48px"
+          //   height="auto"
+          //   key={i}
+          //   bg={"pink"}
+          //   m={2}
+          // >
+          <Box ml={1} width={"95%"} display={"flex"} mt={2}>
             <Avatar
-              size={"md"}
+              size={"sm"}
               src={avatarMap(item["avatar"])}
               alt={"Author"}
+              mr={1}
+              mt={2}
+              ml={1}
             />
-            <Box ml={2}>
-              <Font style={{ color: "grey", fontSize: "16px" }}>
+            <Box>
+              <Font
+                style={{
+                  color: "grey",
+                  fontSize: "16px",
+                  // backgroundColor: "blue",
+                  width: "100%",
+                }}
+              >
                 <b style={{ color: "gainsboro" }}>{item["username"]}</b>{" "}
                 <b style={{ color: "gainsboro" }}>
                   {item["isMessage"] == true ? "" : "📝"}
                 </b>{" "}
                 {formatDate(item["date"], true)}
               </Font>
-              <Font style={{ fontSize: "16px" }}>{item["text"]}</Font>
+              <Text
+                fontSize="16px"
+                fontFamily="ubuntu"
+                m={0}
+                mx={1}
+                maxW={"380px"}
+                overflowWrap={"break-word"}
+                width={{ base: "75%", sm: "75%", lg: "80%" }}
+              >
+                {item["text"]}
+              </Text>
             </Box>
-          </Flex>
+          </Box>
         ))}
       </Box>
       <Box
-        borderRadius={16}
-        ml={2}
-        width={{ base: "340px", sm: "350px", lg: "350px" }}
-        transform={"translate(0px, -48px)"}
+        borderRadius={20}
+        width={{ base: "340px", sm: "350px", lg: "95%" }}
         bgColor={"black"}
+        m={1}
+        mt={3}
       >
         <Box
-          flex={"flex"}
-          width={{ base: "260px", sm: "260px", lg: "310px" }}
+          display={"flex"}
+          alignItems={"center"}
+          width={"100%"}
           borderRadius={20}
-          ml={8}
-          bgColor={"gray.800"}
-          cursor={message == "" ? "default" : "pointer"}
-          onClick={async () => {
-            const res = await addMessage({
-              variables: {
-                message: message,
-                taskId: myTaskData?.recurringTask?.task?.id,
-              },
-            });
-            if (res) {
-              setMessage("");
-              refetchMessages({
-                podId: myTaskData?.recurringTask?.task?.podId,
-              });
-            }
-          }}
+          borderColor={"gray.800"}
+          border={"1px"}
         >
           <Input
+            outline={"none"}
+            border={"none"}
             borderRadius={20}
+            mr={1}
             maxLength={200}
             fontFamily={"ubuntu"}
             textColor={"gainsboro"}
             autoComplete={"off"}
-            placeholder={"message"}
+            placeholder={"Message"}
             type={"text"}
             value={message}
             onChange={(e) => {
               setMessage(e.target.value);
             }}
+            _focus={{ outline: "none" }}
           />
-          <Box
-            zIndex={2}
-            position="absolute"
-            transform={"translate(310px, -30px)"}
-          >
+          <Box mr={3}>
             <AiOutlineSend
               opacity={message == "" ? "50%" : "100%"}
               color="gainsboro"
+              cursor={message == "" ? "default" : "pointer"}
+              onClick={async () => {
+                const res = await addMessage({
+                  variables: {
+                    message: message,
+                    taskId: myTaskData?.recurringTask?.task?.id,
+                  },
+                });
+                if (res) {
+                  setMessage("");
+                  refetchMessages({
+                    podId: myTaskData?.recurringTask?.task?.podId,
+                  });
+                }
+              }}
             />
           </Box>
         </Box>

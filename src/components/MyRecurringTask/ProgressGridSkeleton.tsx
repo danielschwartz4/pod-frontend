@@ -81,10 +81,10 @@ export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({
 
   return (
     <Box>
-      <Grid templateColumns={"repeat(7, 0fr)"} gap={6}>
+      <Grid templateColumns={"repeat(7, 0fr)"} gap={{ base: 4, sm: 6 }}>
         {Object.keys(dayTitles).map((i) => {
           return (
-            <GridItem key={i} ml={{ base: 0, sm: 3 }}>
+            <GridItem key={i} display={"flex"} justifyContent={"center"}>
               <Text
                 fontWeight={"medium"}
                 fontFamily={"ubuntu"}
