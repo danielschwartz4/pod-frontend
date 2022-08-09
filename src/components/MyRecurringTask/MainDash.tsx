@@ -94,8 +94,9 @@ export const MainDash: React.FC<MainDashProps> = ({
             </Text>
             <Text textColor="gainsboro" maxW={"450px"}>
               {/* What resulted in you completing or not completing today's task? */}
-              Describe something you learned today from completing/not
-              completing your task.
+              {/* Describe something you learned today from completing/not
+              completing your task. */}
+              What was difficult about completing today's task?
             </Text>
           </Flex>
           <Flex>
