@@ -89,10 +89,10 @@ export const MainDash: React.FC<MainDashProps> = ({
             my={-4}
             className={"daily-question"}
           >
-            <Text mb={"auto"} textColor="#FFDC93">
+            <Text mb={"auto"} textColor="#FFDC93" mr={{ base: 2, sm: 0 }}>
               Today’s Question: &ensp;{" "}
             </Text>
-            <Text textColor="gainsboro" mx={"auto"} maxW={"450px"}>
+            <Text textColor="gainsboro" maxW={"450px"}>
               {/* What resulted in you completing or not completing today's task? */}
               Describe something you learned today from completing/not
               completing your task.
@@ -131,9 +131,9 @@ export const MainDash: React.FC<MainDashProps> = ({
                 mx={"auto"}
                 fontSize={"30px"}
                 fontFamily={"ubuntu"}
-                textColor="gainsboro"
+                textColor="#FFDC93"
               >
-                Pod updates
+                Pod channel
               </Heading>
             </Tooltip>
           </Flex>
