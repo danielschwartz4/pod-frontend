@@ -180,9 +180,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
               opacity={message == "" ? "50%" : "100%"}
               color="gainsboro"
               cursor={message == "" ? "default" : "pointer"}
-              onClick={async () => {
-                sendMessageHandler;
-              }}
+              onClick={sendMessageHandler}
               // onClick={async () => {
               //   const res = await addMessage({
               //     variables: {

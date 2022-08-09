@@ -172,9 +172,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                   activateDiscordbot({
                     variables: {
                       message:
-                        "Community update! On " +
-                        formatDate(singleTask.user.createdAt) +
-                        ", " +
+                        "Community update!" +
                         singleTask.user.username +
                         " said " +
                         note,
@@ -219,9 +217,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                   activateDiscordbot({
                     variables: {
                       message:
-                        "Community update! On " +
-                        formatDate(singleTask.user.createdAt) +
-                        ", " +
+                        "Community update!" +
                         singleTask.user.username +
                         " said " +
                         note,
