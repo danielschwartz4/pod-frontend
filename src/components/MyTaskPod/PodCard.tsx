@@ -5,11 +5,9 @@ import { TODAY } from "../../constants";
 import {
   MeQuery,
   RecurringTask,
-  SingleTask,
   useSingleTasksQuery,
 } from "../../generated/graphql";
 import { daysEqual } from "../../utils/getConsistency";
-import { singleTasksToTodayHelper } from "../../utils/getDayRanges";
 import { MiniProgressGridSkeleton } from "../MyRecurringTask/MiniProgressGridSkeleton";
 
 interface PodCardProps {

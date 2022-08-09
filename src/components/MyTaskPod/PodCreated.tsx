@@ -31,7 +31,28 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
   const podLength = tasksData?.podTasks?.length;
   const fourPersonArr = [0, 0, 0, 0];
   const [madeCount, setMadeCount] = useState(0);
-  console.log(madeCount);
+
+  let todayStatus = null;
+  tasksData?.podTasks?.forEach((task) => {
+    const { data: singleTasksData, loading: singleTasksDataLoading } =
+      useSingleTasksQuery({
+        variables: {
+          taskId: task?.id,
+        },
+      });
+
+    singleTasksData?.singleTasks?.singleTasks?.forEach((task) => {
+      if (daysEqual(TODAY, new Date(task?.actionDate))) {
+        todayStatus = task?.status;
+      }
+    });
+  });
+
+  useEffect(() => {
+    if (todayStatus == "completed" || todayStatus == null) {
+      setMadeCount(madeCount + 1);
+    }
+  }, [todayStatus]);
 
   const gridProjects = (
     <>
