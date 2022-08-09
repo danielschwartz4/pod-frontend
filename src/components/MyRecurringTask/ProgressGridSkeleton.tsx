@@ -24,7 +24,7 @@ interface ProgressGridSkeletonProps {
   rangeStart: Date;
   myTaskData: RecurringTaskQuery;
   refetchSingleTasks: () => void;
-  refetchPodSingleTasksData: () => void;
+  refetchPodSingleTasksData?: () => void;
 }
 
 export const ProgressGridSkeleton: React.FC<ProgressGridSkeletonProps> = ({

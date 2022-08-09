@@ -32,6 +32,8 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
   });
 
   const merged = mergeNotesMessages(recentPodSingleTasksData, messagesData);
+
+  console.log(merged);
   const sendMessageHandler = async () => {
     const res = await addMessage({
       variables: {
