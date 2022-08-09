@@ -104,7 +104,7 @@ const NotificationCenter: React.FC<NotificationCenterProps> = ({
             <Avatar
               size={"sm"}
               src={avatarMap(item["avatar"])}
-              alt={"Author"}
+              alt={"Avatar"}
               mr={1}
               mt={2}
               ml={1}
