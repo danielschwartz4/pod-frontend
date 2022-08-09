@@ -42,33 +42,33 @@ export function mergeNotesMessages(
   notes: SingleTasksQuery,
   messages: MessagesQuery
 ) {
-  const notesReduction = notes["recentPodSingleTasks"]["singleTasks"]?.reduce(
-    (acc, note) => {
-      acc["n" + note.id] = {
-        date: note.updatedAt,
-        text: note.notes,
-        isMessage: false,
-        username: note.user?.username,
-        avatar: note.user?.avatar,
-      };
-      return acc;
-    },
-    {}
-  );
+  const notesReduction =
+    notes !== undefined
+      ? notes["recentPodSingleTasks"]["singleTasks"]?.reduce((acc, note) => {
+          acc["n" + note.id] = {
+            date: note.updatedAt,
+            text: note.notes,
+            isMessage: false,
+            username: note.user?.username,
+            avatar: note.user?.avatar,
+          };
+          return acc;
+        }, {})
+      : "";
 
-  const messageReduction = messages?.messages?.messages?.reduce(
-    (acc, message) => {
-      acc["m" + message.id] = {
-        date: message.createdAt,
-        text: message.message,
-        isMessage: true,
-        username: message.user?.username,
-        avatar: message.user?.avatar,
-      };
-      return acc;
-    },
-    {}
-  );
+  const messageReduction =
+    messages !== undefined
+      ? messages?.messages?.messages?.reduce((acc, message) => {
+          acc["m" + message.id] = {
+            date: message.createdAt,
+            text: message.message,
+            isMessage: true,
+            username: message.user?.username,
+            avatar: message.user?.avatar,
+          };
+          return acc;
+        }, {})
+      : "";
 
   const merged = Object.assign(
     {},

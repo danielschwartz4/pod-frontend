@@ -6,14 +6,10 @@ import {
   MeQuery,
   RecurringTask,
   SingleTask,
-  useMeQuery,
   useSingleTasksQuery,
 } from "../../generated/graphql";
 import { daysEqual } from "../../utils/getConsistency";
-import {
-  singleTasksRangeDaysHelper,
-  singleTasksToTodayHelper,
-} from "../../utils/getDayRanges";
+import { singleTasksToTodayHelper } from "../../utils/getDayRanges";
 import { MiniProgressGridSkeleton } from "../MyRecurringTask/MiniProgressGridSkeleton";
 
 interface PodCardProps {
@@ -29,21 +25,12 @@ const PodCard: React.FC<PodCardProps> = ({
   madeCount,
   setMadeCount,
 }) => {
-  const { data, loading } = useMeQuery({});
-  const date = task.updatedAt.split(".")[0].split("T");
-
   const { data: singleTasksData, loading: singleTasksDataLoading } =
     useSingleTasksQuery({
       variables: {
         taskId: task?.id,
       },
     });
-
-  const singleTasksToToday = singleTasksToTodayHelper(
-    singleTasksData?.singleTasks?.singleTasks as SingleTask[]
-  );
-
-  const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);
 
   let todayStatus = null;
   singleTasksData?.singleTasks?.singleTasks?.forEach((task) => {

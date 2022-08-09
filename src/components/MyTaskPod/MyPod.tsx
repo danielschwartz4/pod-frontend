@@ -87,6 +87,7 @@ export const MyPod: React.FC<MyPodProps> = ({
   );
 
   const [_podTasks, setPodTasks] = useState<PodTasksQuery>(tasksData);
+  console.log(_podTasks);
 
   useEffect(() => {
     refetchTask();

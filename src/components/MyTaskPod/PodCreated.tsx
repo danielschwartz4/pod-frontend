@@ -1,11 +1,14 @@
 import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { TODAY } from "../../constants";
 import {
   MeQuery,
   PodTasksQuery,
   RecentPodSingleTasksQuery,
   RecurringTask,
+  useSingleTasksQuery,
 } from "../../generated/graphql";
+import { daysEqual } from "../../utils/getConsistency";
 import PodDummyCard from "../MyProjectPod/PodDummyCard";
 import Tour from "../Tour";
 import PodCard from "./PodCard";
@@ -28,6 +31,7 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
   const podLength = tasksData?.podTasks?.length;
   const fourPersonArr = [0, 0, 0, 0];
   const [madeCount, setMadeCount] = useState(0);
+  console.log(madeCount);
 
   const gridProjects = (
     <>
@@ -53,7 +57,6 @@ export const PodCreated: React.FC<PodCreatedProps> = ({
               templateColumns={{
                 sm: "repeat(4, 1fr)",
                 md: "repeat(4, 1fr)",
-                // lg: "repeat(4, 1fr)",
               }}
               gap={8}
               textAlign={"center"}
