@@ -1,12 +1,13 @@
 import { Box, Flex, Heading, Text, Tooltip } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { TODAY } from "../../constants";
 import {
   RecurringTaskQuery,
   SingleTask,
   SingleTasksQuery,
 } from "../../generated/graphql";
 import { CompletedCount } from "../../types/types";
-import { getConsistencyCount } from "../../utils/getConsistency";
+import { daysEqual, getConsistencyCount } from "../../utils/getConsistency";
 import {
   singleTasksRangeDaysHelper,
   singleTasksToTodayHelper,
@@ -35,6 +36,12 @@ export const MainDash: React.FC<MainDashProps> = ({
     return <></>;
   }
 
+  const todayTask = singleTasksData?.singleTasks?.singleTasks?.find((task) =>
+    daysEqual(new Date(task?.actionDate), TODAY)
+  );
+
+  console.log(todayTask);
+
   const singleTasksToToday = singleTasksToTodayHelper(
     singleTasksData?.singleTasks?.singleTasks as SingleTask[]
   );
@@ -42,6 +49,7 @@ export const MainDash: React.FC<MainDashProps> = ({
   const singleTasksRangeDays = singleTasksRangeDaysHelper(singleTasksToToday);
 
   const [completedCount, setCompletedCount] = useState<CompletedCount>({
+    // if todayTask is undefined then 1 otherwise getConistencyCount(todayTask)
     allTime: getConsistencyCount(singleTasksToToday),
     week: getConsistencyCount(singleTasksRangeDays),
   });

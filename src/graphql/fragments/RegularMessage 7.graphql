@@ -1,0 +1,14 @@
+fragment RegularMessage on Message {
+  id
+  message
+  taskId
+  userId
+  createdAt
+  updatedAt
+  user {
+    ...RegularUser
+  }
+  task {
+    ...RegularRecurringTask
+  }
+}
