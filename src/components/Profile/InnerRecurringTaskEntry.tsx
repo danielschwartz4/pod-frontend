@@ -26,7 +26,7 @@ export const TaskEntryHeading: React.FC<Props> = ({ task }) => {
     });
 
   return (
-    <Heading mb={2} fontSize={28} mx={"auto"}>
+    <Heading mb={2} fontSize={28} mx={"auto"} display={"flex"}>
       <ToTaskPageId task={task}>
         {task?.podId == 0 ? "not in pod yet" : "Pod #" + task?.podId}
       </ToTaskPageId>

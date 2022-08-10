@@ -1,4 +1,4 @@
-import { Link } from "@chakra-ui/react";
+import { Link, Text, Tooltip } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React, { useState } from "react";
 import { ProjectQuery, RecurringTaskQuery } from "../../generated/graphql";
@@ -33,8 +33,22 @@ export const ToTaskPageId: React.FC<ToTaskPageIdProps> = ({
       <Link
         onClick={() => setLoading(true)}
         cursor={!loading ? "pointer" : "progress"}
+        display={"flex"}
       >
         {children}
+        <div style={{ margin: "5px" }} />
+        <Tooltip
+          hasArrow
+          label={"# of reputation points you have in your pod"}
+          bg="gray.300"
+          color="black"
+          placement="bottom"
+          fontFamily={"ubuntu"}
+        >
+          <Text fontWeight={"normal"} m={0}>
+            {task?.points}
+          </Text>
+        </Tooltip>
       </Link>
     </NextLink>
   );

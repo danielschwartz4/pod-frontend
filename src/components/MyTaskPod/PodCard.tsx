@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Text, Tooltip } from "@chakra-ui/react";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { TODAY } from "../../constants";
@@ -84,13 +84,28 @@ const PodCard: React.FC<PodCardProps> = ({
           alignItems={"flex-start"}
           height={"50px"}
         >
-          <Text m={0} fontSize={20}>
-            <b>
-              {meData?.me?.id == task?.userId
-                ? meData?.me?.username
-                : task?.user?.username}
-            </b>
-          </Text>
+          <Flex alignItems={"center"}>
+            <Text m={0} fontSize={20}>
+              <b>
+                {meData?.me?.id == task?.userId
+                  ? meData?.me?.username
+                  : task?.user?.username}
+              </b>
+            </Text>
+            <div style={{ margin: "5px" }} />
+            <Tooltip
+              hasArrow
+              label={"Reputation points"}
+              bg="gray.300"
+              color="black"
+              placement="bottom"
+              fontFamily={"ubuntu"}
+            >
+              <Text fontWeight={"normal"} m={0}>
+                {task?.points}
+              </Text>
+            </Tooltip>
+          </Flex>
           <Text textAlign={"left"} m={0} mt={2} fontSize={14}>
             Last update: {moment(task?.updatedAt).calendar()}
           </Text>
@@ -98,7 +113,7 @@ const PodCard: React.FC<PodCardProps> = ({
       </Flex>
       <MiniProgressGridSkeleton singleTasksData={singleTasksData} task={task} />
       <Flex height={"50px"} justifyContent={"center"}>
-        <Text m={0} mb={2} fontSize={20} width="90%">
+        <Text m={0} mb={2} fontSize={{ base: 18, lg: 20 }} width="90%">
           {task?.overview}
         </Text>
       </Flex>

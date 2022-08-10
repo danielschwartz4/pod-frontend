@@ -10,6 +10,7 @@ import {
   usePodUsersLazyQuery,
   useSingleTasksLazyQuery,
   useUpdateCompletedCountMutation,
+  useUpdatePointsMutation,
   useUpdateSingleTaskCompletionStatusMutation,
 } from "../../generated/graphql";
 import { CompletedCount } from "../../types/types";
@@ -54,6 +55,7 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
     useUpdateSingleTaskCompletionStatusMutation();
   const [updateCompletedCount] = useUpdateCompletedCountMutation();
   const [addSingleTasksChunk] = useAddSingleTasksChunkMutation();
+  const [updatePoints] = useUpdatePointsMutation();
 
   const toast = useToast();
   const { reward, isAnimating } = useReward("rewardId", "confetti");
@@ -239,6 +241,13 @@ const TodayUpdateForm: React.FC<TodayUpdateFormProps> = ({
                 if (response) {
                   setStatus("completed");
                   if (_status != "completed") {
+                    await updatePoints({
+                      variables: {
+                        updatePointsId: singleTask?.taskId,
+                        pointsUpdate: 10,
+                      },
+                    });
+                    console.log("Congrats, you earned 10 reputation points!");
                     refetchPodSingleTasksData();
                     reward();
                     setCompletedCountHandler(true);
