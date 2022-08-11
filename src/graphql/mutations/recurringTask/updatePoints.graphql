@@ -1,0 +1,11 @@
+mutation UpdatePoints($pointsUpdate: Int!, $updatePointsId: Float!) {
+  updatePoints(pointsUpdate: $pointsUpdate, id: $updatePointsId) {
+    errors {
+      field
+      message
+    }
+    task {
+      ...RegularRecurringTask
+    }
+  }
+}

@@ -8,6 +8,7 @@ import UseCases from "../components/Home/UseCases";
 import { Layout } from "../components/Layout";
 import { LandingDivider, LandingBox } from "../css/styles";
 import Footer from "../components/Footer/Footer";
+import { useUpdatePointsMutation } from "../generated/graphql";
 
 interface IndexProps {}
 
