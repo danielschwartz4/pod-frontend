@@ -74,10 +74,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
             placement="bottom"
             fontFamily={"ubuntu"}
           >
-            <a
-              href="https://discord.com/channels/1002046685805023344/1002046686350278788"
-              target={"_blank"}
-            >
+            <a href="https://discord.com/invite/5mmyJdmR" target={"_blank"}>
               <Image
                 cursor={"pointer"}
                 h={35}
