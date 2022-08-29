@@ -43,7 +43,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         <Flex direction={["column", "row"]} mb={10}>
           <Box mx={"auto"}>
             {meData?.me == null ? <GetStartedButton /> : <GoToProfile />}
-            <Button
+            {/* <Button
               w={"250px"}
               borderRadius={8}
               ml={[0, 2]}
@@ -61,7 +61,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
               onClick={onOpen}
             >
               Watch a short video
-            </Button>
+            </Button> */}
 
             <Modal size={"6xl"} isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
@@ -115,31 +115,36 @@ const Hero: React.FC<HeroProps> = ({}) => {
 
 export const GetStartedButton = () => {
   return (
-    <Button
-      w={"250px"}
-      borderRadius={8}
-      mb={{ base: 4, sm: 0 }}
-      height={"60px"}
-      color={"gainsboro"}
-      cursor={"pointer"}
-      border={"none"}
-      fontSize={"24px"}
-      fontFamily={"ubuntu"}
-      textColor={"gray.800"}
-      bgColor={"#FFDC93"}
-      _hover={{ bg: "#ffecc4" }}
-      mr={[0, 4]}
-      onClick={() => {
-        router.push("/register");
-        Event(
-          "Desktop",
-          "Register button dashtabs.tsx",
-          "Join a pod and get started"
-        );
-      }}
+    <a
+      href="https://discord.com/invite/5mmyJdmR"
+      style={{ textDecoration: "none" }}
     >
-      Get started for free
-    </Button>
+      <Button
+        w={"250px"}
+        borderRadius={8}
+        mb={{ base: 4, sm: 0 }}
+        height={"60px"}
+        color={"gainsboro"}
+        cursor={"pointer"}
+        border={"none"}
+        fontSize={"24px"}
+        fontFamily={"ubuntu"}
+        textColor={"gray.800"}
+        bgColor={"#FFDC93"}
+        _hover={{ bg: "#ffecc4" }}
+        mr={[0, 4]}
+        onClick={() => {
+          router.push("/register");
+          Event(
+            "Desktop",
+            "Register button dashtabs.tsx",
+            "Join a pod and get started"
+          );
+        }}
+      >
+        Get started for free
+      </Button>
+    </a>
   );
 };
 

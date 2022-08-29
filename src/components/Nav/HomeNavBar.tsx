@@ -74,10 +74,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
             placement="bottom"
             fontFamily={"ubuntu"}
           >
-            <a
-              href="https://discord.com/channels/1002046685805023344/1002046686350278788"
-              target={"_blank"}
-            >
+            <a href="https://discord.com/invite/5mmyJdmR" target={"_blank"}>
               <Image
                 cursor={"pointer"}
                 h={35}
@@ -194,42 +191,52 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                 justifyContent={"end"}
                 alignItems={"center"}
               >
-                <Button
-                  border={"none"}
-                  textColor={"gainsboro"}
-                  cursor={"pointer"}
-                  bgColor={"#FFDC93"}
-                  color={"gray.800"}
-                  borderRadius={"16px"}
-                  fontFamily={"ubuntu"}
-                  _hover={{ bg: "#ffecc4" }}
-                  onClick={() => {
-                    router.push("/register");
-                    Event(
-                      "Desktop",
-                      "Register HomeNavBar Button",
-                      "Join the community"
-                    );
-                  }}
-                  mr={"1em"}
+                <a
+                  href="https://discord.com/invite/5mmyJdmR"
+                  style={{ textDecoration: "none" }}
                 >
-                  Sign up
-                </Button>
-                <Button
-                  border={"none"}
-                  bgColor={"gray.800"}
-                  color={"#FFDC93"}
-                  borderRadius={"16px"}
-                  cursor={"pointer"}
-                  fontFamily={"ubuntu"}
-                  _hover={{ bg: "gray.700" }}
-                  onClick={() => {
-                    router.push("/login");
-                    Event("Desktop", "Login button", "Login");
-                  }}
+                  <Button
+                    border={"none"}
+                    textColor={"gainsboro"}
+                    cursor={"pointer"}
+                    bgColor={"#FFDC93"}
+                    color={"gray.800"}
+                    borderRadius={"16px"}
+                    fontFamily={"ubuntu"}
+                    _hover={{ bg: "#ffecc4" }}
+                    onClick={() => {
+                      router.push("/register");
+                      Event(
+                        "Desktop",
+                        "Register HomeNavBar Button",
+                        "Join the community"
+                      );
+                    }}
+                    mr={"1em"}
+                  >
+                    Sign up
+                  </Button>
+                </a>
+                <a
+                  href="https://discord.com/invite/5mmyJdmR"
+                  style={{ textDecoration: "none" }}
                 >
-                  Login
-                </Button>
+                  <Button
+                    border={"none"}
+                    bgColor={"gray.800"}
+                    color={"#FFDC93"}
+                    borderRadius={"16px"}
+                    cursor={"pointer"}
+                    fontFamily={"ubuntu"}
+                    _hover={{ bg: "gray.700" }}
+                    onClick={() => {
+                      router.push("/login");
+                      Event("Desktop", "Login button", "Login");
+                    }}
+                  >
+                    Login
+                  </Button>
+                </a>
               </Flex>
             </Flex>
           )}
@@ -338,41 +345,51 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
             <>
               <Box bg={"gray.800"} fontSize={18} color={"gainsboro"}>
                 <Flex mr={6} justifyContent={"end"}>
-                  <Text
-                    textColor={"gainsboro"}
-                    color={"gainsboro"}
-                    cursor={"pointer"}
-                    fontFamily={"ubuntu"}
-                    onClick={() => {
-                      router.push("/register");
-                      Event(
-                        "Mobile",
-                        "Register HomeNavBar Button",
-                        "Join the community"
-                      );
-                    }}
+                  <a
+                    href="https://discord.com/invite/5mmyJdmR"
+                    style={{ textDecoration: "none" }}
                   >
-                    Join the community!
-                  </Text>
+                    <Text
+                      textColor={"gainsboro"}
+                      color={"gainsboro"}
+                      cursor={"pointer"}
+                      fontFamily={"ubuntu"}
+                      onClick={() => {
+                        router.push("/register");
+                        Event(
+                          "Mobile",
+                          "Register HomeNavBar Button",
+                          "Join the community"
+                        );
+                      }}
+                    >
+                      Join the community!
+                    </Text>
+                  </a>
                 </Flex>
 
                 <Divider />
-                <Flex mr={6} justifyContent={"end"}>
-                  <Text
-                    textColor={"gainsboro"}
-                    colorScheme={"tan"}
-                    cursor={"pointer"}
-                    fontFamily={"ubuntu"}
-                    onClick={() => {
-                      {
-                        router.push("/login");
-                        Event("Mobile", "Login Button", "Login");
-                      }
-                    }}
-                  >
-                    Login
-                  </Text>
-                </Flex>
+                <a
+                  href="https://discord.com/invite/5mmyJdmR"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Flex mr={6} justifyContent={"end"}>
+                    <Text
+                      textColor={"gainsboro"}
+                      colorScheme={"tan"}
+                      cursor={"pointer"}
+                      fontFamily={"ubuntu"}
+                      onClick={() => {
+                        {
+                          router.push("/login");
+                          Event("Mobile", "Login Button", "Login");
+                        }
+                      }}
+                    >
+                      Login
+                    </Text>
+                  </Flex>
+                </a>
               </Box>
             </>
           )}
