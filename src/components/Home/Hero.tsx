@@ -39,11 +39,14 @@ const Hero: React.FC<HeroProps> = ({}) => {
           Join small groups with others. Get inspired by their progress. Keep
           accountable and grow together.
         </Text>
-
+        <Text textColor={"red"} fontSize={"16px"}>
+          The website is currently under construction as we roll out a new
+          feature set! Logging in will temporarily direct you to our discord.
+        </Text>
         <Flex direction={["column", "row"]} mb={10}>
           <Box mx={"auto"}>
             {meData?.me == null ? <GetStartedButton /> : <GoToProfile />}
-            {/* <Button
+            <Button
               w={"250px"}
               borderRadius={8}
               ml={[0, 2]}
@@ -61,7 +64,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
               onClick={onOpen}
             >
               Watch a short video
-            </Button> */}
+            </Button>
 
             <Modal size={"6xl"} isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
