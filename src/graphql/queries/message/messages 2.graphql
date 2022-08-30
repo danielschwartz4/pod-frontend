@@ -1,0 +1,8 @@
+query Messages($podId: Int!) {
+  messages(podId: $podId) {
+    errors
+    messages {
+      ...RegularMessage
+    }
+  }
+}
