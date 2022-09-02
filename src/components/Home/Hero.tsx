@@ -118,7 +118,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
 
 export const GetStartedButton = () => {
   return (
-    <a href="https://discord.gg/EAvCtmZTre" style={{ textDecoration: "none" }}>
+    <a href="https://discord.gg/4FCjdEPad2" style={{ textDecoration: "none" }}>
       <Button
         w={"250px"}
         borderRadius={8}
