@@ -74,7 +74,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
             placement="bottom"
             fontFamily={"ubuntu"}
           >
-            <a href="https://discord.com/invite/5mmyJdmR" target={"_blank"}>
+            <a href="https://discord.gg/4FCjdEPad2" target={"_blank"}>
               <Image
                 cursor={"pointer"}
                 h={35}
@@ -192,7 +192,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                 alignItems={"center"}
               >
                 <a
-                  href="https://discord.com/invite/5mmyJdmR"
+                  href="https://discord.gg/4FCjdEPad2"
                   style={{ textDecoration: "none" }}
                 >
                   <Button
@@ -218,7 +218,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
                   </Button>
                 </a>
                 <a
-                  href="https://discord.com/invite/5mmyJdmR"
+                  href="https://discord.gg/4FCjdEPad2"
                   style={{ textDecoration: "none" }}
                 >
                   <Button
@@ -346,7 +346,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
               <Box bg={"gray.800"} fontSize={18} color={"gainsboro"}>
                 <Flex mr={6} justifyContent={"end"}>
                   <a
-                    href="https://discord.com/invite/5mmyJdmR"
+                    href="https://discord.gg/4FCjdEPad2"
                     style={{ textDecoration: "none" }}
                   >
                     <Text
@@ -370,7 +370,7 @@ export const HomeNavBar: React.FC<ProfileNavBarProps> = ({
 
                 <Divider />
                 <a
-                  href="https://discord.com/invite/5mmyJdmR"
+                  href="https://discord.gg/4FCjdEPad2"
                   style={{ textDecoration: "none" }}
                 >
                   <Flex mr={6} justifyContent={"end"}>
