@@ -42,6 +42,7 @@ const Hero: React.FC<HeroProps> = ({}) => {
         <Text textColor={"red"} fontSize={"16px"}>
           The website is currently under construction as we roll out a new
           feature set! Logging in will temporarily direct you to our discord.
+          Watch the video below to see poddds in action!
         </Text>
         <Flex direction={["column", "row"]} mb={10}>
           <Box mx={"auto"}>

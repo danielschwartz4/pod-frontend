@@ -1,13 +1,11 @@
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import React from "react";
+import About from "../components/Home/About";
 import { Features } from "../components/Home/Features/Features";
 import Hero, { GetStartedButton } from "../components/Home/Hero";
-import About from "../components/Home/About";
-import SampleVideo from "../components/Home/SampleVideo";
 import UseCases from "../components/Home/UseCases";
 import { Layout } from "../components/Layout";
-import { LandingDivider, LandingBox } from "../css/styles";
-import Footer from "../components/Footer/Footer";
+import { LandingBox, LandingDivider } from "../css/styles";
 
 interface IndexProps {}
 
