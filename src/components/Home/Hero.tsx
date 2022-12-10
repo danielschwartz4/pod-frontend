@@ -39,11 +39,11 @@ const Hero: React.FC<HeroProps> = ({}) => {
           Join small groups with others. Get inspired by their progress. Keep
           accountable and grow together.
         </Text>
-        <Text textColor={"red"} fontSize={"16px"}>
+        {/* <Text textColor={"red"} fontSize={"16px"}>
           The website is currently under construction as we roll out a new
           feature set! Logging in will temporarily direct you to our discord.
           Watch the video below to see poddds in action!
-        </Text>
+        </Text> */}
         <Flex direction={["column", "row"]} mb={10}>
           <Box mx={"auto"}>
             {meData?.me == null ? <GetStartedButton /> : <GoToProfile />}
